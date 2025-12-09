@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manage Admins</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="background-blur bg-one"></div>
+  <div class="background-blur bg-two"></div>
+
+  <section class="shell shell-wide">
+    <div class="card">
+      <header class="card-header">
+        <div class="brand">
+          <div class="logo-wrap" aria-hidden="true">
+            <img src="assets/logo.svg" alt="Admin portal logo" />
+          </div>
+          <div>
+            <p class="eyebrow">Super Admin</p>
+            <h1 class="page-title">Manage Admins</h1>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button id="previousPageBtn" class="back-btn" type="button">Previous Page</button>
+          <a href="Superadminindex.html" class="back-btn">Back to Console</a>
+          <button id="logoutBtn" class="logout-btn">Logout</button>
+        </div>
+      </header>
+
+      <main class="card-body">
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Current Admins</h3>
+          </div>
+          <div id="adminsTable" class="table">
+            <div class="table-row table-head">
+              <span>Name</span>
+              <span>Username</span>
+              <span>Email</span>
+              <span>Role</span>
+              <span>PIN</span>
+              <span>Status</span>
+              <span>Actions</span>
+            </div>
+            <div class="table-row muted" id="loadingRow">
+              <span colspan="7">Loading admins...</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <!-- Edit Admin Popup Modal -->
+  <div id="editAdminPopup" class="popup-overlay hidden">
+    <div class="popup-modal edit-popup">
+      <div class="popup-header">
+        <h2 class="popup-title">Edit Admin Details</h2>
+        <button class="popup-close" id="closeEditPopup" aria-label="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      
+      <form id="editAdminForm" class="form-grid">
+        <label class="field">
+          Full Name
+          <div class="input">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M5 19.5C5 16.4624 7.4624 14 10.5 14h3c3.0376 0 5.5 2.4624 5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <input id="editName" type="text" placeholder="Full name" required />
+          </div>
+        </label>
+
+        <label class="field">
+          Username
+          <div class="input">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M5 19.5C5 16.4624 7.4624 14 10.5 14h3c3.0376 0 5.5 2.4624 5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <input id="editUsername" type="text" placeholder="username" required />
+          </div>
+        </label>
+
+        <label class="field field-full-width">
+          Email Address
+          <div class="input">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 17.5v-11Z" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".75"/>
+              <path d="m5.5 8 5.55 3.7a2 2 0 0 0 2.2 0L18.8 8" fill="none" stroke="currentColor" stroke-width="1.5" />
+            </svg>
+            <input id="editEmail" type="email" placeholder="admin@example.com" required />
+          </div>
+        </label>
+
+        <label class="field field-full-width">
+          Password (Leave blank to keep current password)
+          <div class="input">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="4" y="10" width="16" height="10" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M8 10V8a4 4 0 0 1 8 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            <input id="editPassword" type="password" placeholder="Enter new password (optional)" autocomplete="new-password" />
+          </div>
+        </label>
+
+        <label class="field">
+          Role
+          <div class="input select-wrap">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2L2 7l10 5 10-5-10-5Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M2 17l10 5 10-5M2 12l10 5 10-5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            <select id="editRole" required>
+              <option value="">Choose role</option>
+              <option value="super_admin">Super admin</option>
+              <option value="admin">Admin</option>
+              <option value="viewer">Viewer</option>
+            </select>
+          </div>
+        </label>
+
+        <label class="field">
+          PIN
+          <div class="input">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="4" y="10" width="16" height="10" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M8 10V8a4 4 0 0 1 8 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            <input id="editPin" type="password" inputmode="numeric" pattern="[0-9]*" placeholder="Enter PIN" maxlength="6" />
+          </div>
+        </label>
+
+        <label class="field">
+          Status
+          <div class="input select-wrap">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M12 8v4l3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <select id="editStatus" required>
+              <option value="true">Active</option>
+              <option value="false">Inactive</option>
+            </select>
+          </div>
+        </label>
+
+        <div id="editMessage" class="login-message hidden" role="status" aria-live="polite"></div>
+
+        <div class="popup-actions">
+          <button type="button" class="cta ghost" id="cancelEditBtn">Cancel</button>
+          <button type="submit" class="cta">
+            <span>Save Changes</span>
+            <span class="glow"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/manageadmins.js"></script>
+</body>
+</html>
+

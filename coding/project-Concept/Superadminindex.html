@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Super Admin Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="background-blur bg-one"></div>
+  <div class="background-blur bg-two"></div>
+
+  <section class="shell">
+    <div class="card">
+      <header class="card-header">
+        <div class="brand">
+          <div class="logo-wrap" aria-hidden="true">
+            <img src="assets/logo.svg" alt="Admin portal logo" />
+          </div>
+          <div>
+            <p class="eyebrow">Super Admin</p>
+            <h1 class="page-title" id="pageTitle">Secure Access</h1>
+          </div>
+        </div>
+      </header>
+
+      <!-- Login Section -->
+      <main class="card-body" id="loginSection">
+        <h2>Sign in to Super Admin Console</h2>
+        <p class="subtitle">Enter your credentials to access the admin management system.</p>
+
+        <form id="loginForm">
+          <label class="field">
+            Email address
+            <div class="input">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 17.5v-11Z" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".75"/>
+                <path d="m5.5 8 5.55 3.7a2 2 0 0 0 2.2 0L18.8 8" fill="none" stroke="currentColor" stroke-width="1.5" />
+              </svg>
+              <input id="loginEmail" type="email" placeholder="superadmin@example.com" autocomplete="email" required />
+            </div>
+          </label>
+
+          <label class="field">
+            Password
+            <div class="input">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="4" y="10" width="16" height="10" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M8 10V8a4 4 0 0 1 8 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+              <input id="loginPassword" type="password" placeholder="••••••••" autocomplete="current-password" required />
+            </div>
+          </label>
+
+          <div class="meta">
+            <label class="remember">
+              <input type="checkbox" checked />
+              <span>Remember me</span>
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <div id="loginMessage" class="login-message hidden" role="status" aria-live="polite"></div>
+            <button type="submit" class="cta">
+              <span>Sign In</span>
+              <span class="glow"></span>
+            </button>
+          </div>
+        </form>
+      </main>
+
+      <!-- Admin Console Section -->
+      <main class="card-body hidden" id="adminConsoleSection">
+        <div class="console-header">
+          <div>
+            <h2>Admin management console</h2>
+            <p class="subtitle">Create new admins or manage existing accounts.</p>
+          </div>
+          <button id="logoutBtn" class="logout-btn">Logout</button>
+        </div>
+
+        <div class="admin-mode-switch" role="tablist" aria-label="Admin management modes">
+          <button class="mode-btn active" data-mode="create" role="tab" aria-selected="true">Create New admin</button>
+          <a href="AdminsConsole.html" id="manageAdminsLink" class="mode-btn" role="tab">Manage Existing Admins</a>
+        </div>
+
+        <section class="admin-mode" data-mode="create">
+          <div class="panel">
+            <div class="panel-head">
+              <h3>New admin details</h3>
+              <span class="pill success">Full access area</span>
+            </div>
+            <form id="createAdminForm" class="form-grid">
+            <label class="field">
+              Full name
+              <div class="input">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M5 19.5C5 16.4624 7.4624 14 10.5 14h3c3.0376 0 5.5 2.4624 5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <input id="adminName" type="text" placeholder="Jordan Blake" autocomplete="name" required />
+              </div>
+            </label>
+
+            <label class="field">
+              Email address
+              <div class="input">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 17.5v-11Z" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".75"/>
+                  <path d="m5.5 8 5.55 3.7a2 2 0 0 0 2.2 0L18.8 8" fill="none" stroke="currentColor" stroke-width="1.5" />
+                </svg>
+                <input id="adminEmail" type="email" placeholder="admin@example.com" autocomplete="email" required />
+              </div>
+            </label>
+
+            <label class="field">
+              Username
+              <div class="input">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M5 19.5C5 16.4624 7.4624 14 10.5 14h3c3.0376 0 5.5 2.4624 5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <input id="adminUsername" type="text" placeholder="jordan_blake" autocomplete="username" required />
+              </div>
+            </label>
+
+            <label class="field">
+              PIN (Optional)
+              <div class="input">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="4" y="10" width="16" height="10" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M8 10V8a4 4 0 0 1 8 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+                <input id="adminPin" type="password" placeholder="Enter PIN (optional)" autocomplete="off" maxlength="6" />
+              </div>
+            </label>
+
+            <label class="field">
+              Role
+              <div class="input select-wrap">
+                <select id="adminRole" required>
+                  <option value="">Choose role</option>
+                  <option value="super_admin">Super admin</option>
+                  <option value="admin">Admin</option>
+                  <option value="viewer">Viewer</option>
+                </select>
+              </div>
+            </label>
+
+            <label class="field">
+              Password
+              <div class="input">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="4" y="10" width="16" height="10" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M8 10V8a4 4 0 0 1 8 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+                <input id="adminPassword" type="password" placeholder="Set a password" autocomplete="new-password" required />
+              </div>
+            </label>
+
+            <label class="field">
+              Confirm password
+              <div class="input">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="4" y="10" width="16" height="10" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M8 10V8a4 4 0 0 1 8 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+                <input id="adminPasswordConfirm" type="password" placeholder="Re-enter password" autocomplete="new-password" required />
+              </div>
+            </label>
+
+            <div class="form-actions">
+              <div id="adminMessage" class="login-message hidden" role="status" aria-live="polite"></div>
+              <button type="submit" class="cta">
+                <span>Create admin</span>
+                <span class="glow"></span>
+              </button>
+            </div>
+          </form>
+          </div>
+        </section>
+      </main>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/superadmin.js"></script>
+</body>
+</html>
+

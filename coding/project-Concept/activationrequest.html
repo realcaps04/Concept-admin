@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Activation Requests</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="background-blur bg-one"></div>
+  <div class="background-blur bg-two"></div>
+
+  <section class="shell shell-wide">
+    <div class="card">
+      <header class="card-header">
+        <div class="brand">
+          <div class="logo-wrap" aria-hidden="true">
+            <img src="assets/logo.svg" alt="Admin portal logo" />
+          </div>
+          <div>
+            <p class="eyebrow">Super Admin</p>
+            <h1 class="page-title">Activation Requests</h1>
+          </div>
+        </div>
+        <div class="header-actions">
+          <a href="AdminsConsole.html" class="back-btn">Back to Console</a>
+          <button id="logoutBtn" class="logout-btn">Logout</button>
+        </div>
+      </header>
+
+      <main class="card-body">
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Pending Activation Requests</h3>
+          </div>
+          <div id="requestsTable" class="table">
+            <div class="table-row table-head">
+              <span>Email</span>
+              <span>Name</span>
+              <span>Requested At</span>
+              <span>Status</span>
+              <span>Actions</span>
+            </div>
+            <div class="table-row muted" id="loadingRow">
+              <span colspan="5">Loading activation requests...</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/activationrequest.js"></script>
+</body>
+</html>
+

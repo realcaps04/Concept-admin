@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="background-blur bg-one"></div>
+  <div class="background-blur bg-two"></div>
+
+  <section class="shell">
+    <div class="card">
+      <header class="card-header">
+        <div class="brand">
+          <div class="logo-wrap" aria-hidden="true">
+            <img src="assets/logo.svg" alt="Admin portal logo" />
+          </div>
+          <div>
+            <p class="eyebrow">Admin Portal</p>
+          </div>
+        </div>
+      </header>
+
+      <main class="card-body">
+        <h2>Sign in to Dashboard</h2>
+        <p class="subtitle">Enterprise-grade security with refined simplicity.</p>
+
+        <div class="login-mode-switch" role="tablist" aria-label="Login methods">
+          <button class="mode-btn active" data-mode="email" role="tab" aria-selected="true">Email + Password</button>
+          <button class="mode-btn" data-mode="username" role="tab" aria-selected="false">Username + PIN</button>
+          <button class="mode-btn" data-mode="fingerprint" role="tab" aria-selected="false">Fingerprint</button>
+        </div>
+
+        <section class="login-mode" data-mode="email">
+          <label class="field">
+            Email address
+            <div class="input">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 17.5v-11Z" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".75"/>
+                <path d="m5.5 8 5.55 3.7a2 2 0 0 0 2.2 0L18.8 8" fill="none" stroke="currentColor" stroke-width="1.5" />
+              </svg>
+              <input id="emailInput" type="email" placeholder="admin@example.com" autocomplete="email" required />
+            </div>
+          </label>
+
+          <label class="field">
+            Password
+            <div class="input">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="4" y="10" width="16" height="10" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M8 10V8a4 4 0 0 1 8 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+              <input id="passwordInput" type="password" placeholder="••••••••" autocomplete="current-password" required />
+            </div>
+          </label>
+        </section>
+
+        <section class="login-mode hidden" data-mode="username">
+          <label class="field">
+            Username
+            <div class="input">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M5 19.5C5 16.4624 7.4624 14 10.5 14h3c3.0376 0 5.5 2.4624 5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              <input id="usernameInput" type="text" placeholder="your.username" autocomplete="username" required />
+            </div>
+          </label>
+
+          <label class="field">
+            PIN
+            <div class="input">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="5" y="6" width="14" height="14" rx="3" ry="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="12" cy="13" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+              <input id="pinInput" type="password" inputmode="numeric" pattern="[0-9]*" placeholder="••••" autocomplete="one-time-code" required />
+            </div>
+          </label>
+        </section>
+
+        <section class="login-mode hidden" data-mode="fingerprint">
+          <div class="fingerprint-box">
+            <svg viewBox="0 0 64 64" aria-hidden="true">
+              <path d="M18 28c0-8 6-14 14-14s14 6 14 14c0 9-3 17-6 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M23 30c0-5 4-9 9-9s9 4 9 9c0 6-2 12-4 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M28 32c0-3 2-6 5-6s5 3 5 6c0 3-1 7-2 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M33 33v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <p class="fingerprint-hint">Use your registered fingerprint to continue.</p>
+            <button class="cta ghost" type="button">Scan fingerprint</button>
+          </div>
+        </section>
+
+        <div class="meta">
+          <label class="remember">
+            <input type="checkbox" checked />
+            <span>Remember me</span>
+          </label>
+          <a class="link" href="forgotpassword.html">Forgot password?</a>
+        </div>
+
+        <div id="loginMessage" class="login-message hidden" role="status" aria-live="polite"></div>
+
+        <button id="signInButton" class="cta" type="button">
+          <span>Sign In</span>
+          <span class="glow"></span>
+        </button>
+      </main>
+    </div>
+  </section>
+
+  <!-- Inactive Admin Popup Modal -->
+  <div id="inactivePopup" class="popup-overlay hidden">
+    <div class="popup-modal">
+      <div class="popup-icon error-icon">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <circle cx="32" cy="32" r="28" fill="none" stroke="currentColor" stroke-width="3"/>
+          <path d="M32 20v16M32 44h.01" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3 class="popup-title">Account Inactive</h3>
+      <p class="popup-message">Your account status is currently inactive. Please contact your administrator to activate your account.</p>
+      <div class="popup-actions popup-actions-spaced">
+        <button type="button" class="cta" id="sendActivationRequestBtn">
+          <span>Send Activation Request</span>
+          <span class="glow"></span>
+        </button>
+      </div>
+      <p class="popup-submessage popup-submessage-spaced" id="activationMessage"></p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
