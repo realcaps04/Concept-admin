@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Admin Panel Request - Features</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .features-page {
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .hero-section {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 20px;
+      z-index: 1;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      animation: fadeInUp 1s ease;
+    }
+
+    .hero-title {
+      font-size: clamp(32px, 6vw, 64px);
+      font-weight: 800;
+      background: linear-gradient(135deg, #5ba6ff, #7b7bff, #2fca7a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 24px;
+      animation: gradientShift 3s ease infinite;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(18px, 3vw, 24px);
+      color: var(--muted);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .hero-cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 36px;
+      background: linear-gradient(135deg, #5ba6ff, #7b7bff);
+      color: white;
+      border: none;
+      border-radius: 16px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 24px rgba(91, 166, 255, 0.3);
+      animation: pulse 2s ease infinite;
+      margin-top: 8px;
+    }
+
+    .hero-cta-button svg {
+      width: 22px;
+      height: 22px;
+      stroke: white;
+      flex-shrink: 0;
+    }
+
+    .hero-cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(91, 166, 255, 0.4);
+      background: linear-gradient(135deg, #4a95ff, #6a6aff);
+    }
+
+    .hero-cta-button:active {
+      transform: translateY(0);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 20px;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.9);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+      transform: translateY(50px);
+      box-shadow: 0 8px 32px rgba(21, 41, 76, 0.1);
+    }
+
+    .feature-card.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 48px rgba(91, 166, 255, 0.2);
+      border-color: var(--primary);
+    }
+
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 24px;
+      background: linear-gradient(135deg, #5ba6ff, #7b7bff);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .feature-card:nth-child(2) .feature-icon {
+      background: linear-gradient(135deg, #7b7bff, #a855f7);
+      animation-delay: 0.2s;
+    }
+
+    .feature-card:nth-child(3) .feature-icon {
+      background: linear-gradient(135deg, #2fca7a, #10b981);
+      animation-delay: 0.4s;
+    }
+
+    .feature-card:nth-child(4) .feature-icon {
+      background: linear-gradient(135deg, #f97316, #ea580c);
+      animation-delay: 0.6s;
+    }
+
+    .feature-card:nth-child(5) .feature-icon {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      animation-delay: 0.8s;
+    }
+
+    .feature-card:nth-child(6) .feature-icon {
+      background: linear-gradient(135deg, #eab308, #ca8a04);
+      animation-delay: 1s;
+    }
+
+    .feature-icon svg {
+      width: 40px;
+      height: 40px;
+      color: white;
+    }
+
+    .feature-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .feature-description {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .cta-section {
+      text-align: center;
+      padding: 80px 20px;
+      background: linear-gradient(135deg, rgba(91, 166, 255, 0.1), rgba(123, 123, 255, 0.1));
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 40px;
+      background: linear-gradient(135deg, #5ba6ff, #7b7bff);
+      color: white;
+      border: none;
+      border-radius: 16px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 24px rgba(91, 166, 255, 0.3);
+      animation: pulse 2s ease infinite;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(91, 166, 255, 0.4);
+    }
+
+    .back-link {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      z-index: 100;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: rgba(255, 255, 255, 0.9);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(21, 41, 76, 0.1);
+    }
+
+    .back-link:hover {
+      background: white;
+      transform: translateX(-4px);
+    }
+
+    .floating-shapes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.1;
+      animation: floatShape 20s infinite ease-in-out;
+    }
+
+    .shape-1 {
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(135deg, #5ba6ff, #7b7bff);
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .shape-2 {
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(135deg, #7b7bff, #a855f7);
+      top: 60%;
+      right: 15%;
+      animation-delay: 2s;
+    }
+
+    .shape-3 {
+      width: 250px;
+      height: 250px;
+      background: linear-gradient(135deg, #2fca7a, #10b981);
+      bottom: 10%;
+      left: 20%;
+      animation-delay: 4s;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes gradientShift {
+      0%, 100% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes floatShape {
+      0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      33% {
+        transform: translate(30px, -30px) rotate(120deg);
+      }
+      66% {
+        transform: translate(-20px, 20px) rotate(240deg);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    /* Request Popup Styles */
+    .request-popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(21, 41, 76, 0.6);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .request-popup-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .request-popup {
+      background: white;
+      border-radius: 24px;
+      padding: 40px;
+      max-width: 800px;
+      width: calc(100% - 40px);
+      max-height: 90vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      box-shadow: 0 24px 64px rgba(21, 41, 76, 0.3);
+      transform: scale(0.9) translateY(20px);
+      transition: all 0.3s ease;
+      position: relative;
+      /* Hide scrollbar but allow scrolling */
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    .request-popup::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
+
+    .request-popup-overlay.show .request-popup {
+      transform: scale(1) translateY(0);
+    }
+
+    .request-popup-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+
+    .request-popup-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .request-popup-close {
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: #f7faff;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: var(--muted);
+    }
+
+    .request-popup-close:hover {
+      background: #e9f3ff;
+      color: var(--text);
+      transform: scale(1.05);
+    }
+
+    .request-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .request-form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .request-form-field label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .request-form-field label .required {
+      color: #ef4444;
+    }
+
+    .request-form-field input,
+    .request-form-field textarea,
+    .request-form-field select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--input-border);
+      border-radius: 12px;
+      font-size: 15px;
+      font-family: inherit;
+      transition: border-color 0.2s ease;
+    }
+
+    .request-form-field input:focus,
+    .request-form-field textarea:focus,
+    .request-form-field select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .request-form-field textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .request-form-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .request-form-actions button {
+      flex: 1;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .request-submit-btn {
+      background: linear-gradient(135deg, #5ba6ff, #7b7bff);
+      color: white;
+      box-shadow: 0 4px 12px rgba(91, 166, 255, 0.3);
+    }
+
+    .request-submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(91, 166, 255, 0.4);
+    }
+
+    .request-cancel-btn {
+      background: #f7faff;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .request-cancel-btn:hover {
+      background: #e9f3ff;
+    }
+
+    .request-message {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      text-align: center;
+      display: none;
+    }
+
+    .request-message.show {
+      display: block;
+    }
+
+    .request-message.success {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .request-message.error {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    /* Features Popup Styles */
+    .features-popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(21, 41, 76, 0.6);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .features-popup-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .features-popup {
+      background: white;
+      border-radius: 24px;
+      padding: 32px;
+      max-width: 600px;
+      width: calc(100% - 40px);
+      max-height: 80vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      box-shadow: 0 24px 64px rgba(21, 41, 76, 0.3);
+      transform: scale(0.9) translateY(20px);
+      transition: all 0.3s ease;
+      position: relative;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .features-popup::-webkit-scrollbar {
+      display: none;
+    }
+
+    .features-popup-overlay.show .features-popup {
+      transform: scale(1) translateY(0);
+    }
+
+    .features-popup-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .features-popup-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .features-popup-close {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: #f7faff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: var(--muted);
+    }
+
+    .features-popup-close:hover {
+      background: #e9f3ff;
+      color: var(--text);
+    }
+
+    .features-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .feature-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: white;
+    }
+
+    .feature-option:hover {
+      border-color: var(--primary);
+      background: rgba(91, 166, 255, 0.05);
+    }
+
+    .feature-option input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: var(--primary);
+    }
+
+    .feature-option label {
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      flex: 1;
+      margin: 0;
+    }
+
+    .features-custom-input {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .features-custom-input label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .features-custom-input textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--input-border);
+      border-radius: 12px;
+      font-size: 14px;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .features-popup-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .features-popup-actions button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .features-apply-btn {
+      background: linear-gradient(135deg, #5ba6ff, #7b7bff);
+      color: white;
+    }
+
+    .features-apply-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(91, 166, 255, 0.3);
+    }
+
+    .features-cancel-btn {
+      background: #f7faff;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .features-cancel-btn:hover {
+      background: #e9f3ff;
+    }
+
+    .selected-features-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .feature-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: rgba(91, 166, 255, 0.1);
+      color: var(--primary);
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .feature-tag-remove {
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+      color: var(--primary);
+    }
+
+    .feature-tag-remove:hover {
+      color: #ef4444;
+    }
+
+    @media (max-width: 768px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 40px 20px;
+      }
+
+      .feature-card {
+        padding: 32px 24px;
+      }
+
+      .back-link {
+        top: 16px;
+        left: 16px;
+        padding: 10px 16px;
+        font-size: 14px;
+      }
+
+      .request-popup {
+        padding: 32px 24px;
+        max-height: 95vh;
+      }
+
+      .request-popup-title {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-blur bg-one"></div>
+  <div class="background-blur bg-two"></div>
+  
+  <div class="floating-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+
+  <a href="index.html" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
+      <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Back to Login
+  </a>
+
+  <div class="features-page">
+    <section class="hero-section">
+      <div class="hero-content">
+        <h1 class="hero-title">Welcome to Admin Portal</h1>
+        <p class="hero-subtitle">Experience enterprise-grade security with powerful admin management features. Request your admin access and unlock a world of possibilities.</p>
+        <button type="button" class="hero-cta-button" id="openRequestPopupBtnHero">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 8v8M8 12h8"/>
+          </svg>
+          <span>Request Admin Access</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="features-grid" id="featuresGrid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/>
+            <path d="M5 19.5C5 16.4624 7.4624 14 10.5 14h3c3.0376 0 5.5 2.4624 5.5 5.5"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Profile Management</h3>
+        <p class="feature-description">Complete control over your admin profile with contact information, identity verification, and secure account settings.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2v20M2 12h20"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Activation Requests</h3>
+        <p class="feature-description">Streamlined activation process with identity verification. Track your request status and get notified when approved.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="10" width="16" height="10" rx="2"/>
+            <path d="M8 10V8a4 4 0 0 1 8 0v2"/>
+            <path d="M12 16v-2M10 14h4"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Password Security</h3>
+        <p class="feature-description">Advanced password reset system with multiple delivery methods. Secure recovery options for your account access.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M3 9h18M9 21V9"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Request Management</h3>
+        <p class="feature-description">Comprehensive dashboard to view pending, approved, and rejected requests. Stay informed about your account status.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 12l2 2 4-4"/>
+            <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"/>
+            <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3"/>
+            <path d="M12 21c0-1-1-3-3-3s-3 2-3 3 1 3 3 3 3-2 3-3Z"/>
+            <path d="M12 3c0 1-1 3-3 3S6 4 6 3s1-3 3-3 3 2 3 3Z"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Secure Authentication</h3>
+        <p class="feature-description">Multiple login methods including email/password and username/PIN. Enterprise-grade security with encrypted sessions.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2v20M2 12h20"/>
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Status Tracking</h3>
+        <p class="feature-description">Real-time status updates for all your requests. Get detailed feedback on approvals and rejections with reasons.</p>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <h2 style="font-size: 36px; font-weight: 700; color: var(--text); margin-bottom: 16px;">Ready to Get Started?</h2>
+      <p style="font-size: 18px; color: var(--muted); margin-bottom: 32px;">Request your admin panel access today and join our secure platform.</p>
+      <button type="button" class="cta-button" id="openRequestPopupBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px;">
+          <path d="M12 2v20M2 12h20"/>
+        </svg>
+        Request Admin Access
+      </button>
+    </section>
+  </div>
+
+  <!-- Features Selection Popup -->
+  <div class="features-popup-overlay" id="featuresPopupOverlay">
+    <div class="features-popup">
+      <div class="features-popup-header">
+        <h3 class="features-popup-title">Select Features</h3>
+        <button class="features-popup-close" id="closeFeaturesPopup" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
+            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="features-list" id="featuresList">
+        <div class="feature-option">
+          <input type="checkbox" id="feature_customer_details" value="Customer Details" />
+          <label for="feature_customer_details">Customer Details</label>
+        </div>
+        <div class="feature-option">
+          <input type="checkbox" id="feature_order_management" value="Order Management" />
+          <label for="feature_order_management">Order Management</label>
+        </div>
+        <div class="feature-option">
+          <input type="checkbox" id="feature_inventory" value="Inventory Management" />
+          <label for="feature_inventory">Inventory Management</label>
+        </div>
+        <div class="feature-option">
+          <input type="checkbox" id="feature_analytics" value="Analytics & Reports" />
+          <label for="feature_analytics">Analytics & Reports</label>
+        </div>
+        <div class="feature-option">
+          <input type="checkbox" id="feature_payment" value="Payment Processing" />
+          <label for="feature_payment">Payment Processing</label>
+        </div>
+        <div class="feature-option">
+          <input type="checkbox" id="feature_user_management" value="User Management" />
+          <label for="feature_user_management">User Management</label>
+        </div>
+        <div class="feature-option">
+          <input type="checkbox" id="feature_notifications" value="Notifications" />
+          <label for="feature_notifications">Notifications</label>
+        </div>
+        <div class="feature-option">
+          <input type="checkbox" id="feature_messaging" value="Messaging System" />
+          <label for="feature_messaging">Messaging System</label>
+        </div>
+        <div class="feature-option">
+          <input type="checkbox" id="feature_documents" value="Document Management" />
+          <label for="feature_documents">Document Management</label>
+        </div>
+        <div class="feature-option">
+          <input type="checkbox" id="feature_scheduling" value="Scheduling" />
+          <label for="feature_scheduling">Scheduling</label>
+        </div>
+        <div class="feature-option">
+          <input type="checkbox" id="feature_email" value="Email Management" />
+          <label for="feature_email">Email Management</label>
+        </div>
+        <div class="feature-option">
+          <input type="checkbox" id="feature_communication" value="Communication Tools" />
+          <label for="feature_communication">Communication Tools</label>
+        </div>
+      </div>
+
+      <div class="features-custom-input">
+        <label>Or enter custom features manually:</label>
+        <textarea id="customFeaturesInput" placeholder="Enter additional features separated by commas (e.g., CRM, Sales Tracking, etc.)"></textarea>
+      </div>
+
+      <div class="features-popup-actions">
+        <button type="button" class="features-cancel-btn" id="cancelFeaturesBtn">Cancel</button>
+        <button type="button" class="features-apply-btn" id="applyFeaturesBtn">Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Request Admin Access Popup -->
+  <div class="request-popup-overlay" id="requestPopupOverlay">
+    <div class="request-popup">
+      <div class="request-popup-header">
+        <h2 class="request-popup-title">Request Admin Access</h2>
+        <button class="request-popup-close" id="closeRequestPopup" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
+            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      
+      <form class="request-form" id="adminRequestForm">
+        <div class="request-form-field">
+          <label>
+            Full Name <span class="required">*</span>
+          </label>
+          <input type="text" id="newAdminName" placeholder="Enter your full name" required />
+        </div>
+
+        <div class="request-form-field">
+          <label>
+            Email Address <span class="required">*</span>
+          </label>
+          <input type="email" id="newAdminEmail" placeholder="admin@example.com" required />
+        </div>
+
+        <div class="request-form-field">
+          <label>
+            Phone Number <span class="required">*</span>
+          </label>
+          <input type="tel" id="newAdminPhone" placeholder="+1 (555) 123-4567" required />
+        </div>
+
+        <div class="request-form-field">
+          <label>
+            Organization/Company
+          </label>
+          <input type="text" id="newAdminOrg" placeholder="Your organization name" />
+        </div>
+
+        <div class="request-form-field">
+          <label>
+            Organization Type <span class="required">*</span>
+          </label>
+          <select id="newAdminOrgType" required>
+            <option value="">Select organization type</option>
+            <option value="government">Government</option>
+            <option value="private">Private</option>
+            <option value="mobile_shop">Mobile Shop</option>
+            <option value="court">Court</option>
+            <option value="college_school">College/School</option>
+            <option value="hospital">Hospital</option>
+            <option value="bank">Bank</option>
+            <option value="restaurant">Restaurant</option>
+            <option value="retail">Retail</option>
+            <option value="ngo">NGO</option>
+            <option value="others">Others</option>
+          </select>
+          <input type="text" id="newAdminOrgTypeOther" placeholder="Please specify organization type" style="margin-top: 8px; display: none;" />
+        </div>
+
+        <div class="request-form-field">
+          <label>
+            Role/Position
+          </label>
+          <select id="newAdminRole">
+            <option value="">Select a role</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+
+        <div class="request-form-field">
+          <label>
+            Address
+          </label>
+          <input type="text" id="newAdminAddress" placeholder="Street address" />
+        </div>
+
+        <div class="request-form-field" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div>
+            <label>
+              City
+            </label>
+            <input type="text" id="newAdminCity" placeholder="City" />
+          </div>
+          <div>
+            <label>
+              State/Province
+            </label>
+            <input type="text" id="newAdminState" placeholder="State" />
+          </div>
+        </div>
+
+        <div class="request-form-field" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div>
+            <label>
+              Zip/Postal Code
+            </label>
+            <input type="text" id="newAdminZip" placeholder="Zip Code" />
+          </div>
+          <div>
+            <label>
+              Country
+            </label>
+            <input type="text" id="newAdminCountry" placeholder="Country" />
+          </div>
+        </div>
+
+        <div class="request-form-field">
+          <label>
+            Features Needed <span class="required">*</span>
+            <span style="font-size: 12px; font-weight: 400; color: var(--muted); display: block; margin-top: 4px;">
+              Select features you need for the admin panel or enter manually
+            </span>
+          </label>
+          <div style="display: flex; gap: 8px; align-items: stretch;">
+            <input type="text" id="newAdminFeatures" placeholder="Select features or enter manually" required style="flex: 1;" readonly />
+            <button type="button" class="features-select-btn" id="openFeaturesPopupBtn" style="padding: 12px 20px; background: linear-gradient(135deg, #5ba6ff, #7b7bff); color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; white-space: nowrap;">
+              Select Features
+            </button>
+          </div>
+          <div id="selectedFeaturesDisplay" style="margin-top: 8px; font-size: 12px; color: var(--muted); display: none;"></div>
+        </div>
+
+        <div class="request-form-field">
+          <label>
+            Identity Proof <span class="required">*</span>
+            <span style="font-size: 12px; font-weight: 400; color: var(--muted); display: block; margin-top: 4px;">
+              Upload a document to verify your identity (ID card, passport, driver's license, etc.)
+            </span>
+          </label>
+          <input type="file" id="newAdminIdProof" accept="image/*,.pdf" required />
+          <div id="newAdminFilePreview" style="margin-top: 8px; font-size: 12px; color: var(--muted);"></div>
+        </div>
+
+        <div class="request-form-field">
+          <label>
+            Reason for Access <span class="required">*</span>
+          </label>
+          <textarea id="newAdminReason" placeholder="Please explain why you need admin access and what you plan to use it for..." required></textarea>
+        </div>
+
+        <div class="request-form-field">
+          <label>
+            Additional Information
+          </label>
+          <textarea id="newAdminNotes" placeholder="Any additional information you'd like to provide..."></textarea>
+        </div>
+
+        <div class="request-form-actions">
+          <button type="button" class="request-cancel-btn" id="cancelRequestBtn">Cancel</button>
+          <button type="submit" class="request-submit-btn" id="submitRequestBtn">
+            Submit Request
+          </button>
+        </div>
+
+        <div class="request-message" id="requestMessage"></div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script>
+    // Animate feature cards on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('animate');
+          }, index * 100);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.feature-card').forEach(card => {
+      observer.observe(card);
+    });
+
+    // Add parallax effect to hero section
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const heroContent = document.querySelector('.hero-content');
+      if (heroContent) {
+        heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
+        heroContent.style.opacity = 1 - scrolled / 500;
+      }
+    });
+
+    // Add smooth scroll behavior
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Request Popup Functionality
+    const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const requestPopupOverlay = document.getElementById('requestPopupOverlay');
+    const openRequestPopupBtn = document.getElementById('openRequestPopupBtn');
+    const openRequestPopupBtnHero = document.getElementById('openRequestPopupBtnHero');
+    const closeRequestPopupBtn = document.getElementById('closeRequestPopup');
+    const cancelRequestBtn = document.getElementById('cancelRequestBtn');
+    const adminRequestForm = document.getElementById('adminRequestForm');
+    const requestMessage = document.getElementById('requestMessage');
+    const submitRequestBtn = document.getElementById('submitRequestBtn');
+
+    // Function to open popup
+    const openPopup = () => {
+      requestPopupOverlay.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    };
+
+    // Open popup from CTA button
+    if (openRequestPopupBtn) {
+      openRequestPopupBtn.addEventListener('click', openPopup);
+    }
+
+    // Open popup from hero button
+    if (openRequestPopupBtnHero) {
+      openRequestPopupBtnHero.addEventListener('click', openPopup);
+    }
+
+    // Close popup
+    const closePopup = () => {
+      requestPopupOverlay.classList.remove('show');
+      document.body.style.overflow = '';
+      adminRequestForm.reset();
+      requestMessage.classList.remove('show', 'success', 'error');
+      const filePreview = document.getElementById('newAdminFilePreview');
+      if (filePreview) {
+        filePreview.textContent = '';
+      }
+      selectedFeatures = [];
+      if (featuresInput) {
+        featuresInput.value = '';
+        featuresInput.readOnly = true;
+      }
+      if (selectedFeaturesDisplay) {
+        selectedFeaturesDisplay.style.display = 'none';
+      }
+      if (orgTypeOtherInput) {
+        orgTypeOtherInput.style.display = 'none';
+        orgTypeOtherInput.value = '';
+      }
+      // Reset feature checkboxes
+      document.querySelectorAll('#featuresList input[type="checkbox"]').forEach(cb => {
+        cb.checked = false;
+      });
+      document.getElementById('customFeaturesInput').value = '';
+    };
+
+    if (closeRequestPopupBtn) {
+      closeRequestPopupBtn.addEventListener('click', closePopup);
+    }
+
+    if (cancelRequestBtn) {
+      cancelRequestBtn.addEventListener('click', closePopup);
+    }
+
+    // Close on overlay click
+    requestPopupOverlay.addEventListener('click', (e) => {
+      if (e.target === requestPopupOverlay) {
+        closePopup();
+      }
+    });
+
+    // Close on ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && requestPopupOverlay.classList.contains('show')) {
+        closePopup();
+      }
+    });
+
+    // Organization type handling
+    const orgTypeSelect = document.getElementById('newAdminOrgType');
+    const orgTypeOtherInput = document.getElementById('newAdminOrgTypeOther');
+    
+    if (orgTypeSelect && orgTypeOtherInput) {
+      orgTypeSelect.addEventListener('change', (e) => {
+        if (e.target.value === 'others') {
+          orgTypeOtherInput.style.display = 'block';
+          orgTypeOtherInput.required = true;
+        } else {
+          orgTypeOtherInput.style.display = 'none';
+          orgTypeOtherInput.required = false;
+          orgTypeOtherInput.value = '';
+        }
+      });
+    }
+
+    // Features popup functionality
+    const featuresPopupOverlay = document.getElementById('featuresPopupOverlay');
+    const openFeaturesPopupBtn = document.getElementById('openFeaturesPopupBtn');
+    const closeFeaturesPopupBtn = document.getElementById('closeFeaturesPopup');
+    const cancelFeaturesBtn = document.getElementById('cancelFeaturesBtn');
+    const applyFeaturesBtn = document.getElementById('applyFeaturesBtn');
+    const featuresInput = document.getElementById('newAdminFeatures');
+    const selectedFeaturesDisplay = document.getElementById('selectedFeaturesDisplay');
+    let selectedFeatures = [];
+
+    const openFeaturesPopup = () => {
+      featuresPopupOverlay.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeFeaturesPopup = () => {
+      featuresPopupOverlay.classList.remove('show');
+      document.body.style.overflow = '';
+    };
+
+    if (openFeaturesPopupBtn) {
+      openFeaturesPopupBtn.addEventListener('click', openFeaturesPopup);
+    }
+
+    if (closeFeaturesPopupBtn) {
+      closeFeaturesPopupBtn.addEventListener('click', closeFeaturesPopup);
+    }
+
+    if (cancelFeaturesBtn) {
+      cancelFeaturesBtn.addEventListener('click', closeFeaturesPopup);
+    }
+
+    // Allow manual entry in features input
+    if (featuresInput) {
+      featuresInput.addEventListener('click', () => {
+        featuresInput.readOnly = false;
+        featuresInput.focus();
+      });
+    }
+
+    // Apply selected features
+    if (applyFeaturesBtn) {
+      applyFeaturesBtn.addEventListener('click', () => {
+        const checkboxes = document.querySelectorAll('#featuresList input[type="checkbox"]:checked');
+        const customFeatures = document.getElementById('customFeaturesInput').value.trim();
+        
+        selectedFeatures = [];
+        checkboxes.forEach(cb => {
+          selectedFeatures.push(cb.value);
+        });
+        
+        if (customFeatures) {
+          const customFeaturesArray = customFeatures.split(',').map(f => f.trim()).filter(f => f);
+          selectedFeatures = [...selectedFeatures, ...customFeaturesArray];
+        }
+
+        // Update input field
+        if (featuresInput) {
+          featuresInput.value = selectedFeatures.join(', ');
+        }
+
+        // Update display
+        updateFeaturesDisplay();
+        
+        closeFeaturesPopup();
+      });
+    }
+
+    // Update features display
+    function updateFeaturesDisplay() {
+      if (selectedFeatures.length > 0) {
+        selectedFeaturesDisplay.style.display = 'block';
+        selectedFeaturesDisplay.innerHTML = '<div class="selected-features-tags"></div>';
+        const tagsContainer = selectedFeaturesDisplay.querySelector('.selected-features-tags');
+        
+        selectedFeatures.forEach((feature, index) => {
+          const tag = document.createElement('div');
+          tag.className = 'feature-tag';
+          tag.innerHTML = `
+            <span>${feature}</span>
+            <span class="feature-tag-remove" data-index="${index}">×</span>
+          `;
+          tagsContainer.appendChild(tag);
+        });
+
+        // Add remove functionality
+        tagsContainer.querySelectorAll('.feature-tag-remove').forEach(removeBtn => {
+          removeBtn.addEventListener('click', (e) => {
+            const index = parseInt(e.target.dataset.index);
+            selectedFeatures.splice(index, 1);
+            featuresInput.value = selectedFeatures.join(', ');
+            updateFeaturesDisplay();
+          });
+        });
+      } else {
+        selectedFeaturesDisplay.style.display = 'none';
+      }
+    }
+
+    // Close features popup on overlay click
+    if (featuresPopupOverlay) {
+      featuresPopupOverlay.addEventListener('click', (e) => {
+        if (e.target === featuresPopupOverlay) {
+          closeFeaturesPopup();
+        }
+      });
+    }
+
+    // File preview functionality
+    const idProofInput = document.getElementById('newAdminIdProof');
+    const filePreview = document.getElementById('newAdminFilePreview');
+    
+    if (idProofInput && filePreview) {
+      idProofInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const fileSize = (file.size / (1024 * 1024)).toFixed(2);
+          filePreview.textContent = `Selected: ${file.name} (${fileSize} MB)`;
+        } else {
+          filePreview.textContent = '';
+        }
+      });
+    }
+
+    // Upload file to base64
+    const uploadIdentityProof = async (file, email) => {
+      try {
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${email}_${Date.now()}.${fileExt}`;
+        
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            resolve({
+              url: reader.result, // Base64 data URL
+              filename: fileName
+            });
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+      } catch (err) {
+        console.error('Error uploading file:', err);
+        throw err;
+      }
+    };
+
+    // Handle form submission
+    if (adminRequestForm) {
+      adminRequestForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('newAdminName').value.trim();
+        const email = document.getElementById('newAdminEmail').value.trim();
+        const phone = document.getElementById('newAdminPhone').value.trim();
+        const org = document.getElementById('newAdminOrg').value.trim();
+        const role = document.getElementById('newAdminRole').value.trim();
+        const orgType = document.getElementById('newAdminOrgType').value.trim();
+        const orgTypeOther = document.getElementById('newAdminOrgTypeOther').value.trim();
+        const features = featuresInput?.value.trim() || '';
+        const address = document.getElementById('newAdminAddress').value.trim();
+        const city = document.getElementById('newAdminCity').value.trim();
+        const state = document.getElementById('newAdminState').value.trim();
+        const zip = document.getElementById('newAdminZip').value.trim();
+        const country = document.getElementById('newAdminCountry').value.trim();
+        const idProof = document.getElementById('newAdminIdProof')?.files[0];
+        const reason = document.getElementById('newAdminReason').value.trim();
+        const notes = document.getElementById('newAdminNotes').value.trim();
+
+        // Validate required fields
+        if (!name || !email || !phone || !reason || !idProof || !orgType || !features) {
+          showMessage('Please fill all required fields (including Organization Type, Features, and Identity Proof).', 'error');
+          return;
+        }
+
+        // Validate organization type "Others"
+        if (orgType === 'others' && !orgTypeOther) {
+          showMessage('Please specify the organization type.', 'error');
+          return;
+        }
+
+        // Validate file size (max 5MB)
+        if (idProof.size > 5 * 1024 * 1024) {
+          showMessage('File size must be less than 5MB.', 'error');
+          return;
+        }
+
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          showMessage('Please enter a valid email address.', 'error');
+          return;
+        }
+
+        // Disable submit button
+        submitRequestBtn.disabled = true;
+        submitRequestBtn.textContent = 'Uploading & Submitting...';
+
+        if (requestMessage) {
+          requestMessage.textContent = 'Uploading identity proof and submitting request...';
+          requestMessage.className = 'request-message show';
+          requestMessage.style.background = '#dbeafe';
+          requestMessage.style.color = '#1e40af';
+        }
+
+        try {
+          // Upload identity proof
+          let identityProofUrl = null;
+          let identityProofFilename = null;
+          
+          if (idProof) {
+            const uploadResult = await uploadIdentityProof(idProof, email);
+            identityProofUrl = uploadResult.url;
+            identityProofFilename = uploadResult.filename;
+          }
+          // Check if email already exists in admin table
+          const { data: existingAdmin, error: checkError } = await supabase
+            .from('admin')
+            .select('email')
+            .eq('email', email)
+            .single();
+
+          if (existingAdmin) {
+            showMessage('An admin account with this email already exists. Please use the login page instead.', 'error');
+            submitRequestBtn.disabled = false;
+            submitRequestBtn.textContent = 'Submit Request';
+            return;
+          }
+
+          // Check if there's already a pending request for this email
+          const { data: existingRequest, error: requestCheckError } = await supabase
+            .from('adminactivationrequests')
+            .select('id, status')
+            .eq('admin_email', email)
+            .eq('status', 'pending')
+            .single();
+
+          if (existingRequest) {
+            showMessage('You already have a pending request. Please wait for it to be processed.', 'error');
+            submitRequestBtn.disabled = false;
+            submitRequestBtn.textContent = 'Submit Request';
+            return;
+          }
+
+          // Insert new admin request
+          const { data, error } = await supabase
+            .from('adminactivationrequests')
+            .insert([{
+              admin_email: email,
+              admin_name: name,
+              admin_phone: phone,
+              admin_address: address || null,
+              admin_city: city || null,
+              admin_state: state || null,
+              admin_zip_code: zip || null,
+              admin_country: country || null,
+              identity_proof_url: identityProofUrl,
+              identity_proof_filename: identityProofFilename,
+              additional_notes: notes ? `${reason}\n\nOrganization: ${org || 'N/A'}\nOrganization Type: ${orgType === 'others' ? orgTypeOther : orgType}\nRole: ${role || 'N/A'}\nFeatures Needed: ${features}\n\nAdditional Notes: ${notes}` : `${reason}\n\nOrganization: ${org || 'N/A'}\nOrganization Type: ${orgType === 'others' ? orgTypeOther : orgType}\nRole: ${role || 'N/A'}\nFeatures Needed: ${features}`,
+              status: 'pending',
+              requested_at: new Date().toISOString()
+            }]);
+
+          if (error) {
+            console.error('Error submitting request:', error);
+            showMessage('Failed to submit request. Please try again later.', 'error');
+            submitRequestBtn.disabled = false;
+            submitRequestBtn.textContent = 'Submit Request';
+            return;
+          }
+
+          // Success
+          showMessage('Your admin access request has been submitted successfully! We will review your request and get back to you soon.', 'success');
+          
+          // Reset form after 2 seconds
+          setTimeout(() => {
+            adminRequestForm.reset();
+            setTimeout(() => {
+              closePopup();
+            }, 1000);
+          }, 2000);
+
+        } catch (err) {
+          console.error('Error:', err);
+          showMessage('An error occurred. Please try again later.', 'error');
+          submitRequestBtn.disabled = false;
+          submitRequestBtn.textContent = 'Submit Request';
+        }
+      });
+    }
+
+    // Show message function
+    function showMessage(text, type) {
+      requestMessage.textContent = text;
+      requestMessage.className = `request-message show ${type}`;
+      requestMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  </script>
+</body>
+</html>
+

@@ -46,6 +46,49 @@
     }
   };
 
+  // Check for pending activation requests
+  const checkPendingRequest = async (email) => {
+    try {
+      const { data, error } = await supabase
+        .from('adminactivationrequests')
+        .select('id, status, requested_at')
+        .eq('admin_email', email)
+        .eq('status', 'pending')
+        .order('requested_at', { ascending: false })
+        .limit(1)
+        .single();
+
+      if (error || !data) {
+        return null;
+      }
+
+      return data;
+    } catch (err) {
+      console.error('Error checking pending request:', err);
+      return null;
+    }
+  };
+
+  // Fetch admin details from admin table
+  const fetchAdminDetails = async (email) => {
+    try {
+      const { data, error } = await supabase
+        .from('admin')
+        .select('id, name, email, phone, address, city, state, zip_code, country')
+        .eq('email', email)
+        .single();
+
+      if (error || !data) {
+        return null;
+      }
+
+      return data;
+    } catch (err) {
+      console.error('Error fetching admin details:', err);
+      return null;
+    }
+  };
+
   // Show inactive admin popup
   const showInactivePopup = async (email, name) => {
     const inactivePopup = document.getElementById('inactivePopup');
@@ -62,6 +105,26 @@
       inactivePopup.dataset.adminName = name || '';
       if (activationMessage) {
         activationMessage.textContent = '';
+        activationMessage.classList.add('hidden');
+      }
+
+      // Check for pending request first (prevent duplicates)
+      const pendingRequest = await checkPendingRequest(email);
+      if (pendingRequest) {
+        // Show message that request is already pending
+        if (activationMessage) {
+          activationMessage.textContent = 'You already have a pending activation request. Please wait for it to be processed.';
+          activationMessage.style.color = '#f97316';
+          activationMessage.classList.remove('hidden');
+        }
+        if (rejectionDetails) {
+          rejectionDetails.classList.add('hidden');
+        }
+        const activationForm = document.getElementById('activationRequestForm');
+        if (activationForm) {
+          activationForm.classList.add('hidden');
+        }
+        return;
       }
 
       // Check for rejected request
@@ -97,20 +160,66 @@
         if (activationForm) {
           activationForm.classList.remove('hidden');
         }
+
+        // Load existing admin details from database
+        const adminDetails = await fetchAdminDetails(email);
+        if (adminDetails) {
+          // Populate form fields with existing admin data
+          const nameInput = document.getElementById('requestName');
+          const phoneInput = document.getElementById('requestPhone');
+          const addressInput = document.getElementById('requestAddress');
+          const cityInput = document.getElementById('requestCity');
+          const stateInput = document.getElementById('requestState');
+          const zipCodeInput = document.getElementById('requestZipCode');
+          const countryInput = document.getElementById('requestCountry');
+
+          if (nameInput) nameInput.value = adminDetails.name || '';
+          if (phoneInput) phoneInput.value = adminDetails.phone || '';
+          if (addressInput) addressInput.value = adminDetails.address || '';
+          if (cityInput) cityInput.value = adminDetails.city || '';
+          if (stateInput) stateInput.value = adminDetails.state || '';
+          if (zipCodeInput) zipCodeInput.value = adminDetails.zip_code || '';
+          if (countryInput) countryInput.value = adminDetails.country || '';
+        }
       }
     }
   };
 
   // Handle "Request Again" button click
-  const handleRequestAgain = () => {
+  const handleRequestAgain = async () => {
     const rejectionDetails = document.getElementById('rejectionDetails');
     const activationForm = document.getElementById('activationRequestForm');
+    const inactivePopup = document.getElementById('inactivePopup');
     
     if (rejectionDetails) {
       rejectionDetails.classList.add('hidden');
     }
     if (activationForm) {
       activationForm.classList.remove('hidden');
+    }
+
+    // Load existing admin details when showing form
+    const email = inactivePopup?.dataset.adminEmail;
+    if (email) {
+      const adminDetails = await fetchAdminDetails(email);
+      if (adminDetails) {
+        // Populate form fields with existing admin data
+        const nameInput = document.getElementById('requestName');
+        const phoneInput = document.getElementById('requestPhone');
+        const addressInput = document.getElementById('requestAddress');
+        const cityInput = document.getElementById('requestCity');
+        const stateInput = document.getElementById('requestState');
+        const zipCodeInput = document.getElementById('requestZipCode');
+        const countryInput = document.getElementById('requestCountry');
+
+        if (nameInput) nameInput.value = adminDetails.name || '';
+        if (phoneInput) phoneInput.value = adminDetails.phone || '';
+        if (addressInput) addressInput.value = adminDetails.address || '';
+        if (cityInput) cityInput.value = adminDetails.city || '';
+        if (stateInput) stateInput.value = adminDetails.state || '';
+        if (zipCodeInput) zipCodeInput.value = adminDetails.zip_code || '';
+        if (countryInput) countryInput.value = adminDetails.country || '';
+      }
     }
   };
 
@@ -170,6 +279,18 @@
     if (!inactivePopup) return;
 
     const email = inactivePopup.dataset.adminEmail;
+    
+    // Check for pending request before allowing submission
+    const pendingRequest = await checkPendingRequest(email);
+    if (pendingRequest) {
+      if (activationMessage) {
+        activationMessage.textContent = 'You already have a pending activation request. Please wait for it to be processed.';
+        activationMessage.style.color = '#f97316';
+        activationMessage.classList.remove('hidden');
+      }
+      return;
+    }
+
     const name = document.getElementById('requestName')?.value?.trim() || inactivePopup.dataset.adminName || '';
     const phone = document.getElementById('requestPhone')?.value?.trim() || null;
     const address = document.getElementById('requestAddress')?.value?.trim() || null;
@@ -230,6 +351,28 @@
         const uploadResult = await uploadIdentityProof(identityProof, email);
         identityProofUrl = uploadResult.url;
         identityProofFilename = uploadResult.filename;
+      }
+
+      // Update admin table with contact information
+      const adminUpdateData = {};
+      if (name) adminUpdateData.name = name;
+      if (phone) adminUpdateData.phone = phone;
+      if (address) adminUpdateData.address = address;
+      if (city) adminUpdateData.city = city;
+      if (state) adminUpdateData.state = state;
+      if (zipCode) adminUpdateData.zip_code = zipCode;
+      if (country) adminUpdateData.country = country;
+
+      if (Object.keys(adminUpdateData).length > 0) {
+        const { error: adminUpdateError } = await supabase
+          .from('admin')
+          .update(adminUpdateData)
+          .eq('email', email);
+
+        if (adminUpdateError) {
+          console.error('Error updating admin details:', adminUpdateError);
+          // Continue with request submission even if admin update fails
+        }
       }
 
       // Insert activation request into database
