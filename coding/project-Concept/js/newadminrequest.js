@@ -102,12 +102,24 @@
 
 
   // Load new admin requests
-  const loadNewAdminRequests = async () => {
+  const loadNewAdminRequests = async (filter = 'all') => {
     try {
-      const { data: requests, error } = await supabase
+      loadingRow.innerHTML = '<span colspan="6">Loading new admin requests...</span>';
+
+      let query = supabase
         .from('newadminrequests')
         .select('*')
         .order('requested_at', { ascending: false });
+
+      if (filter === 'pending') {
+        query = query.eq('status', 'pending');
+      } else if (filter === 'approved') {
+        query = query.eq('status', 'approved');
+      } else if (filter === 'rejected') {
+        query = query.eq('status', 'rejected');
+      }
+
+      const { data: requests, error } = await query;
 
       if (error) {
         console.error('Error loading requests:', error);
@@ -115,14 +127,36 @@
         return;
       }
 
-      if (loadingRow) {
-        loadingRow.remove();
+      // Clear existing content except header and loading row (which we'll remove/update)
+      // Actually, safest is to clear all rows after the header
+      while (requestsTable.children.length > 2) {
+        requestsTable.removeChild(requestsTable.lastChild);
       }
+
+      if (loadingRow) {
+        // Reset or hide loading row
+        loadingRow.innerHTML = '';
+        loadingRow.style.display = 'none';
+        // Note: Better to just remove it and re-append if needed, or hide it. 
+        // Logic below appends rows, so clearing table content is key.
+      }
+
+      // Clear table content more reliably
+      requestsTable.innerHTML = `
+            <div class="table-row table-head">
+              <span>Reference</span>
+              <span>Name</span>
+              <span>Email</span>
+              <span>Organization</span>
+              <span>Status</span>
+              <span>Actions</span>
+            </div>
+      `;
 
       if (!requests || requests.length === 0) {
         requestsTable.innerHTML += `
           <div class="table-row muted">
-            <span colspan="6">No new admin requests found.</span>
+            <span colspan="6">No requests found matching filter: ${filter}</span>
           </div>
         `;
         return;
@@ -148,6 +182,7 @@
     } catch (err) {
       console.error('Error:', err);
       if (loadingRow) {
+        loadingRow.style.display = 'flex'; // Show it again on error
         loadingRow.innerHTML = '<span colspan="6" style="color: #ef4444;">Error loading requests. Please refresh the page.</span>';
       }
     }
@@ -173,7 +208,7 @@
 
       // Store request ID for status update
       window.currentRequestId = requestId;
-      
+
       // Store initial status for change detection
       window.initialStatus = data.status;
 
@@ -182,23 +217,23 @@
 
       // Populate details
       document.getElementById('detailReference').textContent = data.reference_number || '-';
-      
+
       // Status display
       const statusDisplayElement = document.getElementById('detailStatusDisplay');
       if (statusDisplayElement) {
         statusDisplayElement.innerHTML = getStatusBadge(data.status);
       }
-      
+
       // Status select dropdown
       const statusSelect = document.getElementById('statusSelect');
       if (statusSelect) {
         statusSelect.value = data.status || 'approval_pending';
-        
+
         // Show/hide rejection reason field based on selected status
         const rejectionReasonField = document.getElementById('rejectionReasonField');
         const rejectionReasonInput = document.getElementById('rejectionReasonInput');
         const rejectionReasonRequired = document.getElementById('rejectionReasonRequired');
-        
+
         const toggleRejectionReason = () => {
           if (statusSelect.value === 'rejected') {
             if (rejectionReasonField) rejectionReasonField.classList.remove('hidden');
@@ -215,7 +250,7 @@
             }
           }
         };
-        
+
         statusSelect.addEventListener('change', () => {
           toggleRejectionReason();
           // Reset selected UI type when status changes away from approved
@@ -226,7 +261,7 @@
         });
         toggleRejectionReason(); // Initial check
       }
-      
+
       // Admin notes
       const adminNotesInput = document.getElementById('adminNotesInput');
       if (adminNotesInput) {
@@ -271,7 +306,7 @@
       const featuresContainer = document.getElementById('detailFeatures');
       if (data.features_needed) {
         const features = data.features_needed.split(',').map(f => f.trim()).filter(Boolean);
-        featuresContainer.innerHTML = features.map(feature => 
+        featuresContainer.innerHTML = features.map(feature =>
           `<span class="feature-chip">${feature}</span>`
         ).join('');
       } else {
@@ -288,7 +323,7 @@
         const isImage = ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileExt);
         const isPdf = fileExt === 'pdf';
         const proofUrl = data.identity_proof_url;
-        
+
         if (isImage) {
           identityContainer.innerHTML = `
             <img src="${proofUrl}" alt="Identity Proof" 
@@ -390,7 +425,7 @@
     const statusSelect = document.getElementById('statusSelect');
     const rejectionReasonInput = document.getElementById('rejectionReasonInput');
     const adminNotesInput = document.getElementById('adminNotesInput');
-    
+
     if (!statusSelect) {
       alert('Status select element not found.');
       return;
@@ -477,25 +512,25 @@
       console.log('Updating request with ID:', window.currentRequestId);
       console.log('Update data:', JSON.stringify(updateData, null, 2));
       console.log('Expected status:', newStatus);
-      
+
       // First, check what the current status is
       const { data: beforeUpdate, error: beforeError } = await supabase
         .from('newadminrequests')
         .select('id, status')
         .eq('id', window.currentRequestId)
         .single();
-      
+
       if (beforeError || !beforeUpdate) {
         console.error('Error fetching before update:', beforeError);
         throw new Error('Could not fetch request before update: ' + (beforeError?.message || 'Request not found'));
       }
-      
+
       console.log('Status before update:', beforeUpdate.status);
-      
+
       // Use the database function to update (bypasses RLS)
       let updateResult = null;
       let updateError = null;
-      
+
       const { data: functionResult, error: functionError } = await supabase.rpc('update_newadminrequest_status', {
         p_request_id: window.currentRequestId,
         p_new_status: newStatus,
@@ -503,31 +538,31 @@
         p_rejection_reason: rejectionReason,
         p_processed_by: session.id
       });
-      
+
       // If function doesn't exist or fails, fall back to direct update
       if (functionError) {
         console.warn('Function call failed, trying direct update:', functionError);
-        
+
         // Fallback to direct update
         const result = await supabase
           .from('newadminrequests')
           .update(updateData)
           .eq('id', window.currentRequestId)
           .select('id, status, updated_at');
-        
+
         updateResult = result.data;
         updateError = result.error;
       } else {
         // Function succeeded
         console.log('Function call successful:', functionResult);
-        
+
         // Fetch the updated record to verify
         const { data: fetchedResult, error: fetchError } = await supabase
           .from('newadminrequests')
           .select('id, status, updated_at')
           .eq('id', window.currentRequestId)
           .single();
-        
+
         if (fetchError) {
           updateError = fetchError;
         } else {
@@ -541,20 +576,20 @@
         console.error('Error code:', updateError.code);
         console.error('Error message:', updateError.message);
         console.error('Error details:', JSON.stringify(updateError, null, 2));
-        
+
         // Check if it's a constraint violation
-        if (updateError.code === '23514' || 
-            updateError.message?.includes('violates check constraint') || 
-            updateError.message?.includes('check constraint') ||
-            updateError.message?.includes('new row violates row-level security policy')) {
+        if (updateError.code === '23514' ||
+          updateError.message?.includes('violates check constraint') ||
+          updateError.message?.includes('check constraint') ||
+          updateError.message?.includes('new row violates row-level security policy')) {
           const errorMsg = 'Database constraint violation: The status "' + newStatus + '" may not be allowed.\n\n' +
-                          'Error: ' + updateError.message + '\n\n' +
-                          'Please run the SQL file "final_fix_status_constraint.sql" in Supabase SQL Editor.\n\n' +
-                          'This will update the database constraint to allow the new status values.';
+            'Error: ' + updateError.message + '\n\n' +
+            'Please run the SQL file "final_fix_status_constraint.sql" in Supabase SQL Editor.\n\n' +
+            'This will update the database constraint to allow the new status values.';
           alert(errorMsg);
           throw new Error('Status constraint violation: ' + updateError.message);
         }
-        
+
         throw updateError;
       }
 
@@ -565,27 +600,27 @@
         console.error('1. RLS policy is blocking the update');
         console.error('2. The record was deleted');
         console.error('3. The ID does not match');
-        
+
         // Try to fetch the record to see if it still exists
         const { data: checkRecord } = await supabase
           .from('newadminrequests')
           .select('id, status')
           .eq('id', window.currentRequestId)
           .maybeSingle();
-        
+
         if (!checkRecord) {
           throw new Error('Update failed: Record not found. It may have been deleted.');
         }
-        
+
         // The record exists but update returned no rows
         // This usually means the constraint rejected the status value
         const errorMsg = 'Update was blocked by the database!\n\n' +
-                        'Attempted to set status to: "' + newStatus + '"\n' +
-                        'Current status in database: "' + checkRecord.status + '"\n\n' +
-                        'The database constraint likely does not allow "' + newStatus + '".\n\n' +
-                        'Solution: Run "simple_fix_constraint.sql" in Supabase SQL Editor.\n\n' +
-                        'This will update the constraint to allow all required status values.';
-        
+          'Attempted to set status to: "' + newStatus + '"\n' +
+          'Current status in database: "' + checkRecord.status + '"\n\n' +
+          'The database constraint likely does not allow "' + newStatus + '".\n\n' +
+          'Solution: Run "simple_fix_constraint.sql" in Supabase SQL Editor.\n\n' +
+          'This will update the constraint to allow all required status values.';
+
         alert(errorMsg);
         throw new Error('Update returned no rows. The status "' + newStatus + '" may not be allowed by the database constraint. Please run simple_fix_constraint.sql');
       }
@@ -593,17 +628,17 @@
       // Check what status was actually saved in the update result
       const savedStatus = updateResult[0]?.status;
       console.log('Status from update result:', savedStatus);
-      
+
       if (savedStatus && savedStatus !== newStatus) {
         console.error('Status mismatch in update result!');
         console.error('Expected:', newStatus);
         console.error('Got from update result:', savedStatus);
-        
+
         const errorMsg = 'Status was converted by the database!\n\n' +
-                        'Expected: "' + newStatus + '"\n' +
-                        'Got: "' + savedStatus + '"\n\n' +
-                        'This means the database constraint or default value is converting your status.\n\n' +
-                        'Please run "final_fix_status_constraint.sql" in Supabase SQL Editor to fix the constraint.';
+          'Expected: "' + newStatus + '"\n' +
+          'Got: "' + savedStatus + '"\n\n' +
+          'This means the database constraint or default value is converting your status.\n\n' +
+          'Please run "final_fix_status_constraint.sql" in Supabase SQL Editor to fix the constraint.';
         alert(errorMsg);
         throw new Error('Status was converted from "' + newStatus + '" to "' + savedStatus + '"');
       }
@@ -639,17 +674,17 @@
         console.error('  Expected:', newStatus);
         console.error('  Got from DB:', verifyRequest.status);
         console.error('  Update result:', updateResult);
-        
+
         // Provide helpful error message
         const errorMsg = 'Status update mismatch detected.\n\n' +
-                        'Expected: "' + newStatus + '"\n' +
-                        'Got from database: "' + verifyRequest.status + '"\n\n' +
-                        'This usually means:\n' +
-                        '1. The database constraint doesn\'t allow "' + newStatus + '"\n' +
-                        '2. Or there\'s a default value converting it\n\n' +
-                        'Please ensure the SQL migration "update_newadminrequests_status_values.sql" has been run in Supabase SQL Editor.\n\n' +
-                        'The update may have been rejected or converted by the database.';
-        
+          'Expected: "' + newStatus + '"\n' +
+          'Got from database: "' + verifyRequest.status + '"\n\n' +
+          'This usually means:\n' +
+          '1. The database constraint doesn\'t allow "' + newStatus + '"\n' +
+          '2. Or there\'s a default value converting it\n\n' +
+          'Please ensure the SQL migration "update_newadminrequests_status_values.sql" has been run in Supabase SQL Editor.\n\n' +
+          'The update may have been rejected or converted by the database.';
+
         alert(errorMsg);
         throw new Error('Status update mismatch: Database returned "' + verifyRequest.status + '" instead of "' + newStatus + '". Please check database constraints.');
       }
@@ -659,7 +694,7 @@
       console.log('  - Updated at:', verifyRequest.updated_at);
       console.log('  - Processed at:', verifyRequest.processed_at);
       console.log('  - Processed by:', verifyRequest.processed_by);
-      
+
       // Verify processed_at logic
       if (['approved', 'rejected', 'customization_complete'].includes(newStatus)) {
         if (!verifyRequest.processed_at) {
@@ -739,7 +774,7 @@
       }
 
       alert('Status updated successfully!');
-      
+
       // Reload the page to refresh the table and all displays
       window.location.reload();
     } catch (err) {
@@ -787,19 +822,19 @@
     const statusSelect = document.getElementById('statusSelect');
     const rejectionReasonInput = document.getElementById('rejectionReasonInput');
     const rejectionReasonField = document.getElementById('rejectionReasonField');
-    
+
     if (statusSelect) {
       statusSelect.value = 'rejected';
       // Trigger change event to show the rejection reason field
       statusSelect.dispatchEvent(new Event('change'));
     }
-    
+
     // Sync the rejection reason from rejectReasonTextarea to rejectionReasonInput
     if (rejectionReasonInput) {
       rejectionReasonInput.value = rejectionReason;
       rejectionReasonInput.setAttribute('required', 'required');
     }
-    
+
     if (rejectionReasonField) {
       rejectionReasonField.classList.remove('hidden');
     }
@@ -862,7 +897,7 @@
     }
   };
 
-  window.selectUITypeForApproval = function(type, displayName) {
+  window.selectUITypeForApproval = function (type, displayName) {
     // Store selected UI type
     window.selectedUIType = type;
     window.selectedUITypeDisplay = displayName;
@@ -972,7 +1007,7 @@
 
       if (adminError) {
         console.error('Error creating admin:', adminError);
-        
+
         // Check if error is due to missing ui_type column
         const errorMessage = adminError.message || '';
         if (errorMessage.includes('ui_type') || errorMessage.includes('column') || adminError.code === '42703') {
@@ -1018,7 +1053,7 @@
     saveStatusBtn.addEventListener('click', async (e) => {
       e.preventDefault();
       const statusSelect = document.getElementById('statusSelect');
-      
+
       // If status is "approved", require UI type selection and admin creation first
       if (statusSelect && statusSelect.value === 'approved') {
         // Check if UI type has been selected (via admin creation flow)
@@ -1032,7 +1067,7 @@
         // Only allow direct save if we're not in the approval flow
         return;
       }
-      
+
       // For non-approved statuses, proceed with normal save
       await saveStatusUpdate();
     });
@@ -1126,18 +1161,24 @@
     });
   }
 
-  // Initialize on page load
-  const init = async () => {
-    const isAuthenticated = await checkAuth();
-    if (isAuthenticated) {
-      await loadNewAdminRequests();
-    }
-  };
+  // Check auth and load requests
+  (async () => {
+    if (await checkAuth()) {
+      if (document.getElementById('loadingRow')) loadingRow.style.display = 'flex';
+      loadNewAdminRequests();
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+      // Filter Buttons Logic
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          // Remove active class from all
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          // Add active class to clicked
+          e.target.classList.add('active');
+          // Load with filter
+          loadNewAdminRequests(e.target.dataset.filter);
+        });
+      });
+    }
+  })();
 })();
 

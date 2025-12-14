@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -175,6 +176,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="background-blur bg-one"></div>
   <div class="background-blur bg-two"></div>
@@ -202,6 +204,13 @@
           <div class="panel-head">
             <h3>New Admin Panel Requests</h3>
           </div>
+          <div class="filters"
+            style="padding: 16px 24px; display: flex; gap: 12px; border-bottom: 1px solid var(--border);">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="pending">Pending</button>
+            <button class="filter-btn" data-filter="approved">Approved</button>
+            <button class="filter-btn" data-filter="rejected">Rejected</button>
+          </div>
           <div id="requestsTable" class="table">
             <div class="table-row table-head">
               <span>Reference</span>
@@ -227,11 +236,11 @@
         <h2 class="popup-title">New Admin Request Details</h2>
         <button class="popup-close" id="closeDetailsPopup" aria-label="Close">
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
           </svg>
         </button>
       </div>
-      
+
       <div class="form-grid details-grid">
         <div class="field field-full-width">
           <h3 class="details-section-title">Reference Information</h3>
@@ -272,14 +281,16 @@
           <label class="detail-label" for="rejectionReasonInput">
             Rejection Reason <span class="required-asterisk hidden" id="rejectionReasonRequired">*</span>
           </label>
-          <textarea id="rejectionReasonInput" class="field-input" rows="3" placeholder="Enter rejection reason (required if status is Rejected)"></textarea>
+          <textarea id="rejectionReasonInput" class="field-input" rows="3"
+            placeholder="Enter rejection reason (required if status is Rejected)"></textarea>
         </div>
 
         <div class="field field-full-width">
           <label class="detail-label" for="adminNotesInput">
             Administrator Notes
           </label>
-          <textarea id="adminNotesInput" class="field-input" rows="3" placeholder="Add notes or comments about this request"></textarea>
+          <textarea id="adminNotesInput" class="field-input" rows="3"
+            placeholder="Add notes or comments about this request"></textarea>
         </div>
 
         <div class="field field-full-width">
@@ -294,12 +305,14 @@
         <div class="field field-full-width">
           <div class="reject-request-section">
             <h3 class="reject-section-title">Reject Request</h3>
-            <p class="reject-section-description">If you need to reject this request, use the button below. A rejection reason is required.</p>
+            <p class="reject-section-description">If you need to reject this request, use the button below. A rejection
+              reason is required.</p>
             <div class="field field-full-width" id="rejectReasonFieldContainer">
               <label class="detail-label" for="rejectReasonTextarea">
                 Rejection Reason <span class="required-asterisk">*</span>
               </label>
-              <textarea id="rejectReasonTextarea" class="field-input" rows="4" placeholder="Enter the reason for rejecting this request..." required></textarea>
+              <textarea id="rejectReasonTextarea" class="field-input" rows="4"
+                placeholder="Enter the reason for rejecting this request..." required></textarea>
             </div>
             <button type="button" class="cta reject-btn" id="rejectRequestBtn">
               <span>Reject Request</span>
@@ -437,15 +450,17 @@
     <div class="popup-modal edit-popup" style="max-width: 900px; max-height: 90vh; overflow-y: auto;">
       <div class="popup-header">
         <h2 class="popup-title">Select UI Type</h2>
-        <p class="subtitle" style="margin: 8px 0 0 0; color: var(--muted);">Choose a pre-built UI template for this admin</p>
+        <p class="subtitle" style="margin: 8px 0 0 0; color: var(--muted);">Choose a pre-built UI template for this
+          admin</p>
         <button class="popup-close" id="closeUITypeModal" aria-label="Close">
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
           </svg>
         </button>
       </div>
-      
-      <div class="ui-types-grid" id="uiTypesGrid" style="padding: 20px 40px 40px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px;">
+
+      <div class="ui-types-grid" id="uiTypesGrid"
+        style="padding: 20px 40px 40px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px;">
         <!-- UI types will be dynamically populated -->
       </div>
     </div>
@@ -456,22 +471,25 @@
     <div class="popup-modal edit-popup" style="max-width: 700px;">
       <div class="popup-header">
         <h2 class="popup-title">Create Admin Account</h2>
-        <p class="subtitle" style="margin: 8px 0 0 0; color: var(--muted);">Create admin credentials for the selected UI type: <strong id="selectedUITypeDisplay">-</strong></p>
+        <p class="subtitle" style="margin: 8px 0 0 0; color: var(--muted);">Create admin credentials for the selected UI
+          type: <strong id="selectedUITypeDisplay">-</strong></p>
         <button class="popup-close" id="closeAdminCreationModal" aria-label="Close">
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
           </svg>
         </button>
       </div>
-      
+
       <form id="adminCreationForm" class="form-grid" style="padding: 32px 40px 40px;">
         <input type="hidden" id="selectedUITypeValue" />
-        
+
         <label class="field">
           Admin Email <span class="required-asterisk">*</span>
           <div class="input">
             <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 17.5v-11Z" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".75"/>
+              <path
+                d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 17.5v-11Z"
+                fill="none" stroke="currentColor" stroke-width="1.5" opacity=".75" />
               <path d="m5.5 8 5.55 3.7a2 2 0 0 0 2.2 0L18.8 8" fill="none" stroke="currentColor" stroke-width="1.5" />
             </svg>
             <input id="newAdminEmail" type="email" placeholder="admin@example.com" autocomplete="email" required />
@@ -482,8 +500,9 @@
           Username <span class="required-asterisk">*</span>
           <div class="input">
             <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M5 19.5C5 16.4624 7.4624 14 10.5 14h3c3.0376 0 5.5 2.4624 5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" fill="none" stroke="currentColor" stroke-width="1.5" />
+              <path d="M5 19.5C5 16.4624 7.4624 14 10.5 14h3c3.0376 0 5.5 2.4624 5.5 5.5" fill="none"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
             </svg>
             <input id="newAdminUsername" type="text" placeholder="username" autocomplete="username" required />
           </div>
@@ -493,17 +512,20 @@
           PIN (Optional)
           <div class="input">
             <svg viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="4" y="10" width="16" height="10" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M8 10V8a4 4 0 0 1 8 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="4" y="10" width="16" height="10" rx="2" ry="2" fill="none" stroke="currentColor"
+                stroke-width="1.5" />
+              <path d="M8 10V8a4 4 0 0 1 8 0v2" fill="none" stroke="currentColor" stroke-width="1.5" />
             </svg>
-            <input id="newAdminPin" type="password" placeholder="Enter PIN (optional)" autocomplete="off" maxlength="6" />
+            <input id="newAdminPin" type="password" placeholder="Enter PIN (optional)" autocomplete="off"
+              maxlength="6" />
             <button type="button" class="password-toggle" aria-label="Toggle PIN visibility">
               <svg class="eye-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z" />
                 <circle cx="12" cy="12" r="3" />
               </svg>
               <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                <path
+                  d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
                 <line x1="1" y1="1" x2="23" y2="23" />
               </svg>
             </button>
@@ -514,17 +536,20 @@
           Password <span class="required-asterisk">*</span>
           <div class="input">
             <svg viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="4" y="10" width="16" height="10" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M8 10V8a4 4 0 0 1 8 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="4" y="10" width="16" height="10" rx="2" ry="2" fill="none" stroke="currentColor"
+                stroke-width="1.5" />
+              <path d="M8 10V8a4 4 0 0 1 8 0v2" fill="none" stroke="currentColor" stroke-width="1.5" />
             </svg>
-            <input id="newAdminPassword" type="password" placeholder="Set a password" autocomplete="new-password" required />
+            <input id="newAdminPassword" type="password" placeholder="Set a password" autocomplete="new-password"
+              required />
             <button type="button" class="password-toggle" aria-label="Toggle password visibility">
               <svg class="eye-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z" />
                 <circle cx="12" cy="12" r="3" />
               </svg>
               <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                <path
+                  d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
                 <line x1="1" y1="1" x2="23" y2="23" />
               </svg>
             </button>
@@ -535,17 +560,20 @@
           Confirm Password <span class="required-asterisk">*</span>
           <div class="input">
             <svg viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="4" y="10" width="16" height="10" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M8 10V8a4 4 0 0 1 8 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="4" y="10" width="16" height="10" rx="2" ry="2" fill="none" stroke="currentColor"
+                stroke-width="1.5" />
+              <path d="M8 10V8a4 4 0 0 1 8 0v2" fill="none" stroke="currentColor" stroke-width="1.5" />
             </svg>
-            <input id="newAdminPasswordConfirm" type="password" placeholder="Re-enter password" autocomplete="new-password" required />
+            <input id="newAdminPasswordConfirm" type="password" placeholder="Re-enter password"
+              autocomplete="new-password" required />
             <button type="button" class="password-toggle" aria-label="Toggle password visibility">
               <svg class="eye-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z" />
                 <circle cx="12" cy="12" r="3" />
               </svg>
               <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                <path
+                  d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
                 <line x1="1" y1="1" x2="23" y2="23" />
               </svg>
             </button>
@@ -578,21 +606,20 @@
 
   <!-- Document Viewer Modal -->
   <div id="documentViewerModal" class="popup-overlay hidden">
-    <div class="popup-modal document-viewer-popup" style="max-width: 95vw; max-height: 95vh; width: 95vw; height: 95vh; display: flex; flex-direction: column;">
+    <div class="popup-modal document-viewer-popup"
+      style="max-width: 95vw; max-height: 95vh; width: 95vw; height: 95vh; display: flex; flex-direction: column;">
       <div class="popup-header" style="flex-shrink: 0;">
         <h2 class="popup-title">Document Viewer</h2>
         <button class="popup-close" id="closeDocumentViewer" aria-label="Close">
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
           </svg>
         </button>
       </div>
-      <div class="document-viewer-content" style="flex: 1; min-height: 0; padding: 12px; overflow: hidden; width: 100%; box-sizing: border-box;">
-        <iframe id="documentViewerFrame" 
-                class="document-viewer-frame"
-                title="Document Viewer"
-                frameborder="0"
-                style="width: 100%; height: 100%; min-height: 80vh; border: 1px solid var(--border); border-radius: 8px; background: white; box-sizing: border-box; display: block;">
+      <div class="document-viewer-content"
+        style="flex: 1; min-height: 0; padding: 12px; overflow: hidden; width: 100%; box-sizing: border-box;">
+        <iframe id="documentViewerFrame" class="document-viewer-frame" title="Document Viewer" frameborder="0"
+          style="width: 100%; height: 100%; min-height: 80vh; border: 1px solid var(--border); border-radius: 8px; background: white; box-sizing: border-box; display: block;">
         </iframe>
       </div>
     </div>
@@ -603,12 +630,12 @@
   <script src="js/newadminrequest.js"></script>
   <script>
     // Global function to view documents
-    window.viewDocument = function(url, fileType) {
+    window.viewDocument = function (url, fileType) {
       const modal = document.getElementById('documentViewerModal');
       const frame = document.getElementById('documentViewerFrame');
-      
+
       if (!modal || !frame) return;
-      
+
       try {
         // Handle base64 data URLs
         if (url.startsWith('data:')) {
@@ -620,9 +647,9 @@
             // Try multiple methods for PDF viewing
             // Method 1: Direct URL (works if CORS allows)
             frame.src = url;
-            
+
             // Fallback: If direct doesn't work, try Google Docs viewer
-            frame.onerror = function() {
+            frame.onerror = function () {
               frame.src = `https://docs.google.com/viewer?url=${encodeURIComponent(url)}&embedded=true`;
             };
           } else if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileType)) {
@@ -634,7 +661,7 @@
             frame.src = url;
           }
         }
-        
+
         // Show modal
         modal.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
@@ -687,5 +714,5 @@
     });
   </script>
 </body>
-</html>
 
+</html>

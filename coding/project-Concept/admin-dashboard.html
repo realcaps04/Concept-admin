@@ -158,6 +158,22 @@
       </div>
 
       <form id="manageProfileForm" class="form-grid">
+        <!-- Profile Image Upload -->
+        <div class="profile-image-upload">
+          <div class="profile-avatar">
+            <img id="profileAvatarPreview" src="assets/default-avatar.svg" alt="Profile Avatar"
+              onerror="this.src='https://ui-avatars.com/api/?name=Admin&background=random'" />
+            <div class="avatar-overlay" onclick="document.getElementById('profileAvatarInput').click()">
+              <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 4v16m8-8H4" />
+              </svg>
+            </div>
+          </div>
+          <input type="file" id="profileAvatarInput" accept="image/*" style="display: none;"
+            onchange="previewAvatar(this)" />
+          <p class="upload-hint" onclick="document.getElementById('profileAvatarInput').click()">Click to upload new
+            avatar</p>
+        </div>
         <label class="field">
           Full Name
           <div class="input">

@@ -100,6 +100,13 @@
       document.getElementById('profileState').value = data.state || '';
       document.getElementById('profileZipCode').value = data.zip_code || '';
       document.getElementById('profileCountry').value = data.country || '';
+
+      // Load Avatar
+      if (data.avatar_url) {
+        document.getElementById('profileAvatarPreview').src = data.avatar_url;
+      } else {
+        document.getElementById('profileAvatarPreview').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(data.name || 'Admin')}&background=random`;
+      }
     } catch (err) {
       console.error('Error loading profile data:', err);
       showProfileMessage('Error loading profile data.', 'error');
@@ -140,6 +147,33 @@
       return;
     }
 
+    let avatarUrl = null;
+    const avatarInput = document.getElementById('profileAvatarInput');
+
+    if (avatarInput && avatarInput.files && avatarInput.files.length > 0) {
+      const file = avatarInput.files[0];
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${session.id}-${Date.now()}.${fileExt}`;
+
+      // Upload to Supabase Storage
+      const { error: uploadError } = await supabase.storage
+        .from('avatars')
+        .upload(fileName, file);
+
+      if (uploadError) {
+        console.error('Upload error:', uploadError);
+        showProfileMessage('Failed to upload avatar: ' + uploadError.message, 'error');
+        return;
+      }
+
+      // Get Public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(fileName);
+
+      avatarUrl = publicUrl;
+    }
+
     try {
       // Build update object - only include password if provided
       const updateData = {
@@ -154,6 +188,10 @@
         zip_code: zipCode,
         country
       };
+
+      if (avatarUrl) {
+        updateData.avatar_url = avatarUrl;
+      }
 
       // Only update password if a new one is provided
       if (password && password.length > 0) {
@@ -943,5 +981,15 @@
 
   // Load dashboard on page load
   loadDashboard();
+  // Expose preview function globally
+  window.previewAvatar = (input) => {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        document.getElementById('profileAvatarPreview').src = e.target.result;
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  };
 })();
 
