@@ -80,6 +80,10 @@
     }
   };
 
+  // State for OTP
+  let pendingAdminData = null;
+  let currentOtp = null;
+
   // Login handler - verify against Superadmin table
   const handleLogin = async (evt) => {
     evt.preventDefault();
@@ -91,12 +95,12 @@
       return;
     }
 
-    showLoginMessage('Signing in...');
+    showLoginMessage('Verifying credentials...');
 
-    // Query Superadmin table to verify credentials
+    // Query Superadmin table to verify credentials including phone
     const { data, error } = await supabase
       .from('Superadmin')
-      .select('id, email, name, password, is_active')
+      .select('id, email, name, password, is_active, phone')
       .eq('email', email)
       .eq('is_active', true)
       .single();
@@ -106,25 +110,162 @@
       return;
     }
 
-    // Note: In production, passwords should be hashed. For now, we'll do a simple comparison
-    // You should use bcrypt or similar for production
+    // Password verification
     if (data.password !== password) {
       showLoginMessage('Invalid email or password.', 'error');
       return;
     }
 
-    // Set session
+    // Credentials valid, initiate OTP flow
+    pendingAdminData = data;
+    initiateOtpFlow();
+  };
+
+  // OTP Logic
+  const initiateOtpFlow = async () => {
+    const otpPopup = document.getElementById('otpPopup');
+    if (!otpPopup) return;
+
+    // Generate 4-digit OTP
+    currentOtp = Math.floor(1000 + Math.random() * 9000).toString();
+    // Send OTP using Notification Service
+    const result = await NotificationService.sendOtp(
+      pendingAdminData.email,
+      pendingAdminData.phone,
+      currentOtp,
+      pendingAdminData.name
+    );
+
+    // Show user feedback
+    let msg = `Code sent to ${pendingAdminData.email}`;
+    if (result.sms) {
+      msg += ` and ${pendingAdminData.phone}`;
+    } else if (pendingAdminData.phone) {
+      console.log('SMS could not be sent (No provider configured)');
+    }
+
+    document.querySelector('.popup-message').textContent = msg;
+
+    // Show popup
+    otpPopup.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+
+    // Reset OTP inputs
+    const inputs = document.querySelectorAll('.otp-digit');
+    inputs.forEach(input => input.value = '');
+    inputs[0]?.focus();
+    setupOtpInputs();
+  };
+
+  const setupOtpInputs = () => {
+    const inputs = document.querySelectorAll('.otp-digit');
+    inputs.forEach((input, index) => {
+      // Auto-focus next input and check for completion
+      input.addEventListener('input', (e) => {
+        if (e.target.value.length === 1) {
+          if (index < inputs.length - 1) {
+            inputs[index + 1].focus();
+          } else {
+            // Last digit entered, trigger verification
+            const allFilled = Array.from(inputs).every(i => i.value.length === 1);
+            if (allFilled) {
+              // Call verify directly
+              verifyOtpLogic();
+            }
+          }
+        }
+      });
+
+      // Handle backspace
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !e.target.value) {
+          if (index > 0) inputs[index - 1].focus();
+        }
+      });
+
+      // Paste handler
+      input.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const text = (e.clipboardData || window.clipboardData).getData('text');
+        if (!/^\d{4}$/.test(text)) return;
+        const digits = text.split('');
+        inputs.forEach((inp, i) => inp.value = digits[i] || '');
+        inputs[3]?.focus();
+      });
+    });
+  };
+
+  const showOtpMessage = (text, type = 'info') => {
+    const el = document.getElementById('otpMessage');
+    if (!el) return;
+    el.textContent = text;
+    el.classList.remove('hidden', 'success', 'error');
+    el.style.color = type === 'error' ? '#ef4444' : (type === 'success' ? '#10b981' : 'inherit');
+  };
+
+  // Core Verification Logic
+  const verifyOtpLogic = () => {
+    const inputs = document.querySelectorAll('.otp-digit');
+    const enteredOtp = Array.from(inputs).map(i => i.value).join('');
+
+    if (enteredOtp.length !== 4) {
+      showOtpMessage('Please enter the complete 4-digit code.', 'error');
+      return;
+    }
+
+    if (enteredOtp !== currentOtp) {
+      showOtpMessage('Invalid code. Please try again.', 'error');
+      inputs.forEach(i => i.classList.add('error-shake'));
+      setTimeout(() => inputs.forEach(i => i.classList.remove('error-shake')), 500);
+      return;
+    }
+
+    // OTP Verified
+    showOtpMessage('Verified! Logging in...', 'success');
+
+    // Complete Login
     setSession({
-      id: data.id,
-      email: data.email,
-      name: data.name
+      id: pendingAdminData.id,
+      email: pendingAdminData.email,
+      name: pendingAdminData.name
     });
 
-    showLoginMessage('Login successful!', 'success');
     setTimeout(() => {
+      document.getElementById('otpPopup').classList.add('hidden');
+      document.body.style.overflow = '';
       showAdminConsole();
-    }, 500);
+    }, 1000);
   };
+
+  // Legacy/Form Handler
+  const handleOtpVerify = (e) => {
+    if (e) e.preventDefault();
+    verifyOtpLogic();
+  };
+
+  // Close OTP Popup
+  document.getElementById('closeOtpPopup')?.addEventListener('click', () => {
+    document.getElementById('otpPopup').classList.add('hidden');
+    document.body.style.overflow = '';
+    showLoginMessage('Login cancelled.', 'info');
+    pendingAdminData = null;
+    currentOtp = null;
+  });
+
+  // Resend OTP
+  document.getElementById('resendOtpBtn')?.addEventListener('click', () => {
+    currentOtp = Math.floor(1000 + Math.random() * 9000).toString();
+    console.log(`[DEV MODE] Resent OTP: ${currentOtp}`);
+    showOtpMessage('New code sent.', 'success');
+    // Clear inputs
+    const inputs = document.querySelectorAll('.otp-digit');
+    inputs.forEach(input => input.value = '');
+    inputs[0]?.focus();
+  });
+
+  // Attach OTP form listener
+  const otpForm = document.getElementById('otpForm');
+  if (otpForm) otpForm.addEventListener('submit', handleOtpVerify);
 
   // Logout handler
   const handleLogout = async () => {
@@ -241,9 +382,9 @@
     // Insert admin record into admin table
     const { data, error } = await supabase
       .from('admin')
-      .insert([{ 
-        name, 
-        email, 
+      .insert([{
+        name,
+        email,
         username,
         password, // Note: In production, hash this password
         pin,

@@ -250,7 +250,56 @@
     </div>
   </section>
 
+  <!-- OTP Validation Popup -->
+  <div id="otpPopup" class="popup-overlay hidden">
+    <div class="popup-modal" style="max-width: 400px;">
+      <button type="button" class="popup-close" id="closeOtpPopup">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <div class="popup-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+          <path d="M12 18h.01" />
+        </svg>
+      </div>
+
+      <h3 class="popup-title">Two-Step Verification</h3>
+      <p class="popup-message">We've sent a 4-digit verification code to your registered email and phone number.</p>
+
+      <form id="otpForm" class="otp-form">
+        <div class="field">
+          <label style="text-align: center; display: block; margin-bottom: 12px;">Enter 4-Digit PIN</label>
+          <div class="otp-input-group">
+            <input type="text" class="otp-digit" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+            <input type="text" class="otp-digit" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+            <input type="text" class="otp-digit" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+            <input type="text" class="otp-digit" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+          </div>
+        </div>
+
+        <div class="popup-actions">
+          <button type="submit" class="cta">
+            <span>Verify & Login</span>
+            <span class="glow"></span>
+          </button>
+        </div>
+
+        <p id="otpMessage" class="login-message hidden" style="margin-top: 12px; text-align: center;"></p>
+
+        <div style="text-align: center; margin-top: 16px;">
+          <button type="button" id="resendOtpBtn" class="link" style="font-size: 13px;">Resend Code</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script src="js/notifications.js"></script>
   <script src="js/password-toggle.js"></script>
   <script src="js/superadmin.js"></script>
 </body>
