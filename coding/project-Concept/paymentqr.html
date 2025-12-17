@@ -312,7 +312,7 @@
             // Construct the Absolute URL to payableqr.html
             // We use window.location to get the current base path
             const basePath = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
-            const paymentUrl = `${basePath}/payableqr.html?amount=${amount}`;
+            const paymentUrl = `${basePath}/payableqr.html?data=${btoa(amount)}`;
 
             // Update Link UI
             document.getElementById('generatedUrl').value = paymentUrl;

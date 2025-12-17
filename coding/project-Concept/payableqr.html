@@ -192,9 +192,20 @@
     </div>
 
     <script>
-        // Parse URL parameters
         const urlParams = new URLSearchParams(window.location.search);
-        const amount = urlParams.get('amount') || '0';
+        let amount = '0';
+
+        // Decode amount if 'data' param is present (obfuscated)
+        if (urlParams.has('data')) {
+            try {
+                amount = atob(urlParams.get('data'));
+            } catch (e) {
+                console.error('Invalid encoded amount');
+            }
+        } else {
+            // Fallback to plain 'amount' param
+            amount = urlParams.get('amount') || '0';
+        }
 
         // Configuration
         const upiId = '7510483455@ikwik';
