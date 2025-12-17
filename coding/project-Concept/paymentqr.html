@@ -66,6 +66,30 @@
         }
 
         /* Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            /* Semi-transparent backdrop */
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 0.2s ease;
+            padding: 20px;
+        }
+
+        .popup-overlay.hidden {
+            display: none;
+            opacity: 0;
+            pointer-events: none;
+        }
+
         .qr-popup-content {
             background: #fff;
             padding: 24px;
@@ -74,14 +98,25 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            width: 90%;
-            /* Responsive width */
+            width: 100%;
             max-width: 380px;
             position: relative;
             max-height: 90vh;
-            /* Prevent overflow on small heights */
             overflow-y: auto;
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            animation: popupSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes popupSlideIn {
+            from {
+                transform: translateY(20px) scale(0.96);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
         }
 
         .qr-popup-content::before {
