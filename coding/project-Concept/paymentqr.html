@@ -160,7 +160,6 @@
             body {
                 padding: 10px !important;
                 display: block !important;
-                /* Allow scrolling */
                 height: auto !important;
             }
 
@@ -173,7 +172,6 @@
             .card {
                 border-radius: 16px !important;
                 box-shadow: none !important;
-                /* Cleaner look on mobile */
                 border: none !important;
             }
 
@@ -181,7 +179,7 @@
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 16px;
-                padding: 24px 20px !important;
+                padding: 20px 16px !important;
             }
 
             .header-actions {
@@ -192,12 +190,11 @@
 
             .back-btn {
                 width: auto !important;
-                /* Allow natural width */
                 padding: 8px 16px;
             }
 
             .card-body {
-                padding: 20px !important;
+                padding: 16px !important;
             }
 
             .receiver-details-card {
@@ -212,16 +209,36 @@
 
             .detail-value {
                 text-align: left;
-                font-size: 15px;
+                font-size: 14px;
+                /* Reduced slightly for safety */
                 width: 100%;
                 word-break: break-all;
             }
 
-            /* Ensure popup fits */
+            /* Adjust Overlay for Mobile */
+            .popup-overlay {
+                padding: 16px !important;
+                /* Smaller padding */
+                align-items: flex-end;
+                /* Bottom sheet style often feels better, but center is safer for now. Stick to center but ensure fit. */
+                align-items: center;
+            }
+
+            /* Ensure popup fits perfectly */
             .qr-popup-content {
-                width: 92% !important;
-                max-height: 85vh;
+                width: 100% !important;
+                /* Take full available width of parent (minus padding) */
+                max-width: 100% !important;
+                margin: 0 !important;
                 padding: 24px 16px;
+                max-height: 80vh;
+                /* Reduced max-height for keyboard safety */
+            }
+
+            /* Input field inside popup */
+            #generatedUrl {
+                font-size: 12px !important;
+                /* Prevent iOS zoom */
             }
         }
     </style>
