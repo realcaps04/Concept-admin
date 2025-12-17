@@ -10,19 +10,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
+        /* Base Mobile-First Layout Adjustments */
+        .card-body {
+            padding: 20px;
+            /* Reduced padding from default if needed */
+        }
+
         .input-section {
             display: flex;
             flex-direction: column;
             gap: 24px;
             max-width: 600px;
-            margin: 20px auto;
+            margin: 0 auto;
+            /* Removed top margin for tighter mobile look */
+            width: 100%;
         }
 
         .receiver-details-card {
             background: #f8faff;
             border: 1px solid var(--border);
             border-radius: 16px;
-            padding: 24px;
+            padding: 20px;
         }
 
         .detail-row {
@@ -31,6 +39,7 @@
             align-items: center;
             padding: 12px 0;
             border-bottom: 1px solid var(--border);
+            gap: 12px;
         }
 
         .detail-row:last-child {
@@ -42,6 +51,8 @@
             color: var(--muted);
             font-size: 14px;
             font-weight: 500;
+            white-space: nowrap;
+            /* Keep label on one line if possible */
         }
 
         .detail-value {
@@ -49,20 +60,28 @@
             font-size: 14px;
             font-weight: 600;
             font-family: 'SF Mono', 'Roboto Mono', monospace;
+            text-align: right;
+            word-break: break-all;
+            /* Ensure long IDs don't overflow */
         }
 
         /* Popup Styles */
         .qr-popup-content {
             background: #fff;
-            padding: 32px;
+            padding: 24px;
             border-radius: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            width: 100%;
-            max-width: 400px;
+            width: 90%;
+            /* Responsive width */
+            max-width: 380px;
             position: relative;
+            max-height: 90vh;
+            /* Prevent overflow on small heights */
+            overflow-y: auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
         .qr-popup-content::before {
@@ -77,10 +96,14 @@
         }
 
         .qr-code-img {
-            width: 250px;
-            height: 250px;
-            border-radius: 8px;
-            margin-bottom: 24px;
+            width: 100%;
+            max-width: 240px;
+            /* Limit max size */
+            height: auto;
+            aspect-ratio: 1;
+            /* Keep square */
+            border-radius: 12px;
+            margin-bottom: 20px;
             border: 1px solid #eee;
         }
 
@@ -94,6 +117,59 @@
         .scan-instruction {
             color: var(--muted);
             font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        /* Mobile Specific Overrides */
+        @media (max-width: 480px) {
+            .shell {
+                padding: 16px;
+            }
+
+            .card {
+                border-radius: 12px;
+            }
+
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .header-actions {
+                width: 100%;
+            }
+
+            .back-btn {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+
+            .receiver-details-card {
+                padding: 16px;
+            }
+
+            .detail-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+
+            .detail-value {
+                text-align: left;
+                font-size: 15px;
+                /* Slightly larger for readability */
+            }
+
+            /* Stack logos if needed or reduce size */
+            .payment-logos img {
+                height: 20px;
+            }
+
+            .generated-amount {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
