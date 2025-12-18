@@ -212,33 +212,50 @@
                 font-size: 14px;
                 /* Reduced slightly for safety */
                 width: 100%;
-                word-break: break-all;
             }
 
             /* Adjust Overlay for Mobile */
             .popup-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: auto !important;
+                height: auto !important;
                 padding: 16px !important;
-                /* Smaller padding */
-                align-items: flex-end;
-                /* Bottom sheet style often feels better, but center is safer for now. Stick to center but ensure fit. */
+                background: rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(4px);
+                z-index: 1000;
+                display: flex !important;
                 align-items: center;
+                justify-content: center;
+                box-sizing: border-box !important;
             }
 
             /* Ensure popup fits perfectly */
             .qr-popup-content {
-                width: 100% !important;
-                /* Take full available width of parent (minus padding) */
-                max-width: 100% !important;
-                margin: 0 !important;
+                width: 90% !important;
+                /* Simple percentage */
+                max-width: 360px !important;
+                margin: auto !important;
+                /* Restore magic centering */
                 padding: 24px 16px;
                 max-height: 80vh;
-                /* Reduced max-height for keyboard safety */
+                box-sizing: border-box !important;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+                transform: translateX(-22%) !important;
+                top: -28vh;
+                /* Slight manual adjustment to perfect visual center */
             }
 
             /* Input field inside popup */
             #generatedUrl {
-                font-size: 12px !important;
-                /* Prevent iOS zoom */
+                font-size: 13px !important;
+                flex: 1 !important;
+                width: auto !important;
+                min-width: 0 !important;
+                /* crucial for flex shrinking */
             }
         }
     </style>
