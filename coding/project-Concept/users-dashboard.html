@@ -1181,7 +1181,8 @@
                 <a href="#" class="nav-link" onclick="showSection('chat', this)"><i class="fas fa-comments"></i>
                     Chats</a>
                 <a href="#" class="nav-link"><i class="fas fa-wrench"></i> Services</a>
-                <a href="#" class="nav-link"><i class="fas fa-lightbulb"></i> Suggestions</a>
+                <a href="#" class="nav-link" onclick="showSection('suggestions', this)"><i class="fas fa-lightbulb"></i>
+                    Suggestions</a>
                 <a href="#" class="nav-link"><i class="fas fa-cog"></i> Setting</a>
                 <a href="javascript:void(0)" class="nav-link" onclick="handleLogout()"
                     style="margin-top: auto; color: #ef4444;"><i class="fas fa-sign-out-alt"></i> Log Out</a>
@@ -1489,6 +1490,42 @@
                 </div>
             </div>
 
+            <!-- Suggestions Section -->
+            <div id="suggestions-section" style="display: none;">
+                <div
+                    style="background: white; border-radius: 25px; padding: 40px; max-width: 800px; margin: 0 auto; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0;">
+                    <div style="margin-bottom: 30px; text-align: center;">
+                        <h2 style="color: var(--secondary); font-size: 1.75rem; margin-bottom: 12px; font-weight: 700;">
+                            Make a Suggestion</h2>
+                        <p style="color: var(--text-muted); font-size: 1.05rem;">We value your feedback! Let us know how
+                            we can improve your experience.</p>
+                    </div>
+                    <form id="suggestionForm">
+                        <div class="login-field">
+                            <label>Title</label>
+                            <div class="login-input-wrapper">
+                                <input type="text" id="suggestionTitle" placeholder="Brief title of your suggestion"
+                                    required>
+                                <i class="fas fa-heading"></i>
+                            </div>
+                        </div>
+                        <div class="login-field">
+                            <label>Message</label>
+                            <div class="login-input-wrapper" style="align-items: flex-start;">
+                                <textarea id="suggestionMessage" rows="6"
+                                    placeholder="Describe your suggestion or bug report in detail..." required
+                                    style="width: 100%; padding: 14px 16px 14px 46px; border-radius: 14px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 1rem; font-family: inherit; color: #0f172a; outline: none; transition: all 0.2s; resize: vertical;"></textarea>
+                                <i class="fas fa-comment-alt" style="top: 18px;"></i>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-login-submit" id="btnSubmitSuggestion"
+                            style="margin-top: 24px; background: linear-gradient(135deg, #4C49ED 0%, #0A06F4 100%);">
+                            Submit Suggestion
+                        </button>
+                    </form>
+                </div>
+            </div>
+
         </main>
     </div>
 
@@ -1664,6 +1701,7 @@
             // Hide all sections
             document.getElementById('dashboard-section').style.display = 'none';
             document.getElementById('chat-section').style.display = 'none';
+            document.getElementById('suggestions-section').style.display = 'none';
 
             // Show selected section
             if (sectionId === 'dashboard') {
@@ -1672,8 +1710,44 @@
             } else if (sectionId === 'chat') {
                 document.getElementById('chat-section').style.display = 'block';
                 document.getElementById('page-title').innerText = 'Messages';
+            } else if (sectionId === 'suggestions') {
+                document.getElementById('suggestions-section').style.display = 'block';
+                document.getElementById('page-title').innerText = 'Suggestions';
             }
         };
+
+        // Handle Suggestion Submission
+        document.getElementById('suggestionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btnSubmitSuggestion');
+            const title = document.getElementById('suggestionTitle').value.trim();
+            const message = document.getElementById('suggestionMessage').value.trim();
+
+            if (!currentUserEmail) {
+                alert("You must be logged in to submit a suggestion.");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Submitting...';
+
+            try {
+                const { error } = await sbClient
+                    .from('project_suggestions')
+                    .insert([{ user_email: currentUserEmail, title: title, message: message }]);
+
+                if (error) throw error;
+
+                alert("Thank you! Your suggestion has been submitted successfully.");
+                document.getElementById('suggestionForm').reset();
+            } catch (err) {
+                console.error('Error submitting suggestion:', err);
+                alert("Failed to submit suggestion. Please try again.");
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Submit Suggestion";
+            }
+        });
 
         // Close on overlay click
         async function handleImageUpload(input) {
