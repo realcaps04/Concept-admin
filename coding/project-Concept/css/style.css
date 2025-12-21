@@ -54,7 +54,7 @@ body {
   background: radial-gradient(circle, rgba(123, 123, 255, 0.34), transparent 60%);
   top: -140px;
   right: -130px;
-  animation: floatOne 20s infinite alternate ease-in-out;
+  /* animation: floatOne 20s infinite alternate ease-in-out; */
 }
 
 .bg-two {
@@ -63,7 +63,7 @@ body {
   background: radial-gradient(circle, rgba(91, 166, 255, 0.3), transparent 58%);
   bottom: -140px;
   left: -90px;
-  animation: floatTwo 25s infinite alternate ease-in-out;
+  /* animation: floatTwo 25s infinite alternate ease-in-out; */
 }
 
 .shell {
@@ -317,71 +317,9 @@ h1 {
   margin-bottom: 8px;
 }
 
-/* Animated not found icon */
-.not-found-icon {
-  animation: notFoundFloat 3s ease-in-out infinite;
-}
+/* Animation removed */
 
-.not-found-icon .search-circle {
-  animation: searchRotate 4s ease-in-out infinite;
-  transform-origin: 32px 32px;
-}
-
-.not-found-icon .search-handle {
-  animation: searchRotate 4s ease-in-out infinite;
-  transform-origin: 48px 48px;
-}
-
-.not-found-icon .question-circle {
-  animation: questionPulse 2s ease-in-out infinite;
-}
-
-.not-found-icon .question-dot {
-  animation: questionPulse 2s ease-in-out infinite;
-  animation-delay: 0.3s;
-}
-
-@keyframes notFoundFloat {
-
-  0%,
-  100% {
-    transform: translateY(0) scale(1);
-  }
-
-  50% {
-    transform: translateY(-8px) scale(1.05);
-  }
-}
-
-@keyframes searchRotate {
-
-  0%,
-  100% {
-    transform: rotate(0deg);
-  }
-
-  25% {
-    transform: rotate(-8deg);
-  }
-
-  75% {
-    transform: rotate(8deg);
-  }
-}
-
-@keyframes questionPulse {
-
-  0%,
-  100% {
-    opacity: 0.6;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 1;
-    transform: scale(1.1);
-  }
-}
+/* Keyframes removed */
 
 .empty-state h3 {
   font-size: 20px;
@@ -923,8 +861,6 @@ h1 {
   }
 }
 
-transition: opacity 0.18s ease;
-}
 
 .link:hover::after {
   opacity: 1;
@@ -1024,7 +960,7 @@ transition: opacity 0.18s ease;
   align-items: center;
   justify-content: center;
   z-index: 10000;
-  animation: fadeIn 0.3s ease;
+  /* animation: fadeIn 0.3s ease; */
   overflow: hidden;
 }
 
@@ -1044,7 +980,7 @@ transition: opacity 0.18s ease;
   margin: 20px;
   box-shadow: 0 24px 64px rgba(21, 41, 76, 0.3);
   text-align: center;
-  animation: slideUp 0.4s ease;
+  /* animation: slideUp 0.4s ease; */
   overflow-y: auto;
   overflow-x: hidden;
   display: flex;
@@ -1076,7 +1012,7 @@ transition: opacity 0.18s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: scaleIn 0.5s ease;
+  /* animation: scaleIn 0.5s ease; */
   flex-shrink: 0;
   box-sizing: border-box;
 }
@@ -1132,37 +1068,7 @@ transition: opacity 0.18s ease;
   margin-top: 16px;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(30px);
-    opacity: 0;
-  }
-
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    transform: scale(0);
-  }
-
-  to {
-    transform: scale(1);
-  }
-}
+/* Keyframes removed */
 
 /* Edit Popup Styles */
 .edit-popup {
@@ -1846,14 +1752,6 @@ transition: opacity 0.18s ease;
   font-weight: 400;
 }
 
-background: #f0f9ff;
-border-radius: 12px;
-font-size: 15px;
-color: var(--text);
-min-height: 60px;
-line-height: 1.6;
-border: 1px solid #dbeafe;
-}
 
 /* Field Input Styles for Details Popup */
 .details-grid .field-input {
@@ -2575,41 +2473,7 @@ border: 1px solid #dbeafe;
   border-radius: 4px;
 }
 
-@keyframes floatOne {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-
-  33% {
-    transform: translate(30px, -50px) scale(1.1);
-  }
-
-  66% {
-    transform: translate(-20px, 20px) scale(0.9);
-  }
-
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-}
-
-@keyframes floatTwo {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-
-  33% {
-    transform: translate(-30px, 50px) scale(1.1);
-  }
-
-  66% {
-    transform: translate(20px, -20px) scale(0.9);
-  }
-
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-}
+/* Keyframes removed */
 
 /* Floating Cursor Animations */
 .cursor-animation-container {
@@ -2650,7 +2514,7 @@ border: 1px solid #dbeafe;
   color: #5ba6ff;
   top: 20%;
   left: 20%;
-  animation: floatCursor1 18s infinite ease-in-out;
+  /* animation: floatCursor1 18s infinite ease-in-out; */
 }
 
 .cursor-1 .cursor-label {
@@ -2662,8 +2526,7 @@ border: 1px solid #dbeafe;
   color: #7b7bff;
   top: 60%;
   left: 70%;
-  animation: floatCursor2 22s infinite ease-in-out;
-  animation-delay: -5s;
+  /* animation: floatCursor2 22s infinite ease-in-out; */
 }
 
 .cursor-2 .cursor-label {
@@ -2675,79 +2538,14 @@ border: 1px solid #dbeafe;
   color: #2fca7a;
   top: 70%;
   left: 15%;
-  animation: floatCursor3 20s infinite ease-in-out;
-  animation-delay: -10s;
+  /* animation: floatCursor3 20s infinite ease-in-out; */
 }
 
 .cursor-3 .cursor-label {
   background: #2fca7a;
 }
 
-@keyframes floatCursor1 {
-  0% {
-    transform: translate(0, 0);
-  }
-
-  20% {
-    transform: translate(150px, 50px);
-  }
-
-  45% {
-    transform: translate(80px, 200px);
-  }
-
-  70% {
-    transform: translate(-50px, 120px);
-  }
-
-  100% {
-    transform: translate(0, 0);
-  }
-}
-
-@keyframes floatCursor2 {
-  0% {
-    transform: translate(0, 0);
-  }
-
-  25% {
-    transform: translate(-120px, -80px);
-  }
-
-  50% {
-    transform: translate(-180px, 50px);
-  }
-
-  75% {
-    transform: translate(-60px, 100px);
-  }
-
-  100% {
-    transform: translate(0, 0);
-  }
-}
-
-@keyframes floatCursor3 {
-  0% {
-    transform: translate(0, 0);
-  }
-
-  30% {
-    transform: translate(100px, -100px);
-  }
-
-  60% {
-    transform: translate(200px, -50px);
-  }
-
-  85% {
-    transform: translate(50px, 80px);
-  }
-
-  100% {
-    transform: translate(0, 0);
-  }
-}
+/* Keyframes removed */
 
 /* OTP Input Styles */
 .otp-input-group {

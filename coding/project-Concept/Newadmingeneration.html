@@ -29,8 +29,6 @@
 
     .hero-content {
       max-width: 800px;
-      animation: fadeInUp 1s ease;
-      will-change: transform, opacity;
     }
 
     .hero-title {
@@ -66,7 +64,6 @@
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 8px 24px rgba(91, 166, 255, 0.3);
-      animation: pulse 2s ease infinite;
       margin-top: 8px;
     }
 
@@ -78,7 +75,6 @@
     }
 
     .hero-cta-button:hover {
-      transform: translateY(-2px);
       box-shadow: 0 12px 32px rgba(91, 166, 255, 0.4);
       background: linear-gradient(135deg, #4a95ff, #6a6aff);
     }
@@ -104,9 +100,9 @@
       border-radius: 24px;
       padding: 40px;
       text-align: center;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      opacity: 0;
-      transform: translateY(50px);
+      transition: none;
+      opacity: 1;
+      transform: none;
       box-shadow: 0 8px 32px rgba(21, 41, 76, 0.1);
     }
 
@@ -116,7 +112,7 @@
     }
 
     .feature-card:hover {
-      transform: translateY(-8px);
+      transform: none;
       box-shadow: 0 16px 48px rgba(91, 166, 255, 0.2);
       border-color: var(--primary);
     }
@@ -130,32 +126,26 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      animation: float 3s ease-in-out infinite;
     }
 
     .feature-card:nth-child(2) .feature-icon {
       background: linear-gradient(135deg, #7b7bff, #a855f7);
-      animation-delay: 0.2s;
     }
 
     .feature-card:nth-child(3) .feature-icon {
       background: linear-gradient(135deg, #2fca7a, #10b981);
-      animation-delay: 0.4s;
     }
 
     .feature-card:nth-child(4) .feature-icon {
       background: linear-gradient(135deg, #f97316, #ea580c);
-      animation-delay: 0.6s;
     }
 
     .feature-card:nth-child(5) .feature-icon {
       background: linear-gradient(135deg, #ef4444, #dc2626);
-      animation-delay: 0.8s;
     }
 
     .feature-card:nth-child(6) .feature-icon {
       background: linear-gradient(135deg, #eab308, #ca8a04);
-      animation-delay: 1s;
     }
 
     .feature-icon svg {
@@ -198,11 +188,10 @@
       text-decoration: none;
       transition: all 0.3s ease;
       box-shadow: 0 8px 24px rgba(91, 166, 255, 0.3);
-      animation: pulse 2s ease infinite;
     }
 
     .cta-button:hover {
-      transform: translateY(-2px);
+      transform: none;
       box-shadow: 0 12px 32px rgba(91, 166, 255, 0.4);
     }
 
@@ -257,13 +246,13 @@
     }
 
     .track-status-btn:hover {
-      transform: translateY(-2px);
+      transform: none;
       box-shadow: 0 6px 16px rgba(91, 166, 255, 0.4);
       background: linear-gradient(135deg, #4a95ff, #6a6aff);
     }
 
     .track-status-btn:active {
-      transform: translateY(0);
+      transform: none;
     }
 
     .track-status-btn svg {
@@ -297,36 +286,10 @@
       will-change: transform;
       /* Use 3D transform to force GPU acceleration */
       transform: translate3d(0, 0, 0);
-      animation: floatShape 20s infinite ease-in-out;
+      transform: translate3d(0, 0, 0);
     }
 
-    @keyframes floatShape {
-
-      0%,
-      100% {
-        transform: translate3d(0, 0, 0) rotate(0deg);
-      }
-
-      33% {
-        transform: translate3d(30px, -30px, 0) rotate(120deg);
-      }
-
-      66% {
-        transform: translate3d(-20px, 20px, 0) rotate(240deg);
-      }
-    }
-
-    @keyframes pulse {
-
-      0%,
-      100% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(1.05);
-      }
-    }
+    /* Animations Removed */
 
     /* Request Popup Styles */
     .request-popup-overlay {

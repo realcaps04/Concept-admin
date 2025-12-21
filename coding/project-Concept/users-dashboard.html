@@ -680,6 +680,143 @@
             box-shadow: 0 5px 15px rgba(52, 60, 106, 0.2);
         }
 
+        /* Category Selector Styles */
+        .category-selector-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .category-option {
+            background: #f8fafc;
+            border: 2px solid transparent;
+            border-radius: 16px;
+            padding: 20px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-option:hover {
+            background: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-option.selected {
+            background: #eff6ff;
+            border-color: #2563eb;
+            color: #2563eb;
+        }
+
+        .category-option .cat-icon {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+
+        .category-option.selected .cat-icon {
+            color: #2563eb;
+        }
+
+        .category-option span {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Specific Category Colors */
+        /* Bugs - Red */
+        .category-option.cat-bugs:hover,
+        .category-option.cat-bugs.selected {
+            background-color: #fef2f2;
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+
+        .category-option.cat-bugs .cat-icon {
+            color: #ef4444;
+        }
+
+        .category-option.cat-bugs.selected .cat-icon {
+            color: #ef4444;
+        }
+
+        /* Issues - Orange */
+        .category-option.cat-issues:hover,
+        .category-option.cat-issues.selected {
+            background-color: #fff7ed;
+            border-color: #f97316;
+            color: #f97316;
+        }
+
+        .category-option.cat-issues .cat-icon {
+            color: #f97316;
+        }
+
+        .category-option.cat-issues.selected .cat-icon {
+            color: #f97316;
+        }
+
+        /* Reports - Red (as requested) / Dark Red */
+        .category-option.cat-reports:hover,
+        .category-option.cat-reports.selected {
+            background-color: #fef2f2;
+            border-color: #dc2626;
+            color: #dc2626;
+        }
+
+        .category-option.cat-reports .cat-icon {
+            color: #dc2626;
+        }
+
+        .category-option.cat-reports.selected .cat-icon {
+            color: #dc2626;
+        }
+
+        /* Suggestions - Green */
+        .category-option.cat-suggestions:hover,
+        .category-option.cat-suggestions.selected {
+            background-color: #ecfdf5;
+            border-color: #10b981;
+            color: #10b981;
+        }
+
+        .category-option.cat-suggestions .cat-icon {
+            color: #10b981;
+        }
+
+        .category-option.cat-suggestions.selected .cat-icon {
+            color: #10b981;
+        }
+
+        /* Others - Gray */
+        .category-option.cat-others:hover,
+        .category-option.cat-others.selected {
+            background-color: #f8fafc;
+            border-color: #64748b;
+            color: #64748b;
+        }
+
+        .category-option.cat-others .cat-icon {
+            color: #64748b;
+        }
+
+        .category-option.cat-others.selected .cat-icon {
+            color: #64748b;
+        }
+
+        @media (max-width: 768px) {
+            .category-selector-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
         .identity-modal {
             background: rgba(255, 255, 255, 0.95);
             width: 90%;
@@ -1164,6 +1301,19 @@
         </div>
     </div>
 
+    <!-- Generic Notification Modal -->
+    <div id="notificationModal" class="maintenance-overlay" style="display: none; z-index: 5000;">
+        <div class="maintenance-modal" style="text-align: center;">
+            <div class="maintenance-icon" id="notificationIcon" style="background: #eef2ff; color: #4338ca;">
+                <i class="fas fa-info-circle"></i>
+            </div>
+            <h2 id="notificationTitle" style="color: #1e293b;">Notification</h2>
+            <p id="notificationMessage" style="color: #64748b;">Message details go here.</p>
+            <button class="btn-maintenance-ok" onclick="closeNotificationModal()" id="notificationBtn"
+                style="background: #4338ca;">OK</button>
+        </div>
+    </div>
+
     <div class="dashboard-container">
         <!-- Sidebar -->
         <aside class="sidebar">
@@ -1177,13 +1327,18 @@
                     Dashboard</a>
                 <a href="#" class="nav-link" onclick="showSection('projects', this)"><i
                         class="fas fa-project-diagram"></i> Projects</a>
-                <a href="#" class="nav-link"><i class="fas fa-user-circle"></i> Accounts</a>
+                <a href="#" class="nav-link" onclick="showSection('accounts', this)"><i class="fas fa-user-circle"></i>
+                    Accounts</a>
                 <a href="#" class="nav-link" onclick="showSection('chat', this)"><i class="fas fa-comments"></i>
                     Chats</a>
-                <a href="#" class="nav-link"><i class="fas fa-wrench"></i> Services</a>
+                <a href="#" class="nav-link" onclick="showSection('developers', this)"><i class="fas fa-code"></i>
+                    Developers</a>
+                <a href="#" class="nav-link" onclick="showSection('services', this)"><i class="fas fa-wrench"></i>
+                    Services</a>
                 <a href="#" class="nav-link" onclick="showSection('suggestions', this)"><i class="fas fa-lightbulb"></i>
                     Suggestions</a>
-                <a href="#" class="nav-link"><i class="fas fa-cog"></i> Setting</a>
+                <a href="#" class="nav-link" onclick="showSection('settings', this)"><i class="fas fa-cog"></i>
+                    Setting</a>
                 <a href="javascript:void(0)" class="nav-link" onclick="handleLogout()"
                     style="margin-top: auto; color: #ef4444;"><i class="fas fa-sign-out-alt"></i> Log Out</a>
             </nav>
@@ -1496,11 +1651,38 @@
                     style="background: white; border-radius: 25px; padding: 40px; max-width: 800px; margin: 0 auto; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0;">
                     <div style="margin-bottom: 30px; text-align: center;">
                         <h2 style="color: var(--secondary); font-size: 1.75rem; margin-bottom: 12px; font-weight: 700;">
-                            Make a Suggestion</h2>
-                        <p style="color: var(--text-muted); font-size: 1.05rem;">We value your feedback! Let us know how
-                            we can improve your experience.</p>
+                            Make your Feedback</h2>
+                        <p style="color: var(--text-muted); font-size: 1.05rem;">We value your feedback! Select a
+                            category and let us know how we can improve.</p>
                     </div>
-                    <form id="suggestionForm">
+
+                    <!-- Category Selector -->
+                    <div class="category-selector-container">
+                        <div class="category-option cat-bugs" data-value="Bugs" onclick="selectCategory(this)">
+                            <div class="cat-icon"><i class="fas fa-bug"></i></div>
+                            <span>Bugs</span>
+                        </div>
+                        <div class="category-option cat-issues" data-value="Issues" onclick="selectCategory(this)">
+                            <div class="cat-icon"><i class="fas fa-exclamation-circle"></i></div>
+                            <span>Issues</span>
+                        </div>
+                        <div class="category-option cat-reports" data-value="Reports" onclick="selectCategory(this)">
+                            <div class="cat-icon"><i class="fas fa-flag"></i></div>
+                            <span>Reports</span>
+                        </div>
+                        <div class="category-option cat-suggestions" data-value="Suggestions"
+                            onclick="selectCategory(this)">
+                            <div class="cat-icon"><i class="fas fa-lightbulb"></i></div>
+                            <span>Suggestions</span>
+                        </div>
+                        <div class="category-option cat-others" data-value="Others" onclick="selectCategory(this)">
+                            <div class="cat-icon"><i class="fas fa-ellipsis-h"></i></div>
+                            <span>Others</span>
+                        </div>
+                    </div>
+                    <input type="hidden" id="selectedCategory" value="">
+
+                    <form id="suggestionForm" style="margin-top: 30px;">
                         <div class="login-field">
                             <label>Title</label>
                             <div class="login-input-wrapper">
@@ -1523,6 +1705,59 @@
                             Submit Suggestion
                         </button>
                     </form>
+                </div>
+            </div>
+
+            <!-- Projects Section -->
+            <div id="projects-section" style="display: none;">
+                <div
+                    style="background: white; border-radius: 25px; padding: 40px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0; text-align: center;">
+                    <i class="fas fa-project-diagram"
+                        style="font-size: 3rem; color: var(--secondary); margin-bottom: 20px;"></i>
+                    <h2 style="color: var(--secondary); font-size: 1.5rem; margin-bottom: 10px;">Projects</h2>
+                    <p style="color: var(--text-muted);">Manage and track all your active projects here.</p>
+                </div>
+            </div>
+
+            <!-- Accounts Section -->
+            <div id="accounts-section" style="display: none;">
+                <div
+                    style="background: white; border-radius: 25px; padding: 40px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0; text-align: center;">
+                    <i class="fas fa-user-circle"
+                        style="font-size: 3rem; color: var(--secondary); margin-bottom: 20px;"></i>
+                    <h2 style="color: var(--secondary); font-size: 1.5rem; margin-bottom: 10px;">Accounts</h2>
+                    <p style="color: var(--text-muted);">View and update account details.</p>
+                </div>
+            </div>
+
+            <!-- Developers Section -->
+            <div id="developers-section" style="display: none;">
+                <div
+                    style="background: white; border-radius: 25px; padding: 40px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0; text-align: center;">
+                    <i class="fas fa-code" style="font-size: 3rem; color: var(--secondary); margin-bottom: 20px;"></i>
+                    <h2 style="color: var(--secondary); font-size: 1.5rem; margin-bottom: 10px;">Developers</h2>
+                    <p style="color: var(--text-muted);">Access developer resources and API documentation.</p>
+                </div>
+            </div>
+
+            <!-- Services Section -->
+            <div id="services-section" style="display: none;">
+                <div
+                    style="background: white; border-radius: 25px; padding: 40px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0; text-align: center;">
+                    <i class="fas fa-wrench" style="font-size: 3rem; color: var(--secondary); margin-bottom: 20px;"></i>
+                    <h2 style="color: var(--secondary); font-size: 1.5rem; margin-bottom: 10px;">Services</h2>
+                    <p style="color: var(--text-muted);">Explore available services and tools.</p>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div id="settings-section" style="display: none;">
+                <div
+                    style="background: white; border-radius: 25px; padding: 40px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0; text-align: center;">
+                    <i class="fas fa-cog" style="font-size: 3rem; color: var(--secondary); margin-bottom: 20px;"></i>
+                    <h2 style="color: var(--secondary); font-size: 1.5rem; margin-bottom: 10px;">Settings</h2>
+                    <p style="color: var(--text-muted);">Configure your dashboard preferences and application settings.
+                    </p>
                 </div>
             </div>
 
@@ -1693,28 +1928,106 @@
             window.location.href = 'Project-work-request.html';
         };
 
-        window.showSection = function (sectionId, element) {
-            // Update Navigation
+        function showSection(sectionId, element) {
+            // Update Active Link
             document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
             if (element) element.classList.add('active');
 
             // Hide all sections
-            document.getElementById('dashboard-section').style.display = 'none';
-            document.getElementById('chat-section').style.display = 'none';
-            document.getElementById('suggestions-section').style.display = 'none';
+            const sections = ['dashboard', 'projects', 'accounts', 'chat', 'developers', 'services', 'suggestions', 'settings'];
+            sections.forEach(id => {
+                const el = document.getElementById(id + '-section');
+                if (el) el.style.display = 'none';
+            });
 
             // Show selected section
-            if (sectionId === 'dashboard') {
-                document.getElementById('dashboard-section').style.display = 'block';
-                document.getElementById('page-title').innerText = 'Overview';
-            } else if (sectionId === 'chat') {
-                document.getElementById('chat-section').style.display = 'block';
-                document.getElementById('page-title').innerText = 'Messages';
-            } else if (sectionId === 'suggestions') {
-                document.getElementById('suggestions-section').style.display = 'block';
-                document.getElementById('page-title').innerText = 'Suggestions';
+            const selectedEl = document.getElementById(sectionId + '-section');
+            if (selectedEl) {
+                selectedEl.style.display = 'block';
             }
+
+            // Update Page Title
+            const titles = {
+                'dashboard': 'Overview',
+                'projects': 'Projects',
+                'accounts': 'My Accounts',
+                'chat': 'Messages',
+                'developers': 'Developers',
+                'services': 'Services',
+                'suggestions': 'Make a Suggestion',
+                'settings': 'Settings'
+            };
+            document.getElementById('page-title').innerText = titles[sectionId] || 'Overview';
         };
+
+        // Category Selection Logic
+        function selectCategory(element) {
+            // Remove selected class from all
+            document.querySelectorAll('.category-option').forEach(el => el.classList.remove('selected'));
+            // Add to clicked
+            element.classList.add('selected');
+
+            const category = element.getAttribute('data-value');
+            // Update hidden input
+            document.getElementById('selectedCategory').value = category;
+
+            // Update Submit Button Color
+            const btn = document.getElementById('btnSubmitSuggestion');
+            if (category === 'Bugs') {
+                btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+                btn.innerText = 'Submit Bug Report';
+            } else if (category === 'Issues') {
+                btn.style.background = 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)';
+                btn.innerText = 'Submit Issue';
+            } else if (category === 'Reports') {
+                btn.style.background = 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)';
+                btn.innerText = 'Submit Report';
+            } else if (category === 'Suggestions') {
+                btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                btn.innerText = 'Submit Suggestion';
+            } else if (category === 'Others') {
+                btn.style.background = 'linear-gradient(135deg, #64748b 0%, #475569 100%)';
+                btn.innerText = 'Submit Feedback';
+            } else {
+                btn.style.background = 'linear-gradient(135deg, #4C49ED 0%, #0A06F4 100%)';
+                btn.innerText = 'Submit';
+            }
+        }
+
+        // Notification Logic
+        function showNotification(title, message, type = 'info') {
+            const modal = document.getElementById('notificationModal');
+            const iconContainer = document.getElementById('notificationIcon');
+            const titleEl = document.getElementById('notificationTitle');
+            const msgEl = document.getElementById('notificationMessage');
+            const btn = document.getElementById('notificationBtn');
+
+            msgEl.textContent = message;
+            titleEl.textContent = title;
+            modal.style.display = 'flex';
+
+            if (type === 'success') {
+                iconContainer.innerHTML = '<i class="fas fa-check"></i>';
+                iconContainer.style.background = '#dcfce7';
+                iconContainer.style.color = '#15803d';
+                btn.style.background = '#15803d';
+            } else if (type === 'error') {
+                iconContainer.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+                iconContainer.style.background = '#fee2e2';
+                iconContainer.style.color = '#b91c1c';
+                btn.style.background = '#b91c1c';
+            } else {
+                // Info / Warning
+                iconContainer.innerHTML = '<i class="fas fa-info"></i>';
+                iconContainer.style.background = '#eef2ff';
+                iconContainer.style.color = '#4338ca';
+                btn.style.background = '#4338ca';
+            }
+        }
+
+        function closeNotificationModal() {
+            document.getElementById('notificationModal').style.display = 'none';
+        }
 
         // Handle Suggestion Submission
         document.getElementById('suggestionForm').addEventListener('submit', async (e) => {
@@ -1722,9 +2035,25 @@
             const btn = document.getElementById('btnSubmitSuggestion');
             const title = document.getElementById('suggestionTitle').value.trim();
             const message = document.getElementById('suggestionMessage').value.trim();
+            const category = document.getElementById('selectedCategory').value;
 
             if (!currentUserEmail) {
-                alert("You must be logged in to submit a suggestion.");
+                showNotification("Login Required", "You must be logged in to submit a suggestion.", "error");
+                return;
+            }
+
+            if (!category) {
+                showNotification("Category Missing", "Please select a category for your submission.", "error");
+                return;
+            }
+
+            if (!title) {
+                showNotification("Title Missing", "Please enter a title for your feedback.", "error");
+                return;
+            }
+
+            if (!message) {
+                showNotification("Message Missing", "Please enter a message describing your feedback.", "error");
                 return;
             }
 
@@ -1732,20 +2061,48 @@
             btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Submitting...';
 
             try {
+                // Determine target table and payload based on category
+                let tableName = 'project_suggestions';
+                let payload = {
+                    user_email: currentUserEmail,
+                    title: title,
+                    message: message
+                };
+
+                if (category === 'Bugs') {
+                    tableName = 'project_bugs';
+                } else if (category === 'Issues') {
+                    tableName = 'project_issues';
+                } else if (category === 'Reports') {
+                    tableName = 'project_reports';
+                } else if (category === 'Others') {
+                    tableName = 'project_others';
+                } else {
+                    // Default / Suggestions
+                    tableName = 'project_suggestions';
+                    payload.category = category; // Include category only for the generic table
+                }
+
                 const { error } = await sbClient
-                    .from('project_suggestions')
-                    .insert([{ user_email: currentUserEmail, title: title, message: message }]);
+                    .from(tableName)
+                    .insert([payload]);
 
                 if (error) throw error;
 
-                alert("Thank you! Your suggestion has been submitted successfully.");
+                showNotification("Submission Successful", "Thank you! Your " + category.toLowerCase() + " has been submitted successfully.", "success");
                 document.getElementById('suggestionForm').reset();
+                document.querySelectorAll('.category-option').forEach(el => el.classList.remove('selected'));
+                document.getElementById('selectedCategory').value = '';
+                // Reset button style
+                btn.style.background = 'linear-gradient(135deg, #4C49ED 0%, #0A06F4 100%)';
+                btn.innerText = 'Submit Suggestion';
             } catch (err) {
                 console.error('Error submitting suggestion:', err);
-                alert("Failed to submit suggestion. Please try again.");
+                showNotification("Submission Failed", "Failed to submit suggestion. Please try again.", "error");
             } finally {
                 btn.disabled = false;
-                btn.innerText = "Submit Suggestion";
+                if (!category) btn.innerText = "Submit Suggestion"; // Fallback text only if category reset
+                // Note: We keep the button text/color as per category logic unless reset, but here we reset form so reset logic above handles it
             }
         });
 
@@ -1776,7 +2133,7 @@
 
                 if (error) {
                     console.error('Error updating profile image:', error);
-                    alert('Failed to update profile image.');
+                    showNotification("Upload Failed", "Failed to update profile image.", "error");
                 }
             };
             reader.readAsDataURL(file);

@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS project_suggestions (
   user_email TEXT NOT NULL,
   title TEXT NOT NULL,
   message TEXT NOT NULL,
+  category TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now())
 );
 
