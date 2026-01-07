@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body class="centered-layout">
+  <div class="background-blur bg-one"></div>
+  <div class="background-blur bg-two"></div>
+
+  <div class="cursor-animation-container">
+    <div class="floating-cursor cursor-1">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 3L10.07 19.97L12.58 12.58L19.97 10.07L3 3Z" fill="white" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <div class="cursor-label">Safe</div>
+    </div>
+    <div class="floating-cursor cursor-2">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 3L10.07 19.97L12.58 12.58L19.97 10.07L3 3Z" fill="white" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <div class="cursor-label">Secure</div>
+    </div>
+    <div class="floating-cursor cursor-3">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 3L10.07 19.97L12.58 12.58L19.97 10.07L3 3Z" fill="white" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <div class="cursor-label">Fast</div>
+    </div>
+  </div>
+
+  <section class="shell">
+    <div class="card">
+      <header class="card-header">
+        <div class="brand">
+          <div class="logo-wrap" aria-hidden="true">
+            <img src="assets/logo.svg" alt="Admin portal logo" />
+          </div>
+          <div>
+            <p class="eyebrow">Admin Portal</p>
+          </div>
+        </div>
+        <a href="Newadmingeneration.html" class="new-admin-header-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 8v8M8 12h8" />
+          </svg>
+          <span>New Admin Request</span>
+        </a>
+      </header>
+
+      <main class="card-body">
+        <h2>Sign in to Dashboard</h2>
+        <p class="subtitle">Enterprise-grade security with refined simplicity.</p>
+
+        <div class="login-mode-switch" role="tablist" aria-label="Login methods">
+          <button class="mode-btn active" data-mode="email" role="tab" aria-selected="true">Email + Password</button>
+          <button class="mode-btn" data-mode="username" role="tab" aria-selected="false">Username + PIN</button>
+        </div>
+
+        <section class="login-mode" data-mode="email">
+          <label class="field">
+            Email address
+            <div class="input">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 17.5v-11Z"
+                  fill="none" stroke="currentColor" stroke-width="1.5" opacity=".75" />
+                <path d="m5.5 8 5.55 3.7a2 2 0 0 0 2.2 0L18.8 8" fill="none" stroke="currentColor" stroke-width="1.5" />
+              </svg>
+              <input id="emailInput" type="email" placeholder="admin@example.com" autocomplete="email" required />
+            </div>
+          </label>
+
+          <label class="field">
+            Password
+            <div class="input">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="4" y="10" width="16" height="10" rx="2" ry="2" fill="none" stroke="currentColor"
+                  stroke-width="1.5" />
+                <path d="M8 10V8a4 4 0 0 1 8 0v2" fill="none" stroke="currentColor" stroke-width="1.5" />
+              </svg>
+              <input id="passwordInput" type="password" placeholder="••••••••" autocomplete="current-password"
+                required />
+              <button type="button" class="password-toggle" aria-label="Toggle password visibility">
+                <svg class="eye-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+                <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path
+                    d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                  <line x1="1" y1="1" x2="23" y2="23" />
+                </svg>
+              </button>
+            </div>
+          </label>
+        </section>
+
+        <section class="login-mode hidden" data-mode="username">
+          <label class="field">
+            Username
+            <div class="input">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" fill="none" stroke="currentColor" stroke-width="1.5" />
+                <path d="M5 19.5C5 16.4624 7.4624 14 10.5 14h3c3.0376 0 5.5 2.4624 5.5 5.5" fill="none"
+                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+              <input id="usernameInput" type="text" placeholder="your.username" autocomplete="username" required />
+            </div>
+          </label>
+
+          <label class="field">
+            PIN
+            <div class="input">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="5" y="6" width="14" height="14" rx="3" ry="3" fill="none" stroke="currentColor"
+                  stroke-width="1.5" />
+                <circle cx="12" cy="13" r="2" fill="none" stroke="currentColor" stroke-width="1.5" />
+              </svg>
+              <input id="pinInput" type="password" inputmode="numeric" pattern="[0-9]*" placeholder="••••"
+                autocomplete="one-time-code" required />
+              <button type="button" class="password-toggle" aria-label="Toggle PIN visibility">
+                <svg class="eye-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+                <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path
+                    d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                  <line x1="1" y1="1" x2="23" y2="23" />
+                </svg>
+              </button>
+            </div>
+          </label>
+        </section>
+
+        <div class="meta">
+          <label class="remember">
+            <input type="checkbox" checked />
+            <span>Remember me</span>
+          </label>
+          <a class="link" href="forgotpassword.html">Forgot password?</a>
+        </div>
+
+        <div id="loginMessage" class="login-message hidden" role="status" aria-live="polite"></div>
+
+        <button id="signInButton" class="cta" type="button">
+          <span>Sign In</span>
+          <span class="glow"></span>
+        </button>
+      </main>
+    </div>
+  </section>
+
+  <!-- Inactive Admin Popup Modal -->
+  <div id="inactivePopup" class="popup-overlay hidden">
+    <div class="popup-modal activation-request-popup">
+      <button type="button" class="popup-close" id="closeInactivePopup" aria-label="Close popup">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <div class="popup-icon error-icon">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <circle cx="32" cy="32" r="28" fill="none" stroke="currentColor" stroke-width="3" />
+          <path d="M32 20v16M32 44h.01" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+        </svg>
+      </div>
+      <h3 class="popup-title">Account Inactive</h3>
+      <p class="popup-message">Your account status is currently inactive. Please contact your administrator to activate
+        your account.</p>
+
+      <!-- Rejection Details Section -->
+      <div id="rejectionDetails" class="rejection-details hidden">
+        <h4 class="rejection-title">Previous Request Rejected</h4>
+        <p id="rejectionNotes" class="rejection-notes"></p>
+        <p class="rejection-date" id="rejectionDate"></p>
+        <div class="popup-actions popup-actions-spaced">
+          <button type="button" class="cta" id="requestAgainBtn">
+            <span>Request Again</span>
+            <span class="glow"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Activation Request Form -->
+      <form id="activationRequestForm" class="activation-form hidden">
+        <div class="form-field">
+          <label>
+            Full Name <span class="required">*</span>
+          </label>
+          <input type="text" id="requestName" placeholder="Enter your full name" required />
+        </div>
+
+        <div class="form-field">
+          <label>
+            Phone Number <span class="required">*</span>
+          </label>
+          <input type="tel" id="requestPhone" placeholder="+1 (555) 123-4567" required />
+        </div>
+
+        <div class="form-field">
+          <label>
+            Address
+          </label>
+          <input type="text" id="requestAddress" placeholder="Street address" />
+        </div>
+
+        <div class="form-field-grid">
+          <div class="form-field">
+            <label>
+              City
+            </label>
+            <input type="text" id="requestCity" placeholder="City" />
+          </div>
+          <div class="form-field">
+            <label>
+              State/Province
+            </label>
+            <input type="text" id="requestState" placeholder="State" />
+          </div>
+        </div>
+
+        <div class="form-field-grid">
+          <div class="form-field">
+            <label>
+              Zip/Postal Code
+            </label>
+            <input type="text" id="requestZipCode" placeholder="Zip Code" />
+          </div>
+          <div class="form-field">
+            <label>
+              Country
+            </label>
+            <input type="text" id="requestCountry" placeholder="Country" />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>
+            Identity Proof <span class="required">*</span>
+            <span class="field-hint">Upload a document to verify your identity (ID card, passport, etc.)</span>
+          </label>
+          <input type="file" id="identityProof" accept="image/*,.pdf" required />
+          <div id="filePreview" class="file-preview"></div>
+        </div>
+
+        <div class="form-field">
+          <label>
+            Additional Notes (Optional)
+          </label>
+          <textarea id="requestNotes" placeholder="Any additional information you'd like to provide..."
+            rows="3"></textarea>
+        </div>
+
+        <div class="popup-actions popup-actions-spaced">
+          <button type="submit" class="cta" id="sendActivationRequestBtn">
+            <span>Send Activation Request</span>
+            <span class="glow"></span>
+          </button>
+        </div>
+        <p class="popup-submessage popup-submessage-spaced" id="activationMessage"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- OTP Validation Popup -->
+  <div id="otpPopup" class="popup-overlay hidden">
+    <div class="popup-modal" style="max-width: 400px;">
+      <button type="button" class="popup-close" id="closeOtpPopup">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <div class="popup-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+          <path d="M12 18h.01" />
+        </svg>
+      </div>
+
+      <h3 class="popup-title">Two-Step Verification</h3>
+      <p class="popup-message">We've sent a 4-digit verification code to your registered email.</p>
+
+      <div class="otp-form">
+        <div class="field">
+          <label style="text-align: center; display: block; margin-bottom: 12px;">Enter 4-Digit PIN</label>
+          <div class="otp-input-group">
+            <input type="text" class="otp-digit" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+            <input type="text" class="otp-digit" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+            <input type="text" class="otp-digit" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+            <input type="text" class="otp-digit" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+          </div>
+        </div>
+
+        <p id="otpMessage" class="login-message hidden" style="margin-top: 12px; text-align: center;"></p>
+
+        <div style="text-align: center; margin-top: 16px;">
+          <button type="button" id="resendOtpBtn" class="link" style="font-size: 13px;">Resend Code</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/password-toggle.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>

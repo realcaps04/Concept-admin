@@ -1,0 +1,26 @@
+<!-- Payment QR Codes Section - Insert after Business Footer section -->
+<div class="section-title"><i class="fas fa-qrcode"></i> Payment QR Codes</div>
+<div class="form-group">
+    <label class="form-label">UPI ID / VPA</label>
+    <input type="text" class="form-input" id="inpUpiId" placeholder="e.g. merchant@upi" oninput="generateQRCodes()">
+</div>
+<div class="form-group">
+    <label class="form-label">Account Number</label>
+    <input type="text" class="form-input" id="inpAccountNumber" value="41189296858" readonly>
+</div>
+<div class="form-group">
+    <label class="form-label">IFSC Code</label>
+    <input type="text" class="form-input" id="inpIfscCode" value="SBIN00064986" readonly>
+</div>
+<div class="qr-container">
+    <div class="qr-box">
+        <h4>Total Amount QR</h4>
+        <div class="qr-code-wrapper" id="qrTotalWrapper"></div>
+        <div class="qr-amount" id="qrTotalAmount">₹0.00</div>
+    </div>
+    <div class="qr-box">
+        <h4>Pending Amount QR</h4>
+        <div class="qr-code-wrapper" id="qrPendingWrapper"></div>
+        <div class="qr-amount" id="qrPendingAmountDisplay">₹0.00</div>
+    </div>
+</div>

@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Admin Requests</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* UI Type Selection Popup Styles */
+    #uiTypeSelectionModal .popup-modal {
+      z-index: 10001;
+    }
+
+    #adminCreationModal .popup-modal {
+      z-index: 10002;
+    }
+
+    .ui-types-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+    }
+
+    .ui-type-card {
+      background: #ffffff;
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 16px;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(21, 41, 76, 0.08);
+      min-height: 140px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ui-type-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: currentColor;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .ui-type-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(21, 41, 76, 0.15);
+    }
+
+    .ui-type-card:hover::before {
+      opacity: 1;
+    }
+
+    .ui-type-card-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .ui-type-card:hover .ui-type-card-icon {
+      transform: scale(1.1);
+    }
+
+    .ui-type-card-icon svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .ui-type-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0;
+      text-align: center;
+      color: inherit;
+    }
+
+    .ui-type-card-description {
+      font-size: 11px;
+      color: inherit;
+      opacity: 0.9;
+      text-align: center;
+      margin-top: -6px;
+    }
+
+    /* Color Variants - Same as Uitypes.html */
+    .ui-type-government {
+      background: linear-gradient(135deg, #1e40af, #1e3a8a);
+      color: #ffffff;
+      border-color: #1e40af;
+    }
+
+    .ui-type-private {
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      color: #ffffff;
+      border-color: #7c3aed;
+    }
+
+    .ui-type-mobile-shop {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #ffffff;
+      border-color: #f59e0b;
+    }
+
+    .ui-type-court {
+      background: linear-gradient(135deg, #dc2626, #b91c1c);
+      color: #ffffff;
+      border-color: #dc2626;
+    }
+
+    .ui-type-college-school {
+      background: linear-gradient(135deg, #059669, #047857);
+      color: #ffffff;
+      border-color: #059669;
+    }
+
+    .ui-type-hospital {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: #ffffff;
+      border-color: #ef4444;
+    }
+
+    .ui-type-bank {
+      background: linear-gradient(135deg, #0891b2, #0e7490);
+      color: #ffffff;
+      border-color: #0891b2;
+    }
+
+    .ui-type-restaurant {
+      background: linear-gradient(135deg, #ea580c, #c2410c);
+      color: #ffffff;
+      border-color: #ea580c;
+    }
+
+    .ui-type-retail {
+      background: linear-gradient(135deg, #db2777, #be185d);
+      color: #ffffff;
+      border-color: #db2777;
+    }
+
+    .ui-type-ngo {
+      background: linear-gradient(135deg, #16a34a, #15803d);
+      color: #ffffff;
+      border-color: #16a34a;
+    }
+
+    .ui-type-hotel {
+      background: linear-gradient(135deg, #0ea5e9, #0284c7);
+      color: #ffffff;
+      border-color: #0ea5e9;
+    }
+
+    .ui-type-pharmacy {
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+      color: #ffffff;
+      border-color: #8b5cf6;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background-blur bg-one"></div>
+  <div class="background-blur bg-two"></div>
+
+  <section class="shell shell-wide">
+    <div class="card">
+      <header class="card-header">
+        <div class="brand">
+          <div class="logo-wrap" aria-hidden="true">
+            <img src="assets/logo.svg" alt="Admin portal logo" />
+          </div>
+          <div>
+            <p class="eyebrow">Super Admin</p>
+            <h1 class="page-title">New Admin Requests</h1>
+          </div>
+        </div>
+        <div class="header-actions">
+          <a href="AdminsConsole.html" class="back-btn">Back to Console</a>
+          <button id="logoutBtn" class="logout-btn">Logout</button>
+        </div>
+      </header>
+
+      <main class="card-body">
+        <div class="panel">
+          <div class="panel-head">
+            <h3>New Admin Panel Requests</h3>
+          </div>
+          <div class="filters"
+            style="padding: 16px 24px; display: flex; gap: 12px; border-bottom: 1px solid var(--border);">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="pending">Pending</button>
+            <button class="filter-btn" data-filter="approved">Approved</button>
+            <button class="filter-btn" data-filter="rejected">Rejected</button>
+          </div>
+          <div id="requestsTable" class="table">
+            <div class="table-row table-head">
+              <span>Reference</span>
+              <span>Name</span>
+              <span>Email</span>
+              <span>Organization</span>
+              <span>Status</span>
+              <span>Actions</span>
+            </div>
+            <div class="table-row muted" id="loadingRow">
+              <span colspan="6">Loading new admin requests...</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <!-- View Details Popup Modal -->
+  <div id="viewDetailsPopup" class="popup-overlay hidden">
+    <div class="popup-modal edit-popup">
+      <div class="popup-header">
+        <h2 class="popup-title">New Admin Request Details</h2>
+        <button class="popup-close" id="closeDetailsPopup" aria-label="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="form-grid details-grid">
+        <div class="field field-full-width">
+          <h3 class="details-section-title">Reference Information</h3>
+        </div>
+
+        <div class="field">
+          <label class="detail-label">Reference Number</label>
+          <div class="detail-value reference-number" id="detailReference">-</div>
+        </div>
+
+        <div class="field field-full-width">
+          <h3 class="details-section-title">Request Management</h3>
+        </div>
+
+        <div class="field">
+          <label class="detail-label">Current Status</label>
+          <div class="detail-value" id="detailStatusDisplay">-</div>
+        </div>
+
+        <div class="field">
+          <label class="detail-label" for="statusSelect">
+            Update Status <span class="required-asterisk">*</span>
+          </label>
+          <div class="input select-wrap">
+            <select id="statusSelect" class="field-input" aria-label="Update request status">
+              <option value="approval_pending">Approval Pending</option>
+              <option value="approved">Approved</option>
+              <option value="under_customization">Under Customization</option>
+              <option value="customization_complete">Customization Complete</option>
+              <option value="in_progress">In Progress</option>
+              <option value="rejected">Rejected</option>
+              <option value="pending">Pending</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field field-full-width hidden" id="rejectionReasonField">
+          <label class="detail-label" for="rejectionReasonInput">
+            Rejection Reason <span class="required-asterisk hidden" id="rejectionReasonRequired">*</span>
+          </label>
+          <textarea id="rejectionReasonInput" class="field-input" rows="3"
+            placeholder="Enter rejection reason (required if status is Rejected)"></textarea>
+        </div>
+
+        <div class="field field-full-width">
+          <label class="detail-label" for="adminNotesInput">
+            Administrator Notes
+          </label>
+          <textarea id="adminNotesInput" class="field-input" rows="3"
+            placeholder="Add notes or comments about this request"></textarea>
+        </div>
+
+        <div class="field field-full-width">
+          <div class="popup-actions popup-actions-border-top">
+            <button type="button" class="cta" id="saveStatusBtn">
+              <span>Save Status Update</span>
+              <span class="glow"></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="field field-full-width">
+          <div class="reject-request-section">
+            <h3 class="reject-section-title">Reject Request</h3>
+            <p class="reject-section-description">If you need to reject this request, use the button below. A rejection
+              reason is required.</p>
+            <div class="field field-full-width" id="rejectReasonFieldContainer">
+              <label class="detail-label" for="rejectReasonTextarea">
+                Rejection Reason <span class="required-asterisk">*</span>
+              </label>
+              <textarea id="rejectReasonTextarea" class="field-input" rows="4"
+                placeholder="Enter the reason for rejecting this request..." required></textarea>
+            </div>
+            <button type="button" class="cta reject-btn" id="rejectRequestBtn">
+              <span>Reject Request</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="field field-full-width">
+          <h3 class="details-section-title">Personal Information</h3>
+        </div>
+
+        <div class="field">
+          <label class="detail-label">Full Name</label>
+          <div class="detail-value" id="detailName">-</div>
+        </div>
+
+        <div class="field">
+          <label class="detail-label">Email Address</label>
+          <div class="detail-value" id="detailEmail">-</div>
+        </div>
+
+        <div class="field">
+          <label class="detail-label">Phone Number</label>
+          <div class="detail-value" id="detailPhone">-</div>
+        </div>
+
+        <div class="field">
+          <label class="detail-label">Role/Position</label>
+          <div class="detail-value" id="detailRole">-</div>
+        </div>
+
+        <div class="field field-full-width">
+          <h3 class="details-section-title">Organization Information</h3>
+        </div>
+
+        <div class="field">
+          <label class="detail-label">Organization Name</label>
+          <div class="detail-value" id="detailOrgName">-</div>
+        </div>
+
+        <div class="field">
+          <label class="detail-label">Organization Type</label>
+          <div class="detail-value" id="detailOrgType">-</div>
+        </div>
+
+        <div class="field field-full-width">
+          <h3 class="details-section-title">Address Information</h3>
+        </div>
+
+        <div class="field field-full-width">
+          <label class="detail-label">Street Address</label>
+          <div class="detail-value" id="detailAddress">-</div>
+        </div>
+
+        <div class="field">
+          <label class="detail-label">City</label>
+          <div class="detail-value" id="detailCity">-</div>
+        </div>
+
+        <div class="field">
+          <label class="detail-label">State/Province</label>
+          <div class="detail-value" id="detailState">-</div>
+        </div>
+
+        <div class="field">
+          <label class="detail-label">Zip/Postal Code</label>
+          <div class="detail-value" id="detailZipCode">-</div>
+        </div>
+
+        <div class="field">
+          <label class="detail-label">Country</label>
+          <div class="detail-value" id="detailCountry">-</div>
+        </div>
+
+        <div class="field field-full-width">
+          <h3 class="details-section-title">Request Details</h3>
+        </div>
+
+        <div class="field field-full-width">
+          <label class="detail-label">Features Needed</label>
+          <div class="detail-value features" id="detailFeatures">-</div>
+        </div>
+
+        <div class="field field-full-width">
+          <label class="detail-label">Reason for Access</label>
+          <div class="detail-value multiline" id="detailReason">-</div>
+        </div>
+
+        <div class="field field-full-width">
+          <label class="detail-label">Additional Notes</label>
+          <div class="detail-value multiline" id="detailNotes">-</div>
+        </div>
+
+        <div class="field field-full-width">
+          <h3 class="details-section-title">Identity Proof</h3>
+        </div>
+
+        <div class="field field-full-width">
+          <div id="identityProofContainer" class="identity-proof-container">
+            <p>No identity proof uploaded</p>
+          </div>
+        </div>
+
+        <div class="field field-full-width">
+          <h3 class="details-section-title">Timestamps</h3>
+        </div>
+
+        <div class="field">
+          <label class="detail-label">Requested At</label>
+          <div class="detail-value" id="detailRequestedAt">-</div>
+        </div>
+
+        <div class="field">
+          <label class="detail-label">Processed At</label>
+          <div class="detail-value" id="detailProcessedAt">-</div>
+        </div>
+
+        <div class="field field-full-width rejection-section hidden" id="rejectionSection">
+          <h3 class="rejection-section-title">Rejection Information</h3>
+          <label class="detail-label">Rejection Reason</label>
+          <div class="rejection-value" id="detailRejectionReason">-</div>
+        </div>
+
+        <div class="field field-full-width admin-notes-section hidden" id="adminNotesSection">
+          <h3 class="admin-notes-section-title">Administrator Notes</h3>
+          <label class="detail-label">Notes</label>
+          <div class="admin-notes-value" id="detailAdminNotes">-</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UI Type Selection Popup Modal -->
+  <div id="uiTypeSelectionModal" class="popup-overlay hidden">
+    <div class="popup-modal edit-popup" style="max-width: 900px; max-height: 90vh; overflow-y: auto;">
+      <div class="popup-header">
+        <h2 class="popup-title">Select UI Type</h2>
+        <p class="subtitle" style="margin: 8px 0 0 0; color: var(--muted);">Choose a pre-built UI template for this
+          admin</p>
+        <button class="popup-close" id="closeUITypeModal" aria-label="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="ui-types-grid" id="uiTypesGrid"
+        style="padding: 20px 40px 40px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px;">
+        <!-- UI types will be dynamically populated -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Creation Form Popup Modal -->
+  <div id="adminCreationModal" class="popup-overlay hidden">
+    <div class="popup-modal edit-popup" style="max-width: 700px;">
+      <div class="popup-header">
+        <h2 class="popup-title">Create Admin Account</h2>
+        <p class="subtitle" style="margin: 8px 0 0 0; color: var(--muted);">Create admin credentials for the selected UI
+          type: <strong id="selectedUITypeDisplay">-</strong></p>
+        <button class="popup-close" id="closeAdminCreationModal" aria-label="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+
+      <form id="adminCreationForm" class="form-grid" style="padding: 32px 40px 40px;">
+        <input type="hidden" id="selectedUITypeValue" />
+
+        <label class="field">
+          Admin Email <span class="required-asterisk">*</span>
+          <div class="input">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 17.5v-11Z"
+                fill="none" stroke="currentColor" stroke-width="1.5" opacity=".75" />
+              <path d="m5.5 8 5.55 3.7a2 2 0 0 0 2.2 0L18.8 8" fill="none" stroke="currentColor" stroke-width="1.5" />
+            </svg>
+            <input id="newAdminEmail" type="email" placeholder="admin@example.com" autocomplete="email" required />
+          </div>
+        </label>
+
+        <label class="field">
+          Username <span class="required-asterisk">*</span>
+          <div class="input">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" fill="none" stroke="currentColor" stroke-width="1.5" />
+              <path d="M5 19.5C5 16.4624 7.4624 14 10.5 14h3c3.0376 0 5.5 2.4624 5.5 5.5" fill="none"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+            <input id="newAdminUsername" type="text" placeholder="username" autocomplete="username" required />
+          </div>
+        </label>
+
+        <label class="field">
+          PIN (Optional)
+          <div class="input">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="4" y="10" width="16" height="10" rx="2" ry="2" fill="none" stroke="currentColor"
+                stroke-width="1.5" />
+              <path d="M8 10V8a4 4 0 0 1 8 0v2" fill="none" stroke="currentColor" stroke-width="1.5" />
+            </svg>
+            <input id="newAdminPin" type="password" placeholder="Enter PIN (optional)" autocomplete="off"
+              maxlength="6" />
+            <button type="button" class="password-toggle" aria-label="Toggle PIN visibility">
+              <svg class="eye-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path
+                  d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                <line x1="1" y1="1" x2="23" y2="23" />
+              </svg>
+            </button>
+          </div>
+        </label>
+
+        <label class="field">
+          Password <span class="required-asterisk">*</span>
+          <div class="input">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="4" y="10" width="16" height="10" rx="2" ry="2" fill="none" stroke="currentColor"
+                stroke-width="1.5" />
+              <path d="M8 10V8a4 4 0 0 1 8 0v2" fill="none" stroke="currentColor" stroke-width="1.5" />
+            </svg>
+            <input id="newAdminPassword" type="password" placeholder="Set a password" autocomplete="new-password"
+              required />
+            <button type="button" class="password-toggle" aria-label="Toggle password visibility">
+              <svg class="eye-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path
+                  d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                <line x1="1" y1="1" x2="23" y2="23" />
+              </svg>
+            </button>
+          </div>
+        </label>
+
+        <label class="field">
+          Confirm Password <span class="required-asterisk">*</span>
+          <div class="input">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="4" y="10" width="16" height="10" rx="2" ry="2" fill="none" stroke="currentColor"
+                stroke-width="1.5" />
+              <path d="M8 10V8a4 4 0 0 1 8 0v2" fill="none" stroke="currentColor" stroke-width="1.5" />
+            </svg>
+            <input id="newAdminPasswordConfirm" type="password" placeholder="Re-enter password"
+              autocomplete="new-password" required />
+            <button type="button" class="password-toggle" aria-label="Toggle password visibility">
+              <svg class="eye-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path
+                  d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                <line x1="1" y1="1" x2="23" y2="23" />
+              </svg>
+            </button>
+          </div>
+        </label>
+
+        <label class="field">
+          Role <span class="required-asterisk">*</span>
+          <div class="input select-wrap">
+            <select id="newAdminRole" required>
+              <option value="">Choose role</option>
+              <option value="admin">Admin</option>
+              <option value="viewer">Viewer</option>
+            </select>
+          </div>
+        </label>
+
+        <div id="adminCreationMessage" class="login-message hidden" role="status" aria-live="polite"></div>
+
+        <div class="popup-actions">
+          <button type="button" class="cta ghost" id="cancelAdminCreationBtn">Cancel</button>
+          <button type="submit" class="cta">
+            <span>Create Admin & Approve Request</span>
+            <span class="glow"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Document Viewer Modal -->
+  <div id="documentViewerModal" class="popup-overlay hidden">
+    <div class="popup-modal document-viewer-popup"
+      style="max-width: 95vw; max-height: 95vh; width: 95vw; height: 95vh; display: flex; flex-direction: column;">
+      <div class="popup-header" style="flex-shrink: 0;">
+        <h2 class="popup-title">Document Viewer</h2>
+        <button class="popup-close" id="closeDocumentViewer" aria-label="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+      <div class="document-viewer-content"
+        style="flex: 1; min-height: 0; padding: 12px; overflow: hidden; width: 100%; box-sizing: border-box;">
+        <iframe id="documentViewerFrame" class="document-viewer-frame" title="Document Viewer" frameborder="0"
+          style="width: 100%; height: 100%; min-height: 80vh; border: 1px solid var(--border); border-radius: 8px; background: white; box-sizing: border-box; display: block;">
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/password-toggle.js"></script>
+  <script src="js/newadminrequest.js"></script>
+  <script>
+    // Global function to view documents
+    window.viewDocument = function (url, fileType) {
+      const modal = document.getElementById('documentViewerModal');
+      const frame = document.getElementById('documentViewerFrame');
+
+      if (!modal || !frame) return;
+
+      try {
+        // Handle base64 data URLs
+        if (url.startsWith('data:')) {
+          // For base64 data URLs, set directly
+          frame.src = url;
+        } else {
+          // For regular URLs
+          if (fileType === 'pdf') {
+            // Try multiple methods for PDF viewing
+            // Method 1: Direct URL (works if CORS allows)
+            frame.src = url;
+
+            // Fallback: If direct doesn't work, try Google Docs viewer
+            frame.onerror = function () {
+              frame.src = `https://docs.google.com/viewer?url=${encodeURIComponent(url)}&embedded=true`;
+            };
+          } else if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileType)) {
+            // For images, open in new tab
+            window.open(url, '_blank');
+            return;
+          } else {
+            // For other documents, try to open directly
+            frame.src = url;
+          }
+        }
+
+        // Show modal
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      } catch (err) {
+        console.error('Error viewing document:', err);
+        // Fallback: open in new tab
+        window.open(url, '_blank');
+      }
+    };
+
+    // Close document viewer
+    const closeDocumentViewer = document.getElementById('closeDocumentViewer');
+    if (closeDocumentViewer) {
+      closeDocumentViewer.addEventListener('click', () => {
+        const modal = document.getElementById('documentViewerModal');
+        if (modal) {
+          modal.classList.add('hidden');
+          document.body.style.overflow = '';
+          // Clear iframe source
+          const frame = document.getElementById('documentViewerFrame');
+          if (frame) frame.src = '';
+        }
+      });
+    }
+
+    // Close on overlay click
+    const documentViewerModal = document.getElementById('documentViewerModal');
+    if (documentViewerModal) {
+      documentViewerModal.addEventListener('click', (e) => {
+        if (e.target === documentViewerModal) {
+          documentViewerModal.classList.add('hidden');
+          document.body.style.overflow = '';
+          const frame = document.getElementById('documentViewerFrame');
+          if (frame) frame.src = '';
+        }
+      });
+    }
+
+    // Close on ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('documentViewerModal');
+        if (modal && !modal.classList.contains('hidden')) {
+          modal.classList.add('hidden');
+          document.body.style.overflow = '';
+          const frame = document.getElementById('documentViewerFrame');
+          if (frame) frame.src = '';
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Console Projects Admin | Invoice Generator</title>
+    <meta name="description" content="Professional Invoice Generator Admin Interface">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.1/jspdf.plugin.autotable.min.js"></script>
+
+    <!-- QRCode.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+        :root {
+            /* Colors */
+            --primary: #3B82F6;
+            --primary-dark: #2563EB;
+            --secondary: #64748B;
+            --success: #10B981;
+            --surface: #FFFFFF;
+            --background: #F8FAFC;
+            --border: #E2E8F0;
+            --text-main: #1E293B;
+            --text-muted: #64748B;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+            /* Spacing */
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Custom Scrollbar - Sleek & Minimal */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #E2E8F0;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #CBD5E1;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            color: var(--text-main);
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            /* No body scroll */
+            display: flex;
+        }
+
+        /* Layout */
+        .app-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* --- Editor Panel (Left) --- */
+        .editor-panel {
+            width: 450px;
+            /* Widened */
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+            box-shadow: var(--shadow-xl);
+            flex-shrink: 0;
+            height: 100%;
+        }
+
+        .editor-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--text-main);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+            border-radius: 8px;
+            display: grid;
+            place-items: center;
+            color: white;
+            font-size: 14px;
+        }
+
+        .editor-content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 1.25rem;
+        }
+
+        .section-title {
+            font-size: 0.70rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            margin-top: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title:first-child {
+            margin-top: 0;
+        }
+
+        .form-group {
+            margin-bottom: 0.75rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            background: var(--background);
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            background: var(--surface);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        /* Items Editor */
+        .items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .item-card {
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0.75rem;
+            position: relative;
+        }
+
+        .item-remove {
+            position: absolute;
+            top: 0.25rem;
+            right: 0.25rem;
+            color: #EF4444;
+            cursor: pointer;
+            padding: 0.25rem;
+            font-size: 0.75rem;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+        }
+
+        .item-remove:hover {
+            opacity: 1;
+        }
+
+        .btn-add-item {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px dashed var(--border);
+            border-radius: var(--radius-md);
+            background: transparent;
+            color: var(--primary);
+            font-weight: 500;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 0.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-add-item:hover {
+            background: #EFF6FF;
+            border-color: var(--primary);
+        }
+
+        .editor-footer {
+            padding: 1.25rem;
+            border-top: 1px solid var(--border);
+            background: var(--surface);
+            flex-shrink: 0;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-md);
+            border: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-whatsapp {
+            background: #DCFCE7;
+            color: #166534;
+        }
+
+        .btn-whatsapp:hover {
+            background: #BBF7D0;
+        }
+
+        .btn-email {
+            background: #E0F2FE;
+            color: #075985;
+        }
+
+        .btn-email:hover {
+            background: #BAE6FD;
+        }
+
+        /* --- Preview Panel (Right) --- */
+        .preview-panel {
+            flex: 1;
+            background: #CBD5E1;
+            overflow-y: auto;
+            /* Allow scrolling */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            /* Align to top so it's not cut off */
+            position: relative;
+            padding: 2rem;
+            padding-bottom: 5rem;
+        }
+
+        /* Pattern Background */
+        .preview-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(#94A3B8 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* The Invoice Paper - Scaled via CSS for stability */
+        .invoice-paper {
+            width: 210mm;
+            /* A4 width */
+            height: 297mm;
+            /* A4 height */
+            background: white;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            margin: 0;
+            position: relative;
+            z-index: 1;
+            padding: 40px;
+            flex-shrink: 0;
+            transform-origin: center top;
+            transform: scale(0.65);
+            /* Static fit */
+            margin-top: 2rem;
+        }
+
+        @media (min-width: 1600px) {
+            .invoice-paper {
+                transform: scale(0.8);
+            }
+        }
+
+        /* Invoice styling matching original design */
+        .inv-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .inv-logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Original Dots Logo */
+        .logo-dots {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .dot-row {
+            display: flex;
+            gap: 3px;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 1px;
+        }
+
+        .dot.blue {
+            background: #3B82F6;
+        }
+
+        .dot.purple {
+            background: #8B5CF6;
+        }
+
+        .dot.pink {
+            background: #EC4899;
+        }
+
+        .inv-brand {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1F2937;
+            letter-spacing: -0.5px;
+        }
+
+        .inv-meta {
+            text-align: right;
+        }
+
+        .inv-meta-label {
+            font-size: 10px;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .inv-meta-val {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1F2937;
+        }
+
+        .inv-bill-to {
+            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+            border-radius: 12px;
+            padding: 24px;
+            color: white;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .bill-details h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .bill-details p {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-bottom: 2px;
+        }
+
+        .bill-details .address {
+            margin-top: 8px;
+            font-size: 11px;
+            opacity: 0.8;
+            line-height: 1.4;
+            white-space: pre-wrap;
+        }
+
+        .bill-total-box {
+            background: white;
+            border-radius: 8px;
+            padding: 12px 20px;
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .bill-total-label {
+            font-size: 9px;
+            color: #6B7280;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .bill-total-val {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1F2937;
+        }
+
+        .inv-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+
+        .inv-table th {
+            text-align: left;
+            font-size: 10px;
+            color: #9CA3AF;
+            text-transform: uppercase;
+            font-weight: 500;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .inv-table th:last-child,
+        .inv-table th:nth-child(3),
+        .inv-table th:nth-child(2) {
+            text-align: right;
+        }
+
+        .inv-table td {
+            padding: 16px 0;
+            border-bottom: 1px solid #F3F4F6;
+            font-size: 13px;
+            color: #1F2937;
+        }
+
+        .inv-table td:last-child {
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .inv-table td:nth-child(2),
+        .inv-table td:nth-child(3) {
+            text-align: right;
+        }
+
+        .inv-summary {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 3rem;
+        }
+
+        .summary-box {
+            width: 250px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .summary-row.total {
+            border-top: 2px solid #E5E7EB;
+            padding-top: 12px;
+            margin-top: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #1F2937;
+        }
+
+        .summary-label {
+            color: #6B7280;
+        }
+
+        .inv-footer {
+            border-top: 1px solid #E5E7EB;
+            padding-top: 20px;
+            font-size: 10px;
+            color: #9CA3AF;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Success/Loading Toast */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10B981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateX(120%);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 100;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(4px);
+            z-index: 50;
+            display: none;
+            place-items: center;
+        }
+
+        .loading-overlay.active {
+            display: grid;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #E2E8F0;
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .app-container {
+                flex-direction: column;
+                overflow-y: auto;
+            }
+
+            .editor-panel {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .preview-panel {
+                height: 500px;
+                padding: 1rem;
+            }
+
+            .invoice-paper {
+                transform: scale(0.6);
+            }
+        }
+
+        /* QR Code Containers */
+        .qr-container {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.75rem;
+        }
+
+        .qr-box {
+            flex: 1;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0.75rem;
+            text-align: center;
+        }
+
+        .qr-box h4 {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .qr-code-wrapper {
+            display: inline-block;
+            padding: 0.5rem;
+            background: white;
+            border-radius: var(--radius-md);
+            margin-bottom: 0.5rem;
+        }
+
+        .qr-code-wrapper canvas {
+            display: block;
+        }
+
+        .qr-amount {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+
+        /* QR Code Containers */
+        .qr-container {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.75rem;
+        }
+
+        .qr-box {
+            flex: 1;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0.75rem;
+            text-align: center;
+        }
+
+        .qr-box h4 {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .qr-code-wrapper {
+            display: inline-block;
+            padding: 0.5rem;
+            background: white;
+            border-radius: var(--radius-md);
+            margin-bottom: 0.5rem;
+        }
+
+        .qr-code-wrapper canvas {
+            display: block;
+        }
+
+        .qr-amount {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app-container">
+        <!-- Editor Panel -->
+        <div class="editor-panel">
+            <div class="editor-header">
+                <div class="brand">
+                    <div class="logo-icon"><i class="fas fa-file-invoice"></i></div>
+                    Console Projects Admin
+                </div>
+            </div>
+
+            <div class="editor-content">
+                <!-- Customer Details -->
+                <div class="section-title"><i class="fas fa-user-circle"></i> Customer Details</div>
+                <div class="form-group">
+                    <label class="form-label">Client Name</label>
+                    <input type="text" class="form-input" id="inpCustomerName" placeholder="e.g. Acme Corp"
+                        oninput="updatePreview()">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Client Title / Role</label>
+                    <input type="text" class="form-input" id="inpCustomerTitle" placeholder="e.g. Project Manager"
+                        oninput="updatePreview()">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email Address (For Share)</label>
+                    <input type="email" class="form-input" id="inpCustomerEmail" placeholder="client@example.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Phone Number (For WhatsApp)</label>
+                    <input type="tel" class="form-input" id="inpCustomerPhone" value=""
+                        placeholder="e.g. 919876543210 (with country code)">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Billing Address</label>
+                    <textarea class="form-textarea" id="inpCustomerAddress" rows="3"
+                        placeholder="Street Address, City, Zip, Country" oninput="updatePreview()"></textarea>
+                </div>
+
+                <!-- Invoice Details -->
+                <div class="section-title"><i class="fas fa-info-circle"></i> Invoice Details</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Invoice No.</label>
+                        <input type="text" class="form-input" id="inpInvoiceNum" value="0001" oninput="updatePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Currency</label>
+                        <select class="form-select" id="inpCurrency" onchange="updatePreview()">
+                            <option value="₹">INR (₹)</option>
+                            <option value="$">USD ($)</option>
+                            <option value="€">EUR (€)</option>
+                            <option value="£">GBP (£)</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Removed Due Date - only Date Issued remains -->
+                <div class="form-row" style="grid-template-columns: 1fr;">
+                    <div class="form-group">
+                        <label class="form-label">Date Issued</label>
+                        <input type="date" class="form-input" id="inpDate" onchange="updatePreview()">
+                    </div>
+                </div>
+
+                <!-- Items -->
+                <div class="section-title">
+                    <i class="fas fa-list"></i> Items
+                    <span style="margin-left:auto; font-size:11px; opacity:0.7;">TOTAL: <span
+                            id="editorTotal">0.00</span></span>
+                </div>
+                <div class="items-list" id="itemsList">
+                    <!-- Items injected via JS -->
+                </div>
+                <!-- BUTTON FIX: Added type="button" -->
+                <button type="button" class="btn-add-item" onclick="addNewItem()">
+                    <i class="fas fa-plus"></i> Add New Item
+                </button>
+
+                <!-- Pending Payments -->
+                <div class="section-title"><i class="fas fa-clock"></i> Pending Payments</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Pending Amount</label>
+                        <input type="number" class="form-input" id="inpPendingAmount" min="0" step="0.01"
+                            placeholder="0.00" oninput="updatePreview()">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Note / Details (Optional)</label>
+                    <input type="text" class="form-input" id="inpPendingNote" placeholder="e.g. Balance from Inv #1023"
+                        oninput="updatePreview()">
+                </div>
+
+
+                <!-- Footer Info -->
+                <div class="section-title"><i class="fas fa-building"></i> Business Footer</div>
+                <div class="form-group">
+                    <label class="form-label">Business Info Line</label>
+                    <input type="text" class="form-input" id="inpFooterInfo"
+                        value="contact@consoleprojects.co | +1 818-456-3562" oninput="updatePreview()">
+                </div>
+
+                <!-- Bank Transfer Details -->
+                <div class="section-title"><i class="fas fa-university"></i> Bank Transfer Details</div>
+                <div class="form-group">
+                    <label class="form-label">Account Number</label>
+                    <input type="text" class="form-input" id="inpAccountNumber" value="41189296858" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">IFSC Code</label>
+                    <input type="text" class="form-input" id="inpIfscCode" value="SBIN00064986" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Bank Name</label>
+                    <input type="text" class="form-input" id="inpBankName" value="State Bank of India" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">UPI ID (For QR Payment)</label>
+                    <input type="text" class="form-input" id="inpUpiId" placeholder="e.g. merchant@upi">
+                </div>
+                <button type="button" class="btn-add-item" onclick="generatePaymentQR()"
+                    style="width: 100%; margin-top: 0.5rem;">
+                    <i class="fas fa-qrcode"></i> Generate Payment QR Code
+                </button>
+
+                <!-- QR Code for Pending Payment -->
+                <div id="qrSection" style="margin-top: 1rem; display: none;">
+                    <div class="qr-box"
+                        style="background: var(--background); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 0.75rem; text-align: center;">
+                        <h4
+                            style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                            Scan to Pay Pending Amount</h4>
+                        <div id="qrPendingWrapper"
+                            style="display: inline-block; padding: 0.5rem; background: white; border-radius: var(--radius-md); margin-bottom: 0.5rem;">
+                        </div>
+                        <div id="qrPendingAmount" style="font-size: 0.85rem; font-weight: 600; color: var(--primary);">
+                            ₹0.00</div>
+                    </div>
+                </div>
+
+
+
+
+
+
+            </div>
+
+            <div class="editor-footer">
+                <div class="action-grid">
+                    <!-- BUTTON FIX: Added type="button" -->
+                    <button type="button" class="btn btn-primary" onclick="generatePDF()">
+                        <i class="fas fa-download"></i> PDF
+                    </button>
+                    <button type="button" class="btn btn-email" onclick="shareViaEmail()">
+                        <i class="fas fa-envelope"></i> Email
+                    </button>
+                    <button type="button" class="btn btn-whatsapp" onclick="shareViaWhatsApp()">
+                        <i class="fab fa-whatsapp"></i> Chat
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preview Panel -->
+        <div class="preview-panel">
+            <div class="invoice-paper" id="invoicePreview">
+                <!-- Header -->
+                <div class="inv-header">
+                    <div class="inv-logo-area">
+                        <div class="logo-dots">
+                            <div class="dot-row">
+                                <div class="dot blue"></div>
+                                <div class="dot blue"></div>
+                            </div>
+                            <div class="dot-row">
+                                <div class="dot purple"></div>
+                                <div class="dot purple"></div>
+                                <div class="dot purple"></div>
+                            </div>
+                            <div class="dot-row">
+                                <div class="dot pink"></div>
+                                <div class="dot pink"></div>
+                            </div>
+                        </div>
+                        <div class="inv-brand">Console Projects</div>
+                    </div>
+                    <div class="inv-meta">
+                        <div class="inv-meta-label">Invoice #</div>
+                        <div class="inv-meta-val" id="prevInvNum">0001</div>
+                        <div style="height: 8px;"></div>
+                        <div class="inv-meta-label">Date</div>
+                        <div class="inv-meta-val" id="prevDate">Jul 26, 2024</div>
+                    </div>
+                </div>
+
+                <!-- Bill To -->
+                <div class="inv-bill-to">
+                    <div class="bill-details">
+                        <h3 id="prevName">Mauro Sicard</h3>
+                        <p id="prevTitle">Web App Client</p>
+                        <p class="address" id="prevAddress">Palo Alto</p>
+                    </div>
+                    <div class="bill-total-box">
+                        <div class="bill-total-label">Total Amount</div>
+                        <div class="bill-total-val" id="prevTotalMain">₹0.00</div>
+                        <!-- Removed Due Date from Preview -->
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <table class="inv-table">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="prevItemsBody">
+                        <!-- Rows -->
+                    </tbody>
+                </table>
+
+                <!-- Summary -->
+                <div class="inv-summary">
+                    <div class="summary-box">
+                        <div class="summary-row">
+                            <span class="summary-label">Subtotal</span>
+                            <span id="prevSubtotal">₹0.00</span>
+                        </div>
+
+                        <!-- Pending Row (Dynamic) -->
+                        <div class="summary-row" id="prevPendingRow" style="display:none; color: #EF4444;">
+                            <span class="summary-label" style="color: #EF4444;">Pending <span id="prevPendingNote"
+                                    style="font-size:10px; opacity:0.8;"></span></span>
+                            <span id="prevPendingAmount">₹0.00</span>
+                        </div>
+
+                        <!-- Tax could represent here later -->
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span id="prevTotalFinal">₹0.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Details (Bank Transfer) -->
+                <div id="prevPaymentSection"
+                    style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px dashed #E5E7EB; display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div class="payment-info" style="font-size: 11px; color: #4B5563;">
+                        <h4
+                            style="font-size: 11px; text-transform: uppercase; color: #9CA3AF; margin-bottom: 8px; letter-spacing: 0.05em;">
+                            Bank Transfer Details</h4>
+                        <p style="margin-bottom: 4px;"><strong>Account Number:</strong> <span id="prevAccNo"></span></p>
+                        <p style="margin-bottom: 4px;"><strong>IFSC Code:</strong> <span id="prevIfsc"></span></p>
+                        <p style="margin-bottom: 4px;"><strong>Bank Name:</strong> <span id="prevBankName"></span></p>
+                        <p><strong>UPI ID:</strong> <span id="prevUpi"></span></p>
+                    </div>
+                    <div id="prevQrSection" style="text-align: center; display: none;">
+                        <div id="prevQrPending"
+                            style="background: white; padding: 5px; border: 1px solid #F3F4F6; margin-bottom: 4px; display: inline-block;">
+                        </div>
+                        <div style="font-size: 9px; color: #9CA3AF; text-transform: uppercase; margin-bottom: 2px;">Scan
+                            to Pay</div>
+                        <div id="prevQrAmount" style="font-size: 10px; font-weight: 600; color: #3B82F6;">₹0.00</div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="inv-footer">
+                    <div id="prevFooterInfo">contact@consoleprojects.co | +1 818-456-3562</div>
+                    <div style="font-weight: 700; color: #1F2937;">Console Projects</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMsg">Action Successful</span>
+    </div>
+
+    <script>
+        // Supabase Config
+        const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+
+        let supabaseClient = null;
+
+        // State
+        let items = [];
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            // Init Supabase
+            if (window.supabase) {
+                supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            } else {
+                console.error("Supabase library not found. Saving will not work.");
+            }
+
+            // Invoice Numbering
+            initInvoiceNumber();
+
+            // Dates
+            const today = new Date();
+            document.getElementById('inpDate').valueAsDate = today;
+            // Removed Due Date logic
+
+            renderEditorItems();
+            updatePreview();
+
+
+
+            // Initialize bank details in preview (QR generation is manual)
+            syncBankDetails();
+
+            // REMOVED auto-resize listener to prevent loop/refresh issues
+            // If the user resizes the window, they can manually refresh or we can add a simple button to re-fit
+            // window.addEventListener('resize', () => { ... });
+        });
+
+        // Invoice Number Logic
+        function initInvoiceNumber() {
+            let num = parseInt(localStorage.getItem('brix_invoice_counter'));
+            if (isNaN(num)) num = 1;
+            document.getElementById('inpInvoiceNum').value = String(num).padStart(4, '0');
+        }
+
+        function incrementInvoiceNumber() {
+            let current = parseInt(localStorage.getItem('brix_invoice_counter'));
+            if (isNaN(current)) current = 1;
+
+            const next = current + 1;
+            localStorage.setItem('brix_invoice_counter', next);
+
+            document.getElementById('inpInvoiceNum').value = String(next).padStart(4, '0');
+            updatePreview();
+
+            setTimeout(() => {
+                showToast(`Invoice # updated to ${String(next).padStart(4, '0')}`);
+            }, 1000);
+        }
+
+
+        // QR Code Generation
+        let qrTotalInstance = null;
+        let qrPendingInstance = null;
+
+
+
+
+        // Generate Payment QR Code for Pending Amount
+        function generatePaymentQR() {
+            if (typeof QRCode === 'undefined') return;
+
+            const upiId = (document.getElementById('inpUpiId')?.value || '').trim();
+            const cur = document.getElementById('inpCurrency').value;
+            const pendingAmount = parseFloat(document.getElementById('inpPendingAmount').value) || 0;
+            const invoiceNum = (document.getElementById('inpInvoiceNum').value || '0001').trim();
+
+            // Elements
+            const qrSection = document.getElementById('qrSection');
+            const qrWrapper = document.getElementById('qrPendingWrapper');
+            const qrAmountDisplay = document.getElementById('qrPendingAmount');
+            const prevQrSection = document.getElementById('prevQrSection');
+            const prevQrWrapper = document.getElementById('prevQrPending');
+            const prevQrAmount = document.getElementById('prevQrAmount');
+
+            // Clear existing QR codes
+            if (qrWrapper) qrWrapper.innerHTML = '';
+            if (prevQrWrapper) prevQrWrapper.innerHTML = '';
+
+            // Update amount displays
+            const formattedAmount = cur + pendingAmount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            if (qrAmountDisplay) qrAmountDisplay.innerText = formattedAmount;
+            if (prevQrAmount) prevQrAmount.innerText = formattedAmount;
+
+            // Sync bank details
+            syncBankDetails();
+            if (document.getElementById('prevUpi')) document.getElementById('prevUpi').innerText = upiId;
+
+            // Show/hide QR sections based on conditions
+            const shouldShow = upiId && pendingAmount > 0;
+            if (qrSection) qrSection.style.display = shouldShow ? 'block' : 'none';
+            if (prevQrSection) prevQrSection.style.display = shouldShow ? 'block' : 'none';
+
+            if (!shouldShow) return;
+
+            // Generate QR codes
+            const upiString = `upi://pay?pa=${upiId}&pn=Console Projects&am=${pendingAmount.toFixed(2)}&cu=INR&tn=Invoice ${invoiceNum} Pending Payment`;
+
+            const qrOpts = {
+                text: upiString,
+                width: 120,
+                height: 120,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            };
+
+            try {
+                if (qrWrapper) new QRCode(qrWrapper, qrOpts);
+                if (prevQrWrapper) new QRCode(prevQrWrapper, { ...qrOpts, width: 80, height: 80 });
+            } catch (e) {
+                console.error('QR generation error:', e);
+            }
+        }
+
+        // Sync Bank Details to Preview
+        function syncBankDetails() {
+            if (document.getElementById('prevAccNo')) document.getElementById('prevAccNo').innerText = document.getElementById('inpAccountNumber').value;
+            if (document.getElementById('prevIfsc')) document.getElementById('prevIfsc').innerText = document.getElementById('inpIfscCode').value;
+            if (document.getElementById('prevBankName')) document.getElementById('prevBankName').innerText = document.getElementById('inpBankName').value;
+        }
+
+
+        // Core Functions
+        function renderEditorItems() {
+            const list = document.getElementById('itemsList');
+            list.innerHTML = '';
+
+            items.forEach((item, index) => {
+                const el = document.createElement('div');
+                el.className = 'item-card';
+                el.innerHTML = `
+                    <i class="fas fa-times item-remove" onclick="removeItem(${index})"></i>
+                    <div class="form-group" style="margin-bottom:0.5rem">
+                        <input type="text" class="form-input" value="${item.desc}" placeholder="Description" oninput="updateItem(${index}, 'desc', this.value)">
+                    </div>
+                    <div class="form-row">
+                        <input type="number" class="form-input" value="${item.qty}" min="1" placeholder="Qty" oninput="updateItem(${index}, 'qty', this.value)">
+                        <input type="number" class="form-input" value="${item.price}" min="0" step="0.01" placeholder="Price" oninput="updateItem(${index}, 'price', this.value)">
+                    </div>
+                `;
+                list.appendChild(el);
+            });
+        }
+
+        function updateItem(index, key, value) {
+            if (key === 'qty' || key === 'price') {
+                items[index][key] = parseFloat(value) || 0;
+            } else {
+                items[index][key] = value;
+            }
+            updatePreview();
+        }
+
+        function addNewItem() {
+            items.push({ desc: '', qty: 1, price: 0 });
+            renderEditorItems();
+            updatePreview();
+        }
+
+        function removeItem(index) {
+            items.splice(index, 1);
+            renderEditorItems();
+            updatePreview();
+        }
+
+        function updatePreview() {
+            // Get Data
+            const cur = document.getElementById('inpCurrency').value;
+            const subTotal = items.reduce((sum, item) => sum + (item.qty * item.price), 0);
+
+            // Pending Data
+            const pendingAmount = parseFloat(document.getElementById('inpPendingAmount').value) || 0;
+            const pendingNote = document.getElementById('inpPendingNote').value;
+
+            // Final Total
+            const finalTotal = subTotal + pendingAmount;
+
+            // Text Fields
+            document.getElementById('prevName').innerText = document.getElementById('inpCustomerName').value || '';
+            document.getElementById('prevTitle').innerText = document.getElementById('inpCustomerTitle').value;
+            document.getElementById('prevAddress').innerText = document.getElementById('inpCustomerAddress').value;
+            document.getElementById('prevInvNum').innerText = document.getElementById('inpInvoiceNum').value;
+            document.getElementById('prevFooterInfo').innerText = document.getElementById('inpFooterInfo').value;
+
+            // Dates
+            const dDate = new Date(document.getElementById('inpDate').value);
+            if (!isNaN(dDate)) document.getElementById('prevDate').innerText = dDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+            // Table
+            const tbody = document.getElementById('prevItemsBody');
+            tbody.innerHTML = '';
+            items.forEach(item => {
+                const total = item.qty * item.price;
+                const row = `
+                    <tr>
+                        <td>${item.desc || 'Item'}</td>
+                        <td>${item.qty}</td>
+                        <td>${cur}${item.price.toFixed(2)}</td>
+                        <td>${cur}${total.toFixed(2)}</td>
+                    </tr>
+                `;
+                tbody.insertAdjacentHTML('beforeend', row);
+            });
+
+            // Totals Display
+            const formattedTotal = cur + subTotal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            const formattedFinal = cur + finalTotal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+            document.getElementById('prevSubtotal').innerText = formattedTotal;
+            document.getElementById('prevTotalFinal').innerText = formattedFinal;
+            document.getElementById('prevTotalMain').innerText = formattedFinal;
+            document.getElementById('editorTotal').innerText = formattedFinal;
+
+            // Pending Row Visibility
+            const pendingRow = document.getElementById('prevPendingRow');
+            if (pendingAmount > 0) {
+                pendingRow.style.display = 'flex';
+                document.getElementById('prevPendingAmount').innerText = cur + pendingAmount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                document.getElementById('prevPendingNote').innerText = pendingNote ? `(${pendingNote})` : '';
+            } else {
+                pendingRow.style.display = 'none';
+            }
+
+            // Sync bank details only (QR generation is manual via button)
+            syncBankDetails();
+        }
+
+
+
+
+
+        // --- Sharing & Actions ---
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        async function saveInvoiceToSupabase() {
+            if (!supabaseClient) return;
+
+            const invoiceNum = document.getElementById('inpInvoiceNum').value;
+            const subTotal = items.reduce((sum, item) => sum + (item.qty * item.price), 0);
+            const pendingAmount = parseFloat(document.getElementById('inpPendingAmount').value) || 0;
+            const pendingNote = document.getElementById('inpPendingNote').value;
+            const total = subTotal + pendingAmount;
+
+            const payload = {
+                invoice_number: invoiceNum,
+                customer_name: document.getElementById('inpCustomerName').value,
+                customer_title: document.getElementById('inpCustomerTitle').value,
+                customer_email: document.getElementById('inpCustomerEmail').value,
+                customer_phone: document.getElementById('inpCustomerPhone').value,
+                customer_address: document.getElementById('inpCustomerAddress').value,
+                currency: document.getElementById('inpCurrency').value,
+                date_issued: document.getElementById('inpDate').value,
+                items: items, // JSONB
+                subtotal: subTotal,
+                pending_amount: pendingAmount,
+                pending_note: pendingNote,
+                total: total,
+                business_footer: document.getElementById('inpFooterInfo').value
+            };
+
+            const { data, error } = await supabaseClient
+                .from('invoices')
+                .upsert(payload, { onConflict: 'invoice_number' });
+
+            if (error) {
+                console.error('Supabase Save Error:', error);
+                // Non-blocking toast? Or maybe we should alert.
+                // showToast('DB Save Failed'); 
+            } else {
+                console.log('Saved to Supabase:', data);
+            }
+        }
+
+        async function generatePDF() {
+            document.getElementById('loading').classList.add('active');
+            await new Promise(r => setTimeout(r, 200)); // Wait for rendering
+
+            try {
+                await saveInvoiceToSupabase();
+
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('p', 'mm', 'a4');
+                
+                // Colors
+                const primaryBlue = [59, 130, 246];
+                const darkGray = [31, 41, 55];
+                const lightGray = [156, 163, 175];
+                const mediumGray = [75, 85, 99];
+
+                // === HEADER ===
+                doc.setFontSize(22);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(...darkGray);
+                doc.text('Console Projects', 14, 20);
+
+                // Invoice Number & Date (Right aligned)
+                doc.setFontSize(9);
+                doc.setTextColor(...lightGray);
+                doc.text('INVOICE #', 196, 15, { align: 'right' });
+                doc.setFontSize(12);
+                doc.setTextColor(...darkGray);
+                doc.setFont(undefined, 'bold');
+                doc.text(document.getElementById('inpInvoiceNum').value, 196, 21, { align: 'right' });
+                
+                doc.setFontSize(9);
+                doc.setTextColor(...lightGray);
+                doc.setFont(undefined, 'normal');
+                doc.text('DATE', 196, 28, { align: 'right' });
+                doc.setFontSize(10);
+                doc.setTextColor(...darkGray);
+                doc.text(document.getElementById('prevDate').innerText, 196, 34, { align: 'right' });
+
+                // === BILL TO SECTION ===
+                doc.setFillColor(...primaryBlue);
+                doc.roundedRect(14, 45, 120, 35, 3, 3, 'F');
+
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(13);
+                doc.setFont(undefined, 'bold');
+                doc.text(document.getElementById('inpCustomerName').value || 'Client Name', 20, 56);
+                
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'normal');
+                doc.text(document.getElementById('inpCustomerTitle').value || '', 20, 62);
+                
+                doc.setFontSize(9);
+                const addr = doc.splitTextToSize(document.getElementById('inpCustomerAddress').value || '', 100);
+                doc.text(addr, 20, 68);
+
+                // Total Amount Box
+                doc.setFillColor(255, 255, 255);
+                doc.roundedRect(145, 50, 50, 25, 2, 2, 'F');
+                doc.setTextColor(...lightGray);
+                doc.setFontSize(8);
+                doc.text('TOTAL AMOUNT', 170, 58, { align: 'center' });
+                doc.setTextColor(...darkGray);
+                doc.setFontSize(15);
+                doc.setFont(undefined, 'bold');
+                doc.text(document.getElementById('prevTotalMain').innerText, 170, 67, { align: 'center' });
+
+                // === ITEMS TABLE ===
+                const tableBody = items.map(item => [
+                    item.desc || 'Item',
+                    item.qty.toString(),
+                    document.getElementById('inpCurrency').value + item.price.toFixed(2),
+                    document.getElementById('inpCurrency').value + (item.qty * item.price).toFixed(2)
+                ]);
+
+                if (typeof doc.autoTable === 'function') {
+                    doc.autoTable({
+                        startY: 95,
+                        head: [['DESCRIPTION', 'QTY', 'PRICE', 'AMOUNT']],
+                        body: tableBody,
+                        theme: 'plain',
+                        headStyles: { 
+                            textColor: lightGray, 
+                            fontSize: 9, 
+                            fontStyle: 'bold',
+                            fillColor: [248, 250, 252]
+                        },
+                        bodyStyles: { fontSize: 10, textColor: mediumGray },
+                        columnStyles: { 
+                            0: { cellWidth: 90 },
+                            1: { halign: 'center', cellWidth: 20 }, 
+                            2: { halign: 'right', cellWidth: 35 }, 
+                            3: { halign: 'right', cellWidth: 35 } 
+                        },
+                        margin: { left: 14, right: 14 }
+                    });
+                }
+
+                let finalY = doc.lastAutoTable ? doc.lastAutoTable.finalY + 15 : 130;
+
+                // === SUMMARY ===
+                doc.setFontSize(10);
+                doc.setTextColor(...mediumGray);
+                doc.setFont(undefined, 'normal');
+                
+                // Subtotal
+                doc.text('Subtotal', 150, finalY);
+                doc.text(document.getElementById('prevSubtotal').innerText, 196, finalY, { align: 'right' });
+
+                // Pending (if any)
+                const pendingAmount = parseFloat(document.getElementById('inpPendingAmount').value) || 0;
+                if (pendingAmount > 0) {
+                    finalY += 7;
+                    doc.setTextColor(239, 68, 68);
+                    const note = document.getElementById('inpPendingNote').value;
+                    doc.text(`Pending ${note ? '(' + note + ')' : ''}`, 150, finalY);
+                    doc.text(document.getElementById('prevPendingAmount').innerText, 196, finalY, { align: 'right' });
+                    doc.setTextColor(...mediumGray);
+                }
+
+                // Total
+                finalY += 10;
+                doc.setFontSize(13);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(...darkGray);
+                doc.text('Total', 150, finalY);
+                doc.text(document.getElementById('prevTotalMain').innerText, 196, finalY, { align: 'right' });
+
+                // === PAYMENT DETAILS SECTION ===
+                let footerY = 240;
+                if (finalY > 210) {
+                    doc.addPage();
+                    footerY = 20;
+                }
+
+                // Separator line
+                doc.setDrawColor(229, 231, 235);
+                doc.setLineWidth(0.5);
+                doc.line(14, footerY - 10, 196, footerY - 10);
+
+                // Bank Details (Left)
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(...lightGray);
+                doc.text('BANK TRANSFER DETAILS', 14, footerY);
+                
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(...mediumGray);
+                doc.setFontSize(9);
+                doc.text(`Account Number: ${document.getElementById('inpAccountNumber').value}`, 14, footerY + 8);
+                doc.text(`IFSC Code: ${document.getElementById('inpIfscCode').value}`, 14, footerY + 15);
+                doc.text(`Bank Name: ${document.getElementById('inpBankName').value}`, 14, footerY + 22);
+                
+                const upiId = document.getElementById('inpUpiId').value;
+                if (upiId) {
+                    doc.text(`UPI ID: ${upiId}`, 14, footerY + 29);
+                }
+
+                // QR Code (Right) - Only if pending amount and UPI ID exist
+                if (pendingAmount > 0 && upiId) {
+                    const prevQrWrapper = document.getElementById('prevQrPending');
+                    if (prevQrWrapper) {
+                        const canvas = prevQrWrapper.querySelector('canvas');
+                        if (canvas) {
+                            try {
+                                const qrData = canvas.toDataURL('image/png');
+                                doc.addImage(qrData, 'PNG', 155, footerY - 5, 35, 35);
+                                
+                                doc.setFontSize(8);
+                                doc.setTextColor(...lightGray);
+                                doc.setFont(undefined, 'bold');
+                                doc.text('SCAN TO PAY', 172.5, footerY + 33, { align: 'center' });
+                                
+                                doc.setFontSize(10);
+                                doc.setTextColor(...primaryBlue);
+                                doc.text(document.getElementById('prevQrAmount').innerText, 172.5, footerY + 39, { align: 'center' });
+                            } catch (e) {
+                                console.error('QR Code error:', e);
+                            }
+                        }
+                    }
+                }
+
+                // Footer
+                doc.setFontSize(8);
+                doc.setTextColor(...lightGray);
+                doc.text(document.getElementById('inpFooterInfo').value, 14, 285);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(...darkGray);
+                doc.text('Console Projects', 196, 285, { align: 'right' });
+
+                doc.save(`Invoice-${document.getElementById('inpInvoiceNum').value}.pdf`);
+                showToast('✓ Professional PDF Generated');
+                incrementInvoiceNumber();
+
+            } catch (e) {
+                console.error('PDF Error:', e);
+                alert('Error generating PDF: ' + e.message);
+            } finally {
+                document.getElementById('loading').classList.remove('active');
+            }
+        }
+
+        function shareViaWhatsApp() {
+            const phone = document.getElementById('inpCustomerPhone').value.replace(/[^0-9]/g, '');
+            if (!phone) {
+                alert('Please enter a phone number in the customer details section (including country code).');
+                document.getElementById('inpCustomerPhone').focus();
+                return;
+            }
+
+            const name = document.getElementById('inpCustomerName').value;
+            const amt = document.getElementById('prevTotalMain').innerText;
+            const num = document.getElementById('inpInvoiceNum').value;
+
+            const text = `Hello ${name},%0A%0AHere is your invoice *${num}* for amount *${amt}*.%0APlease let us know if you have any questions.%0A%0AThank you!`;
+
+            window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+        }
+
+        function shareViaEmail() {
+            const email = document.getElementById('inpCustomerEmail').value;
+            if (!email) {
+                alert('Please enter an email address.');
+                document.getElementById('inpCustomerEmail').focus();
+                return;
+            }
+
+            const name = document.getElementById('inpCustomerName').value;
+            const amt = document.getElementById('prevTotalMain').innerText;
+            const num = document.getElementById('inpInvoiceNum').value;
+
+            const subject = `Invoice ${num} from Console Projects`;
+            const body = `Hi ${name},%0D%0A%0D%0APlease find attached invoice ${num} for ${amt}.%0D%0A%0D%0AThank you for your business!`;
+
+            window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+        }
+
+    </script>
+</body>
+
+</html>

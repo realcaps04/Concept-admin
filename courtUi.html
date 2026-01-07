@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Court UI - Admin Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .ui-header {
+      background: linear-gradient(135deg, #dc2626, #b91c1c);
+      color: white;
+      padding: 32px;
+      border-radius: 16px;
+      margin-bottom: 32px;
+      box-shadow: 0 8px 24px rgba(220, 38, 38, 0.3);
+    }
+    .ui-header h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+    .ui-header p { font-size: 16px; opacity: 0.9; }
+    .ui-dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 32px; }
+    .dashboard-card { background: white; border: 2px solid var(--border); border-radius: 16px; padding: 24px; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+    .dashboard-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); border-color: #dc2626; }
+    .dashboard-card-icon { width: 56px; height: 56px; background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(185, 28, 28, 0.1)); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+    .dashboard-card-icon svg { width: 28px; height: 28px; color: #dc2626; }
+    .dashboard-card h3 { font-size: 20px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+    .dashboard-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <div class="background-blur bg-one"></div>
+  <div class="background-blur bg-two"></div>
+  <section class="shell shell-wide">
+    <div class="card">
+      <header class="card-header">
+        <div class="brand">
+          <div class="logo-wrap" aria-hidden="true"><img src="assets/logo.svg" alt="Admin portal logo" /></div>
+          <div>
+            <p class="eyebrow">Court</p>
+            <h1 class="page-title">Admin Dashboard</h1>
+          </div>
+        </div>
+        <div class="header-actions">
+          <a href="Uitypes.html" class="back-btn">Back to UI Types</a>
+          <button id="logoutBtn" class="logout-btn">Logout</button>
+        </div>
+      </header>
+      <main class="card-body">
+        <div class="ui-header">
+          <h1>Legal & Judicial Panel</h1>
+          <p>Court Administration Management System</p>
+        </div>
+        <div class="ui-dashboard">
+          <div class="dashboard-card">
+            <div class="dashboard-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg></div>
+            <h3>Case Management</h3><p>Manage court cases, hearings, and legal proceedings</p>
+          </div>
+          <div class="dashboard-card">
+            <div class="dashboard-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+            <h3>Docket Management</h3><p>Schedule hearings and manage court calendar</p>
+          </div>
+          <div class="dashboard-card">
+            <div class="dashboard-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+            <h3>Document Filing</h3><p>Handle legal documents and court filings</p>
+          </div>
+          <div class="dashboard-card">
+            <div class="dashboard-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+            <h3>Judge Assignments</h3><p>Manage judge schedules and case assignments</p>
+          </div>
+          <div class="dashboard-card">
+            <div class="dashboard-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+            <h3>Legal Records</h3><p>Maintain legal records and case history</p>
+          </div>
+          <div class="dashboard-card">
+            <div class="dashboard-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <h3>Court Administration</h3><p>Manage court operations and staff</p>
+          </div>
+        </div>
+      </main>
+    </div>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script>
+    const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const getSession = () => {
+      const sessionData = localStorage.getItem('superadmin_session');
+      if (!sessionData) return null;
+      try {
+        const session = JSON.parse(sessionData);
+        if (Date.now() - session.timestamp > 24 * 60 * 60 * 1000) {
+          localStorage.removeItem('superadmin_session');
+          return null;
+        }
+        return session;
+      } catch { return null; }
+    };
+    const clearSession = () => { localStorage.removeItem('superadmin_session'); };
+    const checkAuth = async () => {
+      const session = getSession();
+      if (!session) { window.location.href = 'Superadminindex.html'; return false; }
+      const { data, error } = await supabase.from('Superadmin').select('id, email, name, is_active').eq('email', session.email).eq('id', session.id).single();
+      if (error || !data || !data.is_active) { clearSession(); window.location.href = 'Superadminindex.html'; return false; }
+      return true;
+    };
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        if (confirm('Are you sure you want to logout?')) {
+          clearSession();
+          window.location.href = 'Superadminindex.html';
+        }
+      });
+    }
+    const init = async () => {
+      const isAuthenticated = await checkAuth();
+      if (!isAuthenticated) { return; }
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  </script>
+</body>
+</html>
+

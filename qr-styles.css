@@ -1,0 +1,48 @@
+/* QR Code Container Styles - Add before closing </style> tag */
+
+.qr-container {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.75rem;
+}
+
+.qr-box {
+    flex: 1;
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 0.75rem;
+    text-align: center;
+}
+
+.qr-box h4 {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.qr-code-wrapper {
+    display: inline-block;
+    padding: 0.5rem;
+    background: white;
+    border-radius: var(--radius-md);
+    margin-bottom: 0.5rem;
+}
+
+.qr-code-wrapper canvas {
+    display: block;
+}
+
+.qr-amount {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+@media (max-width: 1024px) {
+    .qr-container {
+        flex-direction: column;
+    }
+}

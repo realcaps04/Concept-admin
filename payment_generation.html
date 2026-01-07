@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Generation | Admin Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Specific styles for payment generation page */
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .payment-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+        }
+
+        .payment-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(91, 166, 255, 0.15);
+            border-color: var(--primary);
+        }
+
+        .payment-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .payment-card:hover::before {
+            opacity: 1;
+        }
+
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            font-size: 24px;
+            margin-bottom: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .payment-card:hover .icon-box {
+            transform: scale(1.1);
+        }
+
+        .icon-box.blue {
+            background: #e9f3ff;
+            color: #2b7fff;
+        }
+
+        .icon-box.purple {
+            background: #eef2ff;
+            color: #6366f1;
+        }
+
+        .icon-box.green {
+            background: #ecfdf5;
+            color: #10b981;
+        }
+
+        .icon-box.orange {
+            background: #fff7ed;
+            color: #f97316;
+        }
+
+        .payment-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+            margin: 0;
+        }
+
+        .payment-card p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .card-arrow {
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            color: var(--muted);
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.2s ease;
+        }
+
+        .payment-card:hover .card-arrow {
+            opacity: 1;
+            transform: translateX(0);
+            color: var(--primary);
+        }
+
+        /* Recent Transactions Section */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            margin-top: 40px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .view-all-link {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: gap 0.2s ease;
+        }
+
+        .view-all-link:hover {
+            gap: 8px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-badge.paid {
+            background: #ecfdf5;
+            color: #059669;
+        }
+
+        .status-badge.pending {
+            background: #fffbeb;
+            color: #d97706;
+        }
+
+        .status-badge.failed {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .amount-text {
+            font-family: 'SF Mono', 'Roboto Mono', monospace;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .type-mono {
+            font-family: 'SF Mono', 'Roboto Mono', monospace;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .payment-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-blur bg-one"></div>
+    <div class="background-blur bg-two"></div>
+
+    <section class="shell shell-wide">
+        <div class="card">
+            <header class="card-header">
+                <div class="brand">
+                    <div class="logo-wrap" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6"
+                            style="width: 24px; height: 24px; color: #5ba6ff;">
+                            <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2" />
+                            <line x1="2" y1="10" x2="22" y2="10" stroke="currentColor" stroke-width="2" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="eyebrow">Financial Tools</p>
+                        <h1 class="page-title">Payment Generation</h1>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <a href="admin-dashboard.html" class="back-btn">
+                        Back to Dashboard
+                    </a>
+                </div>
+            </header>
+
+            <main class="card-body">
+                <!-- Payment Options Grid -->
+                <div class="payment-grid">
+                    <!-- Create Invoice -->
+                    <a href="#" class="payment-card">
+                        <div class="icon-box blue">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="12" y1="18" x2="12" y2="12"></line>
+                                <line x1="9" y1="15" x2="15" y2="15"></line>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>New Invoice</h3>
+                            <p>Create and send a professional invoice to a client.</p>
+                        </div>
+                        <div class="card-arrow">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </a>
+
+                    <!-- Payment Link -->
+                    <a href="paymentqr.html" class="payment-card">
+                        <div class="icon-box purple">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>Payment Link</h3>
+                            <p>Generate a quick shareable link for receiving payments.</p>
+                        </div>
+                        <div class="card-arrow">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </a>
+
+                    <!-- Recurring Subscription -->
+                    <a href="#" class="payment-card">
+                        <div class="icon-box green">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>Subscriptions</h3>
+                            <p>Set up recurring billing cycles for regular customers.</p>
+                        </div>
+                        <div class="card-arrow">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </a>
+
+                    <!-- Bulk Payments -->
+                    <a href="#" class="payment-card">
+                        <div class="icon-box orange">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>Bulk Generation</h3>
+                            <p>Upload a CSV to generate multiple payments at once.</p>
+                        </div>
+                        <div class="card-arrow">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Recent Activity Table -->
+                <div class="section-header">
+                    <h2 class="section-title">Recent Generated Payments</h2>
+                    <a href="#" class="view-all-link">
+                        View All History
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="table">
+                    <div class="table-row table-head">
+                        <div>Reference ID</div>
+                        <div>Customer/Entity</div>
+                        <div>Type</div>
+                        <div>Date Created</div>
+                        <div>Amount</div>
+                        <div>Status</div>
+                        <div style="text-align: right;">Actions</div>
+                    </div>
+                    <!-- Rows will be populated dynamically -->
+                </div>
+
+                <!-- Empty State -->
+                <div class="empty-state">
+                    <div class="empty-state-content">
+                        <div class="empty-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="5" width="20" height="14" rx="2" />
+                                <line x1="2" y1="10" x2="22" y2="10" />
+                            </svg>
+                        </div>
+                        <h3>No Payments Generated Yet</h3>
+                        <p>Get started by creating your first invoice or payment link.</p>
+                    </div>
+                </div>
+
+            </main>
+
+            <!-- Footer for Verification Links -->
+            <footer style="padding: 24px; border-top: 1px solid var(--border); margin-top: auto;">
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px;">
+                    <a href="terms_conditions.html"
+                        style="font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.15s ease;">Terms
+                        & Conditions</a>
+                    <a href="privacy_policy.html"
+                        style="font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.15s ease;">Privacy
+                        Policy</a>
+                    <a href="cancellation_refunds.html"
+                        style="font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.15s ease;">Cancellation
+                        & Refunds</a>
+                    <a href="shipping_policy.html"
+                        style="font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.15s ease;">Shipping
+                        Policy</a>
+                    <a href="contact_us.html"
+                        style="font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.15s ease;">Contact
+                        Us</a>
+                </div>
+                <div style="text-align: center; margin-top: 12px;">
+                    <p style="font-size: 12px; color: #9caabf;">&copy; 2024 Admin Portal. All rights reserved.</p>
+                </div>
+            </footer>
+        </div>
+    </section>
+
+    <!-- JS Scripts (reused from dashboard if necessary, or just empty for UI focus) -->
+    <script>
+        // Simple script to handle interactivity if needed, mostly handled by CSS hover states
+
+        // Example: Add row click handler to navigate to detailed view (optional)
+        document.querySelectorAll('.table-row:not(.table-head)').forEach(row => {
+            row.addEventListener('click', (e) => {
+                // Prevent navigation if clicking on a button
+                if (e.target.closest('.action-btn')) return;
+
+                // Navigate to details (mock)
+                console.log('Navigating to payment details...');
+            });
+            row.style.cursor = 'pointer';
+        });
+    </script>
+</body>
+
+</html>

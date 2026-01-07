@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Feedback Reports</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        .brand-logo-text {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            font-size: 28px;
+            background: linear-gradient(to right, #2563eb, #7c3aed, #db2777, #2563eb);
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-top: 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status-select {
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--input-border);
+            background: white;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .status-select option {
+            font-weight: 500;
+        }
+
+        .filters {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: white;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .empty-state {
+            padding: 40px;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .edit-popup {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        /* Chat Popup Styles */
+        .chat-popup {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 380px;
+            height: 500px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transform-origin: bottom right;
+            animation: slideInBottomRight 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .chat-popup.hidden {
+            display: none;
+        }
+
+        @keyframes slideInBottomRight {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .chat-header {
+            padding: 16px;
+            background: #fff;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-body {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            background: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-footer {
+            padding: 12px;
+            background: #fff;
+            border-top: 1px solid var(--border);
+        }
+
+        .chat-message {
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            line-height: 1.5;
+            max-width: 85%;
+        }
+
+        .chat-message.admin {
+            background: #e2e8f0;
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+        }
+
+        .chat-message.super-admin {
+            background: var(--primary);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--input-border);
+            font-size: 13px;
+            resize: none;
+            height: 40px;
+            line-height: 20px;
+            font-family: inherit;
+        }
+
+        .send-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-blur bg-one"></div>
+    <div class="background-blur bg-two"></div>
+
+    <section class="shell shell-wide">
+        <div class="card">
+            <header class="card-header">
+                <div class="brand">
+                    <div class="logo-wrap" aria-hidden="true">
+                        <img src="assets/logo.svg" alt="Admin portal logo" />
+                    </div>
+                    <div>
+                        <p class="eyebrow">Super Admin</p>
+                        <h1 class="page-title brand-logo-text">Feedback Reports</h1>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <a href="AdminsConsole.html" class="back-btn">Back to Console</a>
+                    <button id="logoutBtn" class="logout-btn">Logout</button>
+                </div>
+            </header>
+
+            <main class="card-body">
+                <div class="filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="bug">Bugs</button>
+                    <button class="filter-btn" data-filter="suggestion">Suggestions</button>
+                    <button class="filter-btn" data-filter="pending">Pending</button>
+                </div>
+
+                <div class="table-container">
+                    <table id="feedbackTable">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Title</th>
+                                <th>Element</th>
+                                <th>Submitted By</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="feedbackList">
+                            <!-- Content loaded via JS -->
+                        </tbody>
+                    </table>
+                    <div id="loadingState" class="empty-state">Loading feedback reports...</div>
+                    <div id="emptyState" class="empty-state hidden">No feedback reports found.</div>
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <!-- Details Popup -->
+    <div id="detailsPopup" class="popup-overlay hidden">
+        <div class="popup-modal edit-popup">
+            <div class="popup-header">
+                <h2 class="popup-title">Report Details</h2>
+                <button class="popup-close" id="closeDetailsPopup">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
+            </div>
+            <div class="popup-body" style="padding: 24px;">
+                <h3 id="detailTitle" style="margin-top: 0; font-size: 20px;"></h3>
+                <p class="meta" id="detailMeta" style="color: var(--muted); font-size: 13px; margin-bottom: 20px;"></p>
+
+                <div
+                    style="background: #f8fafc; padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--border);">
+                    <strong style="display: block; margin-bottom: 8px; color: var(--text);">Description</strong>
+                    <p id="detailDescription" style="white-space: pre-wrap; line-height: 1.6; color: var(--text);"></p>
+                </div>
+
+                <div class="grid-3-col"
+                    style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div
+                        style="background: #f8fafc; padding: 16px; border-radius: 12px; border: 1px solid var(--border);">
+                        <strong
+                            style="display: block; margin-bottom: 4px; color: var(--text); font-size: 13px;">Category</strong>
+                        <select id="detailType" class="status-select" style="width: 100%; margin-top: 4px;">
+                            <option value="bug">Bug</option>
+                            <option value="suggestion">Suggestion</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div
+                        style="background: #f8fafc; padding: 16px; border-radius: 12px; border: 1px solid var(--border);">
+                        <strong style="display: block; margin-bottom: 4px; color: var(--text); font-size: 13px;">Related
+                            Element</strong>
+                        <p id="detailElement" style="margin: 0; font-weight: 500;">N/A</p>
+                    </div>
+                    <!-- Placeholder for future data like Impact Level or Browser -->
+                    <div
+                        style="background: #f8fafc; padding: 16px; border-radius: 12px; border: 1px solid var(--border);">
+                        <strong
+                            style="display: block; margin-bottom: 4px; color: var(--text); font-size: 13px;">Status</strong>
+                        <select id="detailStatus" class="status-select" style="width: 100%; margin-top: 4px;">
+                            <option value="pending">Pending</option>
+                            <option value="reviewed">Reviewed</option>
+                            <option value="resolved">Resolved</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Popup -->
+    <div id="chatPopup" class="chat-popup hidden">
+        <div class="chat-header">
+            <h3 style="margin: 0; font-size: 16px;">Discussion</h3>
+            <button onclick="document.getElementById('chatPopup').classList.add('hidden')"
+                style="background: none; border: none; cursor: pointer; color: var(--muted);">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"
+                    stroke-linecap="round">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <div id="chatBody" class="chat-body">
+            <!-- Messages will be injected here -->
+        </div>
+        <div class="chat-footer">
+            <div class="chat-input-area">
+                <textarea id="chatInput" class="chat-input" placeholder="Type a message..."></textarea>
+                <button id="sendChatBtn" class="send-btn">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round">
+                        <path d="M22 2L11 13" />
+                        <path d="M22 2l-7 20-4-9-9-4 20-7z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script>
+        // SUPABASE SETUP
+        const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let currentReportId = null;
+
+        // Initial Load
+        document.addEventListener('DOMContentLoaded', async () => {
+            loadFeedback();
+
+            // Filter Logic
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    loadFeedback(e.target.dataset.filter);
+                });
+            });
+
+            // Close Popup Logic
+            document.getElementById('closeDetailsPopup').addEventListener('click', () => {
+                document.getElementById('detailsPopup').classList.add('hidden');
+            });
+
+            // Save Notes (Chat) Logic
+            document.getElementById('sendChatBtn').addEventListener('click', async () => {
+                const input = document.getElementById('chatInput');
+                const message = input.value.trim();
+                if (!currentReportId || !message) return;
+
+                const btn = document.getElementById('sendChatBtn');
+                btn.disabled = true;
+
+                // Fetch current notes first to append
+                const { data: currentData } = await supabase.from('feedback_reports').select('notes').eq('id', currentReportId).single();
+                let existingNotes = currentData.notes || '';
+
+                // Format: [Super Admin]: message
+                const newMessage = `[Super Admin]: ${message}`;
+                const updatedNotes = existingNotes ? `${existingNotes}\n${newMessage}` : newMessage;
+
+                const { error } = await supabase.from('feedback_reports').update({ notes: updatedNotes }).eq('id', currentReportId);
+
+                if (error) {
+                    alert('Error sending message');
+                } else {
+                    input.value = '';
+                    loadChatMessages(updatedNotes); // Refresh chat UI
+                }
+                btn.disabled = false;
+            });
+        });
+
+        // Helper to load chat UI from plain text notes
+        function loadChatMessages(notesText) {
+            const body = document.getElementById('chatBody');
+            body.innerHTML = '';
+
+            if (!notesText) {
+                body.innerHTML = '<div style="text-align:center; color: var(--muted); padding: 20px; font-size: 13px;">No messages yet.</div>';
+                return;
+            }
+
+            const lines = notesText.split('\n');
+            lines.forEach(line => {
+                if (!line.trim()) return;
+
+                const div = document.createElement('div');
+                div.className = 'chat-message';
+
+                if (line.startsWith('[Super Admin]:')) {
+                    div.classList.add('super-admin');
+                    div.textContent = line.replace('[Super Admin]:', '').trim();
+                } else {
+                    // Assume anything else is "Admin" or system
+                    div.classList.add('admin');
+                    div.textContent = line.replace('[Admin]:', '').trim(); // Remove [Admin] prefix if present, otherwise just show text
+                }
+                body.appendChild(div);
+            });
+            body.scrollTop = body.scrollHeight;
+        }
+
+        window.viewChat = async (id) => {
+            currentReportId = id;
+            document.getElementById('chatInput').value = '';
+            document.getElementById('chatPopup').classList.remove('hidden');
+            document.getElementById('chatBody').innerHTML = '<div style="padding:20px; text-align:center; color: var(--muted);">Loading...</div>';
+
+            const { data } = await supabase.from('feedback_reports').select('notes').eq('id', id).single();
+            if (data) {
+                loadChatMessages(data.notes);
+            }
+        };
+
+        async function loadFeedback(filter = 'all') {
+            const loading = document.getElementById('loadingState');
+            const empty = document.getElementById('emptyState');
+            const tbody = document.getElementById('feedbackList');
+
+            loading.classList.remove('hidden');
+            empty.classList.add('hidden');
+            tbody.innerHTML = '';
+
+            let query = supabase.from('feedback_reports').select('*').order('created_at', { ascending: false });
+
+            if (filter === 'bug') query = query.eq('type', 'bug');
+            if (filter === 'suggestion') query = query.eq('type', 'suggestion');
+            if (filter === 'pending') query = query.eq('status', 'pending');
+
+            const { data, error } = await query;
+
+            loading.classList.add('hidden');
+
+            if (error) {
+                console.error(error);
+                return;
+            }
+
+            if (!data || data.length === 0) {
+                empty.classList.remove('hidden');
+                return;
+            }
+
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+          <td><span class="status-badge" style="background: ${getBadgeColor(item.type)}">${item.type}</span></td>
+          <td style="font-weight: 500;">${item.title}</td>
+          <td>${item.related_element || '-'}</td>
+          <td>${item.admin_name || 'Unknown'}</td>
+          <td>${new Date(item.created_at).toLocaleDateString()}</td>
+
+          <td>
+            <button onclick="viewDetails('${item.id}')" style="color: var(--primary); background: none; border: none; font-weight: 600; cursor: pointer; margin-right: 12px;">View Details</button>
+            <button onclick="viewChat('${item.id}')" style="color: #7c3aed; background: #f3e8ff; border: none; padding: 6px 12px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 12px;">View Chat</button>
+          </td>
+        `;
+                tbody.appendChild(row);
+            });
+        }
+
+        async function updateStatus(id, newStatus) {
+            const { error } = await supabase.from('feedback_reports').update({ status: newStatus }).eq('id', id);
+            if (error) {
+                alert('Error updating status');
+            } else {
+                // Determine style for the select itself immediately
+                const select = document.getElementById('detailStatus');
+                // select.style = getStatusStyle(newStatus); // Optional: if we want to style the dropdown too
+
+                // Refresh the background table so it reflects changes when popup closes
+                loadFeedback(document.querySelector('.filter-btn.active').dataset.filter);
+            }
+        }
+
+        window.viewDetails = async (id) => {
+            currentReportId = id;
+            const { data } = await supabase.from('feedback_reports').select('*').eq('id', id).single();
+            if (data) {
+                document.getElementById('detailTitle').textContent = data.title;
+                document.getElementById('detailMeta').textContent = `Submitted by ${data.admin_name || 'Unknown'} on ${new Date(data.created_at).toLocaleString()}`;
+                document.getElementById('detailDescription').textContent = data.description;
+                document.getElementById('detailElement').textContent = data.related_element || 'N/A';
+
+
+                // Set Status
+                const statusSelect = document.getElementById('detailStatus');
+                statusSelect.value = data.status;
+                statusSelect.onchange = () => updateStatus(id, statusSelect.value);
+
+                // Set Type
+                const typeSelect = document.getElementById('detailType');
+                typeSelect.value = data.type;
+                typeSelect.onchange = () => updateType(id, typeSelect.value);
+
+                document.getElementById('detailsPopup').classList.remove('hidden');
+            }
+        };
+
+        async function updateType(id, newType) {
+            const { error } = await supabase.from('feedback_reports').update({ type: newType }).eq('id', id);
+            if (error) {
+                alert('Error updating category');
+            } else {
+                loadFeedback(document.querySelector('.filter-btn.active').dataset.filter);
+            }
+        }
+
+        function getBadgeColor(type) {
+            if (type === 'bug') return '#fee2e2; color: #991b1b;';
+            if (type === 'suggestion') return '#d1fae5; color: #065f46;';
+            return '#e0f2fe; color: #0369a1;';
+        }
+
+        function getStatusStyle(status) {
+            if (status === 'pending') return 'background: #fef3c7; color: #92400e; border: 1px solid #fbbf24;';
+            if (status === 'reviewed') return 'background: #dbeafe; color: #1e40af; border: 1px solid #3b82f6;';
+            if (status === 'resolved') return 'background: #d1fae5; color: #065f46; border: 1px solid #10b981;';
+            if (status === 'rejected') return 'background: #fee2e2; color: #991b1b; border: 1px solid #ef4444;';
+            return 'background: #f3f4f6; color: #374151;';
+        }
+    </script>
+</body>
+
+</html>

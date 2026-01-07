@@ -1,0 +1,4502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Console Projects</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+<<<<<<< HEAD
+            --primary: #396AFF;
+            --secondary: #343C6A;
+            --bg-body: #F5F7FA;
+            --sidebar-width: 250px;
+            --text-main: #343C6A;
+            --text-muted: #718EBF;
+            --border-light: #E6EFF5;
+            --white: #FFFFFF;
+=======
+            /* SnowUI Inspired Palette */
+            --primary: #4318FF;
+            /* Vivid Purple/Blue */
+            --secondary: #2B3674;
+            /* Dark Blue/Black for text */
+            --bg-body: #F4F7FE;
+            /* Light Blue-Gray Background */
+            --white: #ffffff;
+            --text-main: #2B3674;
+            --text-muted: #A3AED0;
+            --border-light: #E0E5F2;
+            --sidebar-width: 280px;
+            --card-shadow: 0px 18px 40px rgba(112, 144, 176, 0.12);
+            --input-bg: #F4F7FE;
+        }
+
+        /* Dark Mode Variables */
+        body.dark-mode {
+            --primary: #4318FF;
+            --secondary: #FFFFFF;
+            --bg-body: #0B1437;
+            --white: #1B254B;
+            --text-main: #FFFFFF;
+            --text-muted: #A3AED0;
+            --border-light: #2D3561;
+            --card-shadow: 0px 18px 40px rgba(0, 0, 0, 0.4);
+            --input-bg: #0B1437;
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+<<<<<<< HEAD
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            overflow-x: hidden;
+=======
+            font-family: 'DM Sans', 'Inter', sans-serif;
+            /* DM Sans is closer to the ref, falling back to Inter */
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Hide scrollbar for all elements while maintaining scroll functionality */
+        * {
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* IE and Edge */
+        }
+
+        *::-webkit-scrollbar {
+            display: none;
+            /* Chrome, Safari, Opera */
+        }
+
+        /* Specifically for body and main containers */
+        body::-webkit-scrollbar,
+        .sidebar::-webkit-scrollbar,
+        .right-sidebar::-webkit-scrollbar,
+        .main-content::-webkit-scrollbar {
+            display: none;
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+<<<<<<< HEAD
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--white);
+            border-right: 1px solid var(--border-light);
+            display: flex;
+            flex-direction: column;
+            padding: 30px 0;
+            position: fixed;
+            height: 100vh;
+            z-index: 100;
+        }
+
+        .logo-section {
+            padding: 0 40px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 35px;
+            height: 35px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+=======
+        /* Sidebar Redesign */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--white);
+            border-right: none;
+            /* Removed border */
+            display: flex;
+            flex-direction: column;
+            padding: 30px 20px;
+            position: fixed;
+            height: 100vh;
+            z-index: 100;
+            transition: all 0.3s;
+        }
+
+        .logo-section {
+            padding: 0 20px;
+            margin-bottom: 50px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            justify-content: center;
+            /* Centered Logo */
+        }
+
+        .logo-icon {
+            /* Text based logo in ref, assuming icon for now */
+            color: var(--secondary);
+            font-size: 1.5rem;
+            background: none;
+            box-shadow: none;
+            width: auto;
+            height: auto;
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+<<<<<<< HEAD
+            font-weight: 800;
+            color: var(--secondary);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-menu {
+            flex: 1;
+=======
+            font-weight: 700;
+            color: var(--secondary);
+            font-family: 'Check', sans-serif;
+            /* Placeholder */
+            letter-spacing: 0;
+            text-transform: uppercase;
+        }
+
+        /* Nav Menu */
+        .nav-menu {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+<<<<<<< HEAD
+            padding: 16px 40px;
+            text-decoration: none;
+            color: #B1B1B1;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            font-weight: 700;
+        }
+
+        .nav-link.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 0 10px 10px 0;
+        }
+
+        .nav-link i {
+            font-size: 1.2rem;
+            width: 25px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 30px 40px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--secondary);
+=======
+            padding: 14px 25px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: all 0.2s;
+            border-radius: 0;
+            /* Remove rounded for side-bar line effect */
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary);
+        }
+
+        .nav-link.active {
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        /* Active Indicator (Right Border Line) */
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 36px;
+            background: var(--primary);
+            border-radius: 4px;
+            /* Rounded pill shape */
+        }
+
+        /* Remove old active indicator */
+        .nav-link.active::before {
+            display: none;
+        }
+
+        .nav-link i {
+            font-size: 1.1rem;
+            width: 24px;
+        }
+
+        /* Main Content wrapper to accommodate 3 columns */
+        .dashboard-container {
+            display: flex;
+            background: var(--bg-body);
+        }
+
+        /* Sidebar Redesign - Left */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--white);
+            border-right: none;
+            display: flex;
+            flex-direction: column;
+            padding: 30px 20px;
+            position: fixed;
+            height: 100vh;
+            z-index: 100;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            margin-right: 280px;
+            /* Space for right sidebar */
+            padding: 40px 30px;
+            background: var(--bg-body);
+            min-height: 100vh;
+            transition: all 0.3s;
+        }
+
+        /* Right Sidebar */
+        .right-sidebar {
+            width: 280px;
+            background: var(--white);
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100vh;
+            padding: 30px 20px;
+            overflow-y: auto;
+            border-left: none;
+            z-index: 90;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            transition: background-color 0.3s ease;
+        }
+
+        @media (max-width: 1400px) {
+            .right-sidebar {
+                display: none;
+            }
+
+            .main-content {
+                margin-right: 0;
+            }
+        }
+
+        /* Sidebar Groups */
+        .nav-group-title {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 12px;
+            margin-top: 20px;
+            padding-left: 15px;
+            letter-spacing: 0.05em;
+        }
+
+        .logo-section {
+            margin-bottom: 40px;
+            padding: 0 10px;
+            text-align: center;
+        }
+
+        /* Header Redesign */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            /* Align top for breadcrumbs */
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header-title-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .breadcrumbs {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .breadcrumbs span {
+            color: var(--text-main);
+        }
+
+        header h1 {
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+<<<<<<< HEAD
+=======
+            background: var(--white);
+            padding: 10px 20px;
+            border-radius: 50px;
+            /* Pill shape container for actions */
+            box-shadow: var(--card-shadow);
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+        }
+
+        .search-box {
+            position: relative;
+<<<<<<< HEAD
+            width: 250px;
+=======
+            width: 240px;
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+        }
+
+        .search-box i {
+            position: absolute;
+<<<<<<< HEAD
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8BA3CB;
+=======
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+        }
+
+        .search-box input {
+            width: 100%;
+<<<<<<< HEAD
+            padding: 12px 15px 12px 45px;
+            border-radius: 25px;
+            border: none;
+            background: #F5F7FA;
+            color: var(--secondary);
+            outline: none;
+        }
+
+        .action-icon {
+            width: 45px;
+            height: 45px;
+            background: #F5F7FA;
+=======
+            padding: 12px 20px 12px 48px;
+            border-radius: 30px;
+            border: none;
+            background: var(--input-bg);
+            color: var(--text-main);
+            outline: none;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .search-box input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-box input:focus {
+            background: var(--input-bg);
+            width: 100%;
+        }
+
+        .action-icon {
+            width: 40px;
+            height: 40px;
+            background: transparent;
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+<<<<<<< HEAD
+            color: #718EBF;
+=======
+            color: var(--text-muted);
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .action-icon:hover {
+<<<<<<< HEAD
+            background: #eef1f6;
+        }
+
+        .profile-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+=======
+            color: var(--primary);
+            background: #f4f7fe;
+        }
+
+        .profile-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid var(--white);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title h2 {
+<<<<<<< HEAD
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .section-title a {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+=======
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--secondary);
+            letter-spacing: -0.01em;
+        }
+
+        .section-title a {
+            font-size: 0.95rem;
+            color: var(--primary);
+            /* Use primary for links */
+            text-decoration: none;
+            font-weight: 600;
+            background: #E9EDF7;
+            padding: 6px 14px;
+            border-radius: 10px;
+            transition: 0.2s;
+        }
+
+        .section-title a:hover {
+            background: #dce4f9;
+        }
+
+        /* Dashboard Card Class */
+        .dashboard-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Dark mode text color overrides */
+        body.dark-mode h3,
+        body.dark-mode h4 {
+            color: var(--text-main) !important;
+        }
+
+        /* Dark mode modal fixes */
+        body.dark-mode .login-modal,
+        body.dark-mode .profile-modal,
+        body.dark-mode .maintenance-modal {
+            background: var(--white);
+            color: var(--text-main);
+        }
+
+        body.dark-mode .login-modal h2,
+        body.dark-mode .profile-modal h2,
+        body.dark-mode .maintenance-modal h2 {
+            color: var(--text-main);
+        }
+
+        body.dark-mode .login-input-wrapper input,
+        body.dark-mode .login-input-wrapper textarea {
+            background: var(--input-bg);
+            color: var(--text-main);
+            border-color: var(--border-light);
+        }
+
+        body.dark-mode .login-input-wrapper input::placeholder,
+        body.dark-mode .login-input-wrapper textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* Fix hover states for dark mode */
+        body.dark-mode .nav-link:hover {
+            background: rgba(67, 24, 255, 0.1);
+        }
+
+        body.dark-mode .contact-item:hover {
+            background: rgba(67, 24, 255, 0.1);
+        }
+
+        /* Dark mode for maintenance/under construction modal */
+        body.dark-mode .maintenance-modal {
+            background: var(--white);
+            color: var(--text-main);
+        }
+
+        body.dark-mode .maintenance-modal h2 {
+            color: var(--text-main);
+        }
+
+        body.dark-mode .maintenance-modal p {
+            color: var(--text-muted);
+        }
+
+        body.dark-mode .maintenance-icon {
+            background: rgba(67, 24, 255, 0.15);
+            color: var(--primary);
+        }
+
+        body.dark-mode .btn-maintenance-ok {
+            background: var(--primary);
+            color: white;
+        }
+
+        body.dark-mode .btn-maintenance-ok:hover {
+            background: #5a3dff;
+        }
+
+        /* Dark mode for notification modal */
+        body.dark-mode #notificationTitle {
+            color: var(--text-main) !important;
+        }
+
+        body.dark-mode #notificationMessage {
+            color: var(--text-muted) !important;
+        }
+
+        /* Dark mode for identity/signup modals */
+        body.dark-mode .identity-modal {
+            background: var(--white);
+            color: var(--text-main);
+        }
+
+        body.dark-mode .login-header h2,
+        body.dark-mode .login-header p {
+            color: var(--text-main);
+        }
+
+        body.dark-mode .login-field label {
+            color: var(--text-main);
+        }
+
+        body.dark-mode .modal-switch {
+            color: var(--text-muted) !important;
+        }
+
+        body.dark-mode .modal-switch a {
+            color: var(--primary) !important;
+        }
+
+        /* My Cards */
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+        /* My Cards */
+        .cards-container {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+<<<<<<< HEAD
+        }
+
+        .credit-card {
+            min-width: 350px;
+            height: 235px;
+            border-radius: 25px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: white;
+            position: relative;
+        }
+
+        .credit-card.blue {
+            background: linear-gradient(107deg, #4C49ED 2.61%, #0A06F4 101.2%);
+=======
+            /* Hide Scrollbar */
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* IE 10+ */
+        }
+
+        .cards-container::-webkit-scrollbar {
+            display: none;
+            /* Chrome/Safari/Webkit */
+        }
+
+        /* Cards UI Update to match SnowUI */
+        .credit-card,
+        .chart-card,
+        .quick-transfer,
+        .balance-history {
+            background: var(--white);
+            border-radius: 20px;
+            /* Softer, larger radius */
+            border: none;
+            box-shadow: 0px 18px 40px rgba(112, 144, 176, 0.08);
+            /* Signature soft shadow */
+        }
+
+        .credit-card.blue {
+            background: linear-gradient(110deg, #4318FF 0%, #6842FF 100%);
+            /* Adjusted Blue */
+            box-shadow: 0px 18px 40px rgba(67, 24, 255, 0.3);
+            color: white;
+        }
+
+        .section-title h2 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        /* Right Sidebar Styles */
+        .right-section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .notification-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .notif-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #E9EDF7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .notif-content h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .notif-content p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+            padding: 8px;
+            border-radius: 12px;
+        }
+
+        .contact-item:hover {
+            background: #F4F7FE;
+        }
+
+        .contact-img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .contact-name {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-main);
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+        }
+
+        .credit-card.white {
+            background: white;
+            border: 1px solid var(--border-light);
+            color: var(--secondary);
+        }
+
+        .card-header-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .card-balance p {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-bottom: 5px;
+        }
+
+        .card-balance h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .chip-icon {
+            width: 35px;
+        }
+
+        .card-footer-info {
+            display: flex;
+            gap: 60px;
+        }
+
+        .info-group p {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .info-group h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .card-number-section {
+            background: rgba(255, 255, 255, 0.15);
+            margin: 0 -25px -25px -25px;
+            padding: 20px 25px;
+            border-radius: 0 0 25px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .white .card-number-section {
+            background: transparent;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .card-number {
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        /* Recent Transactions */
+        .transactions-list {
+            background: white;
+            border-radius: 25px;
+            padding: 25px;
+            max-height: 235px;
+            overflow-y: auto;
+<<<<<<< HEAD
+=======
+            /* Hide Scrollbar */
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* IE 10+ */
+        }
+
+        .transactions-list::-webkit-scrollbar {
+            display: none;
+            /* Chrome/Safari/Webkit */
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+        }
+
+        .transaction-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .transaction-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .item-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .icon-yellow {
+            background: #FFF5D9;
+            color: #FFBB38;
+        }
+
+        .icon-blue {
+            background: #E7EDFF;
+            color: #396AFF;
+        }
+
+        .icon-green {
+            background: #DCFAF8;
+            color: #16DBCC;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-details h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .item-details p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .item-amount {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .amount-negative {
+            color: #FE5C73;
+        }
+
+        .amount-positive {
+            color: #41D433;
+        }
+
+        /* Charts Section */
+        .charts-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .chart-card {
+            background: white;
+            border-radius: 25px;
+            padding: 25px;
+            height: 320px;
+        }
+
+        /* Weekly Activity Mockup */
+        .bar-chart-mockup {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 200px;
+            padding-top: 20px;
+        }
+
+        .bar-group {
+            display: flex;
+            gap: 10px;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .bars {
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+            height: 150px;
+        }
+
+        .bar {
+            width: 12px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .bar-blue {
+            background: #232323;
+            height: 100px;
+        }
+
+        .bar-cyan {
+            background: #396AFF;
+            height: 70px;
+        }
+
+        .day-label {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Pie Chart Mockup */
+        .pie-chart-mockup {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .pie {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(#343C6A 0% 30%,
+                    #FC7900 30% 45%,
+                    #FA00FF 45% 65%,
+                    #396AFF 65% 100%);
+            position: relative;
+        }
+
+        /* Bottom Row */
+        .bottom-row {
+            display: grid;
+            grid-template-columns: 1fr 1.6fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .quick-transfer {
+            background: white;
+            border-radius: 25px;
+            padding: 25px;
+            height: 280px;
+        }
+
+        .user-scroller {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .transfer-user {
+            text-align: center;
+        }
+
+        .transfer-user img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .transfer-user h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .transfer-user p {
+            font-size: 0.8rem;
+            color: #718EBF;
+        }
+
+        .send-input-group {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .send-input-group p {
+            color: #718EBF;
+            font-size: 0.95rem;
+        }
+
+        .input-wrapper {
+            background: #F5F7FA;
+            border-radius: 30px;
+            display: flex;
+            flex: 1;
+            align-items: center;
+            padding-left: 20px;
+        }
+
+        .input-wrapper input {
+            background: transparent;
+            border: none;
+            outline: none;
+            flex: 1;
+            color: var(--secondary);
+            font-weight: 500;
+        }
+
+        .btn-send {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-send:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        .balance-history {
+            background: white;
+            border-radius: 25px;
+            padding: 25px;
+            height: 280px;
+        }
+
+        .line-chart-mockup {
+            height: 180px;
+            width: 100%;
+            margin-top: 10px;
+            position: relative;
+        }
+
+        /* SVG Line Chart Style */
+        .line-chart-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Identity Modal Style (Simplified) */
+<<<<<<< HEAD
+=======
+        /* --- Login Modal Styles (Premium Glassmorphism) --- */
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+        .identity-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+<<<<<<< HEAD
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+=======
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: modalFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Maintenance Modal Styles */
+        .maintenance-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 4000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: modalFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .maintenance-modal {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            padding: 40px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+        }
+
+        .maintenance-icon {
+            width: 80px;
+            height: 80px;
+            background: #FE5C73;
+            /* Red/Warning color */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 10px 20px rgba(254, 92, 115, 0.3);
+        }
+
+        .maintenance-modal h2 {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 12px;
+            font-weight: 800;
+        }
+
+        .maintenance-modal p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .btn-maintenance-ok {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1rem;
+        }
+
+        .btn-maintenance-ok:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 60, 106, 0.2);
+        }
+
+        /* Category Selector Styles */
+        .category-selector-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .category-option {
+            background: #f8fafc;
+            border: 2px solid transparent;
+            border-radius: 16px;
+            padding: 20px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-option:hover {
+            background: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-option.selected {
+            background: #eff6ff;
+            border-color: #2563eb;
+            color: #2563eb;
+        }
+
+        .category-option .cat-icon {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+
+        .category-option.selected .cat-icon {
+            color: #2563eb;
+        }
+
+        .category-option span {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Specific Category Colors */
+        /* Bugs - Red */
+        .category-option.cat-bugs:hover,
+        .category-option.cat-bugs.selected {
+            background-color: #fef2f2;
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+
+        .category-option.cat-bugs .cat-icon {
+            color: #ef4444;
+        }
+
+        .category-option.cat-bugs.selected .cat-icon {
+            color: #ef4444;
+        }
+
+        /* Issues - Orange */
+        .category-option.cat-issues:hover,
+        .category-option.cat-issues.selected {
+            background-color: #fff7ed;
+            border-color: #f97316;
+            color: #f97316;
+        }
+
+        .category-option.cat-issues .cat-icon {
+            color: #f97316;
+        }
+
+        .category-option.cat-issues.selected .cat-icon {
+            color: #f97316;
+        }
+
+        /* Reports - Red (as requested) / Dark Red */
+        .category-option.cat-reports:hover,
+        .category-option.cat-reports.selected {
+            background-color: #fef2f2;
+            border-color: #dc2626;
+            color: #dc2626;
+        }
+
+        .category-option.cat-reports .cat-icon {
+            color: #dc2626;
+        }
+
+        .category-option.cat-reports.selected .cat-icon {
+            color: #dc2626;
+        }
+
+        /* Suggestions - Green */
+        .category-option.cat-suggestions:hover,
+        .category-option.cat-suggestions.selected {
+            background-color: #ecfdf5;
+            border-color: #10b981;
+            color: #10b981;
+        }
+
+        .category-option.cat-suggestions .cat-icon {
+            color: #10b981;
+        }
+
+        .category-option.cat-suggestions.selected .cat-icon {
+            color: #10b981;
+        }
+
+        /* Others - Gray */
+        .category-option.cat-others:hover,
+        .category-option.cat-others.selected {
+            background-color: #f8fafc;
+            border-color: #64748b;
+            color: #64748b;
+        }
+
+        .category-option.cat-others .cat-icon {
+            color: #64748b;
+        }
+
+        .category-option.cat-others.selected .cat-icon {
+            color: #64748b;
+        }
+
+        @media (max-width: 768px) {
+            .category-selector-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .identity-modal {
+            background: rgba(255, 255, 255, 0.95);
+            width: 90%;
+            max-width: 420px;
+            padding: 48px 40px;
+            border-radius: 28px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+            position: relative;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            text-align: left;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .login-header h2 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .login-header p {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .identity-modal #identityForm {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        #signupForm {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 24px;
+            width: 100%;
+        }
+
+        #signupForm .login-field:first-child,
+        #signupForm #signupError,
+        #signupForm .btn-login-submit {
+            grid-column: span 2;
+        }
+
+        .login-field {
+            margin-bottom: 8px;
+            width: 100%;
+        }
+
+        .login-field label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+            margin-left: 4px;
+        }
+
+        .login-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .login-input-wrapper i {
+            position: absolute;
+            left: 16px;
+            color: #94a3b8;
+            font-size: 1.1rem;
+            transition: color 0.2s;
+            z-index: 10;
+        }
+
+        .login-field input {
+            width: 100%;
+            height: 56px;
+            padding: 0 16px 0 48px;
+            border-radius: 14px;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            font-size: 1rem;
+            font-family: inherit;
+            color: #0f172a;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .login-field input:focus {
+            border-color: #2563eb;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
+        }
+
+        .login-error {
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: none;
+            text-align: center;
+            border: 1px solid #fee2e2;
+        }
+
+        .btn-login-submit {
+            width: 100%;
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.2);
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+<<<<<<< HEAD
+        .identity-modal {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            width: 450px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .identity-modal h2 {
+            margin-bottom: 10px;
+        }
+
+        .identity-modal p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+=======
+        .btn-login-submit:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .close-login {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 32px;
+            height: 32px;
+            background: #f1f5f9;
+            color: #64748b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .close-login:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+            transform: rotate(90deg);
+        }
+
+        #signupModal .identity-modal {
+            max-width: 650px;
+            padding: 40px 48px;
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+        }
+
+        /* Profile Modal Style */
+        .profile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(52, 60, 106, 0.4);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .profile-modal {
+            background: white;
+            width: 500px;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-avatar-large {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            border: 4px solid var(--border-light);
+            display: block;
+<<<<<<< HEAD
+=======
+            object-fit: cover;
+        }
+
+        .profile-avatar-wrapper {
+            position: relative;
+            width: 100px;
+            margin: 0 auto 15px;
+        }
+
+        .profile-upload-btn {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 2px solid white;
+            transition: 0.3s;
+        }
+
+        .profile-upload-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .default-avatar-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 15px;
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+        }
+
+        .close-profile {
+            position: absolute;
+            right: 25px;
+            top: 25px;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-profile:hover {
+            color: var(--secondary);
+        }
+
+        .profile-field {
+            margin-bottom: 20px;
+        }
+
+        .profile-field label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .profile-field input {
+            width: 100%;
+            padding: 12px 18px;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            background: #F5F7FA;
+            color: var(--secondary);
+            font-weight: 500;
+            outline: none;
+            transition: 0.3s;
+<<<<<<< HEAD
+=======
+            font-family: 'Inter', sans-serif;
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+        }
+
+        .profile-field input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(57, 106, 255, 0.1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+
+            .dashboard-grid,
+            .charts-row,
+            .bottom-row {
+                grid-template-columns: 1fr;
+            }
+        }
+<<<<<<< HEAD
+=======
+
+        /* Projects Grid Styles */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 25px;
+            padding: 25px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 220px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .project-icon {
+            width: 50px;
+            height: 50px;
+            background: #eef2ff;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .project-card:hover .project-icon {
+            background: var(--primary);
+            color: white;
+        }
+
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 8px;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            flex: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .project-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .project-status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: #eef2ff;
+            color: var(--primary);
+        }
+
+        /* New Project Card Special Style */
+        .new-project-card {
+            border: 2px dashed #cbd5e1;
+            background: #f8fafc;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: none;
+            min-height: 160px;
+            /* Reduced height further */
+        }
+
+        .new-project-card:hover {
+            border-color: var(--primary);
+            background: #f0f9ff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(57, 106, 255, 0.15);
+        }
+
+        .new-project-icon-large {
+            width: 45px;
+            /* Smaller icon */
+            height: 45px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .new-project-card:hover .new-project-icon-large {
+            color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .new-project-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #64748b;
+        }
+
+        .new-project-card:hover .new-project-text {
+            color: var(--primary);
+        }
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+    </style>
+</head>
+
+<body>
+
+    <!-- Profile Management Modal -->
+    <div id="profileModal" class="profile-overlay">
+        <div class="profile-modal">
+            <i class="fas fa-times close-profile" onclick="closeProfileModal()"></i>
+            <div class="profile-header">
+<<<<<<< HEAD
+                <img src="https://i.pravatar.cc/150?u=eddy" alt="User Avatar" class="profile-avatar-large">
+=======
+                <div class="profile-avatar-wrapper">
+                    <img src="" onerror="this.src='https://ui-avatars.com/api/?name=User&background=random';"
+                        alt="User Avatar" class="profile-avatar-large" id="modalProfileImage">
+
+                    <label for="profileImageInput" class="profile-upload-btn">
+                        <i class="fas fa-camera" style="font-size: 0.9rem;"></i>
+                    </label>
+                    <input type="file" id="profileImageInput" accept="image/*" style="display: none;"
+                        onchange="handleImageUpload(this)">
+                </div>
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+                <h2 style="color: var(--secondary); font-weight: 800;">My Profile</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Manage your account details</p>
+            </div>
+            <div class="profile-form">
+                <div class="profile-field">
+<<<<<<< HEAD
+                    <label>Full Name</label>
+                    <input type="text" value="Eddy Cusuma" id="profileName">
+=======
+                    <label>First Name</label>
+                    <input type="text" id="profileFirstName" placeholder="John">
+                </div>
+                <div class="profile-field">
+                    <label>Middle Name</label>
+                    <input type="text" id="profileMiddleName" placeholder="">
+                </div>
+                <div class="profile-field">
+                    <label>Last Name</label>
+                    <input type="text" id="profileLastName" placeholder="Doe">
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+                </div>
+                <div class="profile-field">
+                    <label>Email Address</label>
+                    <input type="email" value="eddy.cusuma@gmail.com" id="profileEmail" disabled>
+                </div>
+                <div class="profile-field">
+                    <label>Phone Number</label>
+                    <input type="text" value="+1 234 567 890" id="profilePhone">
+                </div>
+<<<<<<< HEAD
+                <button class="btn-send" style="width: 100%; justify-content: center; height: 55px; margin-top: 10px;">
+=======
+                <button class="btn-send" id="btnSaveProfile"
+                    style="width: 100%; justify-content: center; height: 55px; margin-top: 10px;">
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+                    Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Identity Verification Modal -->
+<<<<<<< HEAD
+    <div id="identityModal" class="identity-overlay" style="display: none;">
+        <div class="identity-modal">
+            <div class="logo-icon" style="margin: 0 auto 20px;">CP</div>
+            <h2>Verify Account</h2>
+            <p>Please enter your email address to access your dashboard.</p>
+            <form id="identityForm">
+                <input type="email" id="userEmailInput"
+                    style="width: 100%; padding: 15px 20px; border-radius: 15px; border: 1px solid var(--border-light); margin-bottom: 20px; outline: none;"
+                    placeholder="name@example.com" required>
+                <button type="submit" class="btn-send" style="width: 100%; justify-content: center;">Access
+                    Dashboard</button>
+            </form>
+=======
+    <div id="identityModal" class="identity-overlay">
+        <div class="identity-modal">
+            <div class="close-login" onclick="window.location.href='Project-work-request.html'">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="login-header">
+                <h2>Welcome Back</h2>
+                <p>Log in to access your dashboard and track your project progress.</p>
+            </div>
+            <form id="identityForm">
+                <div id="loginError" class="login-error"></div>
+                <div class="login-field">
+                    <label>Email Address</label>
+                    <div class="login-input-wrapper">
+                        <input type="email" id="userEmailInput" placeholder="name@university.com" required>
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                </div>
+                <div class="login-field">
+                    <label>Password</label>
+                    <div class="login-input-wrapper">
+                        <input type="password" id="userPasswordInput" placeholder="••••••••" required>
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                <button type="submit" class="btn-login-submit" id="btnLogin">
+                    Log In to Dashboard
+                </button>
+            </form>
+            <div class="modal-switch" style="text-align: center; margin-top: 24px; font-size: 0.9rem; color: #64748b;">
+                Don't have an account? <a href="javascript:void(0)" onclick="switchToSignup()"
+                    style="color: #2563eb; font-weight: 700; text-decoration: none;">Sign Up</a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="identity-overlay">
+        <div class="identity-modal">
+            <div class="close-login" onclick="window.location.href='Project-work-request.html'">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="login-header">
+                <h2>Create Account</h2>
+                <p>Join Console Projects to access your dashboard and manage your projects.</p>
+            </div>
+            <form id="signupForm">
+                <div id="signupError" class="login-error"></div>
+                <div class="login-field">
+                    <label>First Name</label>
+                    <div class="login-input-wrapper">
+                        <input type="text" id="signupFirstName" placeholder="John" required>
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <div class="login-field">
+                    <label>Last Name</label>
+                    <div class="login-input-wrapper">
+                        <input type="text" id="signupLastName" placeholder="Doe" required>
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <div class="login-field">
+                    <label>Middle Name</label>
+                    <div class="login-input-wrapper">
+                        <input type="text" id="signupMiddleName" placeholder="">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <div class="login-field">
+                    <label>Email Address</label>
+                    <div class="login-input-wrapper">
+                        <input type="email" id="signupEmail" placeholder="name@university.com" required>
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                </div>
+                <div class="login-field">
+                    <label>Phone Number</label>
+                    <div class="login-input-wrapper">
+                        <input type="tel" id="signupPhone" placeholder="+91 98765 43210" required>
+                        <i class="fas fa-phone"></i>
+                    </div>
+                </div>
+                <div class="login-field">
+                    <label>Password</label>
+                    <div class="login-input-wrapper">
+                        <input type="password" id="signupPassword" placeholder="••••••••" required>
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                <div class="login-field">
+                    <label>Confirm Password</label>
+                    <div class="login-input-wrapper">
+                        <input type="password" id="signupConfirm" placeholder="••••••••" required>
+                        <i class="fas fa-check-double"></i>
+                    </div>
+                </div>
+                <button type="submit" class="btn-login-submit" id="btnSignup">
+                    Create Account
+                </button>
+            </form>
+            <div class="modal-switch" style="text-align: center; margin-top: 24px; font-size: 0.9rem; color: #64748b;">
+                Already have an account? <a href="javascript:void(0)" onclick="switchToLogin()"
+                    style="color: #2563eb; font-weight: 700; text-decoration: none;">Log In</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Maintenance / Production Popup -->
+    <div id="maintenanceModal" class="maintenance-overlay" style="display: none;">
+        <div class="maintenance-modal">
+            <div class="maintenance-icon">
+                <i class="fas fa-tools"></i>
+            </div>
+            <h2>Under Construction</h2>
+            <p>This website is currently under production and maintenance. <br>Please kindly identify any bugs and
+                submit your reports or suggestions in the <strong>Suggestions</strong> menu.</p>
+            <button class="btn-maintenance-ok" onclick="closeMaintenanceModal()">I Understand</button>
+        </div>
+    </div>
+
+    <!-- Generic Notification Modal -->
+    <div id="notificationModal" class="maintenance-overlay" style="display: none; z-index: 5000;">
+        <div class="maintenance-modal" style="text-align: center;">
+            <div class="maintenance-icon" id="notificationIcon" style="background: #eef2ff; color: #4338ca;">
+                <i class="fas fa-info-circle"></i>
+            </div>
+            <h2 id="notificationTitle" style="color: #1e293b;">Notification</h2>
+            <p id="notificationMessage" style="color: #64748b;">Message details go here.</p>
+            <button class="btn-maintenance-ok" onclick="closeNotificationModal()" id="notificationBtn"
+                style="background: #4338ca;">OK</button>
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-section">
+<<<<<<< HEAD
+                <div class="logo-icon">CP</div>
+                <div class="logo-text">ConsoleDash</div>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="#" class="nav-link active"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="#" class="nav-link"><i class="fas fa-exchange-alt"></i> Transactions</a>
+                <a href="#" class="nav-link"><i class="fas fa-user-circle"></i> Accounts</a>
+                <a href="#" class="nav-link"><i class="fas fa-chart-line"></i> Investments</a>
+                <a href="#" class="nav-link"><i class="fas fa-credit-card"></i> Credit Cards</a>
+                <a href="#" class="nav-link"><i class="fas fa-hand-holding-usd"></i> Loans</a>
+                <a href="#" class="nav-link"><i class="fas fa-concierge-bell"></i> Services</a>
+                <a href="#" class="nav-link"><i class="fas fa-shield-alt"></i> My Privileges</a>
+                <a href="#" class="nav-link"><i class="fas fa-cog"></i> Setting</a>
+=======
+                <div class="logo-text" style="white-space: nowrap; font-family: 'DM Sans', sans-serif;">
+                    <span style="font-weight:700;">Console</span> <span style="font-weight:400;">Projects</span>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <!-- Favorites Section -->
+                <div class="nav-group-title">Favorites</div>
+                <a href="#" class="nav-link" onclick="showSection('dashboard', this)"><i class="far fa-star"></i>
+                    Recently</a>
+
+                <!-- Dashboards Section -->
+                <div class="nav-group-title">Dashboards</div>
+                <a href="#" class="nav-link active" onclick="showSection('dashboard', this)">
+                    <i class="fas fa-circle" style="font-size: 0.5rem;"></i> Overview
+                </a>
+                <a href="#" class="nav-link" onclick="showSection('projects', this)">
+                    <i class="far fa-folder"></i> Projects
+                </a>
+
+                <!-- Pages Section -->
+                <div class="nav-group-title">Pages</div>
+                <a href="#" class="nav-link" onclick="showSection('accounts', this)">
+                    <i class="far fa-user"></i> User Profile
+                </a>
+                <a href="#" class="nav-link" style="padding-left: 65px;" onclick="showSection('dashboard', this)">
+                    Overview
+                </a>
+                <a href="#" class="nav-link" style="padding-left: 65px;" onclick="showSection('projects', this)">
+                    Projects
+                </a>
+                <a href="#" class="nav-link" style="padding-left: 65px;" onclick="showSection('chat', this)">
+                    Campaigns
+                </a>
+                <a href="#" class="nav-link" style="padding-left: 65px;" onclick="showSection('suggestions', this)">
+                    Documents
+                </a>
+                <a href="#" class="nav-link" style="padding-left: 65px;" onclick="showSection('settings', this)">
+                    Followers
+                </a>
+                <a href="#" class="nav-link" onclick="showSection('accounts', this)">
+                    <i class="far fa-user-circle"></i> Account
+                </a>
+                <a href="#" class="nav-link" onclick="showSection('settings', this)">
+                    <i class="far fa-building"></i> Corporate
+                </a>
+                <a href="#" class="nav-link" onclick="showSection('suggestions', this)">
+                    <i class="far fa-file-alt"></i> Raise Queries
+                </a>
+                <a href="#" class="nav-link" onclick="showSection('chat', this)">
+                    <i class="far fa-share-alt"></i> Social
+                </a>
+
+                <!-- User Profile Section at bottom -->
+                <div style="margin-top: auto; padding: 20px 15px; border-top: 1px solid var(--border-light);">
+                    <div style="display: flex; align-items: center; gap: 12px; cursor: pointer;"
+                        onclick="navigateToProfileSettings()">
+                        <img src="https://ui-avatars.com/api/?name=User&background=4318FF&color=FFFFFF" alt="Profile"
+                            class="profile-img sidebar-profile-img"
+                            style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border-light);">
+                        <div style="flex: 1; min-width: 0;">
+                            <div class="user-display-name"
+                                style="font-size: 0.9rem; font-weight: 600; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                User</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                                id="sidebar-user-email">user@example.com</div>
+                        </div>
+                        <i class="fas fa-chevron-right" style="color: var(--text-muted); font-size: 0.75rem;"></i>
+                    </div>
+                </div>
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+<<<<<<< HEAD
+                <h1>Overview</h1>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search for something">
+                    </div>
+                    <div class="action-icon"><i class="fas fa-cog"></i></div>
+                    <div class="action-icon"><i class="fas fa-bell"></i></div>
+                    <img src="https://i.pravatar.cc/150?u=eddy" alt="User Profile" class="profile-img"
+                        onclick="openProfileModal()">
+                </div>
+            </header>
+
+            <div class="dashboard-grid">
+                <!-- My Cards Section -->
+                <div>
+                    <div class="section-title">
+                        <h2>My Payments</h2>
+                        <a href="#">See All</a>
+                    </div>
+                    <div class="cards-container">
+                        <!-- Blue Card -->
+                        <div class="credit-card blue">
+                            <div class="card-header-info">
+                                <div class="card-balance">
+                                    <p>Balance</p>
+                                    <h3>$5,756</h3>
+                                </div>
+                                <img src="https://img.icons8.com/ios-filled/50/ffffff/sim-card-chip.png"
+                                    class="chip-icon" alt="Chip">
+                            </div>
+                            <div class="card-footer-info">
+                                <div class="info-group">
+                                    <p>Card Holder</p>
+                                    <h4>Eddy Cusuma</h4>
+                                </div>
+                                <div class="info-group">
+                                    <p>Valid Thru</p>
+                                    <h4>12/22</h4>
+                                </div>
+                            </div>
+                            <div class="card-number-section">
+                                <span class="card-number">3778 **** **** 1234</span>
+                                <img src="https://img.icons8.com/color/48/000000/mastercard.png" alt="MC">
+                            </div>
+                        </div>
+                        <!-- White Card -->
+                        <div class="credit-card white">
+                            <div class="card-header-info">
+                                <div class="card-balance">
+                                    <p>Balance</p>
+                                    <h3>$5,756</h3>
+                                </div>
+                                <img src="https://img.icons8.com/ios-filled/50/343C6A/sim-card-chip.png"
+                                    class="chip-icon" alt="Chip">
+                            </div>
+                            <div class="card-footer-info">
+                                <div class="info-group">
+                                    <p>Card Holder</p>
+                                    <h4>Eddy Cusuma</h4>
+                                </div>
+                                <div class="info-group">
+                                    <p>Valid Thru</p>
+                                    <h4>12/22</h4>
+                                </div>
+                            </div>
+                            <div class="card-number-section">
+                                <span class="card-number">3778 **** **** 1234</span>
+                                <img src="https://img.icons8.com/color/48/000000/mastercard.png" alt="MC">
+=======
+                <div class="header-title-group">
+                    <div class="action-icon" onclick="toggleSidebar()" style="margin-right: 16px; cursor: pointer;"
+                        title="Toggle Sidebar">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                    <div class="breadcrumbs">Dashboards / <span id="breadcrumb-page">Overview</span></div>
+                    <h1 id="page-title">Overview</h1>
+                </div>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search...">
+                    </div>
+                    <div class="action-icon"><i class="far fa-bell"></i></div>
+                    <div class="action-icon" onclick="toggleDarkMode()"><i class="far fa-moon" id="darkModeIcon"></i>
+                    </div>
+                    <div class="action-icon"><i class="fas fa-info-circle"></i></div>
+                    <img src="https://i.pravatar.cc/150?u=eddy" alt="Profile" class="profile-img"
+                        onclick="navigateToProfileSettings()" style="cursor: pointer;">
+                </div>
+            </header>
+
+            <div id="dashboard-section">
+                <!-- Main Dashboard Content matching SnowUI -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 25px;">
+                    <!-- Project Status Card -->
+                    <div class="dashboard-card">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin: 0;">SnowUI
+                            </h3>
+                            <span
+                                style="background: #E9EDF7; color: var(--primary); padding: 4px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 600;">In
+                                Progress</span>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="font-size: 0.85rem; color: var(--text-muted);">Status</span>
+                                <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-main);">51%</span>
+                            </div>
+                            <div style="background: #E9EDF7; height: 8px; border-radius: 10px; overflow: hidden;">
+                                <div
+                                    style="background: linear-gradient(90deg, #4318FF 0%, #6842FF 100%); width: 51%; height: 100%;">
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                            <div>
+                                <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0 0 4px 0;">Total Tasks
+                                </p>
+                                <p style="font-size: 1.1rem; font-weight: 700; color: var(--secondary); margin: 0;">15
+                                    <span
+                                        style="font-size: 0.9rem; font-weight: 500; color: var(--text-muted);">/48</span>
+                                </p>
+                            </div>
+                            <div>
+                                <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0 0 4px 0;">Due Date</p>
+                                <p style="font-size: 0.9rem; font-weight: 600; color: var(--secondary); margin: 0;">29
+                                    Jan, 2025</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0 0 4px 0;">Budget Spent
+                                </p>
+                                <p style="font-size: 0.9rem; font-weight: 600; color: var(--secondary); margin: 0;">
+                                    ₹15,000</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <img src="https://i.pravatar.cc/32?u=a"
+                                style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid white;">
+                            <img src="https://i.pravatar.cc/32?u=b"
+                                style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid white; margin-left: -12px;">
+                            <img src="https://i.pravatar.cc/32?u=c"
+                                style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid white; margin-left: -12px;">
+                            <span style="font-size: 0.85rem; color: var(--text-muted); margin-left: 4px;">+2</span>
+                        </div>
+                    </div>
+
+                    <!-- Calendar Widget -->
+                    <div class="dashboard-card">
+                        <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--secondary); margin: 0 0 20px 0;">
+                            What's on the road?</h3>
+                        <div
+                            style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; text-align: center;">
+                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">22</div>
+                            <div
+                                style="background: var(--secondary); color: white; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 600;">
+                                23</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">24</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">25</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">26</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">27</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">28</div>
+                        </div>
+                        <div style="margin-top: 25px;">
+                            <div style="display: flex; align-items: start; gap: 12px; margin-bottom: 16px;">
+                                <div
+                                    style="width: 36px; height: 36px; background: #FEE2E2; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                    <i class="fas fa-bug" style="color: #EF4444; font-size: 0.9rem;"></i>
+                                </div>
+                                <div style="flex: 1;">
+                                    <h4
+                                        style="font-size: 0.9rem; font-weight: 600; color: var(--secondary); margin: 0 0 4px 0;">
+                                        You have a bug that needs to be fixed.</h4>
+                                    <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">Just now</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: start; gap: 12px; margin-bottom: 16px;">
+                                <div
+                                    style="width: 36px; height: 36px; background: #E0E7FF; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                    <i class="fas fa-code-branch" style="color: #6366F1; font-size: 0.9rem;"></i>
+                                </div>
+                                <div style="flex: 1;">
+                                    <h4
+                                        style="font-size: 0.9rem; font-weight: 600; color: var(--secondary); margin: 0 0 4px 0;">
+                                        Released a new version</h4>
+                                    <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">59 minutes ago
+                                    </p>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: start; gap: 12px;">
+                                <div
+                                    style="width: 36px; height: 36px; background: #DBEAFE; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                    <i class="fas fa-check" style="color: #3B82F6; font-size: 0.9rem;"></i>
+                                </div>
+                                <div style="flex: 1;">
+                                    <h4
+                                        style="font-size: 0.9rem; font-weight: 600; color: var(--secondary); margin: 0 0 4px 0;">
+                                        Submitted a bug</h4>
+                                    <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">12 hours ago</p>
+                                </div>
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+<<<<<<< HEAD
+                <!-- Recent Transactions -->
+                <div>
+                    <div class="section-title">
+                        <h2>Recent updates</h2>
+                    </div>
+                    <div class="transactions-list">
+                        <div class="transaction-item">
+                            <div class="item-icon icon-yellow"><i class="fas fa-credit-card"></i></div>
+                            <div class="item-details">
+                                <h4>Deposit from my Card</h4>
+                                <p>28 January 2021</p>
+                            </div>
+                            <div class="item-amount amount-negative">-$850</div>
+                        </div>
+                        <div class="transaction-item">
+                            <div class="item-icon icon-blue"><i class="fab fa-paypal"></i></div>
+                            <div class="item-details">
+                                <h4>Deposit Paypal</h4>
+                                <p>25 January 2021</p>
+                            </div>
+                            <div class="item-amount amount-positive">+$2,500</div>
+                        </div>
+                        <div class="transaction-item">
+                            <div class="item-icon icon-green"><i class="fas fa-dollar-sign"></i></div>
+                            <div class="item-details">
+                                <h4>Jemi Wilson</h4>
+                                <p>21 January 2021</p>
+                            </div>
+                            <div class="item-amount amount-positive">+$5,400</div>
+=======
+                <!-- Latest Files Section -->
+                <div class="dashboard-card" style="margin-bottom: 25px;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--secondary); margin: 0;">Latest
+                            Files</h3>
+                        <a href="#"
+                            style="font-size: 0.85rem; color: var(--text-muted); text-decoration: none;">Upload</a>
+                    </div>
+                    <div>
+                        <div
+                            style="display: flex; align-items: center; gap: 15px; padding: 12px 0; border-bottom: 1px solid #F4F7FE;">
+                            <i class="fas fa-file-pdf" style="color: #EF4444; font-size: 1.2rem;"></i>
+                            <div style="flex: 1;">
+                                <h4 style="font-size: 0.9rem; font-weight: 600; color: var(--secondary); margin: 0;">
+                                    Dashboard-design.pdf</h4>
+                                <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">2.3 MB / Just now /
+                                    Karina Clark</p>
+                            </div>
+                            <i class="fas fa-download"
+                                style="color: var(--text-muted); font-size: 0.9rem; cursor: pointer;"></i>
+                        </div>
+                        <div
+                            style="display: flex; align-items: center; gap: 15px; padding: 12px 0; border-bottom: 1px solid #F4F7FE;">
+                            <i class="fas fa-file-pdf" style="color: #EF4444; font-size: 1.2rem;"></i>
+                            <div style="flex: 1;">
+                                <h4 style="font-size: 0.9rem; font-weight: 600; color: var(--secondary); margin: 0;">
+                                    Dashboard-design.fig</h4>
+                                <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">3.6 MB / 59 minutes
+                                    ago / Marcus Botosh</p>
+                            </div>
+                            <i class="fas fa-download"
+                                style="color: var(--text-muted); font-size: 0.9rem; cursor: pointer;"></i>
+                        </div>
+                        <div
+                            style="display: flex; align-items: center; gap: 15px; padding: 12px 0; border-bottom: 1px solid #F4F7FE;">
+                            <i class="fas fa-file-pdf" style="color: #EF4444; font-size: 1.2rem;"></i>
+                            <div style="flex: 1;">
+                                <h4 style="font-size: 0.9rem; font-weight: 600; color: var(--secondary); margin: 0;">
+                                    Dashboard-design.xd</h4>
+                                <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">2.3 MB / 12 hours
+                                    ago / Andi Lane</p>
+                            </div>
+                            <i class="fas fa-download"
+                                style="color: var(--text-muted); font-size: 0.9rem; cursor: pointer;"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Spendings Table -->
+                <div class="dashboard-card">
+                    <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--secondary); margin: 0 0 20px 0;">
+                        Project Spendings</h3>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid #F4F7FE;">
+                                <th
+                                    style="text-align: left; padding: 12px 0; font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">
+                                    Manager</th>
+                                <th
+                                    style="text-align: left; padding: 12px 0; font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">
+                                    Date</th>
+                                <th
+                                    style="text-align: left; padding: 12px 0; font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">
+                                    Amount</th>
+                                <th
+                                    style="text-align: left; padding: 12px 0; font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">
+                                    Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid #F4F7FE;">
+                                <td style="padding: 12px 0;">
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <img src="https://i.pravatar.cc/32?u=ryan"
+                                            style="width: 28px; height: 28px; border-radius: 50%;">
+                                        <span
+                                            style="font-size: 0.85rem; font-weight: 600; color: var(--secondary);">Ryanferd</span>
+                                    </div>
+                                </td>
+                                <td style="padding: 12px 0; font-size: 0.85rem; color: var(--text-muted);">Jan 24, 2025
+                                </td>
+                                <td
+                                    style="padding: 12px 0; font-size: 0.85rem; font-weight: 600; color: var(--secondary);">
+                                    ₹962.00</td>
+                                <td style="padding: 12px 0;">
+                                    <span
+                                        style="background: #E0E7FF; color: #6366F1; padding: 4px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 600;">In
+                                        Progress</span>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #F4F7FE;">
+                                <td style="padding: 12px 0;">
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <img src="https://i.pravatar.cc/32?u=luisa"
+                                            style="width: 28px; height: 28px; border-radius: 50%;">
+                                        <span
+                                            style="font-size: 0.85rem; font-weight: 600; color: var(--secondary);">Luisa</span>
+                                    </div>
+                                </td>
+                                <td style="padding: 12px 0; font-size: 0.85rem; color: var(--text-muted);">Feb 10, 2025
+                                </td>
+                                <td
+                                    style="padding: 12px 0; font-size: 0.85rem; font-weight: 600; color: var(--secondary);">
+                                    ₹843.00</td>
+                                <td style="padding: 12px 0;">
+                                    <span
+                                        style="background: #DCFCE7; color: #16A34A; padding: 4px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 600;">Complete</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="dashboard-grid" style="display: none;">
+                    <!-- My Cards / Payments -->
+                    <div>
+                        <div class="section-title">
+                            <h2>My Payments</h2>
+                        </div>
+                        <div class="cards-container">
+                            <div class="credit-card blue">
+                                <div class="card-header-info">
+                                    <div class="card-balance">
+                                        <p>Balance</p>
+                                        <h3>&#8377; 0.00</h3>
+                                    </div>
+                                    <i class="fas fa-wifi" style="font-size: 1.2rem;"></i>
+                                </div>
+                                <div class="card-footer-info">
+                                    <div class="info-group">
+                                        <p>VALID THRU</p>
+                                        <h4>12/25</h4>
+                                    </div>
+                                    <div class="info-group">
+                                        <p>CARD HOLDER</p>
+                                        <h4 class="user-display-name">Loading...</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Updates (Styled as Image's List) -->
+                    <div>
+                        <div class="section-title">
+                            <h2>Recent Activity</h2>
+                        </div>
+                        <div class="transactions-list">
+                            <!-- Placeholder mocking the 'Latest Files' look -->
+                            <div class="transaction-item">
+                                <div class="item-icon icon-blue"><i class="fas fa-file-pdf"></i></div>
+                                <div class="item-details">
+                                    <h4>Project Requirements.pdf</h4>
+                                    <p>5.6 MB • Just now</p>
+                                </div>
+                            </div>
+                            <div class="transaction-item">
+                                <div class="item-icon icon-green"><i class="fas fa-file-code"></i></div>
+                                <div class="item-details">
+                                    <h4>Dashboard-design.html</h4>
+                                    <p>2.3 MB • 2 mins ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- End dashboard-section -->
+
+            <!-- Chat Section -->
+            <div id="chat-section"
+                style="display: none; height: calc(100vh - 140px); background: white; border-radius: 25px; overflow: hidden;">
+                <div style="display: flex; height: 100%;">
+                    <!-- Chat Sidebar -->
+                    <div style="width: 300px; border-right: 1px solid #e2e8f0; display: flex; flex-direction: column;">
+                        <div style="padding: 24px; border-bottom: 1px solid #e2e8f0;">
+                            <div class="search-box" style="width: 100%;">
+                                <i class="fas fa-search"></i>
+                                <input type="text" placeholder="Search contacts" style="background: #f8fafc;">
+                            </div>
+                        </div>
+                        <div style="flex: 1; overflow-y: auto; padding: 16px;">
+                            <!-- Mock Contacts -->
+                            <div style="text-align: center; padding: 20px 0; color: #94a3b8;">
+                                <i class="fas fa-users-slash" style="font-size: 1.5rem; margin-bottom: 8px;"></i>
+                                <p style="font-size: 0.9rem;">No contacts found</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Chat Area -->
+                    <div style="flex: 1; display: flex; flex-direction: column;">
+                        <div
+                            style="padding: 24px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between;">
+                            <div style="display: flex; align-items: center; gap: 16px;">
+                                <div>
+                                    <h4 style="font-size: 1.1rem; color: #0f172a; font-weight: 700;">Messages</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            style="flex: 1; background: #f8fafc; padding: 24px; overflow-y: auto; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                            <div
+                                style="width: 60px; height: 60px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: #94a3b8; font-size: 1.5rem;">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <h3 style="color: var(--secondary); margin-bottom: 8px;">No messages yet</h3>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Select a contact to start chatting
+                            </p>
+                        </div>
+                        <div style="padding: 24px; background: white; border-top: 1px solid #e2e8f0;">
+                            <div
+                                style="background: #f8fafc; border-radius: 16px; padding: 12px 24px; display: flex; align-items: center; gap: 16px;">
+                                <input type="text" placeholder="Type a message..."
+                                    style="border: none; background: transparent; flex: 1; outline: none; padding: 8px 0; font-size: 1rem; color: #0f172a;">
+                                <div style="display: flex; gap: 14px; align-items: center;">
+                                    <input type="file" id="chatAttachmentInput" hidden>
+                                    <i class="fas fa-paperclip"
+                                        onclick="document.getElementById('chatAttachmentInput').click()"
+                                        style="color: #94a3b8; cursor: pointer; font-size: 1.1rem;"
+                                        title="Attach file"></i>
+                                    <i class="fas fa-microphone" onclick="toggleVoiceRecording()"
+                                        style="color: #94a3b8; cursor: pointer; font-size: 1.1rem;"
+                                        title="Voice message"></i>
+                                    <i class="far fa-smile" onclick="toggleStickerPicker()"
+                                        style="color: #94a3b8; cursor: pointer; font-size: 1.1rem;"
+                                        title="Stickers"></i>
+                                    <div style="width: 1px; height: 20px; background: #e2e8f0; margin: 0 4px;"></div>
+                                    <i class="fas fa-paper-plane"
+                                        style="color: #2563eb; cursor: pointer; font-size: 1.2rem;" title="Send"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Right Sidebar: Sender Details -->
+                    <div
+                        style="width: 250px; border-left: 1px solid #e2e8f0; background: white; padding: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <div style="text-align: center; color: #94a3b8;">
+                            <i class="far fa-id-card" style="font-size: 2rem; margin-bottom: 12px; color: #cbd5e1;"></i>
+                            <p style="font-size: 0.9rem;">Select a contact to view details</p>
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<<<<<<< HEAD
+            <!-- Charts Row -->
+            <div class="charts-row">
+                <div>
+                    <div class="section-title">
+                        <h2>Weekly Activity</h2>
+                    </div>
+                    <div class="chart-card">
+                        <div class="bar-chart-mockup">
+                            <div class="bar-group">
+                                <div class="bars">
+                                    <div class="bar bar-blue" style="height: 120px;"></div>
+                                    <div class="bar bar-cyan" style="height: 80px;"></div>
+                                </div>
+                                <span class="day-label">Sat</span>
+                            </div>
+                            <div class="bar-group">
+                                <div class="bars">
+                                    <div class="bar bar-blue" style="height: 80px;"></div>
+                                    <div class="bar bar-cyan" style="height: 40px;"></div>
+                                </div>
+                                <span class="day-label">Sun</span>
+                            </div>
+                            <div class="bar-group">
+                                <div class="bars">
+                                    <div class="bar bar-blue" style="height: 100px;"></div>
+                                    <div class="bar bar-cyan" style="height: 70px;"></div>
+                                </div>
+                                <span class="day-label">Mon</span>
+                            </div>
+                            <div class="bar-group">
+                                <div class="bars">
+                                    <div class="bar bar-blue" style="height: 140px;"></div>
+                                    <div class="bar bar-cyan" style="height: 110px;"></div>
+                                </div>
+                                <span class="day-label">Tue</span>
+                            </div>
+                            <div class="bar-group">
+                                <div class="bars">
+                                    <div class="bar bar-blue" style="height: 50px;"></div>
+                                    <div class="bar bar-cyan" style="height: 80px;"></div>
+                                </div>
+                                <span class="day-label">Wed</span>
+                            </div>
+                            <div class="bar-group">
+                                <div class="bars">
+                                    <div class="bar bar-blue" style="height: 110px;"></div>
+                                    <div class="bar bar-cyan" style="height: 70px;"></div>
+                                </div>
+                                <span class="day-label">Thu</span>
+                            </div>
+                            <div class="bar-group">
+                                <div class="bars">
+                                    <div class="bar bar-blue" style="height: 120px;"></div>
+                                    <div class="bar bar-cyan" style="height: 90px;"></div>
+                                </div>
+                                <span class="day-label">Fri</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="section-title">
+                        <h2>Expense Statistics</h2>
+                    </div>
+                    <div class="chart-card">
+                        <div class="pie-chart-mockup">
+                            <div class="pie"></div>
+=======
+            <!-- Suggestions Section -->
+            <div id="suggestions-section" style="display: none;">
+                <div
+                    style="background: white; border-radius: 25px; padding: 40px; max-width: 800px; margin: 0 auto; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0;">
+                    <div style="margin-bottom: 30px; text-align: center;">
+                        <h2 style="color: var(--secondary); font-size: 1.75rem; margin-bottom: 12px; font-weight: 700;">
+                            Make your Feedback</h2>
+                        <p style="color: var(--text-muted); font-size: 1.05rem;">We value your feedback! Select a
+                            category and let us know how we can improve.</p>
+                    </div>
+
+                    <!-- Category Selector -->
+                    <div class="category-selector-container">
+                        <div class="category-option cat-bugs" data-value="Bugs" onclick="selectCategory(this)">
+                            <div class="cat-icon"><i class="fas fa-bug"></i></div>
+                            <span>Bugs</span>
+                        </div>
+                        <div class="category-option cat-issues" data-value="Issues" onclick="selectCategory(this)">
+                            <div class="cat-icon"><i class="fas fa-exclamation-circle"></i></div>
+                            <span>Issues</span>
+                        </div>
+                        <div class="category-option cat-reports" data-value="Reports" onclick="selectCategory(this)">
+                            <div class="cat-icon"><i class="fas fa-flag"></i></div>
+                            <span>Reports</span>
+                        </div>
+                        <div class="category-option cat-suggestions" data-value="Suggestions"
+                            onclick="selectCategory(this)">
+                            <div class="cat-icon"><i class="fas fa-lightbulb"></i></div>
+                            <span>Suggestions</span>
+                        </div>
+                        <div class="category-option cat-others" data-value="Others" onclick="selectCategory(this)">
+                            <div class="cat-icon"><i class="fas fa-ellipsis-h"></i></div>
+                            <span>Others</span>
+                        </div>
+                    </div>
+                    <input type="hidden" id="selectedCategory" value="">
+
+                    <form id="suggestionForm" style="margin-top: 30px;">
+                        <div class="login-field">
+                            <label>Title</label>
+                            <div class="login-input-wrapper">
+                                <input type="text" id="suggestionTitle" placeholder="Brief title of your suggestion"
+                                    required>
+                                <i class="fas fa-heading"></i>
+                            </div>
+                        </div>
+                        <div class="login-field">
+                            <label>Message</label>
+                            <div class="login-input-wrapper" style="align-items: flex-start;">
+                                <textarea id="suggestionMessage" rows="6"
+                                    placeholder="Describe your suggestion or bug report in detail..." required
+                                    style="width: 100%; padding: 14px 16px 14px 46px; border-radius: 14px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 1rem; font-family: inherit; color: #0f172a; outline: none; transition: all 0.2s; resize: vertical;"></textarea>
+                                <i class="fas fa-comment-alt" style="top: 18px;"></i>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-login-submit" id="btnSubmitSuggestion"
+                            style="margin-top: 24px; background: linear-gradient(135deg, #4C49ED 0%, #0A06F4 100%);">
+                            Submit Suggestion
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Projects Section -->
+            <div id="projects-section" style="display: none;">
+                <div class="section-title">
+                    <h2>My Projects</h2>
+                </div>
+                <div id="projectsGrid" class="projects-grid"
+                    style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; align-items: start;">
+                    <!-- Projects will be loaded here via JS -->
+
+                    <!-- Request New Project Card (Compact) -->
+                    <div onclick="openNewProjectModal()" style="
+                        border: 2px dashed #CBD5E1;
+                        border-radius: 16px;
+                        padding: 40px 20px;
+                        text-align: center;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        background: var(--white);
+                        min-height: 200px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        ">
+                        <div style="
+                            width: 48px;
+                            height: 48px;
+                            background: #F1F5F9;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin-bottom: 20px;
+                            color: #94A3B8;
+                            font-size: 1.2rem;
+                            ">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <h3
+                            style="font-size: 1rem; font-weight: 600; color: #64748B; margin-bottom: 8px; line-height: 1.4;">
+                            Request New Project</h3>
+                        <p style="font-size: 0.875rem; color: #94A3B8; margin: 0; line-height: 1.5;">Initiate a new work
+                            request</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accounts Section -->
+            <div id="accounts-section" style="display: none;">
+                <div class="dashboard-card" style="max-width: 900px; margin: 0 auto;">
+                    <!-- Profile Settings Header -->
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                        <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin: 0;">Profile
+                            Settings</h2>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="action-icon"
+                                style="width: auto; padding: 8px 16px; background: transparent; border: 1px solid var(--border-light); border-radius: 8px; cursor: pointer;">
+                                <i class="fas fa-phone" style="margin-right: 6px;"></i>
+                            </button>
+                            <button class="action-icon"
+                                style="width: auto; padding: 8px 16px; background: transparent; border: 1px solid var(--border-light); border-radius: 8px; cursor: pointer;">
+                                <i class="fas fa-cog" style="margin-right: 6px;"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tabs -->
+                    <div style="border-bottom: 1px solid var(--border-light); margin-bottom: 30px;">
+                        <div style="display: flex; gap: 30px; overflow-x: auto;">
+                            <div class="profile-tab active" data-tab="details"
+                                style="padding: 12px 0; font-size: 0.9rem; font-weight: 600; color: var(--primary); border-bottom: 2px solid var(--primary); cursor: pointer; white-space: nowrap;">
+                                Details</div>
+                            <div class="profile-tab" data-tab="personal"
+                                style="padding: 12px 0; font-size: 0.9rem; font-weight: 500; color: var(--text-muted); cursor: pointer; white-space: nowrap;">
+                                Personal</div>
+                            <div class="profile-tab" data-tab="account"
+                                style="padding: 12px 0; font-size: 0.9rem; font-weight: 500; color: var(--text-muted); cursor: pointer; white-space: nowrap;">
+                                Account</div>
+                            <div class="profile-tab" data-tab="profile"
+                                style="padding: 12px 0; font-size: 0.9rem; font-weight: 500; color: var(--text-muted); cursor: pointer; white-space: nowrap;">
+                                Profile</div>
+                            <div class="profile-tab" data-tab="security"
+                                style="padding: 12px 0; font-size: 0.9rem; font-weight: 500; color: var(--text-muted); cursor: pointer; white-space: nowrap;">
+                                Security</div>
+                            <div class="profile-tab" data-tab="api"
+                                style="padding: 12px 0; font-size: 0.9rem; font-weight: 500; color: var(--text-muted); cursor: pointer; white-space: nowrap;">
+                                API</div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Details Content -->
+                    <div id="profile-details-content">
+                        <!-- Profile Details Section -->
+                        <div style="margin-bottom: 30px;">
+                            <h3
+                                style="font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">
+                                Profile Details</h3>
+                            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">You can edit
+                                your public profile from something.</p>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                                <div>
+                                    <label
+                                        style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 8px;">Public
+                                        Email</label>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <i class="fas fa-user" style="color: var(--text-muted);"></i>
+                                        <input type="text" id="profilePublicEmail" readonly
+                                            style="flex: 1; padding: 10px; border: 1px solid var(--border-light); border-radius: 8px; background: var(--input-bg); color: var(--text-main); font-size: 0.9rem;">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label
+                                        style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 8px;">View
+                                        Details</label>
+                                    <button onclick="openProfileModal()"
+                                        style="padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem;">View
+                                        Details</button>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 20px;">
+                                <label
+                                    style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 8px;">URL</label>
+                                <div style="display: flex; gap: 10px; align-items: center;">
+                                    <input type="text" id="publicUrlInput" placeholder="https://github.com/"
+                                        value="https://github.com/"
+                                        style="flex: 1; padding: 10px 14px; border: 1px solid var(--border-light); border-radius: 8px; background: var(--input-bg); color: var(--text-main); font-size: 0.9rem;">
+                                    <button onclick="updatePublicUrl()"
+                                        style="padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; white-space: nowrap;">
+                                        <i class="fas fa-check" style="margin-right: 6px;"></i>Update
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bio/Description -->
+                        <div style="margin-bottom: 30px;">
+                            <label
+                                style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 8px;">Bio/Description</label>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">You can
+                                @mention other users and organizations to link to them.</p>
+                            <textarea rows="4"
+                                placeholder="UGHHH TOUGH UGHHH Session start for children? Jargon Z people + in the most perfect design tool for presentations."
+                                style="width: 100%; padding: 12px; border: 1px solid var(--border-light); border-radius: 8px; background: var(--input-bg); color: var(--text-main); font-size: 0.9rem; resize: vertical; font-family: inherit;"></textarea>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px;">500/500</p>
+                        </div>
+
+                        <!-- Profile Picture -->
+                        <div style="margin-bottom: 30px;">
+                            <label
+                                style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 12px;">Profile
+                                Picture</label>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">Upload a
+                                picture to make your profile stand out and let people recognize your comments and
+                                contributions!</p>
+
+                            <div style="display: flex; align-items: center; gap: 20px;">
+                                <img src="https://ui-avatars.com/api/?name=User&background=4318FF&color=FFFFFF"
+                                    alt="Profile Picture" id="profilePicturePreview" class="profile-img"
+                                    style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--border-light);">
+                                <div style="flex: 1;">
+                                    <div style="display: flex; gap: 12px; align-items: center;">
+                                        <label for="profilePictureUpload"
+                                            style="padding: 8px 16px; background: transparent; border: 1px solid var(--border-light); border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--text-main);">
+                                            <i class="fas fa-upload" style="margin-right: 6px;"></i> Click here to
+                                            upload your file or drag
+                                        </label>
+                                        <input type="file" id="profilePictureUpload" accept="image/*"
+                                            style="display: none;">
+                                        <span style="font-size: 0.85rem; color: var(--text-muted);">SVG, PNG, JPG, GIF
+                                            (MAX. 800x400px)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Notifications -->
+                        <div style="margin-bottom: 30px;">
+                            <label
+                                style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 12px;">Notifications</label>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">This is where
+                                you'll receive notifications.</p>
+
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <input type="checkbox" id="notifReports" checked
+                                    style="width: 18px; height: 18px; cursor: pointer;">
+                                <label for="notifReports"
+                                    style="font-size: 0.9rem; color: var(--text-main); cursor: pointer;">Reports</label>
+                            </div>
+                            <p
+                                style="font-size: 0.85rem; color: var(--text-muted); margin-left: 30px; margin-bottom: 16px;">
+                                Receive reports via PUSH/SMS</p>
+
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <input type="checkbox" id="notifShared"
+                                    style="width: 18px; height: 18px; cursor: pointer;">
+                                <label for="notifShared"
+                                    style="font-size: 0.9rem; color: var(--text-main); cursor: pointer;">Shared</label>
+                            </div>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-left: 30px;">Receive
+                                social/public shares</p>
+                        </div>
+
+                        <!-- Social Media Links -->
+                        <div style="margin-bottom: 30px;">
+                            <label
+                                style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 12px;">Social
+                                Media Links</label>
+
+                            <div style="display: grid; gap: 12px;">
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <i class="fab fa-facebook" style="width: 24px; color: #1877F2;"></i>
+                                    <span
+                                        style="width: 120px; font-size: 0.9rem; color: var(--text-main);">facebook.com/</span>
+                                    <input type="text" id="facebookInput" placeholder="username"
+                                        style="flex: 1; padding: 8px 12px; border: 1px solid var(--border-light); border-radius: 8px; background: var(--input-bg); color: var(--text-main); font-size: 0.9rem;">
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <i class="fab fa-twitter" style="width: 24px; color: #1DA1F2;"></i>
+                                    <span
+                                        style="width: 120px; font-size: 0.9rem; color: var(--text-main);">twitter.com/</span>
+                                    <input type="text" id="twitterInput" placeholder="username"
+                                        style="flex: 1; padding: 8px 12px; border: 1px solid var(--border-light); border-radius: 8px; background: var(--input-bg); color: var(--text-main); font-size: 0.9rem;">
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <i class="fab fa-linkedin" style="width: 24px; color: #0A66C2;"></i>
+                                    <span
+                                        style="width: 120px; font-size: 0.9rem; color: var(--text-main);">linkedin.com/in/</span>
+                                    <input type="text" id="linkedinInput" placeholder="username"
+                                        style="flex: 1; padding: 8px 12px; border: 1px solid var(--border-light); border-radius: 8px; background: var(--input-bg); color: var(--text-main); font-size: 0.9rem;">
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <i class="fab fa-instagram" style="width: 24px; color: #E4405F;"></i>
+                                    <span
+                                        style="width: 120px; font-size: 0.9rem; color: var(--text-main);">instagram.com/</span>
+                                    <input type="text" id="instagramInput" placeholder="username"
+                                        style="flex: 1; padding: 8px 12px; border: 1px solid var(--border-light); border-radius: 8px; background: var(--input-bg); color: var(--text-main); font-size: 0.9rem;">
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <i class="fab fa-discord" style="width: 24px; color: #5865F2;"></i>
+                                    <span
+                                        style="width: 120px; font-size: 0.9rem; color: var(--text-main);">discord.com/</span>
+                                    <input type="text" id="discordInput" placeholder="username"
+                                        style="flex: 1; padding: 8px 12px; border: 1px solid var(--border-light); border-radius: 8px; background: var(--input-bg); color: var(--text-main); font-size: 0.9rem;">
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <i class="fab fa-whatsapp" style="width: 24px; color: #25D366;"></i>
+                                    <span
+                                        style="width: 120px; font-size: 0.9rem; color: var(--text-main);">WhatsApp</span>
+                                    <input type="tel" id="whatsappInput" placeholder="+1234567890"
+                                        style="flex: 1; padding: 8px 12px; border: 1px solid var(--border-light); border-radius: 8px; background: var(--input-bg); color: var(--text-main); font-size: 0.9rem;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div
+                            style="display: flex; justify-content: flex-end; gap: 12px; padding-top: 20px; border-top: 1px solid var(--border-light);">
+                            <button
+                                style="padding: 10px 20px; background: transparent; border: 1px solid var(--border-light); border-radius: 8px; cursor: pointer; font-weight: 600; color: var(--text-main); font-size: 0.9rem;">Cancel</button>
+                            <button
+                                style="padding: 10px 24px; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem;">Save
+                                changes</button>
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<<<<<<< HEAD
+
+        </main>
+    </div>
+
+    <!-- SDK & Logic -->
+=======
+            <!-- Developers Section -->
+            <div id="developers-section" style="display: none;">
+                <div
+                    style="background: white; border-radius: 25px; padding: 40px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0; text-align: center;">
+                    <i class="fas fa-code" style="font-size: 3rem; color: var(--secondary); margin-bottom: 20px;"></i>
+                    <h2 style="color: var(--secondary); font-size: 1.5rem; margin-bottom: 10px;">Developers</h2>
+                    <p style="color: var(--text-muted);">Access developer resources and API documentation.</p>
+                </div>
+            </div>
+
+            <!-- Services Section -->
+            <div id="services-section" style="display: none;">
+                <div
+                    style="background: white; border-radius: 25px; padding: 40px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0; text-align: center;">
+                    <i class="fas fa-wrench" style="font-size: 3rem; color: var(--secondary); margin-bottom: 20px;"></i>
+                    <h2 style="color: var(--secondary); font-size: 1.5rem; margin-bottom: 10px;">Services</h2>
+                    <p style="color: var(--text-muted);">Explore available services and tools.</p>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div id="settings-section" style="display: none;">
+                <div
+                    style="background: white; border-radius: 25px; padding: 40px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0; text-align: center;">
+                    <i class="fas fa-cog" style="font-size: 3rem; color: var(--secondary); margin-bottom: 20px;"></i>
+                    <h2 style="color: var(--secondary); font-size: 1.5rem; margin-bottom: 10px;">Settings</h2>
+                    <p style="color: var(--text-muted);">Configure your dashboard preferences and application settings.
+                    </p>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+            <!-- Notifications -->
+            <div>
+                <div class="right-section-title">Notifications</div>
+                <div class="notification-item">
+                    <div class="notif-icon"><i class="fas fa-bug"></i></div>
+                    <div class="notif-content">
+                        <h4>You fixed a bug</h4>
+                        <p>Just now</p>
+                    </div>
+                </div>
+                <div class="notification-item">
+                    <div class="notif-icon" style="color: #6842FF; background: #E9EDF7;"><i
+                            class="fas fa-user-plus"></i></div>
+                    <div class="notif-content">
+                        <h4>New user registered</h4>
+                        <p>59 minutes ago</p>
+                    </div>
+                </div>
+                <div class="notification-item">
+                    <div class="notif-icon" style="color: #05CD99; background: #E6FBF5;"><i class="fas fa-check"></i>
+                    </div>
+                    <div class="notif-content">
+                        <h4>Project Updated</h4>
+                        <p>12 hours ago</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contacts -->
+            <div style="margin-top: 30px;">
+                <div class="right-section-title">Contacts</div>
+                <div class="contact-item">
+                    <img src="https://i.pravatar.cc/150?u=1" class="contact-img">
+                    <div class="contact-name">Natali Craig</div>
+                </div>
+                <div class="contact-item">
+                    <img src="https://i.pravatar.cc/150?u=2" class="contact-img">
+                    <div class="contact-name">Drew Cano</div>
+                </div>
+                <div class="contact-item">
+                    <img src="https://i.pravatar.cc/150?u=3" class="contact-img">
+                    <div class="contact-name">Andi Lane</div>
+                </div>
+                <div class="contact-item">
+                    <img src="https://i.pravatar.cc/150?u=4" class="contact-img">
+                    <div class="contact-name">Koray Okumus</div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- SDK & Logic -->
+    <!-- CropperJS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+
+    <style>
+        /* Image Editor Modal Styles */
+        .image-editor-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            /* Darker overlay for better focus */
+            backdrop-filter: blur(8px);
+            z-index: 5000;
+            /* Higher than profile modal */
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        .image-editor-modal {
+            background: #ffffff;
+            width: 90%;
+            max-width: 600px;
+            padding: 24px;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .editor-header h3 {
+            margin: 0;
+            color: var(--secondary);
+            font-size: 1.25rem;
+        }
+
+        .image-container {
+            width: 100%;
+            height: 400px;
+            /* Fixed height for the editor */
+            background: #f1f5f9;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+            /* Important for CropperJS */
+        }
+
+        .editor-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .zoom-controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .control-btn {
+            background: #f1f5f9;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+
+        .control-btn:hover {
+            background: #e2e8f0;
+            transform: translateY(-2px);
+        }
+
+        .filter-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 1px solid var(--border-light);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--secondary);
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .editor-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 10px;
+            border-top: 1px solid var(--border-light);
+            padding-top: 20px;
+        }
+
+        .btn-cancel {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-cancel:hover {
+            color: var(--secondary);
+            background: #f1f5f9;
+        }
+
+        .btn-save-image {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .btn-save-image:hover {
+            background: #2948ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(57, 106, 255, 0.3);
+        }
+    </style>
+
+    <!-- Image Editor Modal -->
+    <div id="imageEditorModal" class="image-editor-overlay">
+        <div class="image-editor-modal">
+            <div class="editor-header">
+                <h3>Edit Profile Picture</h3>
+            </div>
+
+            <div class="image-container">
+                <img id="editorImage" src="" alt="Image to edit">
+            </div>
+
+            <div class="editor-controls">
+                <!-- Zoom Controls -->
+                <div class="zoom-controls">
+                    <button class="control-btn" onclick="editorZoom(0.1)" title="Zoom In"><i
+                            class="fas fa-search-plus"></i></button>
+                    <button class="control-btn" onclick="editorZoom(-0.1)" title="Zoom Out"><i
+                            class="fas fa-search-minus"></i></button>
+                    <button class="control-btn" onclick="editorRotate(-90)" title="Rotate Left"><i
+                            class="fas fa-undo"></i></button>
+                    <button class="control-btn" onclick="editorRotate(90)" title="Rotate Right"><i
+                            class="fas fa-redo"></i></button>
+                </div>
+
+                <!-- Filters (Simulated via Canvas) -->
+                <div class="filter-controls">
+                    <button class="filter-btn active" onclick="applyFilter('none')">Normal</button>
+                    <button class="filter-btn" onclick="applyFilter('grayscale(100%)')">Grayscale</button>
+                    <button class="filter-btn" onclick="applyFilter('sepia(60%)')">Warm</button>
+                    <button class="filter-btn" onclick="applyFilter('contrast(120%) brightness(110%)')">Vivid</button>
+                    <button class="filter-btn" onclick="applyFilter('brightness(110%)')">Bright</button>
+                </div>
+            </div>
+
+            <div class="editor-actions">
+                <button class="btn-cancel" onclick="closeImageEditor()">Cancel</button>
+                <button class="btn-save-image" id="btnSaveImage" onclick="saveEditedImage()">
+                    <i class="fas fa-check"></i> Apply & Save
+                </button>
+            </div>
+        </div>
+    </div>
+
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+<<<<<<< HEAD
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let currentUserEmail = localStorage.getItem('user_project_email');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!currentUserEmail) {
+                document.getElementById('identityModal').style.display = 'flex';
+            }
+        });
+
+        document.getElementById('identityForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('userEmailInput').value.trim();
+            if (email) {
+                localStorage.setItem('user_project_email', email);
+                location.reload();
+            }
+        });
+
+        // Profile Modal Logic
+        function openProfileModal() {
+            document.getElementById('profileModal').style.display = 'flex';
+            if (currentUserEmail) {
+                document.getElementById('profileEmail').value = currentUserEmail;
+=======
+        const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let currentUserEmail = localStorage.getItem('user_project_email');
+
+        // --- EDITOR VARIABLES ---
+        let cropper = null;
+        let currentFilter = 'none';
+
+        // --- FETCH USER INFO ---
+        async function fetchAndDisplayUserInfo() {
+            if (!currentUserEmail) return;
+            let displayName = currentUserEmail.split('@')[0];
+            const nameElements = document.querySelectorAll('.user-display-name');
+            nameElements.forEach(el => el.textContent = displayName);
+
+            try {
+                // Fetch all profile fields including new ones
+                const { data, error } = await sbClient
+                    .from('project_users')
+                    .select('first_name, middle_name, last_name, phone, profile_picture_url, bio, public_url, facebook_username, twitter_username, linkedin_username, instagram_username, discord_username, whatsapp_number, notif_reports, notif_shared, theme_preference')
+                    .ilike('email', currentUserEmail.trim())
+                    .maybeSingle();
+
+                if (error) throw error;
+
+                if (data) {
+                    const parts = [data.first_name, data.middle_name, data.last_name].filter(Boolean);
+                    if (parts.length > 0) displayName = parts.join(' ').trim();
+                    nameElements.forEach(el => el.textContent = displayName);
+
+                    window.currentUserData = data;
+
+                    const profileImgs = document.querySelectorAll('.profile-img');
+                    const profileAvatarLarge = document.querySelector('.profile-avatar-large');
+                    const defaultAvatarUrl = "https://ui-avatars.com/api/?name=" + encodeURIComponent(displayName) + "&background=396AFF&color=FFFFFF";
+
+                    if (data.profile_picture_url) {
+                        profileImgs.forEach(img => img.src = data.profile_picture_url);
+                        if (profileAvatarLarge) {
+                            profileAvatarLarge.src = data.profile_picture_url;
+                            profileAvatarLarge.style.display = 'block';
+                        }
+                    } else {
+                        profileImgs.forEach(img => img.src = defaultAvatarUrl);
+                        if (profileAvatarLarge) {
+                            profileAvatarLarge.src = defaultAvatarUrl;
+                            profileAvatarLarge.style.display = 'block';
+                        }
+                    }
+
+                    // Update sidebar email
+                    const sidebarEmail = document.getElementById('sidebar-user-email');
+                    if (sidebarEmail) {
+                        sidebarEmail.textContent = currentUserEmail;
+                    }
+                }
+            } catch (err) {
+                console.error('Error fetching user info:', err);
+            }
+        }
+
+        // --- IMAGE UPLOAD & EDITING LOGIC ---
+
+        function handleImageUpload(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            if (!currentUserEmail) {
+                showNotification("Login Required", "You must be logged in to upload a profile image.", "error");
+                input.value = ''; // Reset
+                return;
+            }
+
+            // Read file and open editor
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                openImageEditor(e.target.result);
+            };
+            reader.readAsDataURL(file);
+            input.value = ''; // Reset so same file can be selected again if cancelled
+        }
+
+        function openImageEditor(imageSrc) {
+            const modal = document.getElementById('imageEditorModal');
+            const imgElement = document.getElementById('editorImage');
+
+            imgElement.src = imageSrc;
+            modal.style.display = 'flex';
+
+            // Wait for image load before initializing cropper
+            if (cropper) {
+                cropper.destroy();
+            }
+
+            // Initialize Cropper
+            // Wrap in small timeout to ensure DOM is ready
+            setTimeout(() => {
+                cropper = new Cropper(imgElement, {
+                    aspectRatio: 1, // Profile pictures should be square
+                    viewMode: 1,    // Restrict crop box to canvas
+                    dragMode: 'move',
+                    autoCropArea: 0.8,
+                    restore: false,
+                    guides: true,
+                    center: true,
+                    highlight: false,
+                    cropBoxMovable: true,
+                    cropBoxResizable: true,
+                    toggleDragModeOnDblclick: false,
+                });
+            }, 100);
+
+            // Reset Filter
+            currentFilter = 'none';
+            updateFilterButtons();
+        }
+
+        function closeImageEditor() {
+            const modal = document.getElementById('imageEditorModal');
+            modal.style.display = 'none';
+            if (cropper) {
+                cropper.destroy();
+                cropper = null;
+            }
+        }
+
+        // Editor Controls
+        function editorZoom(ratio) {
+            if (cropper) cropper.zoom(ratio);
+        }
+
+        function editorRotate(degree) {
+            if (cropper) cropper.rotate(degree);
+        }
+
+        function applyFilter(filterVal) {
+            currentFilter = filterVal;
+            // Visual feedback on the crop box is tricky with cropperjs directly via CSS filters on the img
+            // because Cropper wraps the img. We can apply it to the cropper-container or view-box.
+            // A simple hack is applying it to the .cropper-view-box img, but that's internal.
+            // Better: Just store the filter and apply it during "Save".
+            // Visual feedback: we can try applying to the main image or wrapper
+
+            // To show preview, we can modify the canvas style.
+            const container = document.querySelector('.cropper-container');
+            if (container) {
+                container.style.filter = currentFilter;
+            }
+            updateFilterButtons();
+        }
+
+        function updateFilterButtons() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                const val = btn.getAttribute('onclick').match(/'([^']+)'/)[1];
+                if (val === currentFilter) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+        }
+
+        async function saveEditedImage() {
+            if (!cropper) return;
+            const btn = document.getElementById('btnSaveImage');
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Processing...';
+            btn.disabled = true;
+
+            try {
+                // 1. Get cropped canvas
+                let canvas = cropper.getCroppedCanvas({
+                    width: 400, // Reasonable size for profile
+                    height: 400,
+                    imageSmoothingEnabled: true,
+                    imageSmoothingQuality: 'high',
+                });
+
+                // 2. Apply Filters (if any)
+                if (currentFilter && currentFilter !== 'none') {
+                    const filterCanvas = document.createElement('canvas');
+                    filterCanvas.width = canvas.width;
+                    filterCanvas.height = canvas.height;
+                    const ctx = filterCanvas.getContext('2d');
+
+                    ctx.filter = currentFilter;
+                    ctx.drawImage(canvas, 0, 0);
+                    canvas = filterCanvas;
+                }
+
+                // 3. Convert to Blob
+                canvas.toBlob(async (blob) => {
+                    if (blob) {
+                        await uploadProfileImage(blob);
+                        closeImageEditor();
+                    }
+                    btn.innerHTML = '<i class="fas fa-check"></i> Apply & Save';
+                    btn.disabled = false;
+                }, 'image/jpeg', 0.9);
+
+            } catch (err) {
+                console.error("Processing error:", err);
+                showNotification("Error", "Failed to process image.", "error");
+                btn.innerHTML = '<i class="fas fa-check"></i> Apply & Save';
+                btn.disabled = false;
+            }
+        }
+
+        // --- ACTUAL UPLOAD FUNCTION ---
+        async function uploadProfileImage(fileBlob) {
+            showNotification("Uploading", "Uploading final profile image...", "info");
+
+            try {
+                const fileExt = "jpg"; // We converted to jpeg
+                const safeEmail = currentUserEmail.replace(/[^a-zA-Z0-9]/g, '_');
+                const fileName = `${safeEmail}-${Date.now()}.${fileExt}`;
+                const filePath = `${fileName}`;
+
+                // 1. Upload
+                const { data: uploadData, error: uploadError } = await sbClient.storage
+                    .from('avatars')
+                    .upload(filePath, fileBlob, {
+                        contentType: 'image/jpeg',
+                        cacheControl: '3600',
+                        upsert: false
+                    });
+
+                if (uploadError) throw uploadError;
+
+                // 2. Get URL
+                const { data } = sbClient.storage
+                    .from('avatars')
+                    .getPublicUrl(filePath);
+
+                const publicUrl = data.publicUrl;
+
+                // 3. Update DB
+                const { error: dbError } = await sbClient
+                    .from('project_users')
+                    .update({ profile_image_url: publicUrl })
+                    .ilike('email', currentUserEmail.trim());
+
+                if (dbError) throw dbError;
+
+                // Update UI
+                if (window.currentUserData) {
+                    window.currentUserData.profile_image_url = publicUrl;
+                }
+                const profileImgs = document.querySelectorAll('.profile-img');
+                profileImgs.forEach(img => {
+                    img.src = publicUrl;
+                    // Reset any filters on the display elements specifically if we burnt the filter into the image
+                    img.style.filter = 'none';
+                });
+                const largeAvatar = document.querySelector('.profile-avatar-large');
+                if (largeAvatar) largeAvatar.src = publicUrl;
+
+                showNotification("Success", "Profile image updated successfully!", "success");
+
+            } catch (err) {
+                console.error('Error uploading profile image:', err);
+                // detailed error for column missing
+                if (err.code === 'PGRST204') {
+                    showNotification("Database Error", "The 'profile_image_url' column is missing in your database.", "error");
+                } else {
+                    showNotification("Upload Failed", "Could not upload image. " + err.message, "error");
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Show maintenance modal first
+            document.getElementById('maintenanceModal').style.display = 'flex';
+
+            if (!currentUserEmail) {
+                // If not logged in, identity modal is handled after maintenance acknowledgement or directly behind
+                // But typically we want maintenance first. 
+                // Let's just keep identity visible if needed, but maintenance on top (z-index 4000 vs 3000)
+                document.getElementById('identityModal').style.display = 'flex';
+            } else {
+                fetchAndDisplayUserInfo();
+            }
+        });
+
+        function closeMaintenanceModal() {
+            document.getElementById('maintenanceModal').style.display = 'none';
+        }
+
+        document.getElementById('identityForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btnLogin');
+            const errArea = document.getElementById('loginError');
+            const email = document.getElementById('userEmailInput').value.trim();
+            const password = document.getElementById('userPasswordInput').value;
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Verifying...';
+            errArea.style.display = 'none';
+
+            try {
+                const { data, error } = await sbClient.from('project_users')
+                    .select('*')
+                    .eq('email', email)
+                    .eq('password', password)
+                    .single();
+
+                if (error || !data) throw new Error("Incorrect email or password.");
+
+                localStorage.setItem('user_project_email', data.email);
+                location.reload();
+            } catch (err) {
+                errArea.textContent = err.message;
+                errArea.style.display = 'block';
+                btn.disabled = false;
+                btn.innerText = "Log In to Dashboard";
+            }
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btnSignup');
+            const errArea = document.getElementById('signupError');
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value;
+            const confirm = document.getElementById('signupConfirm').value;
+            const firstName = document.getElementById('signupFirstName').value.trim();
+            const middleName = document.getElementById('signupMiddleName').value.trim();
+            const lastName = document.getElementById('signupLastName').value.trim();
+            const phone = document.getElementById('signupPhone').value.trim();
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Creating...';
+            errArea.style.display = 'none';
+
+            try {
+                if (password !== confirm) {
+                    throw new Error("Passwords do not match.");
+                }
+                // Check if email already exists
+                const { data: existingUser } = await sbClient.from('project_users').select('email').eq('email', email).maybeSingle();
+                if (existingUser) throw new Error("An account with this email already exists.");
+
+                const { error } = await sbClient.from('project_users').insert([{ email, password, first_name: firstName, middle_name: middleName, last_name: lastName, phone }]);
+                if (error) throw error;
+
+                localStorage.setItem('user_project_email', email);
+                location.reload();
+            } catch (err) {
+                errArea.textContent = err.message;
+                errArea.style.display = 'block';
+                btn.disabled = false;
+                btn.innerText = "Create Account";
+            }
+        });
+
+        window.switchToSignup = function () {
+            document.getElementById('identityModal').style.display = 'none';
+            document.getElementById('signupModal').style.display = 'flex';
+        };
+        window.switchToLogin = function () {
+            document.getElementById('signupModal').style.display = 'none';
+            document.getElementById('identityModal').style.display = 'flex';
+        };
+
+        // Profile Modal Logic
+        function openProfileModal() {
+            document.getElementById('profileModal').style.display = 'flex';
+            const emailField = document.getElementById('profileEmail');
+            if (emailField && currentUserEmail) {
+                emailField.value = currentUserEmail;
+            }
+            // Populate actual name fields
+            if (window.currentUserData) {
+                const fname = document.getElementById('profileFirstName');
+                const mname = document.getElementById('profileMiddleName');
+                const lname = document.getElementById('profileLastName');
+                const phone = document.getElementById('profilePhone');
+
+                if (fname) fname.value = window.currentUserData.first_name || '';
+                if (mname) mname.value = window.currentUserData.middle_name || '';
+                if (lname) lname.value = window.currentUserData.last_name || '';
+                if (phone) phone.value = window.currentUserData.phone || '';
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+            }
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profileModal').style.display = 'none';
+        }
+
+<<<<<<< HEAD
+        // Close on overlay click
+        window.onclick = function (event) {
+            const profileModal = document.getElementById('profileModal');
+            if (event.target == profileModal) {
+                closeProfileModal();
+            }
+        }
+=======
+        window.handleLogout = function () {
+            localStorage.removeItem('user_project_email');
+            window.location.href = 'Project-work-request.html';
+        };
+
+        // Load Profile Settings into Accounts Section
+        async function loadProfileSettings() {
+            if (!currentUserEmail || !window.currentUserData) return;
+
+            const data = window.currentUserData;
+
+            // Populate email field
+            const emailField = document.getElementById('profilePublicEmail');
+            if (emailField) emailField.value = currentUserEmail;
+
+            // Populate URL field
+            const urlInputs = document.querySelectorAll('input[placeholder="https://github.com/"]');
+            if (urlInputs.length > 0 && data.public_url) {
+                urlInputs[0].value = data.public_url;
+            }
+
+            // Populate bio
+            const bioTextarea = document.querySelector('textarea[rows="4"]');
+            if (bioTextarea && data.bio) {
+                bioTextarea.value = data.bio;
+            }
+
+            // Populate social media using IDs
+            const facebookInput = document.getElementById('facebookInput');
+            const twitterInput = document.getElementById('twitterInput');
+            const linkedinInput = document.getElementById('linkedinInput');
+            const instagramInput = document.getElementById('instagramInput');
+            const discordInput = document.getElementById('discordInput');
+            const whatsappInput = document.getElementById('whatsappInput');
+
+            if (facebookInput) facebookInput.value = data.facebook_username || '';
+            if (twitterInput) twitterInput.value = data.twitter_username || '';
+            if (linkedinInput) linkedinInput.value = data.linkedin_username || '';
+            if (instagramInput) instagramInput.value = data.instagram_username || '';
+            if (discordInput) discordInput.value = data.discord_username || '';
+            if (whatsappInput) whatsappInput.value = data.whatsapp_number || '';
+
+            // Populate notification checkboxes
+            const notifReports = document.getElementById('notifReports');
+            const notifShared = document.getElementById('notifShared');
+            if (notifReports) notifReports.checked = data.notif_reports !== false;
+            if (notifShared) notifShared.checked = data.notif_shared === true;
+        }
+
+        // Navigate to Profile Settings (replaces openProfileModal)
+        function navigateToProfileSettings() {
+            // Hide all sections
+            const sections = document.querySelectorAll('[id$="-section"]');
+            sections.forEach(sec => sec.style.display = 'none');
+
+            // Show accounts section
+            const accountsSection = document.getElementById('accounts-section');
+            if (accountsSection) {
+                accountsSection.style.display = 'block';
+            }
+
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            const profileLink = Array.from(document.querySelectorAll('.nav-link')).find(link =>
+                link.textContent.includes('User Profile')
+            );
+            if (profileLink) profileLink.classList.add('active');
+
+            // Update breadcrumb and title
+            const breadcrumb = document.getElementById('breadcrumb-page');
+            const pageTitle = document.getElementById('page-title');
+            if (breadcrumb) breadcrumb.textContent = 'Profile Settings';
+            if (pageTitle) pageTitle.textContent = 'Profile Settings';
+
+            // Load profile data
+            loadProfileSettings();
+        }
+
+        // Update Public URL (GitHub, etc.)
+        async function updatePublicUrl() {
+            if (!currentUserEmail) {
+                showNotification('Error', 'Please log in to update URL', 'error');
+                return;
+            }
+
+            const urlInput = document.getElementById('publicUrlInput');
+            if (!urlInput) return;
+
+            const url = urlInput.value.trim();
+
+            // Basic URL validation
+            if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
+                showNotification('Error', 'Please enter a valid URL starting with http:// or https://', 'error');
+                return;
+            }
+
+            try {
+                const { error } = await sbClient
+                    .from('project_users')
+                    .update({
+                        public_url: url || null,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq('email', currentUserEmail);
+
+                if (error) throw error;
+
+                showNotification('Success', 'URL updated successfully!', 'success');
+
+                // Refresh user data
+                await fetchAndDisplayUserInfo();
+            } catch (err) {
+                console.error('Error updating URL:', err);
+                showNotification('Error', 'Failed to update URL: ' + err.message, 'error');
+            }
+        }
+
+        // Save Profile Settings
+        async function saveProfileSettings() {
+            if (!currentUserEmail) {
+                showNotification('Error', 'Please log in to save changes', 'error');
+                return;
+            }
+
+            try {
+                // Gather all form data
+                const urlInput = document.querySelector('input[placeholder="https://github.com/"]');
+                const bioTextarea = document.querySelector('textarea[rows="4"]');
+                const notifReports = document.getElementById('notifReports');
+                const notifShared = document.getElementById('notifShared');
+
+                // Get social media inputs using IDs
+                const facebookInput = document.getElementById('facebookInput');
+                const twitterInput = document.getElementById('twitterInput');
+                const linkedinInput = document.getElementById('linkedinInput');
+                const instagramInput = document.getElementById('instagramInput');
+                const discordInput = document.getElementById('discordInput');
+                const whatsappInput = document.getElementById('whatsappInput');
+
+                const updateData = {
+                    public_url: urlInput ? urlInput.value.trim() : null,
+                    bio: bioTextarea ? bioTextarea.value.trim() : null,
+                    facebook_username: facebookInput ? facebookInput.value.trim() || null : null,
+                    twitter_username: twitterInput ? twitterInput.value.trim() || null : null,
+                    linkedin_username: linkedinInput ? linkedinInput.value.trim() || null : null,
+                    instagram_username: instagramInput ? instagramInput.value.trim() || null : null,
+                    discord_username: discordInput ? discordInput.value.trim() || null : null,
+                    whatsapp_number: whatsappInput ? whatsappInput.value.trim() || null : null,
+                    notif_reports: notifReports ? notifReports.checked : true,
+                    notif_shared: notifShared ? notifShared.checked : false,
+                    updated_at: new Date().toISOString()
+                };
+
+                const { error } = await sbClient
+                    .from('project_users')
+                    .update(updateData)
+                    .eq('email', currentUserEmail);
+
+                if (error) throw error;
+
+                showNotification('Success', 'Profile updated successfully!', 'success');
+
+                // Refresh user data
+                await fetchAndDisplayUserInfo();
+            } catch (err) {
+                console.error('Error saving profile:', err);
+                showNotification('Error', 'Failed to save profile: ' + err.message, 'error');
+            }
+        }
+
+        // Attach save function to Save Changes button
+        document.addEventListener('DOMContentLoaded', () => {
+            const saveButtons = document.querySelectorAll('#accounts-section button');
+            saveButtons.forEach(btn => {
+                if (btn.textContent.includes('Save changes')) {
+                    btn.onclick = saveProfileSettings;
+                }
+            });
+
+            // Profile Picture Upload Handler
+            const profilePictureInput = document.getElementById('profilePictureUpload');
+            if (profilePictureInput) {
+                profilePictureInput.addEventListener('change', async (e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+
+                    // Validate file type
+                    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/svg+xml'];
+                    if (!validTypes.includes(file.type)) {
+                        showNotification('Error', 'Please upload a valid image file (JPG, PNG, GIF, SVG)', 'error');
+                        return;
+                    }
+
+                    // Validate file size (max 5MB)
+                    if (file.size > 5 * 1024 * 1024) {
+                        showNotification('Error', 'Image size must be less than 5MB', 'error');
+                        return;
+                    }
+
+                    if (!currentUserEmail) {
+                        showNotification('Error', 'Please log in to upload profile picture', 'error');
+                        return;
+                    }
+
+                    try {
+                        showNotification('Uploading', 'Uploading profile picture...', 'info');
+
+                        // Create unique filename
+                        const fileExt = file.name.split('.').pop();
+                        const fileName = `${currentUserEmail.replace('@', '_').replace('.', '_')}_${Date.now()}.${fileExt}`;
+                        const filePath = `profile-pictures/${fileName}`;
+
+                        // Upload to Supabase Storage
+                        const { data: uploadData, error: uploadError } = await sbClient.storage
+                            .from('profile-images')
+                            .upload(filePath, file, {
+                                cacheControl: '3600',
+                                upsert: true
+                            });
+
+                        if (uploadError) {
+                            // If bucket doesn't exist, try to create it
+                            if (uploadError.message.includes('not found')) {
+                                showNotification('Info', 'Setting up storage... Please try again in a moment.', 'info');
+                                return;
+                            }
+                            throw uploadError;
+                        }
+
+                        // Get public URL
+                        const { data: urlData } = sbClient.storage
+                            .from('profile-images')
+                            .getPublicUrl(filePath);
+
+                        const publicUrl = urlData.publicUrl;
+
+                        // Update database
+                        const { error: updateError } = await sbClient
+                            .from('project_users')
+                            .update({
+                                profile_picture_url: publicUrl,
+                                updated_at: new Date().toISOString()
+                            })
+                            .eq('email', currentUserEmail);
+
+                        if (updateError) throw updateError;
+
+                        showNotification('Success', 'Profile picture updated successfully!', 'success');
+
+                        // Update all profile images on the page including preview
+                        const allProfileImgs = document.querySelectorAll('.profile-img, .sidebar-profile-img, #profilePicturePreview');
+                        allProfileImgs.forEach(img => {
+                            img.src = publicUrl;
+                        });
+
+                        // Refresh user data
+                        await fetchAndDisplayUserInfo();
+
+                    } catch (err) {
+                        console.error('Error uploading profile picture:', err);
+                        showNotification('Error', 'Failed to upload profile picture: ' + err.message, 'error');
+                    }
+                });
+            }
+        });
+
+        // --- Projects Logic ---
+        async function loadProjects() {
+            const grid = document.getElementById('projectsGrid');
+            grid.innerHTML = '<p style="text-align:center; color: var(--text-muted); width: 100%; grid-column: 1/-1;">Loading projects...</p>';
+
+            // Initialize empty to assume no projects for now (as per user request strictness on "view projects" vs "new")
+            // In a real scenario, we would fetch from Supabase here.
+            // Example: const { data: projects, error } = await sbClient.from('projects').select('*').eq('user_email', currentUserEmail);
+            let projects = [];
+
+            // Clear loading
+            grid.innerHTML = '';
+
+            if (projects.length === 0) {
+                // If no project, add a single rectangle for starting a new project
+                const newCard = document.createElement('div');
+                newCard.className = 'project-card new-project-card';
+                newCard.onclick = () => {
+                    // Redirect to work request page
+                    window.location.href = 'Project-work-request.html';
+                };
+                newCard.innerHTML = `
+                    <div class="new-project-icon-large"><i class="fas fa-plus"></i></div>
+                    <div class="new-project-text">Request New Project</div>
+                    <p style="color: #94a3b8; font-size: 0.85rem; margin-top: 6px;">Initiate a new work request</p>
+                `;
+                grid.appendChild(newCard);
+            } else {
+                // Render existing projects (currently this block won't run unless we mock data)
+                projects.forEach(p => {
+                    // ... rendering logic for projects ...
+                });
+
+                // Optional: Add a smaller "New" card at the end if desired, but user specifically said "if no project add -a- rectangle"
+                // so we stick to the empty state focus.
+            }
+        }
+
+        function showSection(sectionId, element) {
+            // Auto-detect nav link if not provided (e.g. from header icon)
+            if (!element) {
+                element = document.querySelector(`.nav-link[onclick*="'${sectionId}'"]`);
+            }
+
+            // Load projects if opening projects section
+            if (sectionId === 'projects') {
+                loadProjects();
+            }
+
+            // Update Active Link
+            document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+            if (element) element.classList.add('active');
+
+            // Hide all sections
+            const sections = ['dashboard', 'projects', 'accounts', 'chat', 'developers', 'services', 'suggestions', 'settings'];
+            sections.forEach(id => {
+                const el = document.getElementById(id + '-section');
+                if (el) el.style.display = 'none';
+            });
+
+            // Show selected section
+            const selectedEl = document.getElementById(sectionId + '-section');
+            if (selectedEl) {
+                selectedEl.style.display = 'block';
+            }
+
+            // Update Page Title
+            const titles = {
+                'dashboard': 'Overview',
+                'projects': 'Projects',
+                'accounts': 'My Accounts',
+                'chat': 'Messages',
+                'developers': 'Developers',
+                'services': 'Services',
+                'suggestions': 'Make a Suggestion',
+                'settings': 'Settings'
+            };
+            const pageTitle = titles[sectionId] || 'Overview';
+            document.getElementById('page-title').innerText = pageTitle;
+            const breadcrumbEl = document.getElementById('breadcrumb-page');
+            if (breadcrumbEl) breadcrumbEl.innerText = pageTitle;
+        };
+
+        // Category Selection Logic
+        function selectCategory(element) {
+            // Remove selected class from all
+            document.querySelectorAll('.category-option').forEach(el => el.classList.remove('selected'));
+            // Add to clicked
+            element.classList.add('selected');
+
+            const category = element.getAttribute('data-value');
+            // Update hidden input
+            document.getElementById('selectedCategory').value = category;
+
+            // Update Submit Button Color
+            const btn = document.getElementById('btnSubmitSuggestion');
+            if (category === 'Bugs') {
+                btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+                btn.innerText = 'Submit Bug Report';
+            } else if (category === 'Issues') {
+                btn.style.background = 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)';
+                btn.innerText = 'Submit Issue';
+            } else if (category === 'Reports') {
+                btn.style.background = 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)';
+                btn.innerText = 'Submit Report';
+            } else if (category === 'Suggestions') {
+                btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                btn.innerText = 'Submit Suggestion';
+            } else if (category === 'Others') {
+                btn.style.background = 'linear-gradient(135deg, #64748b 0%, #475569 100%)';
+                btn.innerText = 'Submit Feedback';
+            } else {
+                btn.style.background = 'linear-gradient(135deg, #4C49ED 0%, #0A06F4 100%)';
+                btn.innerText = 'Submit';
+            }
+        }
+
+        // Notification Logic
+        function showNotification(title, message, type = 'info') {
+            const modal = document.getElementById('notificationModal');
+            const iconContainer = document.getElementById('notificationIcon');
+            const titleEl = document.getElementById('notificationTitle');
+            const msgEl = document.getElementById('notificationMessage');
+            const btn = document.getElementById('notificationBtn');
+
+            msgEl.textContent = message;
+            titleEl.textContent = title;
+            modal.style.display = 'flex';
+
+            if (type === 'success') {
+                iconContainer.innerHTML = '<i class="fas fa-check"></i>';
+                iconContainer.style.background = '#dcfce7';
+                iconContainer.style.color = '#15803d';
+                btn.style.background = '#15803d';
+            } else if (type === 'error') {
+                iconContainer.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+                iconContainer.style.background = '#fee2e2';
+                iconContainer.style.color = '#b91c1c';
+                btn.style.background = '#b91c1c';
+            } else {
+                // Info / Warning
+                iconContainer.innerHTML = '<i class="fas fa-info"></i>';
+                iconContainer.style.background = '#eef2ff';
+                iconContainer.style.color = '#4338ca';
+                btn.style.background = '#4338ca';
+            }
+        }
+
+        function closeNotificationModal() {
+            document.getElementById('notificationModal').style.display = 'none';
+        }
+
+        // Dark Mode Toggle Function
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+
+            // Update icon
+            const icon = document.getElementById('darkModeIcon');
+            if (icon) {
+                icon.className = isDark ? 'fas fa-sun' : 'far fa-moon';
+            }
+
+            // Save preference
+            localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+        }
+
+        // Initialize dark mode on page load
+        (function initDarkMode() {
+            const darkMode = localStorage.getItem('darkMode');
+            if (darkMode === 'enabled') {
+                document.body.classList.add('dark-mode');
+                const icon = document.getElementById('darkModeIcon');
+                if (icon) {
+                    icon.className = 'fas fa-sun';
+                }
+            }
+        })();
+
+        // Handle Suggestion Submission
+        document.getElementById('suggestionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btnSubmitSuggestion');
+            const title = document.getElementById('suggestionTitle').value.trim();
+            const message = document.getElementById('suggestionMessage').value.trim();
+            const category = document.getElementById('selectedCategory').value;
+
+            if (!currentUserEmail) {
+                showNotification("Login Required", "You must be logged in to submit a suggestion.", "error");
+                return;
+            }
+
+            if (!category) {
+                showNotification("Category Missing", "Please select a category for your submission.", "error");
+                return;
+            }
+
+            if (!title) {
+                showNotification("Title Missing", "Please enter a title for your feedback.", "error");
+                return;
+            }
+
+            if (!message) {
+                showNotification("Message Missing", "Please enter a message describing your feedback.", "error");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Submitting...';
+
+            try {
+                // Determine target table and payload based on category
+                let tableName = 'project_suggestions';
+                let payload = {
+                    user_email: currentUserEmail,
+                    title: title,
+                    message: message
+                };
+
+                if (category === 'Bugs') {
+                    tableName = 'project_bugs';
+                } else if (category === 'Issues') {
+                    tableName = 'project_issues';
+                } else if (category === 'Reports') {
+                    tableName = 'project_reports';
+                } else if (category === 'Others') {
+                    tableName = 'project_others';
+                } else {
+                    // Default / Suggestions
+                    tableName = 'project_suggestions';
+                    payload.category = category; // Include category only for the generic table
+                }
+
+                const { error } = await sbClient
+                    .from(tableName)
+                    .insert([payload]);
+
+                if (error) throw error;
+
+                showNotification("Submission Successful", "Thank you! Your " + category.toLowerCase() + " has been submitted successfully.", "success");
+                document.getElementById('suggestionForm').reset();
+                document.querySelectorAll('.category-option').forEach(el => el.classList.remove('selected'));
+                document.getElementById('selectedCategory').value = '';
+                // Reset button style
+                btn.style.background = 'linear-gradient(135deg, #4C49ED 0%, #0A06F4 100%)';
+                btn.innerText = 'Submit Suggestion';
+            } catch (err) {
+                console.error('Error submitting suggestion:', err);
+                showNotification("Submission Failed", "Failed to submit suggestion. Please try again.", "error");
+            } finally {
+                btn.disabled = false;
+                if (!category) btn.innerText = "Submit Suggestion"; // Fallback text only if category reset
+                // Note: We keep the button text/color as per category logic unless reset, but here we reset form so reset logic above handles it
+            }
+        });
+
+        // Save Profile Changes Logic
+        document.getElementById('btnSaveProfile').addEventListener('click', async () => {
+            const btn = document.getElementById('btnSaveProfile');
+            const fname = document.getElementById('profileFirstName').value.trim();
+            const mname = document.getElementById('profileMiddleName').value.trim();
+            const lname = document.getElementById('profileLastName').value.trim();
+            const phone = document.getElementById('profilePhone').value.trim();
+
+            if (!currentUserEmail) return;
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Saving...';
+
+            try {
+                const updates = {
+                    first_name: fname,
+                    middle_name: mname,
+                    last_name: lname,
+                    phone: phone,
+                    updated_at: new Date()
+                };
+
+                const { error } = await sbClient
+                    .from('project_users')
+                    .update(updates)
+                    .ilike('email', currentUserEmail.trim());
+
+                if (error) throw error;
+
+                showNotification("Profile Updated", "Your changes have been saved successfully.", "success");
+
+                // Refresh local data
+                fetchAndDisplayUserInfo();
+                closeProfileModal();
+
+            } catch (err) {
+                console.error('Error updating profile:', err);
+                showNotification("Update Failed", "Could not save changes. Please try again.", "error");
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Save Changes";
+            }
+        });
+
+        // Close on overlay click
+
+
+        // Notification Dropdown Logic
+        function openNotificationsDropdown() {
+            // Simplified logic: just show the dropdown
+            document.getElementById('notificationsDropdown').style.display = 'block';
+        }
+
+        function closeNotificationsDropdown() {
+            document.getElementById('notificationsDropdown').style.display = 'none';
+        }
+
+        window.onclick = function (event) {
+            const profileModal = document.getElementById('profileModal');
+            const notifDropdown = document.getElementById('notificationsDropdown');
+
+            // Logic to close notification dropdown if clicked outside
+            const isInsideDropdown = event.target.closest('#notificationsDropdown');
+            const isTrigger = event.target.closest('.notification-wrapper');
+
+            if (!isInsideDropdown && !isTrigger) {
+                if (notifDropdown && notifDropdown.style.display === 'block') {
+                    closeNotificationsDropdown();
+                }
+            }
+
+            // Profile Modal Logic
+            if (event.target == profileModal) closeProfileModal();
+        }
+
+        // Toggle Sidebar
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+
+            sidebar.classList.toggle('hidden');
+
+            // Adjust main content margin when sidebar is hidden
+            if (sidebar.classList.contains('hidden')) {
+                mainContent.style.marginLeft = '0';
+            } else {
+                mainContent.style.marginLeft = 'var(--sidebar-width)';
+            }
+        }
+
+        // Open New Project Modal
+        function openNewProjectModal() {
+            document.getElementById('newProjectModal').style.display = 'flex';
+        }
+
+        // Close New Project Modal
+        function closeNewProjectModal() {
+            document.getElementById('newProjectModal').style.display = 'none';
+            document.getElementById('newProjectForm').reset();
+        }
+
+        // Handle New Project Form Submission
+        document.addEventListener('DOMContentLoaded', () => {
+            const newProjectForm = document.getElementById('newProjectForm');
+            if (newProjectForm) {
+                newProjectForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    if (!currentUserEmail) {
+                        showNotification('Error', 'Please log in to submit a project request', 'error');
+                        return;
+                    }
+
+                    try {
+                        const projectData = {
+                            user_email: currentUserEmail,
+                            project_name: document.getElementById('projectName').value.trim(),
+                            project_type: document.getElementById('projectType').value,
+                            budget: document.getElementById('projectBudget').value ? parseFloat(document.getElementById('projectBudget').value) : null,
+                            deadline: document.getElementById('projectDeadline').value || null,
+                            priority: document.getElementById('projectPriority').value,
+                            description: document.getElementById('projectDescription').value.trim(),
+                            status: 'Pending',
+                            created_at: new Date().toISOString()
+                        };
+
+                        const { error } = await sbClient
+                            .from('project_requests')
+                            .insert([projectData]);
+
+                        if (error) throw error;
+
+                        showNotification('Success', 'Project request submitted successfully!', 'success');
+                        closeNewProjectModal();
+
+                        // Reload projects if on projects section
+                        const projectsSection = document.getElementById('projects-section');
+                        if (projectsSection && projectsSection.style.display !== 'none') {
+                            // Optionally reload projects here
+                            console.log('Project submitted successfully');
+                        }
+                    } catch (err) {
+                        console.error('Error submitting project:', err);
+                        showNotification('Error', 'Failed to submit project request: ' + err.message, 'error');
+                    }
+                });
+            }
+        });
+>>>>>>> 96b41d220b80b7a42be46ae963eb0a8ac92d9357
+    </script>
+</body>
+
+</html>
