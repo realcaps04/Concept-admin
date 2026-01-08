@@ -535,7 +535,7 @@
         }
 
         .summary-box {
-            width: 250px;
+            width: 450px;
         }
 
         .summary-row {
@@ -1252,32 +1252,12 @@
 
             items.forEach(item => {
                 const total = item.qty * item.price;
-
-                const row = ` <tr> <td>$ {
-                    item.desc || 'Item'
-                }
-
-                </td> <td>$ {
-                    item.qty
-                }
-
-                </td> <td>$ {
-                    cur
-                }
-
-                $ {
-                    item.price.toFixed(2)
-                }
-
-                </td> <td>$ {
-                    cur
-                }
-
-                $ {
-                    total.toFixed(2)
-                }
-
-                </td> </tr> `;
+                const row = `<tr>
+                    <td>${item.desc || 'Item'}</td>
+                    <td>${item.qty}</td>
+                    <td>${cur}${item.price.toFixed(2)}</td>
+                    <td>${cur}${total.toFixed(2)}</td>
+                </tr>`;
                 tbody.insertAdjacentHTML('beforeend', row);
             });
 
@@ -1305,9 +1285,7 @@
                     minimumFractionDigits: 2, maximumFractionDigits: 2
                 });
 
-                document.getElementById('prevPendingNote').innerText = pendingNote ? `($ {
-                pendingNote
-            })` : '';
+                document.getElementById('prevPendingNote').innerText = pendingNote ? `(${pendingNote})` : '';
             }
 
             else {
@@ -1568,11 +1546,7 @@
                     doc.setTextColor(220, 38, 38);
                     const note = document.getElementById('inpPendingNote').value;
 
-                    doc.text(`Pending $ {
-                    note ? '(' + note + ')' : ''
-                }
-
-                :`, 150, finalY);
+                    doc.text(`Pending ${note ? '(' + note + ')' : ''}:`, 150, finalY);
 
                     doc.text(cur + pendingAmt.toFixed(2), 196, finalY, {
                         align: 'right'
