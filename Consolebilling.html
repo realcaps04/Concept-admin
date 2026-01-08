@@ -1628,6 +1628,16 @@
                     // Draw QR Code (Even Bigger for PDF)
                     // Align Right at 196. Width 45. Star X = 196 - 45 = 151
                     doc.addImage(qrSrc, 'PNG', 151, footerY - 5, 45, 45);
+
+                    // MAKE QR CLICKABLE
+                    const accNo = document.getElementById('inpAccountNumber').value;
+                    const ifsc = document.getElementById('inpIfscCode').value;
+                    const vpa = `${accNo}@${ifsc}.ifsc.npci`;
+                    const invoiceNum = document.getElementById('inpInvoiceNum').value || '0001';
+                    const upiString = `upi://pay?pa=${vpa}&pn=Console Projects&am=${pendingAmt.toFixed(2)}&cu=INR&tn=Invoice ${invoiceNum} Pending Payment`;
+
+                    doc.link(151, footerY - 5, 45, 45, { url: upiString });
+
                     doc.setFontSize(8);
                     doc.setFont(undefined, 'bold');
                     doc.setTextColor(...grayText);
