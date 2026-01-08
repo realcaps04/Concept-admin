@@ -725,173 +725,167 @@
             font-weight: 600;
             color: var(--primary);
         }
+
+        /* Stylish QR Box */
+        .qr-stylish-box {
+            background: linear-gradient(145deg, #ffffff, #f1f5f9);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-radius: 1rem;
+            padding: 2rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .qr-stylish-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3B82F6, #8B5CF6, #EC4899);
+        }
+
+        .qr-code-large {
+            padding: 10px;
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 1.25rem;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--border);
+        }
+
+        .payment-logos img {
+            height: 20px;
+            width: auto;
+            opacity: 0.8;
+            filter: grayscale(100%);
+            transition: all 0.3s ease;
+        }
+
+        .payment-logos img:hover {
+            opacity: 1;
+            filter: grayscale(0%);
+            transform: scale(1.1);
+        }
     </style>
 </head>
 
 <body>
-
     <div class="app-container">
         <!-- Editor Panel -->
         <div class="editor-panel">
             <div class="editor-header">
                 <div class="brand">
-                    <div class="logo-icon"><i class="fas fa-file-invoice"></i></div>
-                    Console Projects Admin
+                    <div class="logo-icon"><i class="fas fa-file-invoice"></i></div>Console Projects Admin
                 </div>
             </div>
-
             <div class="editor-content">
                 <!-- Customer Details -->
-                <div class="section-title"><i class="fas fa-user-circle"></i> Customer Details</div>
-                <div class="form-group">
-                    <label class="form-label">Client Name</label>
-                    <input type="text" class="form-input" id="inpCustomerName" placeholder="e.g. Acme Corp"
-                        oninput="updatePreview()">
+                <div class="section-title"><i class="fas fa-user-circle"></i>Customer Details</div>
+                <div class="form-group"><label class="form-label">Client Name</label><input type="text"
+                        class="form-input" id="inpCustomerName" placeholder="e.g. Acme Corp" oninput="updatePreview()">
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Client Title / Role</label>
-                    <input type="text" class="form-input" id="inpCustomerTitle" placeholder="e.g. Project Manager"
-                        oninput="updatePreview()">
+                <div class="form-group"><label class="form-label">Client Title / Role</label><input type="text"
+                        class="form-input" id="inpCustomerTitle" placeholder="e.g. Project Manager"
+                        oninput="updatePreview()"></div>
+                <div class="form-group"><label class="form-label">Email Address (For Share)</label><input type="email"
+                        class="form-input" id="inpCustomerEmail" placeholder="client@example.com">
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Email Address (For Share)</label>
-                    <input type="email" class="form-input" id="inpCustomerEmail" placeholder="client@example.com">
+                <div class="form-group"><label class="form-label">Phone Number (For WhatsApp)</label><input type="tel"
+                        class="form-input" id="inpCustomerPhone" value=""
+                        placeholder="e.g. 919876543210 (with country code)"></div>
+                <div class="form-group"><label class="form-label">Billing Address</label><textarea class="form-textarea"
+                        id="inpCustomerAddress" rows="3" placeholder="Street Address, City, Zip, Country"
+                        oninput="updatePreview()"></textarea>
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Phone Number (For WhatsApp)</label>
-                    <input type="tel" class="form-input" id="inpCustomerPhone" value=""
-                        placeholder="e.g. 919876543210 (with country code)">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Billing Address</label>
-                    <textarea class="form-textarea" id="inpCustomerAddress" rows="3"
-                        placeholder="Street Address, City, Zip, Country" oninput="updatePreview()"></textarea>
-                </div>
-
                 <!-- Invoice Details -->
-                <div class="section-title"><i class="fas fa-info-circle"></i> Invoice Details</div>
+                <div class="section-title"><i class="fas fa-info-circle"></i>Invoice Details</div>
                 <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label">Invoice No.</label>
-                        <input type="text" class="form-input" id="inpInvoiceNum" value="0001" oninput="updatePreview()">
+                    <div class="form-group"><label class="form-label">Invoice No.</label><input type="text"
+                            class="form-input" id="inpInvoiceNum" value="0001" oninput="updatePreview()">
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Currency</label>
-                        <select class="form-select" id="inpCurrency" onchange="updatePreview()">
+                    <div class="form-group"><label class="form-label">Currency</label><select class="form-select"
+                            id="inpCurrency" onchange="updatePreview()">
                             <option value="₹">INR (₹)</option>
                             <option value="$">USD ($)</option>
                             <option value="€">EUR (€)</option>
                             <option value="£">GBP (£)</option>
-                        </select>
-                    </div>
+                        </select></div>
                 </div>
                 <!-- Removed Due Date - only Date Issued remains -->
                 <div class="form-row" style="grid-template-columns: 1fr;">
-                    <div class="form-group">
-                        <label class="form-label">Date Issued</label>
-                        <input type="date" class="form-input" id="inpDate" onchange="updatePreview()">
+                    <div class="form-group"><label class="form-label">Date Issued</label><input type="date"
+                            class="form-input" id="inpDate" onchange="updatePreview()">
                     </div>
                 </div>
-
                 <!-- Items -->
-                <div class="section-title">
-                    <i class="fas fa-list"></i> Items
-                    <span style="margin-left:auto; font-size:11px; opacity:0.7;">TOTAL: <span
-                            id="editorTotal">0.00</span></span>
-                </div>
+                <div class="section-title"><i class="fas fa-list"></i>Items <span
+                        style="margin-left:auto; font-size:11px; opacity:0.7;">TOTAL: <span
+                            id="editorTotal">0.00</span></span></div>
                 <div class="items-list" id="itemsList">
                     <!-- Items injected via JS -->
                 </div>
-                <!-- BUTTON FIX: Added type="button" -->
-                <button type="button" class="btn-add-item" onclick="addNewItem()">
-                    <i class="fas fa-plus"></i> Add New Item
-                </button>
-
+                <!-- BUTTON FIX: Added type="button" --><button type="button" class="btn-add-item"
+                    onclick="addNewItem()"><i class="fas fa-plus"></i>Add New Item </button>
                 <!-- Pending Payments -->
-                <div class="section-title"><i class="fas fa-clock"></i> Pending Payments</div>
+                <div class="section-title"><i class="fas fa-clock"></i>Pending Payments
+                </div>
                 <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label">Pending Amount</label>
-                        <input type="number" class="form-input" id="inpPendingAmount" min="0" step="0.01"
-                            placeholder="0.00" oninput="updatePreview()">
-                    </div>
+                    <div class="form-group"><label class="form-label">Pending
+                            Amount</label><input type="number" class="form-input" id="inpPendingAmount" min="0"
+                            step="0.01" placeholder="0.00" oninput="updatePreview()"></div>
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Note / Details (Optional)</label>
-                    <input type="text" class="form-input" id="inpPendingNote" placeholder="e.g. Balance from Inv #1023"
-                        oninput="updatePreview()">
-                </div>
-
-
+                <div class="form-group"><label class="form-label">Note / Details
+                        (Optional)</label><input type="text" class="form-input" id="inpPendingNote"
+                        placeholder="e.g. Balance from Inv #1023" oninput="updatePreview()"></div>
                 <!-- Footer Info -->
-                <div class="section-title"><i class="fas fa-building"></i> Business Footer</div>
-                <div class="form-group">
-                    <label class="form-label">Business Info Line</label>
-                    <input type="text" class="form-input" id="inpFooterInfo"
-                        value="contact@consoleprojects.co | +1 818-456-3562" oninput="updatePreview()">
-                </div>
-
+                <div class="section-title"><i class="fas fa-building"></i>Business
+                    Footer</div>
+                <div class="form-group"><label class="form-label">Business Info
+                        Line</label><input type="text" class="form-input" id="inpFooterInfo"
+                        value="contact@consoleprojects.co | +1 818-456-3562" oninput="updatePreview()"></div>
                 <!-- Bank Transfer Details -->
-                <div class="section-title"><i class="fas fa-university"></i> Bank Transfer Details</div>
-                <div class="form-group">
-                    <label class="form-label">Account Number</label>
-                    <input type="text" class="form-input" id="inpAccountNumber" value="41189296858" readonly>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">IFSC Code</label>
-                    <input type="text" class="form-input" id="inpIfscCode" value="SBIN00064986" readonly>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Bank Name</label>
-                    <input type="text" class="form-input" id="inpBankName" value="State Bank of India" readonly>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">UPI ID (For QR Payment)</label>
-                    <input type="text" class="form-input" id="inpUpiId" placeholder="e.g. merchant@upi">
-                </div>
+                <div class="section-title"><i class="fas fa-university"></i>Bank
+                    Transfer Details</div>
+                <div class="form-group"><label class="form-label">Account
+                        Number</label><input type="text" class="form-input" id="inpAccountNumber" value="41189296858"
+                        readonly></div>
+                <div class="form-group"><label class="form-label">IFSC
+                        Code</label><input type="text" class="form-input" id="inpIfscCode" value="SBIN00064986"
+                        readonly></div>
+                <div class="form-group"><label class="form-label">Bank
+                        Name</label><input type="text" class="form-input" id="inpBankName" value="State Bank of India"
+                        readonly></div>
                 <button type="button" class="btn-add-item" onclick="generatePaymentQR()"
-                    style="width: 100%; margin-top: 0.5rem;">
-                    <i class="fas fa-qrcode"></i> Generate Payment QR Code
+                    style="width: 100%; margin-top: 0.5rem;"><i class="fas fa-qrcode"></i>Generate Payment QR Code
                 </button>
-
                 <!-- QR Code for Pending Payment -->
-                <div id="qrSection" style="margin-top: 1rem; display: none;">
-                    <div class="qr-box"
-                        style="background: var(--background); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 0.75rem; text-align: center;">
-                        <h4
-                            style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">
-                            Scan to Pay Pending Amount</h4>
-                        <div id="qrPendingWrapper"
-                            style="display: inline-block; padding: 0.5rem; background: white; border-radius: var(--radius-md); margin-bottom: 0.5rem;">
-                        </div>
-                        <div id="qrPendingAmount" style="font-size: 0.85rem; font-weight: 600; color: var(--primary);">
-                            ₹0.00</div>
-                    </div>
-                </div>
-
-
-
-
-
-
+                <!-- QR Code Display removed from Editor Panel (Left Sidebar) as per request -->
             </div>
-
             <div class="editor-footer">
                 <div class="action-grid">
-                    <!-- BUTTON FIX: Added type="button" -->
-                    <button type="button" class="btn btn-primary" onclick="generatePDF()">
-                        <i class="fas fa-download"></i> PDF
-                    </button>
-                    <button type="button" class="btn btn-email" onclick="shareViaEmail()">
-                        <i class="fas fa-envelope"></i> Email
-                    </button>
-                    <button type="button" class="btn btn-whatsapp" onclick="shareViaWhatsApp()">
-                        <i class="fab fa-whatsapp"></i> Chat
-                    </button>
+                    <!-- BUTTON FIX: Added type="button" --><button type="button" class="btn btn-primary"
+                        onclick="generatePDF()"><i class="fas fa-download"></i>PDF </button><button type="button"
+                        class="btn btn-email" onclick="shareViaEmail()"><i class="fas fa-envelope"></i>Email
+                    </button><button type="button" class="btn btn-whatsapp" onclick="shareViaWhatsApp()"><i
+                            class="fab fa-whatsapp"></i>Chat </button>
                 </div>
             </div>
         </div>
-
         <!-- Preview Panel -->
         <div class="preview-panel">
             <div class="invoice-paper" id="invoicePreview">
@@ -920,10 +914,10 @@
                         <div class="inv-meta-val" id="prevInvNum">0001</div>
                         <div style="height: 8px;"></div>
                         <div class="inv-meta-label">Date</div>
-                        <div class="inv-meta-val" id="prevDate">Jul 26, 2024</div>
+                        <div class="inv-meta-val" id="prevDate">Jul 26,
+                            2024</div>
                     </div>
                 </div>
-
                 <!-- Bill To -->
                 <div class="inv-bill-to">
                     <div class="bill-details">
@@ -937,7 +931,6 @@
                         <!-- Removed Due Date from Preview -->
                     </div>
                 </div>
-
                 <!-- Table -->
                 <table class="inv-table">
                     <thead>
@@ -952,30 +945,20 @@
                         <!-- Rows -->
                     </tbody>
                 </table>
-
                 <!-- Summary -->
                 <div class="inv-summary">
                     <div class="summary-box">
-                        <div class="summary-row">
-                            <span class="summary-label">Subtotal</span>
-                            <span id="prevSubtotal">₹0.00</span>
-                        </div>
-
+                        <div class="summary-row"><span class="summary-label">Subtotal</span><span
+                                id="prevSubtotal">₹0.00</span></div>
                         <!-- Pending Row (Dynamic) -->
-                        <div class="summary-row" id="prevPendingRow" style="display:none; color: #EF4444;">
-                            <span class="summary-label" style="color: #EF4444;">Pending <span id="prevPendingNote"
-                                    style="font-size:10px; opacity:0.8;"></span></span>
-                            <span id="prevPendingAmount">₹0.00</span>
-                        </div>
-
+                        <div class="summary-row" id="prevPendingRow" style="display:none; color: #EF4444;"><span
+                                class="summary-label" style="color: #EF4444;">Pending <span id="prevPendingNote"
+                                    style="font-size:10px; opacity:0.8;"></span></span><span
+                                id="prevPendingAmount">₹0.00</span></div>
                         <!-- Tax could represent here later -->
-                        <div class="summary-row total">
-                            <span>Total</span>
-                            <span id="prevTotalFinal">₹0.00</span>
-                        </div>
+                        <div class="summary-row total"><span>Total</span><span id="prevTotalFinal">₹0.00</span></div>
                     </div>
                 </div>
-
                 <!-- Payment Details (Bank Transfer) -->
                 <div id="prevPaymentSection"
                     style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px dashed #E5E7EB; display: flex; justify-content: space-between; align-items: flex-start;">
@@ -983,43 +966,74 @@
                         <h4
                             style="font-size: 11px; text-transform: uppercase; color: #9CA3AF; margin-bottom: 8px; letter-spacing: 0.05em;">
                             Bank Transfer Details</h4>
-                        <p style="margin-bottom: 4px;"><strong>Account Number:</strong> <span id="prevAccNo"></span></p>
-                        <p style="margin-bottom: 4px;"><strong>IFSC Code:</strong> <span id="prevIfsc"></span></p>
-                        <p style="margin-bottom: 4px;"><strong>Bank Name:</strong> <span id="prevBankName"></span></p>
-                        <p><strong>UPI ID:</strong> <span id="prevUpi"></span></p>
+                        <p style="margin-bottom: 4px;"><strong>Account Number:</strong><span id="prevAccNo"></span></p>
+                        <p style="margin-bottom: 4px;"><strong>IFSC Code:</strong><span id="prevIfsc"></span></p>
+                        <p style="margin-bottom: 4px;"><strong>Bank Name:</strong><span id="prevBankName"></span></p>
                     </div>
-                    <div id="prevQrSection" style="text-align: center; display: none;">
+                    <div id="prevQrSection" style="text-align: center; display: none; margin-top: 10px;">
                         <div id="prevQrPending"
                             style="background: white; padding: 5px; border: 1px solid #F3F4F6; margin-bottom: 4px; display: inline-block;">
                         </div>
                         <div style="font-size: 9px; color: #9CA3AF; text-transform: uppercase; margin-bottom: 2px;">Scan
                             to Pay</div>
                         <div id="prevQrAmount" style="font-size: 10px; font-weight: 600; color: #3B82F6;">₹0.00</div>
+
+                        <!-- Logos in Preview -->
+                        <div style="display: flex; gap: 4px; justify-content: center; margin-top: 4px; opacity: 0.8;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Google_Pay_Logo.svg/512px-Google_Pay_Logo.svg.png"
+                                style="height: 12px;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/PhonePe_Logo.svg/512px-PhonePe_Logo.svg.png"
+                                style="height: 12px;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Paytm_Logo_%28standalone%29.svg/512px-Paytm_Logo_%28standalone%29.svg.png"
+                                style="height: 12px;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/MobiKwik_Logo.svg/512px-MobiKwik_Logo.svg.png"
+                                style="height: 12px;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Yono_logo.svg/512px-Yono_logo.svg.png"
+                                style="height: 12px;">
+                        </div>
                     </div>
                 </div>
-
-                <!-- Footer -->
-                <div class="inv-footer">
-                    <div id="prevFooterInfo">contact@consoleprojects.co | +1 818-456-3562</div>
-                    <div style="font-weight: 700; color: #1F2937;">Console Projects</div>
+            </div>
+            <!-- Footer -->
+            <div class="inv-footer">
+                <div id="prevFooterInfo">contact@consoleprojects.co |+1 818-456-3562
+                </div>
+                <div style="font-weight: 700; color: #1F2937;">Console Projects
                 </div>
             </div>
         </div>
     </div>
-
+    </div>
     <!-- Loading Overlay -->
     <div class="loading-overlay" id="loading">
         <div class="spinner"></div>
     </div>
-
     <!-- Toast -->
-    <div class="toast" id="toast">
-        <i class="fas fa-check-circle"></i>
-        <span id="toastMsg">Action Successful</span>
+    <div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toastMsg">Action
+            Successful</span></div>
+    <!-- Hidden Assets for PDF Generation -->
+    <div id="pdfAssets" style="display: none;">
+        <img id="assetGpay"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Google_Pay_Logo.svg/512px-Google_Pay_Logo.svg.png"
+            crossorigin="anonymous">
+        <img id="assetPhonepe"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/PhonePe_Logo.svg/512px-PhonePe_Logo.svg.png"
+            crossorigin="anonymous">
+        <img id="assetPaytm"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Paytm_Logo_%28standalone%29.svg/512px-Paytm_Logo_%28standalone%29.svg.png"
+            crossorigin="anonymous">
+        <img id="assetMobikwik"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/MobiKwik_Logo.svg/512px-MobiKwik_Logo.svg.png"
+            crossorigin="anonymous">
+        <img id="assetYono"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Yono_logo.svg/512px-Yono_logo.svg.png"
+            crossorigin="anonymous">
+        <img id="assetUpi"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo-vector.svg/512px-UPI-Logo-vector.svg.png"
+            crossorigin="anonymous">
     </div>
 
-    <script>
-        // Supabase Config
+    <script> // Supabase Config
         const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
 
@@ -1030,10 +1044,13 @@
 
         // Init
         document.addEventListener('DOMContentLoaded', () => {
+
             // Init Supabase
             if (window.supabase) {
                 supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-            } else {
+            }
+
+            else {
                 console.error("Supabase library not found. Saving will not work.");
             }
 
@@ -1076,8 +1093,14 @@
             updatePreview();
 
             setTimeout(() => {
-                showToast(`Invoice # updated to ${String(next).padStart(4, '0')}`);
-            }, 1000);
+                showToast(`Invoice # updated to $ {
+                            String(next).padStart(4, '0')
+                        }
+
+                        `);
+            }
+
+                , 1000);
         }
 
 
@@ -1092,7 +1115,12 @@
         function generatePaymentQR() {
             if (typeof QRCode === 'undefined') return;
 
-            const upiId = (document.getElementById('inpUpiId')?.value || '').trim();
+            const accNo = document.getElementById('inpAccountNumber').value;
+            const ifsc = document.getElementById('inpIfscCode').value;
+
+            // Construct VPA for Account + IFSC
+            const vpa = `${accNo}@${ifsc}.ifsc.npci`;
+
             const cur = document.getElementById('inpCurrency').value;
             const pendingAmount = parseFloat(document.getElementById('inpPendingAmount').value) || 0;
             const invoiceNum = (document.getElementById('inpInvoiceNum').value || '0001').trim();
@@ -1110,36 +1138,42 @@
             if (prevQrWrapper) prevQrWrapper.innerHTML = '';
 
             // Update amount displays
-            const formattedAmount = cur + pendingAmount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            const formattedAmount = cur + pendingAmount.toLocaleString('en-IN', {
+                minimumFractionDigits: 2, maximumFractionDigits: 2
+            });
             if (qrAmountDisplay) qrAmountDisplay.innerText = formattedAmount;
             if (prevQrAmount) prevQrAmount.innerText = formattedAmount;
 
             // Sync bank details
             syncBankDetails();
-            if (document.getElementById('prevUpi')) document.getElementById('prevUpi').innerText = upiId;
 
             // Show/hide QR sections based on conditions
-            const shouldShow = upiId && pendingAmount > 0;
+            const shouldShow = pendingAmount > 0;
             if (qrSection) qrSection.style.display = shouldShow ? 'block' : 'none';
             if (prevQrSection) prevQrSection.style.display = shouldShow ? 'block' : 'none';
 
             if (!shouldShow) return;
 
             // Generate QR codes
-            const upiString = `upi://pay?pa=${upiId}&pn=Console Projects&am=${pendingAmount.toFixed(2)}&cu=INR&tn=Invoice ${invoiceNum} Pending Payment`;
+            const upiString = `upi://pay?pa=${vpa}&pn=Console Projects&am=${pendingAmount.toFixed(2)}&cu=INR&tn=Invoice ${invoiceNum} Pending Payment`;
 
             const qrOpts = {
                 text: upiString,
-                width: 120,
-                height: 120,
+                width: 200,
+                height: 200,
                 colorDark: "#000000",
                 colorLight: "#ffffff",
                 correctLevel: QRCode.CorrectLevel.H
-            };
+            }
+
+                ;
+
+            ;
 
             try {
                 if (qrWrapper) new QRCode(qrWrapper, qrOpts);
-                if (prevQrWrapper) new QRCode(prevQrWrapper, { ...qrOpts, width: 80, height: 80 });
+                // Make preview QR in the panel larger as requested (was 80->now 120)
+                if (prevQrWrapper) new QRCode(prevQrWrapper, { ...qrOpts, width: 130, height: 130 });
             } catch (e) {
                 console.error('QR generation error:', e);
             }
@@ -1161,16 +1195,7 @@
             items.forEach((item, index) => {
                 const el = document.createElement('div');
                 el.className = 'item-card';
-                el.innerHTML = `
-                    <i class="fas fa-times item-remove" onclick="removeItem(${index})"></i>
-                    <div class="form-group" style="margin-bottom:0.5rem">
-                        <input type="text" class="form-input" value="${item.desc}" placeholder="Description" oninput="updateItem(${index}, 'desc', this.value)">
-                    </div>
-                    <div class="form-row">
-                        <input type="number" class="form-input" value="${item.qty}" min="1" placeholder="Qty" oninput="updateItem(${index}, 'qty', this.value)">
-                        <input type="number" class="form-input" value="${item.price}" min="0" step="0.01" placeholder="Price" oninput="updateItem(${index}, 'price', this.value)">
-                    </div>
-                `;
+                el.innerHTML = ` <i class="fas fa-times item-remove" onclick="removeItem(${index})" ></i> <div class="form-group" style="margin-bottom:0.5rem" > <input type="text" class="form-input" value="${item.desc}" placeholder="Description" oninput="updateItem(${index}, 'desc', this.value)" > </div> <div class="form-row" > <input type="number" class="form-input" value="${item.qty}" min="1" placeholder="Qty" oninput="updateItem(${index}, 'qty', this.value)" > <input type="number" class="form-input" value="${item.price}" min="0" step="0.01" placeholder="Price" oninput="updateItem(${index}, 'price', this.value)" > </div> `;
                 list.appendChild(el);
             });
         }
@@ -1178,14 +1203,19 @@
         function updateItem(index, key, value) {
             if (key === 'qty' || key === 'price') {
                 items[index][key] = parseFloat(value) || 0;
-            } else {
+            }
+
+            else {
                 items[index][key] = value;
             }
+
             updatePreview();
         }
 
         function addNewItem() {
-            items.push({ desc: '', qty: 1, price: 0 });
+            items.push({
+                desc: '', qty: 1, price: 0
+            });
             renderEditorItems();
             updatePreview();
         }
@@ -1217,27 +1247,54 @@
 
             // Dates
             const dDate = new Date(document.getElementById('inpDate').value);
-            if (!isNaN(dDate)) document.getElementById('prevDate').innerText = dDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+            if (!isNaN(dDate)) document.getElementById('prevDate').innerText = dDate.toLocaleDateString('en-US', {
+                month: 'short', day: 'numeric', year: 'numeric'
+            });
 
             // Table
             const tbody = document.getElementById('prevItemsBody');
             tbody.innerHTML = '';
+
             items.forEach(item => {
                 const total = item.qty * item.price;
-                const row = `
-                    <tr>
-                        <td>${item.desc || 'Item'}</td>
-                        <td>${item.qty}</td>
-                        <td>${cur}${item.price.toFixed(2)}</td>
-                        <td>${cur}${total.toFixed(2)}</td>
-                    </tr>
-                `;
+
+                const row = ` <tr> <td>$ {
+                    item.desc || 'Item'
+                }
+
+                </td> <td>$ {
+                    item.qty
+                }
+
+                </td> <td>$ {
+                    cur
+                }
+
+                $ {
+                    item.price.toFixed(2)
+                }
+
+                </td> <td>$ {
+                    cur
+                }
+
+                $ {
+                    total.toFixed(2)
+                }
+
+                </td> </tr> `;
                 tbody.insertAdjacentHTML('beforeend', row);
             });
 
             // Totals Display
-            const formattedTotal = cur + subTotal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            const formattedFinal = cur + finalTotal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            const formattedTotal = cur + subTotal.toLocaleString('en-IN', {
+                minimumFractionDigits: 2, maximumFractionDigits: 2
+            });
+
+            const formattedFinal = cur + finalTotal.toLocaleString('en-IN', {
+                minimumFractionDigits: 2, maximumFractionDigits: 2
+            });
 
             document.getElementById('prevSubtotal').innerText = formattedTotal;
             document.getElementById('prevTotalFinal').innerText = formattedFinal;
@@ -1246,11 +1303,20 @@
 
             // Pending Row Visibility
             const pendingRow = document.getElementById('prevPendingRow');
+
             if (pendingAmount > 0) {
                 pendingRow.style.display = 'flex';
-                document.getElementById('prevPendingAmount').innerText = cur + pendingAmount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                document.getElementById('prevPendingNote').innerText = pendingNote ? `(${pendingNote})` : '';
-            } else {
+
+                document.getElementById('prevPendingAmount').innerText = cur + pendingAmount.toLocaleString('en-IN', {
+                    minimumFractionDigits: 2, maximumFractionDigits: 2
+                });
+
+                document.getElementById('prevPendingNote').innerText = pendingNote ? `($ {
+                pendingNote
+            })` : '';
+            }
+
+            else {
                 pendingRow.style.display = 'none';
             }
 
@@ -1295,226 +1361,372 @@
                 pending_note: pendingNote,
                 total: total,
                 business_footer: document.getElementById('inpFooterInfo').value
-            };
+            }
 
-            const { data, error } = await supabaseClient
-                .from('invoices')
-                .upsert(payload, { onConflict: 'invoice_number' });
+                ;
+
+            const {
+                data,
+                error
+            }
+
+                = await supabaseClient.from('invoices').upsert(payload, {
+                    onConflict: 'invoice_number'
+                });
 
             if (error) {
                 console.error('Supabase Save Error:', error);
                 // Non-blocking toast? Or maybe we should alert.
                 // showToast('DB Save Failed'); 
-            } else {
+            }
+
+            else {
                 console.log('Saved to Supabase:', data);
             }
         }
 
         async function generatePDF() {
-            document.getElementById('loading').classList.add('active');
-            await new Promise(r => setTimeout(r, 200)); // Wait for rendering
+            const loading = document.getElementById('loading');
+            loading.classList.add('active');
+
+            // 1. Ensure QR is generated for the PDF if data is present
+            const pendingAmt = parseFloat(document.getElementById('inpPendingAmount').value) || 0;
+
+            if (pendingAmt > 0 && !document.querySelector('#prevQrPending canvas')) {
+                generatePaymentQR();
+                await new Promise(r => setTimeout(r, 450));
+            }
+
+            // Small delay for rendering sync
+            await new Promise(r => setTimeout(r, 300));
 
             try {
-                await saveInvoiceToSupabase();
+                // 2. Non-blocking Database Save
+                saveInvoiceToSupabase().catch(e => console.error("DB Save failed", e));
 
-                const { jsPDF } = window.jspdf;
+                const {
+                    jsPDF
+                }
+
+                    = window.jspdf;
                 const doc = new jsPDF('p', 'mm', 'a4');
-                
-                // Colors
-                const primaryBlue = [59, 130, 246];
-                const darkGray = [31, 41, 55];
-                const lightGray = [156, 163, 175];
-                const mediumGray = [75, 85, 99];
+                doc.setFont('helvetica');
 
-                // === HEADER ===
+                const primaryBlue = [59,
+                    130,
+                    246];
+                const darkText = [31,
+                    41,
+                    55];
+                const grayText = [156,
+                    163,
+                    175];
+                const lightBlue = [59,
+                    130,
+                    246];
+                const purple = [139,
+                    92,
+                    246];
+                const pink = [236,
+                    72,
+                    153];
+                const cur = "INR "; // Standard safe currency string
+
+                // === DYNAMIC BRAND LOGO (DOTS) ===
+                // Row 1
+                doc.setFillColor(...lightBlue);
+                doc.circle(16, 15, 1.2, 'F');
+                doc.circle(20, 15, 1.2, 'F');
+                // Row 2
+                doc.setFillColor(...purple);
+                doc.circle(16, 18.5, 1.2, 'F');
+                doc.circle(20, 18.5, 1.2, 'F');
+                doc.circle(24, 18.5, 1.2, 'F');
+                // Row 3
+                doc.setFillColor(...pink);
+                doc.circle(16, 22, 1.2, 'F');
+                doc.circle(20, 22, 1.2, 'F');
+
                 doc.setFontSize(22);
                 doc.setFont(undefined, 'bold');
-                doc.setTextColor(...darkGray);
-                doc.text('Console Projects', 14, 20);
+                doc.setTextColor(...darkText);
+                doc.text('Console Projects', 30, 21);
 
-                // Invoice Number & Date (Right aligned)
+                // Invoice # and Date
                 doc.setFontSize(9);
-                doc.setTextColor(...lightGray);
-                doc.text('INVOICE #', 196, 15, { align: 'right' });
-                doc.setFontSize(12);
-                doc.setTextColor(...darkGray);
-                doc.setFont(undefined, 'bold');
-                doc.text(document.getElementById('inpInvoiceNum').value, 196, 21, { align: 'right' });
-                
-                doc.setFontSize(9);
-                doc.setTextColor(...lightGray);
+                doc.setTextColor(...grayText);
                 doc.setFont(undefined, 'normal');
-                doc.text('DATE', 196, 28, { align: 'right' });
+
+                doc.text('INVOICE #', 196, 15, {
+                    align: 'right'
+                });
+                doc.setFontSize(12);
+                doc.setTextColor(...darkText);
+                doc.setFont(undefined, 'bold');
+
+                doc.text(document.getElementById('inpInvoiceNum').value || '0001', 196, 21, {
+                    align: 'right'
+                });
+
+                doc.setFontSize(9);
+                doc.setTextColor(...grayText);
+                doc.setFont(undefined, 'normal');
+
+                doc.text('DATE', 196, 28, {
+                    align: 'right'
+                });
                 doc.setFontSize(10);
-                doc.setTextColor(...darkGray);
-                doc.text(document.getElementById('prevDate').innerText, 196, 34, { align: 'right' });
+                doc.setTextColor(...darkText);
+
+                doc.text(document.getElementById('prevDate').innerText || '', 196, 34, {
+                    align: 'right'
+                });
 
                 // === BILL TO SECTION ===
                 doc.setFillColor(...primaryBlue);
                 doc.roundedRect(14, 45, 120, 35, 3, 3, 'F');
-
                 doc.setTextColor(255, 255, 255);
                 doc.setFontSize(13);
                 doc.setFont(undefined, 'bold');
-                doc.text(document.getElementById('inpCustomerName').value || 'Client Name', 20, 56);
-                
+                doc.text((document.getElementById('inpCustomerName').value || 'CLIENT NAME').toUpperCase(), 20, 56);
                 doc.setFontSize(10);
                 doc.setFont(undefined, 'normal');
                 doc.text(document.getElementById('inpCustomerTitle').value || '', 20, 62);
-                
                 doc.setFontSize(9);
-                const addr = doc.splitTextToSize(document.getElementById('inpCustomerAddress').value || '', 100);
-                doc.text(addr, 20, 68);
+                const addrLines = doc.splitTextToSize(document.getElementById('inpCustomerAddress').value || '', 100);
+                doc.text(addrLines, 20, 68);
 
-                // Total Amount Box
+                // Total Summary Box
                 doc.setFillColor(255, 255, 255);
                 doc.roundedRect(145, 50, 50, 25, 2, 2, 'F');
-                doc.setTextColor(...lightGray);
+                doc.setTextColor(...grayText);
                 doc.setFontSize(8);
-                doc.text('TOTAL AMOUNT', 170, 58, { align: 'center' });
-                doc.setTextColor(...darkGray);
+
+                doc.text('TOTAL AMOUNT', 170, 58, {
+                    align: 'center'
+                });
+                doc.setTextColor(...darkText);
                 doc.setFontSize(15);
                 doc.setFont(undefined, 'bold');
-                doc.text(document.getElementById('prevTotalMain').innerText, 170, 67, { align: 'center' });
+                const totalVal = items.reduce((s, i) => s + (i.qty * i.price), 0) + pendingAmt;
+
+                doc.text(cur + totalVal.toFixed(2), 170, 67, {
+                    align: 'center'
+                });
 
                 // === ITEMS TABLE ===
-                const tableBody = items.map(item => [
-                    item.desc || 'Item',
-                    item.qty.toString(),
-                    document.getElementById('inpCurrency').value + item.price.toFixed(2),
-                    document.getElementById('inpCurrency').value + (item.qty * item.price).toFixed(2)
-                ]);
+                const tableData = items.map(item => [item.desc || 'Item',
+                item.qty.toString(),
+                cur + item.price.toFixed(2),
+                cur + (item.qty * item.price).toFixed(2)]);
 
-                if (typeof doc.autoTable === 'function') {
-                    doc.autoTable({
-                        startY: 95,
-                        head: [['DESCRIPTION', 'QTY', 'PRICE', 'AMOUNT']],
-                        body: tableBody,
-                        theme: 'plain',
-                        headStyles: { 
-                            textColor: lightGray, 
-                            fontSize: 9, 
-                            fontStyle: 'bold',
-                            fillColor: [248, 250, 252]
-                        },
-                        bodyStyles: { fontSize: 10, textColor: mediumGray },
-                        columnStyles: { 
-                            0: { cellWidth: 90 },
-                            1: { halign: 'center', cellWidth: 20 }, 
-                            2: { halign: 'right', cellWidth: 35 }, 
-                            3: { halign: 'right', cellWidth: 35 } 
-                        },
-                        margin: { left: 14, right: 14 }
+                doc.autoTable({
+
+                    startY: 95,
+                    head: [['DESCRIPTION', 'QTY', 'PRICE', 'TOTAL']],
+                    body: tableData,
+                    theme: 'grid',
+                    headStyles: {
+                        fillColor: [248, 250, 252], textColor: [71, 85, 105], fontStyle: 'bold'
+                    }
+
+                    ,
+                    styles: {
+                        fontSize: 9, font: 'helvetica'
+                    }
+
+                    ,
+                    columnStyles: {
+                        0: {
+                            cellWidth: 90
+                        }
+
+                        , 1: {
+                            halign: 'center'
+                        }
+
+                        , 2: {
+                            halign: 'right'
+                        }
+
+                        , 3: {
+                            halign: 'right'
+                        }
+                    }
+                });
+
+                let finalY = doc.lastAutoTable ? doc.lastAutoTable.finalY + 10 : 130;
+
+                // === SUMMARY SECTION ===
+                doc.setFontSize(10);
+                doc.setTextColor(...darkText);
+                doc.setFont(undefined, 'normal');
+
+                doc.text('Subtotal:', 150, finalY);
+                const subTot = items.reduce((s, i) => s + (i.qty * i.price), 0);
+
+                doc.text(cur + subTot.toFixed(2), 196, finalY, {
+                    align: 'right'
+                });
+
+                if (pendingAmt > 0) {
+                    finalY += 7;
+                    doc.setTextColor(220, 38, 38);
+                    const note = document.getElementById('inpPendingNote').value;
+
+                    doc.text(`Pending $ {
+                    note ? '(' + note + ')' : ''
+                }
+
+                :`, 150, finalY);
+
+                    doc.text(cur + pendingAmt.toFixed(2), 196, finalY, {
+                        align: 'right'
                     });
                 }
 
-                let finalY = doc.lastAutoTable ? doc.lastAutoTable.finalY + 15 : 130;
-
-                // === SUMMARY ===
-                doc.setFontSize(10);
-                doc.setTextColor(...mediumGray);
-                doc.setFont(undefined, 'normal');
-                
-                // Subtotal
-                doc.text('Subtotal', 150, finalY);
-                doc.text(document.getElementById('prevSubtotal').innerText, 196, finalY, { align: 'right' });
-
-                // Pending (if any)
-                const pendingAmount = parseFloat(document.getElementById('inpPendingAmount').value) || 0;
-                if (pendingAmount > 0) {
-                    finalY += 7;
-                    doc.setTextColor(239, 68, 68);
-                    const note = document.getElementById('inpPendingNote').value;
-                    doc.text(`Pending ${note ? '(' + note + ')' : ''}`, 150, finalY);
-                    doc.text(document.getElementById('prevPendingAmount').innerText, 196, finalY, { align: 'right' });
-                    doc.setTextColor(...mediumGray);
-                }
-
-                // Total
                 finalY += 10;
                 doc.setFontSize(13);
                 doc.setFont(undefined, 'bold');
-                doc.setTextColor(...darkGray);
-                doc.text('Total', 150, finalY);
-                doc.text(document.getElementById('prevTotalMain').innerText, 196, finalY, { align: 'right' });
+                doc.setTextColor(...darkText);
+                doc.text('Total:', 150, finalY);
 
-                // === PAYMENT DETAILS SECTION ===
+                doc.text(cur + (subTot + pendingAmt).toFixed(2), 196, finalY, {
+                    align: 'right'
+                });
+
+                // === PAYMENT & QR SECTION ===
                 let footerY = 240;
+
                 if (finalY > 210) {
                     doc.addPage();
-                    footerY = 20;
+                    footerY = 25;
                 }
 
-                // Separator line
-                doc.setDrawColor(229, 231, 235);
-                doc.setLineWidth(0.5);
+                doc.setDrawColor(241, 245, 249);
                 doc.line(14, footerY - 10, 196, footerY - 10);
 
-                // Bank Details (Left)
                 doc.setFontSize(10);
                 doc.setFont(undefined, 'bold');
-                doc.setTextColor(...lightGray);
+                doc.setTextColor(...grayText);
                 doc.text('BANK TRANSFER DETAILS', 14, footerY);
-                
+
                 doc.setFont(undefined, 'normal');
-                doc.setTextColor(...mediumGray);
+                doc.setTextColor(...darkText);
                 doc.setFontSize(9);
-                doc.text(`Account Number: ${document.getElementById('inpAccountNumber').value}`, 14, footerY + 8);
-                doc.text(`IFSC Code: ${document.getElementById('inpIfscCode').value}`, 14, footerY + 15);
-                doc.text(`Bank Name: ${document.getElementById('inpBankName').value}`, 14, footerY + 22);
-                
-                const upiId = document.getElementById('inpUpiId').value;
-                if (upiId) {
-                    doc.text(`UPI ID: ${upiId}`, 14, footerY + 29);
-                }
 
-                // QR Code (Right) - Only if pending amount and UPI ID exist
-                if (pendingAmount > 0 && upiId) {
-                    const prevQrWrapper = document.getElementById('prevQrPending');
-                    if (prevQrWrapper) {
-                        const canvas = prevQrWrapper.querySelector('canvas');
-                        if (canvas) {
-                            try {
-                                const qrData = canvas.toDataURL('image/png');
-                                doc.addImage(qrData, 'PNG', 155, footerY - 5, 35, 35);
-                                
-                                doc.setFontSize(8);
-                                doc.setTextColor(...lightGray);
-                                doc.setFont(undefined, 'bold');
-                                doc.text('SCAN TO PAY', 172.5, footerY + 33, { align: 'center' });
-                                
-                                doc.setFontSize(10);
-                                doc.setTextColor(...primaryBlue);
-                                doc.text(document.getElementById('prevQrAmount').innerText, 172.5, footerY + 39, { align: 'center' });
-                            } catch (e) {
-                                console.error('QR Code error:', e);
-                            }
+                doc.text(`Account No: $ {
+                document.getElementById('inpAccountNumber').value
+            }
+
+            `, 14, footerY + 8);
+
+                doc.text(`IFSC Code: $ {
+                document.getElementById('inpIfscCode').value
+            }
+
+            `, 14, footerY + 14);
+
+                doc.text(`Bank Name: $ {
+                document.getElementById('inpBankName').value
+            }
+
+            `, 14, footerY + 20);
+
+
+
+                // Capture QR Code
+                const qrWrapper = document.getElementById('prevQrPending');
+
+                if (pendingAmt > 0 && qrWrapper) {
+                    const canvas = qrWrapper.querySelector('canvas');
+                    const img = qrWrapper.querySelector('img');
+                    const qrSrc = canvas ? canvas.toDataURL('image/png') : (img ? img.src : null);
+
+                    // Draw QR Code (Even Bigger for PDF)
+                    // Align Right at 196. Width 45. Star X = 196 - 45 = 151
+                    doc.addImage(qrSrc, 'PNG', 151, footerY - 5, 45, 45);
+                    doc.setFontSize(8);
+                    doc.setFont(undefined, 'bold');
+                    doc.setTextColor(...grayText);
+
+                    doc.text('SCAN TO PAY', 173.5, footerY + 43, { align: 'center' });
+                    doc.setTextColor(...primaryBlue);
+                    doc.text(cur + pendingAmt.toFixed(2), 173.5, footerY + 47, { align: 'center' });
+
+                    // Draw Payment Logos
+                    // Helper to get img data
+                    const getImgData = (id) => {
+                        const img = document.getElementById(id);
+                        if (img && img.complete) {
+                            const canvas = document.createElement('canvas');
+                            canvas.width = img.naturalWidth;
+                            canvas.height = img.naturalHeight;
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0);
+                            return canvas.toDataURL('image/png');
                         }
-                    }
+                        return null;
+                    };
+
+                    const logoY = footerY + 50;
+                    const gpay = getImgData('assetGpay');
+                    const phonepe = getImgData('assetPhonepe');
+                    const paytm = getImgData('assetPaytm');
+                    const mobikwik = getImgData('assetMobikwik');
+                    const yono = getImgData('assetYono');
+                    // const upi = getImgData('assetUpi');
+
+                    // Draw logos row centered around 173.5
+                    // Total width approx 45.
+                    // 5 logos. 8 width each. 1 gap.
+
+                    let currentX = 151;
+                    const logoW = 8;
+                    const logoH = 3;
+                    const gap = 1;
+
+                    if (gpay) { doc.addImage(gpay, 'PNG', currentX, logoY, logoW, logoH); currentX += logoW + gap; }
+                    if (phonepe) { doc.addImage(phonepe, 'PNG', currentX, logoY, logoW, logoH); currentX += logoW + gap; }
+                    if (paytm) { doc.addImage(paytm, 'PNG', currentX, logoY, logoW, logoH); currentX += logoW + gap; }
+                    if (mobikwik) { doc.addImage(mobikwik, 'PNG', currentX, logoY, logoW, logoH); currentX += logoW + gap; }
+                    if (yono) { doc.addImage(yono, 'PNG', currentX, logoY, logoW, logoH); currentX += logoW + gap; }
                 }
 
-                // Footer
+                // Final Footer
                 doc.setFontSize(8);
-                doc.setTextColor(...lightGray);
+                doc.setTextColor(...grayText);
                 doc.text(document.getElementById('inpFooterInfo').value, 14, 285);
                 doc.setFont(undefined, 'bold');
-                doc.setTextColor(...darkGray);
-                doc.text('Console Projects', 196, 285, { align: 'right' });
+                doc.setTextColor(...darkText);
 
-                doc.save(`Invoice-${document.getElementById('inpInvoiceNum').value}.pdf`);
-                showToast('✓ Professional PDF Generated');
+                doc.text('Console Projects', 196, 285, {
+                    align: 'right'
+                });
+
+                doc.save(`Invoice-$ {
+                document.getElementById('inpInvoiceNum').value
+            }
+
+            .pdf`);
+                showToast('✓ PDF Invoice & Database Updated');
                 incrementInvoiceNumber();
 
-            } catch (e) {
-                console.error('PDF Error:', e);
-                alert('Error generating PDF: ' + e.message);
-            } finally {
-                document.getElementById('loading').classList.remove('active');
+            }
+
+            catch (err) {
+                console.error("PDF Fatal Error:", err);
+                alert("Could not generate PDF.");
+            }
+
+            finally {
+                loading.classList.remove('active');
             }
         }
 
         function shareViaWhatsApp() {
             const phone = document.getElementById('inpCustomerPhone').value.replace(/[^0-9]/g, '');
+
             if (!phone) {
                 alert('Please enter a phone number in the customer details section (including country code).');
                 document.getElementById('inpCustomerPhone').focus();
@@ -1525,13 +1737,27 @@
             const amt = document.getElementById('prevTotalMain').innerText;
             const num = document.getElementById('inpInvoiceNum').value;
 
-            const text = `Hello ${name},%0A%0AHere is your invoice *${num}* for amount *${amt}*.%0APlease let us know if you have any questions.%0A%0AThank you!`;
+            const text = `Hello $ {
+                name
+            }
 
-            window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+            ,
+            %0A%0AHere is your invoice *$ {
+                num
+            }
+
+            * for amount *$ {
+                amt
+            }
+
+            *.%0APlease let us know if you have any questions.%0A%0AThank you !`;
+
+            window.open(`https: //wa.me/${phone}?text=${text}`, '_blank');
         }
 
         function shareViaEmail() {
             const email = document.getElementById('inpCustomerEmail').value;
+
             if (!email) {
                 alert('Please enter an email address.');
                 document.getElementById('inpCustomerEmail').focus();
@@ -1542,10 +1768,39 @@
             const amt = document.getElementById('prevTotalMain').innerText;
             const num = document.getElementById('inpInvoiceNum').value;
 
-            const subject = `Invoice ${num} from Console Projects`;
-            const body = `Hi ${name},%0D%0A%0D%0APlease find attached invoice ${num} for ${amt}.%0D%0A%0D%0AThank you for your business!`;
+            const subject = `Invoice $ {
+                    num
+                }
 
-            window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+                from Console Projects`;
+
+            const body = `Hi $ {
+                    name
+                }
+
+                , %0D%0A%0D%0APlease find attached invoice $ {
+                    num
+                }
+
+                for $ {
+                    amt
+                }
+
+                .%0D%0A%0D%0AThank you for your business !`;
+
+            window.location.href = `mailto:$ {
+                    email
+                }
+
+                ?subject=$ {
+                    subject
+                }
+
+                &body=$ {
+                    body
+                }
+
+                `;
         }
 
     </script>
