@@ -20,7 +20,7 @@
 
     <!-- jsPDF Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.1/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 
     <!-- QRCode.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -1340,11 +1340,9 @@
             const {
                 data,
                 error
-            }
-
-                = await supabaseClient.from('invoices').upsert(payload, {
-                    onConflict: 'invoice_number'
-                });
+            } = await supabaseClient.from('invoices').upsert(payload, {
+                onConflict: 'invoice_number'
+            }).select();
 
             if (error) {
                 console.error('Supabase Save Error:', error);
@@ -1583,23 +1581,20 @@
                 doc.setTextColor(...darkText);
                 doc.setFontSize(9);
 
-                doc.text(`Account No: $ {
-                document.getElementById('inpAccountNumber').value
-            }
+                doc.text(`Account No: ${document.getElementById('inpAccountNumber').value}`, 14, footerY + 8);
+                doc.text(`IFSC Code: ${document.getElementById('inpIfscCode').value}`, 14, footerY + 14);
+                doc.text(`Bank Name: ${document.getElementById('inpBankName').value}`, 14, footerY + 20);
 
-            `, 14, footerY + 8);
+                // Signature
+                doc.setFont('times', 'italic');
+                doc.setFontSize(14);
+                doc.setTextColor(...darkText);
+                doc.text('Mathew console projects', 14, footerY + 35);
 
-                doc.text(`IFSC Code: $ {
-                document.getElementById('inpIfscCode').value
-            }
-
-            `, 14, footerY + 14);
-
-                doc.text(`Bank Name: $ {
-                document.getElementById('inpBankName').value
-            }
-
-            `, 14, footerY + 20);
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(8);
+                doc.setTextColor(...grayText);
+                doc.text('Authorized Signatory', 14, footerY + 39);
 
 
 
@@ -1665,18 +1660,9 @@
                 doc.setFontSize(8);
                 doc.setTextColor(...grayText);
                 doc.text(document.getElementById('inpFooterInfo').value, 14, 285);
-                doc.setFont(undefined, 'bold');
-                doc.setTextColor(...darkText);
+                // Removed Console Projects text to prevent overlap with QR code text
 
-                doc.text('Console Projects', 196, 285, {
-                    align: 'right'
-                });
-
-                doc.save(`Invoice-$ {
-                document.getElementById('inpInvoiceNum').value
-            }
-
-            .pdf`);
+                doc.save(`Invoice-${document.getElementById('inpInvoiceNum').value}.pdf`);
                 showToast('✓ PDF Invoice & Database Updated');
                 incrementInvoiceNumber();
 
@@ -1705,20 +1691,7 @@
             const amt = document.getElementById('prevTotalMain').innerText;
             const num = document.getElementById('inpInvoiceNum').value;
 
-            const text = `Hello $ {
-                name
-            }
-
-            ,
-            %0A%0AHere is your invoice *$ {
-                num
-            }
-
-            * for amount *$ {
-                amt
-            }
-
-            *.%0APlease let us know if you have any questions.%0A%0AThank you !`;
+            const text = `Hello ${name},%0A%0AHere is your invoice *${num}* for amount *${amt}*.%0APlease let us know if you have any questions.%0A%0AThank you!`;
 
             window.open(`https: //wa.me/${phone}?text=${text}`, '_blank');
         }
@@ -1736,39 +1709,11 @@
             const amt = document.getElementById('prevTotalMain').innerText;
             const num = document.getElementById('inpInvoiceNum').value;
 
-            const subject = `Invoice $ {
-                    num
-                }
+            const subject = `Invoice ${num} from Console Projects`;
 
-                from Console Projects`;
+            const body = `Hi ${name},%0D%0A%0D%0APlease find attached invoice ${num} for ${amt}.%0D%0A%0D%0AThank you for your business!`;
 
-            const body = `Hi $ {
-                    name
-                }
-
-                , %0D%0A%0D%0APlease find attached invoice $ {
-                    num
-                }
-
-                for $ {
-                    amt
-                }
-
-                .%0D%0A%0D%0AThank you for your business !`;
-
-            window.location.href = `mailto:$ {
-                    email
-                }
-
-                ?subject=$ {
-                    subject
-                }
-
-                &body=$ {
-                    body
-                }
-
-                `;
+            window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
         }
 
     </script>
