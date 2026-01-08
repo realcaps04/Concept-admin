@@ -1,0 +1,1278 @@
+@media all and (max-width:480px){
+
+
+    #chatbase-bubble-button
+ {
+    bottom: 4rem !important;
+    right: 3rem !important;
+    display: none;
+}
+#chatbase-message-bubbles, #chatbase-bubble-window {
+    display: none !important;
+}
+    header section.wrapper section.center nav ul {
+    display: none;
+}
+
+header section.wrapper section.right button.mailemail.connectus {
+    display: none;
+}
+header section.wrapper section.right section.profile {
+    display: none;
+}
+header section.wrapper section.right section.mobilehamburgur {
+    display: block;
+}
+header section.wrapper section.right section.mobilehamburgur img {
+    display: block;
+    height: 2.5vh;
+    margin-left: 12px;
+}
+
+    section.hamburguerslide {
+        border: 2px solid #262626;
+        height: 100%;
+        width: 90%;
+        position: absolute;
+        background: #000;
+        right: 0;
+        top: 0;
+        z-index: 99;
+        border-radius: 16px 0px 0px 16px;
+    }
+section.hamburguerslide section.wrapper {
+        margin: 0 1.8vw;
+    }
+section.hamburguerslide section.wrapper section.top {
+        margin: 2.5vh 0;
+        margin-bottom: 4vh;
+    }
+section.hamburguerslide section.wrapper section.top section.search
+ {
+        display: flex
+;
+        align-items: center;
+        justify-content: space-between;
+    }
+section.hamburguerslide section.wrapper section.top section.search div.left {
+        display: flex
+;
+        align-items: center;
+        border: 2px solid #262626;
+        border-radius: 18px;
+        padding: 6px 12px;
+        width: 78.33%;
+        position: relative;
+        background: #1a1a1a;
+        padding-left: 10px;
+    }
+section.hamburguerslide section.wrapper section.top section.search div.left img {}
+    section.hamburguerslide section.wrapper section.top section.search div.left input[type="search"] {
+        background: none;
+        width: 95%;
+    }
+
+section.hamburguerslide section.wrapper section.top section.search div.right {}
+
+section.hamburguerslide section.wrapper section.top section.search div.right h2.close-hamburgur {}
+section.hamburguerslide section.wrapper section.top section.search div.right h2.close-hamburgur img {
+        display: block;
+        height: 5vh;
+    }
+section.hamburguerslide section.wrapper section.bottom {}
+section.hamburguerslide section.wrapper section.bottom ul {
+        border: 2px solid #262626;
+        border-radius: 18px;
+        padding: 12px 12px;
+        width: 93%;
+        position: relative;
+        background: #1a1a1a;
+        padding-left: 10px;
+    }
+    section.hamburguerslide section.wrapper section.bottom ul li
+ {
+        display: flex
+;
+        align-items: center;
+        margin-bottom: 20px;
+        position: relative;
+    }
+    section.hamburguerslide section.wrapper section.bottom ul li hr.hamline {
+        display: block;
+        height: 2px;
+        width: 100%;
+        background: #262627;
+        position: absolute;
+        bottom: -10px;
+    }
+section.hamburguerslide section.wrapper section.bottom ul li div.left {}
+    section.hamburguerslide section.wrapper section.bottom ul li div.left img.element-icon {
+        display: block;
+        height: 3.5vh;
+        margin-right: 24px;
+    }
+
+section.hamburguerslide section.wrapper section.bottom ul li div.right {}
+    section.hamburguerslide section.wrapper section.bottom ul li div.right h3 {
+        font-size: 14px;
+    }
+section.hamburguerslide section.wrapper section.bottom ul li.notifications {}
+section.hamburguerslide section.wrapper section.bottom ul li.notifications div.right {
+        display: flex
+;
+        align-items: center;
+        justify-content: space-between;
+    }
+section.hamburguerslide section.wrapper section.bottom ul li.notifications div.right h2.notificationcount.countnumber {
+        margin-left: 16px;
+        color: #000;
+        background: #fff;
+        padding: 5px 9px;
+        font-size: 13px;
+        border-radius: 50%;
+    }
+
+section.hamburguerslide section.wrapper section.bottom ul li.profile-area {}
+
+section.hamburguerslide section.wrapper section.bottom ul li.profile-area div.right {}
+
+section.hamburguerslide section.wrapper section.bottom ul li.profile-area div.right h3 {}
+    section.hamburguerslide section.wrapper section.bottom ul li.profile-area div.right h4 {
+        color: #999999;
+        font-size: 12.5px;
+        margin-top: 4px;
+    }
+    section.hero section.wrapper {
+    flex-direction: column;
+}
+section.hero {
+    margin-top: 3vh;
+}
+section.hero section.wrapper section.left {
+    width: 95%;
+}
+section.hero section.wrapper section.left div.vision h2
+ {
+    font-family: 'Gropled';
+    font-size: 42px;
+    position: relative;
+    top: 2vh;
+}
+section.hero section.wrapper section.left div.vision span.bp img {
+    margin: 0 8px;
+    display: block;
+    height: 4vh;
+}
+section.hero section.wrapper section.left h4 {
+    font-family: 'Inter Medium1';
+    width: 108%;
+    font-size: 10px;
+    line-height: 1.7em;
+    margin-bottom: 3vh;
+}
+section.hero section.wrapper section.left a.browseprojects
+ {
+    padding: 10px 54px;
+    border-radius: 31px;
+    width: fit-content;
+    padding-left: 13px;
+    margin-bottom: 5vh;
+}
+section.hero section.wrapper section.left div.vision span.bp
+ {
+    margin-top: 1.6vh;
+}
+section.hero section.wrapper section.left a.browseprojects h3 { 
+    font-size: 13px;
+}
+section.hero section.wrapper section.left a.browseprojects h2 img.one {
+    top: -14px;
+    right: -46px;
+}
+section.hero section.wrapper section.left a.browseprojects h2 img.two {
+    right: -46px;
+}
+section.hero section.wrapper section.left section.exellence ul
+ {
+    max-width: 100%;
+}
+section.hero section.wrapper section.left section.exellence ul li{
+    margin-right: 12px;
+}
+section.hero section.wrapper section.left section.exellence ul li:last-child{
+    margin-right: 0;
+}
+section.hero section.wrapper section.left section.exellence ul li h2 {
+    margin-right: 8px;
+    font-size: 20px;
+}
+section.hero section.wrapper section.left section.exellence ul li h5 {
+    font-size: 9px;
+}
+section.hero section.wrapper section.left section.te ul li div.top img
+ {
+    margin-right: 10px;
+    display: block;
+    height: 5vh
+;
+}
+section.hero section.wrapper section.left section.te ul li div.top h3
+ {
+    font-size: 14px;
+}
+section.hero section.wrapper section.left section.te ul{
+    flex-direction: column;
+}
+section.hero section.wrapper section.left section.te ul li div.bottom h4 {
+    font-size: 10px;
+}
+section.hero section.wrapper section.left section.te ul li {
+    max-width: 100%
+;
+}
+section.hero section.wrapper section.left section.te hr.hline {
+    display: block;
+    height: 2px;
+    width: 100%;
+    position: absolute;
+    background: #262626;
+    left: 0;
+    top: 120px;
+    transform: rotate(0);
+}
+section.notificationalert {
+    top: 3vh;
+    right: 13vw;
+    width: 80vw;
+}
+section.notificationalert section.wrapper section.notimsg div.right h2.ownername {
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+section.notificationalert section.wrapper section.notimsg div.right h4.message {
+    font-size: 11px;
+    margin-bottom: 14px;
+}
+section.notificationalert section.wrapper section.notimsg div.right span.buttons a.connectmail.mailemail
+ {
+    padding: 7px 12px;
+    font-size: 13px;
+    margin-right: 16px;
+}
+section.notificationalert section.wrapper section.notimsg div.right span.buttons h3.cancel {
+    font-size: 13px;
+}
+section.notificationalert section.wrapper section.pinnedmsg div.center h3.time {
+    font-size: 10px;
+}
+section.notificationalert section.wrapper section.notimsg div.right h3.time {
+    color: #C9C8E1;
+    font-size: 10px;
+}
+section.notificationalert section.wrapper section.end section.mm h3
+ {
+    font-size: 9.5px;
+}
+section.hero section.wrapper section.right
+ {
+    width: 100%;
+    display: flex
+;
+    justify-content: center;
+}
+section.hero section.wrapper section.right img
+ {
+    width: 90%;
+    height: 38vh;
+    margin-bottom: 4vh;
+}
+section.explore section.wrapper ul
+ {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    margin: 4vh 0;
+    flex-direction: column;
+}
+section.explore section.wrapper ul li {
+    padding: 12px;
+    width: 80%;
+    margin-bottom: 4vh;
+}
+section.projects section.wrapper section.top{
+    flex-direction: column;
+}
+section.projects section.wrapper section.top section.right {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+}
+section.projects section.wrapper section.top section.right h5
+ {
+    font-size: 9px;
+    margin-right: 9px;
+    line-height: 1.5em;
+    margin-bottom: 12px;
+}
+section.projects section.wrapper section.top section.right a.viewallprojects h3 {
+    font-size: 11px;
+}
+section.projects section.wrapper section.top section.left h2{
+    margin-bottom: 8px;
+}
+section.projects section.wrapper section.top section.right a.viewallprojects h2 img.one {
+    top: 6px;
+    right: 8px;
+}
+section.projects section.wrapper section.top section.right a.viewallprojects h2 img.two{
+    right: 8px;
+}
+section.projects section.wrapper section.bottom ul {
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 0vh;
+}
+section.projects section.wrapper section.bottom ul li{
+    width: 85%;
+}
+section.projects section.wrapper section.bottom ul li section.bottom div.left span.lone h3 {
+    padding: 10px 20px;
+    font-size: 12px;
+}
+section.projects section.wrapper section.bottom ul li section.bottom div.left h3.pvalue {
+    font-size: 14px;
+}
+section.projects section.wrapper section.bottom ul li section.bottom div.left {
+    padding: 4px 12px;
+}
+section.journey section.wrapper {
+    flex-direction: column;
+}
+section.journey{
+    margin-top: 8vh;
+}
+section.journey section.wrapper section.left img {
+    display: block;
+    height: 28vh;
+}
+section.journey section.wrapper section.right {
+    width: 95%;
+    margin-top: 4vh;
+}
+section.journey section.wrapper section.right h5
+ {
+    line-height: 1.7em;
+    font-size: 11px;
+    margin-bottom: 24px;
+}
+section.journey section.wrapper section.right ul {
+    max-width: 100%;
+}
+section.journey section.wrapper section.right ul li{
+    margin-right: 8px;
+}
+section.journey section.wrapper section.right ul li:last-child{
+    margin-right: 0;
+}
+section.journey section.wrapper section.right ul li h2 {
+    font-size: 20px;
+}
+section.journey section.wrapper section.right ul li h5 {
+    margin-bottom: 0;
+    font-size: 9px;
+}
+section.testimonials {
+    margin-top: 6vh
+;
+}
+section.testimonials section.wrapper section.top {
+    flex-direction: column;
+}
+section.testimonials section.wrapper section.top div.right{
+    flex-direction: column;
+    width: 95%;
+    align-items: flex-start;
+}
+section.testimonials section.wrapper section.top div.right h5 {
+    color: #999999;
+    font-size: 11px;
+    margin-bottom: 3vh;
+}
+section.testimonials section.wrapper section.top div.right a.viewalltestimonials h3 {
+    font-size: 11px;
+}
+section.testimonials section.wrapper section.top div.right a.viewalltestimonials {
+    width: 30vw;
+}
+section.testimonials section.wrapper section.top div.right a.viewalltestimonials h2 img.one{
+    top: 5px;
+    right: 10px;
+}
+section.testimonials section.wrapper section.top div.right a.viewalltestimonials h2 img.two{
+    top: 5px;
+    right: 10px;
+}
+section.testimonials section.wrapper section.bottom ul {
+    flex-direction: column;
+}
+section.testimonials section.wrapper section.bottom ul li {
+    padding: 12px;
+    width: 90%;
+    margin-right: 0;
+    margin: 12px;
+}
+section.testimonials section.wrapper section.bottom ul li div.top {
+    margin-bottom: 8px;
+}
+section.faq section.wrapper section.mtop {
+    flex-direction: column;
+    align-items: flex-start;
+}
+section.faq section.wrapper section.mtop section.right {
+    width: 95%;
+}
+section.faq section.wrapper section.mtop section.right h5 {
+    font-size: 11px;
+}
+section.faq section.wrapper section.mtop section.right a.viewallfaqs h3 {
+    color: #000;
+    font-size: 11px;
+    width: 18vw;
+}
+section.faq section.wrapper section.mtop section.right a.viewallfaqs {
+    width: 36vw;
+}
+section.faq section.wrapper section.mtop section.right a.viewallfaqs h2 img.one {
+    top: 6px;
+    right: 6px;
+}
+section.faq section.wrapper section.mtop section.right a.viewallfaqs h2 img.two {
+    top: 6px;
+    right: 6px;
+}
+section.faq section.wrapper section.bottom ul li .nflex section.left h3 {
+    font-size: 11px;
+}
+section.faq section.wrapper section.bottom ul li .nflex section.right span.expand img {
+    display: block;
+    height: 3.5vh;
+}
+footer section.wrapper section.top section.left span.logo h2 {
+    font-size: 15px;
+    font-family: 'Gropled';
+}
+footer section.wrapper section.top {
+    padding: 4vh 0;
+    display: flex
+;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: column;
+}
+footer section.wrapper section.top section.right div.one ul {
+    display: flex
+;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    max-width: 78%;
+    margin: 12px 0;
+}
+footer section.wrapper section.top section.right div.one ul li:nth-child(1),footer section.wrapper section.top section.right div.one ul li:nth-child(2){
+    margin-bottom: 12px;
+}
+footer section.wrapper section.top section.right div.two a.support {
+    width: 12.6vw;
+}
+footer section.wrapper section.top section.right div.two a.support h2 img.one
+{
+    top: 6px;
+    right: 6px;
+}
+footer section.wrapper section.top section.right div.two a.support h2 img.two
+ {
+    position: absolute;
+    z-index: 2;
+    top: 6px;
+    right: 6px;
+}
+
+
+
+footer section.wrapper section.top section.right div.two h1.upscroll {
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    bottom: 24px;
+    right: 22px;
+}
+
+footer section.wrapper section.center div.vision h2 {
+    font-family: 'Gropled';
+    font-size: 42px;
+    position: relative;
+    top: 2vh;
+}
+footer section.wrapper section.center div.vision span.bp h2 {
+    font-family: 'Gropled';
+    font-size: 42px;
+    position: relative;
+    top: 2vh;
+}
+footer section.wrapper section.center div.vision span.bp img {
+    margin: 0 8px;
+    display: block;
+    height: 4vh;
+}
+footer section.wrapper section.center {
+    flex-direction: column;
+}
+footer section.wrapper section.center div.connections ul
+{
+    max-width: 55%;
+}
+footer section.wrapper section.bottom {
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding-bottom: 3vh;
+    margin-bottom: 0;
+}
+footer section.wrapper section.bottom  .left{
+    margin-bottom: 2vh;
+}
+
+#chatbase-bubble-button {
+    bottom: 4rem !important;
+    right: 1.5rem !important;
+}
+
+footer section.wrapper section.center div.vision span.bp {
+    display: flex
+;
+    align-items: center;
+    margin-top: 1.6vh;
+    margin-bottom: 3.3vh;
+}
+
+
+
+
+
+
+/*projects.html*/
+
+section.liveprojects section.wrapper section.top section.left h2 {
+    font-family: 'Gropled';
+    font-size: 20px;
+    line-height: 1.0em;
+}
+section.liveprojects section.wrapper section.top section.right section.search div.left {
+    width: 85.33%;
+}
+section.liveprojects section.wrapper section.top section.right section.search div.left input[type="search"] {
+    background: none;
+    width: 34vw
+;
+}
+
+section.liveprojects section.wrapper ul {
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8vh;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+section.liveprojects section.wrapper ul li {
+    margin-right: 0;
+    margin-bottom: 5vh;
+    width: 90%;
+}
+
+section.liveprojects section.wrapper section.top section.right section.search {
+    right: 0px;
+}
+section.liveprojects section.wrapper section.noprojectsfound img {
+    height: 28vh;
+}
+
+section.liveprojects section.wrapper section.noprojectsfound h3 {
+    font-size: 11px;
+}
+section.noprojectsfound section.connectbtns h2.connectus.mailemail {
+    margin: 0 auto;
+    background: #fff;
+    color: #000;
+    margin-top: 24px;
+    padding: 7px 14px;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: block;
+    width: 22vw;
+}
+
+
+
+
+
+
+
+/*projects.html*/
+
+
+
+
+/*services.html*/
+
+section.serviceslist section.wrapper ul li {    
+    flex-direction: column;
+}
+
+
+section.serviceslist section.wrapper ul li section.left img {
+    height: 24vh;
+    margin-right: 0;
+    width: 100%;
+    margin-bottom: 12px;
+}
+section.serviceslist section.wrapper ul li section.right h2.servicename {
+    font-size: 20px;
+}
+section.serviceslist section.wrapper ul li section.right h3.servicedescribe {
+    font-size: 10px;
+    margin-bottom: 9px;
+}
+section.serviceslist section.wrapper ul li section.right ul.languages{
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+section.serviceslist section.wrapper ul li section.right ul.languages li a h3 {
+    padding: 6px 12px;
+    font-size: 11px;
+}
+section.serviceslist section.wrapper ul li section.right ul.languages li {
+    border-radius: 6px;
+    background: #262523;
+    margin-right: 10px;
+    margin-bottom: 16px;
+}
+section.serviceslist section.wrapper ul li section.right h1.knowdetails {
+    width: 20vw;
+    background: #fff;
+    color: #000;
+    padding: 6px 9px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+
+
+
+
+
+
+
+
+/*services.html*/
+
+
+/*learn.html*/
+
+section.learningsection section.wrapper section.top section.left h2 {
+    font-size: 20px;
+    line-height: 1.0em;
+}
+section.learningsection section.wrapper section.top section.right section.search
+ {
+    right: 0;
+}
+section.learningsection section.wrapper section.top section.right section.search div.left input[type="search"]
+ {
+    width: 26vw;
+}
+section.topicvideos section.wrapper section.notopicsfound img {
+    height: 28vh;
+}
+section.topicvideos section.wrapper section.notopicsfound h3 {
+    font-size: 11px;
+}
+section.topicvideos section.wrapper section.notopicsfound section.connectbtns h2.connectus.mailemail
+ {
+    margin: 0 auto;
+    background: #fff;
+    color: #000;
+    margin-top: 24px;
+    padding: 7px 14px;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: block;
+    width: 22vw;
+    margin-bottom: 56px;
+}
+section.topicvideos section.wrapper ul
+ {
+    display: flex
+;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+section.topicvideos section.wrapper ul li {
+    width: 90%;
+    margin-right: 0;
+    margin-bottom: 12px;
+}
+section.learningsection section.wrapper ul.learningtopics {
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+section.learningsection section.wrapper ul.learningtopics li h3 {
+    padding: 5px 10px;
+    font-size: 11px;
+}
+section.learningsection section.wrapper ul.learningtopics li {
+    margin-bottom: 6px;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+ section.topicvideos section.wrapper ul li.translateup:first-child:hover {
+            margin-top: 0vh;
+        }
+         section.topicvideos section.wrapper ul li.translateup:hover {
+            transform: translateY(-15px) scale(1.01);
+            margin-top: 4vh;
+        }
+
+/*learn.html*/
+
+
+
+/*all.html*/
+
+section.alllearningsection section.wrapper section.top section.left h2 {
+    font-size: 24px;
+}
+section.alllearningsection section.wrapper section.top section.right section.search {
+    right: 0;
+}
+section.alllearningsection section.wrapper section.top section.right section.search div.left input[type="search"] {
+    width: 26vw;
+}
+section.alltopicsarea section.wrapper ul
+ {
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+}
+section.alltopicsarea section.wrapper ul li.topichoverborder {
+    width: 90%;
+    margin-right: 0;
+}
+
+/*all.html*/
+
+
+
+
+/*about.html*/
+
+section.abouthero section.wrapper h2
+ {
+    font-size: 28px;
+    margin-bottom: 16px;
+}
+section.abouthero section.wrapper h3 {
+    font-size: 11px;
+    width: 100%;
+}
+section.abouthero section.wrapper h3 span {
+    font-size: 14px;
+    margin: 0px 4px;
+}
+section.abouthero section.wrapper section.listup ul li div.left img {
+    display: block;
+    height: 24px;
+    width: 28px;
+    margin-right: 8px;
+}
+section.abouthero section.wrapper section.listup {
+    width: 100%;
+}
+section.bannerarea section.wrapper img.one {
+    height: 27vh;
+    left: -4%;
+    top: 24px;
+}
+section.bannerarea section.wrapper img.two {
+    height: 27vh;
+    top: 0px;
+    left: 11%;
+}
+section.bannerarea section.wrapper img.three {
+    height: 39vh;
+    left: 22.7%;
+    top: -50px;
+}
+section.bannerarea {
+    height: 28vh;
+}
+section.abtfeactures section.wrapper ul {
+    width: 95%;
+}
+section.abtfeactures section.wrapper ul li {
+    margin-bottom: 32px;
+    flex-direction: column;
+}
+section.abtfeactures section.wrapper ul li section.left img {
+    width: 100%;
+}
+section.abtfeactures section.wrapper ul li section.right div.top img {
+    height: 3vh
+;
+}
+section.abtfeactures section.wrapper ul li section.right div.top h2 {
+    font-size: 16px;
+}
+section.abtfeactures section.wrapper ul li section.right ul li h3 {
+    padding: 7px 14px;
+    font-size: 11px;
+}
+section.abtfeactures section.wrapper ul li section.right h4 {
+    font-size: 13px;
+}
+section.cases section.wrapper section.top ul li h3 {
+    font-size: 10px;
+}
+section.cases section.wrapper section.top ul {
+    flex-wrap: wrap;
+}
+section.cases section.wrapper section.bottom {
+    flex-wrap: wrap;
+    padding-bottom: 16px;
+}
+section.cases section.wrapper section.top {
+    width: 84%;
+    margin-bottom: 4vh;
+}
+section.cases section.wrapper section.bottom section.left h3 {
+    font-size: 13px;
+    max-width: 100%;
+    line-height: 1.6em;
+    margin-bottom: 2vh;
+}
+section.cases section.wrapper section.bottom section.left a.getstarted {
+    max-width: 42%;
+    margin-bottom: 4vh;
+}
+section.cases section.wrapper {
+    width: 80%;
+}
+section.cases {
+    margin-bottom: 5vh;
+}
+section.abtfeatures section.wrapper section.top ul {
+    flex-wrap: wrap;
+}
+section.abtfeatures section.wrapper section.top ul li {
+    width: 100%;
+    margin-bottom: 2.5vh;
+}
+section.abtfeatures section.wrapper {
+    margin: 0 5.5vw;
+}
+section.abtfeatures section.wrapper section.bottom {
+    flex-direction: column;
+}
+section.abtfeatures section.wrapper section.bottom section.fleft {
+    width: 90%;
+    margin-right: 0;
+}
+section.abtfeatures section.wrapper section.bottom section.fleft ul li:last-child {
+    margin-bottom: 2.5vh;
+}
+section.abtfeatures section.wrapper section.bottom section.fright ul {
+    flex-direction: column;
+}
+section.abtfeatures section.wrapper section.bottom section.fright {
+    width: 100%;
+}
+section.abtfeatures section.wrapper section.bottom section.fright ul li {
+    width: 90%;
+    min-height: 42.1vh;
+    margin-bottom: 2.5vh;
+}
+section.cases section.wrapper h2
+ {
+    font-family: 'Gropled';
+    font-size: 36px;
+    margin-bottom: 36px;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+
+/*about.html*/
+
+
+
+
+
+
+
+section.playvideoarea section.wrapper section.top {
+    display: flex
+;
+    justify-content: space-between;
+    flex-direction: column;
+}
+section.playvideoarea section.wrapper section.top div.youtube-container
+ {
+    width: 100%;
+    height: 24vh;
+}
+section.playvideoarea section.wrapper section.top div.describearea {
+    width: 90%;
+    padding: 16px;
+    margin-top: 4vh;
+}
+section.playvideoarea section.wrapper section.top div.describearea ul li img.underline {
+    display: block;
+    margin-bottom: 24px;
+    height: 6px;
+    width: 16vw;
+}
+section.playvideoarea section.wrapper section.bottom div.one h3.lang {
+    padding: 6px 24px;
+    font-size: 13px;
+}
+section.playvideoarea section.wrapper section.bottom div.one h3.pcat {
+    padding: 6px 24px;
+    font-size: 13px;
+}
+section.playvideoarea section.wrapper section.bottom div.two h3 {
+    font-size: 12px;
+}
+
+
+section.playvideoarea section.wrapper section.top div.describearea ul li h2 {
+    margin-top: 12px;
+}
+section.abtfeatures {
+    margin-bottom: 4vh;
+}
+section.works section.wrapper {
+    margin: 0 3.5vw;
+}
+section.works section.wrapper section.top h3 {
+    color: #999999;
+    line-height: 1.6em;
+    font-size: 13px;
+    display: block;
+    margin: 0 auto;
+    justify-content: center;
+    margin-bottom: 48px;
+    text-align: center;
+}
+section.works section.wrapper section.top section.template{
+    flex-direction: column;
+}
+section.works section.wrapper section.top section.template section.left img {
+    margin-bottom: 4vh;
+    height: 22vh;
+}
+section.works section.wrapper section.top section.template section.right h4.des {
+    color: #fff;
+    margin-left: 2.7vw;
+    margin-bottom: 4vw;
+}
+section.works section.wrapper section.bottom ul li{
+    flex-direction: column;
+}
+section.works section.wrapper section.bottom ul li {
+    flex-direction: column;
+}
+section.template section.right span.tem h3 {
+    margin-bottom: 0;
+    margin-right: 6px;
+}
+section.works section.wrapper section.bottom ul li section.left {
+    width: 95%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+}
+section.works section.wrapper section.bottom ul li section.left a.getstarted{
+    margin-bottom: 3vh;
+    margin-top: 2vh;
+}
+section.works section.wrapper section.bottom ul li section.right img {
+    height: 22vh;
+}
+section.works section.wrapper section.bottom ul li section.left img.order1 {
+    height: 22vh;
+    margin: 0 auto;
+    margin-bottom: 4vh;
+}
+section.works section.wrapper section.bottom ul li section.right
+ {
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+section.works section.wrapper section.bottom ul li section.left span.head {
+    width: 95%;
+}
+section.works section.wrapper section.bottom ul li section.left h4 {
+    width: 95%;
+}
+section.works section.wrapper section.bottom ul li section.right span.head {
+    width: 95%;
+}
+section.works section.wrapper section.bottom ul li section.right h4 {
+    
+    width: 73%;
+}
+section.works section.wrapper section.bottom ul li section.right a.getstarted h4 {
+    color: #8d8d99;
+    font-size: 14.5px;
+    margin-bottom: 0;
+    margin-left: 0;
+    width: 100%;
+    margin-right: 4px;
+}
+section.works section.wrapper section.bottom ul li section.right a.getstarted {
+    position: relative;
+    left: -53px;
+}
+
+section.works section.wrapper section.bottom ul li section.left h4 {
+    margin-left: 10.7vw;
+}
+section.works section.wrapper section.bottom ul li section.left a.getstarted1 {
+    max-width: 39%;
+    margin-left: 10.7vw
+;
+}
+section.works section.wrapper section.bottom {
+    overflow: hidden;
+}
+section.abtexplore section.wrapper h2 {
+    font-family: 'Gropled';
+    font-size: 25px;
+    margin-bottom: 3vh;
+}
+section.personilize section.wrapper {
+    flex-direction: column;
+}
+section.personilize section.wrapper section.left img.pbg {
+    display: block;
+    height: 20vh;
+}
+section.personilize section.wrapper section.right img.pbg2 {
+    display: block;
+    height: 20vh;
+    left: 44%;
+    position: relative;
+}
+section.personilize section.wrapper section.left {
+    position: relative;
+    width: 100%;
+    margin: 10vh;
+}
+section.personilize section.wrapper section.right {
+    position: relative;
+    width: 100%;
+}
+section.personilize section.wrapper section.left h2 {
+    font-size: 34px;
+    line-height: 1.2em;
+    max-width: 100%;
+    position: absolute;
+    top: 5vh;
+    left: 19%;
+    width: 54vw;
+}
+section.personilize section.wrapper section.right span.hostch {
+    background: #fff;
+    display: flex
+;
+    align-items: center;
+    border-radius: 6px;
+    padding: 8px;
+    width: 44vw;
+    position: absolute;
+    top: 7vh;
+    left: 28vw;
+}
+
+
+
+
+section.unlockliveprojects section.wrapper section.top section.left h2 {
+    font-family: 'Gropled';
+    font-size: 26px;
+    margin-bottom: 2vh;
+}
+section.unlockliveprojects section.wrapper hr.line {
+    margin-bottom: 3vh;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea {
+    width: 90vw;
+    height: 70vh;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea img.unlockbg
+ {
+    display: block;
+    width: 100%;
+    border-radius: 24px;
+    content: url("../images/Maintenance.svg");
+ }
+section.unlockliveprojects section.wrapper section.projectunlockarea section.logounlock img {
+    height: 4.5vh;
+    margin-left: 10px;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea section.logounlock h2 {
+    font-size: 18px;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea section.logounlock {
+    top: 20px;
+    left: 30%;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea h1 {
+    top: 9vh;
+    left: 18%;
+    font-size: 29px;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea h4 {
+    top: 14vh;
+    left: 32%;
+    font-size: 13px;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea section.timerarea
+ {
+    top: 18vh;
+    left: 3%;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea section.timerarea div.countdown
+ {
+    width: 75.7vw;
+    padding: 14px 16px;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea section.timerarea div.countdown div.time-box {
+    margin-right: 12px;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea h3.ambo {
+    top: 34vh;
+    left: 10%;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea div.email {
+    top: 40vh;
+    width: 77vw;
+    left: 3%;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea div.password {
+    width: 77vw;
+    left: 3%;
+}
+section.projectunlockarea h3.enteremail {
+    top: 38.2vh;
+    left: 8%;
+}
+section.projectunlockarea h3.checkemail {
+    top: 38.2vh;
+    left: 8%;
+}
+section.projectunlockarea h3.enterpass {
+    top: 46.3vh;
+    left: 8%;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea button.unlockproject
+ {
+    top: -7vh;
+    left: 23%;
+}
+section.projectunlockarea h3.errormessage {
+    bottom: 14.7vh;
+    left: 8%;
+}
+section.videobgblack{
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    z-index: 90;
+    background: #000;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea section.timerarea div.countdown div.time-box div.time {
+    font-size: 40px;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea section.timerarea div.countdown div.time-box div.label {
+    font-size: 14px;
+}
+
+
+
+
+
+
+section.viewmodules section.wrapper section.top section.left h2 {
+    font-size: 18px;
+}
+section.modulearea section.wrapper ul {
+    flex-direction: column;
+}
+section.modulearea section.wrapper {
+    margin: 0 3.5vw;
+}
+section.modulearea section.wrapper ul li {
+    width: 90%;
+    background: #1a1a1a;
+    margin-right: 0px;
+    min-height: 30vh;
+    margin-bottom: 12vh;
+}
+section.modulearea {
+    margin-bottom: 0;
+}
+.pcolonicon{
+    position: relative;
+    top: -1vh;
+}
+
+section.alltopicsareaunique section.wrapper ul li.downloaduni {
+    min-height: 10vh;
+    width: 84vw;
+    padding: 4px 8px;
+}
+section.alltopicsareaunique section.wrapper ul li.downloaduni h2 {
+    margin-right: 0px;
+    font-size: 11px;
+    display: block;
+    position: relative;
+    z-index: 10;
+    color: #fff;
+    line-height: 2em;
+    text-align: center;
+} 
+section.alltopicsareaunique section.wrapper ul li.downloaduni img.consolelogo {
+    display: block;
+    height: 14px;
+    margin-right: 12px;
+}
+section.alltopicsareaunique section.wrapper ul li.downloaduni a.downloadsingle img {
+    display: block;
+    height: 14px;
+}
+
+}

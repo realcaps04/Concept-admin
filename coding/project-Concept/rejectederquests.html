@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rejected Requests</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="background-blur bg-one"></div>
+  <div class="background-blur bg-two"></div>
+
+  <section class="shell shell-wide">
+    <div class="card">
+      <header class="card-header">
+        <div class="brand">
+          <div class="logo-wrap" aria-hidden="true">
+            <img src="assets/logo.svg" alt="Admin portal logo" />
+          </div>
+          <div>
+            <p class="eyebrow">Super Admin</p>
+            <h1 class="page-title">Rejected Requests</h1>
+          </div>
+        </div>
+        <div class="header-actions">
+          <a href="managerequest.html" class="back-btn">Back to Manage Requests</a>
+          <button id="logoutBtn" class="logout-btn">Logout</button>
+        </div>
+      </header>
+
+      <main class="card-body">
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Rejected Activation Requests</h3>
+          </div>
+          <div id="requestsTable" class="table">
+            <div class="table-row table-head">
+              <span>Email</span>
+              <span>Name</span>
+              <span>Requested At</span>
+              <span>Rejected At</span>
+              <span>Rejection Reason</span>
+              <span>Actions</span>
+            </div>
+            <div class="table-row muted" id="loadingRow">
+              <span colspan="6">Loading rejected requests...</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <!-- View Details & Manage Popup Modal -->
+  <div id="viewDetailsPopup" class="popup-overlay hidden">
+    <div class="popup-modal edit-popup">
+      <div class="popup-header">
+        <h2 class="popup-title">Request Details & Management</h2>
+        <button class="popup-close" id="closeDetailsPopup" aria-label="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="form-grid details-grid" style="padding: 32px 40px 40px;">
+        <div class="field field-full-width">
+          <h3 style="margin: 0 0 16px 0; font-size: 18px; font-weight: 600; color: var(--text); border-bottom: 2px solid var(--border); padding-bottom: 8px;">Contact Information</h3>
+        </div>
+
+        <div class="field">
+          <label style="display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: var(--muted);">Email</label>
+          <div style="padding: 12px; background: #f7faff; border-radius: 12px; font-size: 15px; color: var(--text);" id="detailEmail">-</div>
+        </div>
+
+        <div class="field">
+          <label style="display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: var(--muted);">Full Name</label>
+          <div style="padding: 12px; background: #f7faff; border-radius: 12px; font-size: 15px; color: var(--text);" id="detailName">-</div>
+        </div>
+
+        <div class="field">
+          <label style="display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: var(--muted);">Phone Number</label>
+          <div style="padding: 12px; background: #f7faff; border-radius: 12px; font-size: 15px; color: var(--text);" id="detailPhone">-</div>
+        </div>
+
+        <div class="field field-full-width">
+          <label style="display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: var(--muted);">Address</label>
+          <div style="padding: 12px; background: #f7faff; border-radius: 12px; font-size: 15px; color: var(--text);" id="detailAddress">-</div>
+        </div>
+
+        <div class="field">
+          <label style="display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: var(--muted);">City</label>
+          <div style="padding: 12px; background: #f7faff; border-radius: 12px; font-size: 15px; color: var(--text);" id="detailCity">-</div>
+        </div>
+
+        <div class="field">
+          <label style="display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: var(--muted);">State/Province</label>
+          <div style="padding: 12px; background: #f7faff; border-radius: 12px; font-size: 15px; color: var(--text);" id="detailState">-</div>
+        </div>
+
+        <div class="field">
+          <label style="display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: var(--muted);">Zip/Postal Code</label>
+          <div style="padding: 12px; background: #f7faff; border-radius: 12px; font-size: 15px; color: var(--text);" id="detailZipCode">-</div>
+        </div>
+
+        <div class="field">
+          <label style="display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: var(--muted);">Country</label>
+          <div style="padding: 12px; background: #f7faff; border-radius: 12px; font-size: 15px; color: var(--text);" id="detailCountry">-</div>
+        </div>
+
+        <div class="field field-full-width">
+          <h3 style="margin: 20px 0 16px 0; font-size: 18px; font-weight: 600; color: var(--text); border-bottom: 2px solid var(--border); padding-bottom: 8px;">Identity Proof</h3>
+        </div>
+
+        <div class="field field-full-width">
+          <div id="identityProofContainer" style="text-align: center;">
+            <p style="color: var(--muted);">No identity proof uploaded</p>
+          </div>
+        </div>
+
+        <div class="field field-full-width">
+          <h3 style="margin: 20px 0 16px 0; font-size: 18px; font-weight: 600; color: var(--text); border-bottom: 2px solid var(--border); padding-bottom: 8px;">Request Management</h3>
+        </div>
+
+        <div class="field">
+          <label style="display: block; margin-bottom: 8px; font-size: 14px; font-weight: 600; color: var(--text);">
+            Status <span style="color: #ef4444;">*</span>
+          </label>
+          <div class="input select-wrap">
+            <select id="detailStatus" required title="Request Status" style="width: 100%; padding: 12px; border: 1px solid var(--input-border); border-radius: 12px; font-size: 15px; background: #ffffff;">
+              <option value="rejected">Rejected</option>
+              <option value="pending">Pending</option>
+              <option value="approved">Approved</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field field-full-width">
+          <label style="display: block; margin-bottom: 8px; font-size: 14px; font-weight: 600; color: var(--text);">
+            Rejection/Status Message
+          </label>
+          <textarea id="detailNotes" rows="3" placeholder="Enter rejection reason or status message..."
+                    style="width: 100%; padding: 12px; border: 1px solid var(--input-border); border-radius: 12px; font-size: 15px; resize: vertical; font-family: inherit;"></textarea>
+        </div>
+
+        <div class="field field-full-width">
+          <label style="display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: var(--muted);">Requested At</label>
+          <div style="padding: 12px; background: #f7faff; border-radius: 12px; font-size: 15px; color: var(--text);" id="detailRequestedAt">-</div>
+        </div>
+
+        <div class="field field-full-width">
+          <label style="display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: var(--muted);">Processed At</label>
+          <div style="padding: 12px; background: #f7faff; border-radius: 12px; font-size: 15px; color: var(--text);" id="detailProcessedAt">-</div>
+        </div>
+
+        <div id="detailMessage" class="login-message hidden" role="status" aria-live="polite" style="grid-column: 1 / -1;"></div>
+
+        <div class="popup-actions" style="grid-column: 1 / -1;">
+          <button type="button" class="cta ghost" id="cancelDetailsBtn">Cancel</button>
+          <button type="button" class="cta" id="reapproveBtn" style="background: linear-gradient(135deg, #10b981, #059669);">
+            <span>Reapprove & Activate</span>
+            <span class="glow"></span>
+          </button>
+          <button type="button" class="cta" id="saveChangesBtn">
+            <span>Save Changes</span>
+            <span class="glow"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/rejectederquests.js"></script>
+</body>
+</html>
+

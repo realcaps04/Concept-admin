@@ -1,0 +1,3142 @@
+*{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    background: none;
+    font-family: 'Cal Sans';
+    list-style: none;
+    text-decoration: none;
+    color: #000;
+    font-weight: 500;
+    border: none;
+    
+}
+body{
+    position: relative;
+    background: #fff !important;
+}
+.wrapper{
+    display: block;
+    margin: 0 2vw;
+}
+button{
+    cursor: pointer;
+}
+.hide{
+    display: none;
+}
+ input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Remove arrow buttons in Firefox */
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+
+    /* Remove spin buttons in IE/Edge */
+    input[type=number]::-ms-clear,
+    input[type=number]::-ms-reveal {
+        display: none;
+    }
+
+
+
+section.logincontainer {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    position: absolute;
+    height: 64vh;
+    width: 52vw;
+    left: 24%;
+    top: 14vh;
+    border-radius: 12px;
+    background: #fff;
+    z-index: 9999999;
+    
+}
+section.logincontainer section.wrapper {
+    display: flex;
+    margin: 0;
+}
+
+section.logincontainer section.wrapper section.left {
+    padding: 24px;
+}
+
+section.logincontainer section.wrapper section.left div.languageselect {
+    margin-bottom: 1.6vh;
+    display: flex;
+    align-items: center;
+}
+
+section.logincontainer section.wrapper section.left div.languageselect img {
+    margin-right: 8px;
+}
+
+section.logincontainer section.wrapper section.left div.languageselect select {
+    color: #96A0B5;
+}
+section.logincontainer section.wrapper section.left div.languageselect option{
+    color: #96A0B5;  
+}
+section.logincontainer section.wrapper section.left div.logoarea {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+section.logincontainer section.wrapper section.left div.logoarea img.logo {
+    display: block;
+    height: 4vh;
+    margin-right: 8px;
+}
+section.logincontainer section.wrapper section.left div.logoarea h2 {
+    margin-right: 4px;
+    color: #0d6dfc;
+    font-size: 16px;
+    font-weight: 700;
+}
+section.logincontainer section.wrapper section.left h3 {
+    font-size: 17px;
+    margin-bottom: 12px;
+    color: #8F95B2;
+    font-size: 13px;
+}
+section.logincontainer section.wrapper section.left div.emailhead {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2.3vh;
+}
+section.logincontainer section.wrapper section.left div.emailhead hr.signupline {
+    display: block;
+    height: 2px;
+    width: 8vw;
+    background: #8F95B2;
+}
+section.logincontainer section.wrapper section.left div.emailhead h3 {
+    color: #8F95B2;
+    font-size: 14px;
+    margin-bottom: 0;
+    width: 7.6vw;
+}
+section.logincontainer section.wrapper section.left section.detailsarea {}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.name {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.6vh;
+}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.name label {
+    font-size: 13px;
+    margin-bottom: 1.3vh;
+}
+section.logincontainer section.wrapper section.left section.detailsarea div.name span.Name {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: 2px solid #D8DAE5;
+    padding: 8px 12px;
+    border-radius: 8px;
+    padding-left: 4px;
+}
+section.logincontainer section.wrapper section.left section.detailsarea div.name span.Name img {
+    margin-right: 10px;
+}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.name span.Name input {
+    background: none;
+}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.emailarea {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.6vh;
+}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.emailarea label {
+    font-size: 13px;
+    margin-bottom: 1.3vh;
+}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.emailarea span.emailinput {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: 2px solid #D8DAE5;
+    padding: 8px 12px;
+    border-radius: 8px;
+    padding-left: 4px;
+}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.emailarea span.emailinput img {
+    margin-right: 10px;
+}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.emailarea span.emailinput input {
+    background: none;
+}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.password {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.6vh;
+}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.password label {
+    font-size: 13px;
+    margin-bottom: 1.3vh;
+}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.password span.passinput {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: 2px solid #D8DAE5;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-right: 10px;
+    padding-left: 4px;
+}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.password span.passinput img {
+    margin-right: 10px;
+}
+section.logincontainer section.wrapper section.left section.detailsarea div.password span.passinput input {
+    background: none;
+    width: 99%;
+}
+section.logincontainer section.wrapper section.left section.detailsarea div.password span.passinput img {
+    display: block;
+    height: 2.1vh;
+}
+section.logincontainer section.wrapper section.left section.termsarea {
+    display: flex
+;
+    align-items: center;
+}
+section.logincontainer section.wrapper section.left section.termsarea input {
+    margin-right: 10px;
+}
+
+section.logincontainer section.wrapper section.left section.termsarea span.termload {
+    display: flex;
+    align-items: center;
+}
+section.logincontainer section.wrapper section.left section.termsarea span.termload h3 {
+    font-size: 13px;
+    margin-bottom: 0;
+}
+section.logincontainer section.wrapper section.left section.termsarea span.termload h3.tcnote {
+    margin-left: 6px;
+    color: #f55c2a;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}
+section.logincontainer section.wrapper section.left button {
+    margin: 2vh 0;
+    background: #0d6dfc;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #fff;
+}
+section.logincontainer section.wrapper section.left section.alreadylogged {
+    display: flex;
+    align-self: center;
+}
+
+section.logincontainer section.wrapper section.left section.alreadylogged h3 {}
+
+section.logincontainer section.wrapper section.left section.alreadylogged h3.alreadyregistered {
+    margin-left: 8px;
+    color: #f55c2a;
+    font-weight: 600;
+    cursor: pointer;
+}
+section.logincontainer section.wrapper section.left section.alreadylogged h3.alreadyregistered:hover{
+    text-decoration: underline;
+}
+section.logincontainer section.wrapper section.right {
+    height: 100%;
+}
+section.logincontainer section.wrapper section.right img {
+    display: block;
+    height: 64vh;
+    width: 25.3vw;
+    border-radius: 0 12px 12px 0;
+}
+
+
+
+section.logincontainer section.wrapper section.left section.rememberme {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+section.logincontainer section.wrapper section.left section.rememberme div.checkrem {
+    display: flex
+;
+    align-items: center;
+}
+section.logincontainer section.wrapper section.left section.rememberme div.checkrem input {
+    margin-right: 8px;
+}
+
+section.logincontainer section.wrapper section.left section.rememberme div.checkrem h3 {
+    margin-bottom: 0;
+    font-size: 12px;
+    color: #000;
+}
+
+section.logincontainer section.wrapper section.left section.rememberme span.forgotpass {}
+
+section.logincontainer section.wrapper section.left section.rememberme span.forgotpass h3.frgtpass {
+    color: #f55c2a;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+section.logincontainer section.wrapper section.left section.rememberme span.forgotpass h3.frgtpass:hover {
+    color: #f55c2a;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}
+section.logincontainer section.wrapper section.left button {}
+
+section.logincontainer section.wrapper section.left section.notregistered {
+    display: flex
+;
+    align-items: center;
+}
+section.logincontainer section.wrapper section.left section.notregistered h3 {}
+
+section.logincontainer section.wrapper section.left section.notregistered h3.notregisteredac {
+    color: #f55c2a;
+    font-weight: 600;
+    margin-left: 8px;
+}
+section.logincontainer section.wrapper section.left section.notregistered h3.notregisteredac:hover {
+    color: #f55c2a;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
+
+
+
+
+header {    
+    padding: 16px 0;
+}
+
+header section.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header section.wrapper section.left {
+    display: flex;
+    align-items: center;
+}
+
+header section.wrapper section.left a {
+    display: flex;
+    align-items: center;
+    width: 8vw;
+    margin-right: 36px;
+}
+
+header section.wrapper section.left a h2.Hosto {
+    color: #0d6dfc;
+    margin-right: 4px;
+    font-size: 18px;
+}
+
+header section.wrapper section.left a h2.Haven {
+    color: #f55c2a;
+    margin-right: 4px;
+    font-size: 18px;
+}
+
+header section.wrapper section.left a h2.Admin {
+    font-size: 18px;
+}
+header section.wrapper section.left img.hamburger {
+    display: block;
+    height: 2vh;
+    margin-left: 2vw;
+    cursor: pointer;
+}
+header section.wrapper section.left div.search {
+    display: flex;
+    align-items: center;
+    margin-left: 4vw;
+    border: 2px solid #D5D5D5;
+    border-radius: 16px;
+    padding: 6px 10px;
+    width: 19vw;
+    background: #f5f6fa;
+}
+header section.wrapper section.left div.search img {
+    display: block;
+    height: 2.5vh;
+    display: block;
+    height: 2.5vh;
+    cursor: pointer;
+}
+header section.wrapper section.left div.search input {
+    margin-left: 6px;
+    background: none;
+    width: 88%;
+}
+
+header section.wrapper section.right {
+    display: flex
+;
+    align-items: center;
+}
+header section.wrapper section.right img.bell {
+    display: block;
+    height: 2.5vh;
+    margin-right: 1.6vw;
+}
+
+header section.wrapper section.right div.language {
+    margin-right: 2vw;
+    display: flex
+;
+    align-items: center;
+}
+
+header section.wrapper section.right div.language img {
+    display: block;
+    height: 2.5vh;
+    margin-right: 8px;
+}
+
+header section.wrapper section.right div.language select {
+    color: #646464;
+    cursor: pointer;
+}
+
+header section.wrapper section.right div.profile {
+    display: flex;
+    align-items: center;
+}
+
+header section.wrapper section.right div.profile img.profile {
+    margin-right: 12px;
+}
+
+header section.wrapper section.right div.profile div.s1 {}
+
+header section.wrapper section.right div.profile div.s1 h3 {}
+
+header section.wrapper section.right div.profile div.s1 h4 {
+    color: #565656;
+    font-size: 13px;
+}
+
+header section.wrapper section.right div.profile img {
+    margin-left: 16px;
+    cursor: pointer;
+}
+/* Add transition for smooth animation */
+.hamburgurslide {
+    transition: width 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+/* Optional: Add visual feedback for the hamburger button */
+.hamburger {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.hamburger:hover {
+    transform: scale(1.05);
+}
+
+section.mainarea {
+    display: flex;
+}
+
+section.mainarea section.hamburgurslide {
+    height:90vh;
+    width: 14vw;
+    border-right: 2px solid #dedede;
+    padding-top: 16px;
+}
+section.mainarea section.hamburgurslide ul.adminmain {
+    border-bottom: 2px solid #dedede;
+}
+section.mainarea section.hamburgurslide ul.adminmain li {
+    margin-bottom: 1vh;
+}
+
+section.mainarea section.hamburgurslide ul.adminmain li a {
+    display: flex
+;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0 13px;
+    padding: 12px 4px;
+    border-radius: 6px;
+    padding-left: 18px;
+}
+section.mainarea section.hamburgurslide ul.adminmain li a h3 {
+    font-size: 15px;
+    font-weight: 400;
+}
+section.mainarea section.hamburgurslide ul.adminmain li.Dashboard a h3 {
+    font-size: 15px;
+    font-weight: 400;
+    color: #fff;
+}
+section.mainarea section.hamburgurslide ul.adminmain li a img {
+    margin-right: 8px;
+    display: block;
+    height: 2.1vh;
+}
+
+section.mainarea section.hamburgurslide ul.pages {
+    border-bottom: 2px solid #dedede;
+}
+
+section.mainarea section.hamburgurslide ul.pages li {}
+section.mainarea section.hamburgurslide ul.pages li a {
+    display: flex
+;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0 13px;
+    padding: 12px 10px;
+    border-radius: 6px;
+    padding-left: 18px;
+}
+section.mainarea section.hamburgurslide ul.pages li a h3 {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+section.mainarea section.hamburgurslide ul.pages li a img {
+    margin-right: 8px;
+    display: block;
+    height: 2.1vh;
+}
+
+section.mainarea section.hamburgurslide ul.settings {}
+
+section.mainarea section.hamburgurslide ul.settings li {}
+
+section.mainarea section.hamburgurslide ul.settings li a {
+    display: flex
+;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0 13px;
+    padding: 12px 10px;
+    border-radius: 6px;
+    padding-left: 18px;
+}
+
+section.mainarea section.hamburgurslide ul.settings li a h3 {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+section.mainarea section.hamburgurslide ul.settings li a img {
+    margin-right: 8px;
+    display: block;
+    height: 2.1vh;
+}
+
+section.mainarea section.hamburgurslide ul.settings li img {
+        margin-right: 8px;
+    display: block;
+    height: 2.1vh;
+}
+
+section.mainarea section.hamburgurslide ul.settings li h3 {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+section.mainarea section.dashboardmain {
+    width: 94vw;
+    background: #f5f6fa;
+    border-top: 2px solid #dedede;
+    padding: 24px;
+}
+section.mainarea section.dashboardmain h2 {
+    font-size: 26px;
+    margin-bottom: 1vh;
+}
+section.mainarea section.dashboardmain ul.mainlist {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+section.mainarea section.dashboardmain ul.mainlist li {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    background: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    min-height: 16vh;
+    min-width: 18vw;
+    max-width: 18vw;
+}
+section.mainarea section.dashboardmain ul.mainlist li div.top {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+section.mainarea section.dashboardmain ul.mainlist li div.top div.l1 {}
+section.mainarea section.dashboardmain ul.mainlist li div.top div.l1 h4 {
+    color: #202224;
+    font-size: 14px;
+    margin-bottom: 0.6vh;
+}
+section.mainarea section.dashboardmain ul.mainlist li div.top div.l1 h3.value {
+    font-size: 36px;
+}
+section.mainarea section.dashboardmain ul.mainlist li div.top div.l2 {}
+
+section.mainarea section.dashboardmain ul.mainlist li div.top div.l2 img {
+    background: #e3e3ff;
+    padding: 12px;
+    border-radius: 10px;
+}
+section.mainarea section.dashboardmain ul.mainlist li div.top div.l2 img.two {
+    background: #fff3d6;
+}
+section.mainarea section.dashboardmain ul.mainlist li div.top div.l2 img.three {
+    background: #daf7e8;
+}
+section.mainarea section.dashboardmain ul.mainlist li div.top div.l2 img.four {
+    background: #ffddd1;
+}
+section.mainarea section.dashboardmain ul.mainlist li div.bottom {
+    display: flex;
+    align-items: center;
+    margin-top: 2vh;
+}
+section.mainarea section.dashboardmain ul.mainlist li div.bottom img {
+    display: block;
+    height: 2.5vh;
+    margin-right: 8px;
+}
+section.mainarea section.dashboardmain ul.mainlist li div.bottom h3.percentage {
+    color: #00B69B;
+    font-size: 14px;
+    margin-right: 6px;
+}
+section.mainarea section.dashboardmain ul.mainlist li div.bottom h3.dpercentage{
+    color: #F93C65;
+    font-size: 14px;
+    margin-right: 6px;
+}
+section.mainarea section.dashboardmain ul.mainlist li div.bottom h3 {
+    font-size: 14px;
+    color: #606060;
+}
+
+
+section.mainarea section.dashboardmain ul.mainlist li div.top div.l1 div.value {
+    display: flex;
+    align-items: center;
+}
+section.mainarea section.dashboardmain ul.mainlist li div.top div.l1 div.value img {
+    display: block;
+    height: 3vh;
+    margin-right: 2px;
+}
+section.mainarea section.dashboardmain ul.mainlist li div.top div.l1 div.value h3 {
+    font-size: 36px;
+}
+
+
+section.mainarea section.dashboardmain section.salesdetailsgraphs {
+    margin-top: 3.5vh;
+}
+section.mainarea section.dashboardmain section.salesdetailsgraphs div.top {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2vh;
+}
+section.mainarea section.dashboardmain section.salesdetailsgraphs div.top h2 {}
+
+section.mainarea section.dashboardmain section.salesdetailsgraphs div.top select#selectmonthgraph {
+    color: #a8abad;
+    cursor: pointer;
+    border: 2px solid #d6d6d6;
+    padding: 6px 16px;
+    border-radius: 6px;
+}
+
+section.mainarea section.dashboardmain section.salesdetailsgraphs div.top select option {
+    color: #a8abad;
+    cursor: pointer;
+}
+
+section.mainarea section.dashboardmain section.salesdetailsgraphs section.graphimage {}
+section.mainarea section.dashboardmain section.salesdetailsgraphs section.graphimage img {
+    display: block;
+    width: 100%;
+    margin: 4vh 0;
+}
+
+
+
+section.hostelsmainarea {}
+section.dashboardmain.hostelsmainarea section.uppermain {
+    margin-bottom: 2vh;
+}
+
+section.dashboardmain.hostelsmainarea section.uppermain section.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+section.dashboardmain.hostelsmainarea section.uppermain section.wrapper h2 {}
+
+section.dashboardmain.hostelsmainarea section.uppermain section.wrapper button.addnewshostel {
+    display: block;
+    background: #4880FF;
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 8px;
+    color: #fff;
+}
+section.dashboardmain.hostelsmainarea section.hostelmain {}
+
+section.hostelsmainarea h2 {}
+
+section.hostelsmainarea section.hostelmain {}
+
+section.hostelsmainarea section.hostelmain section.wrapper {}
+
+section.hostelsmainarea section.hostelmain section.wrapper ul {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+section.hostelsmainarea section.hostelmain section.wrapper ul li {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 8px;
+    width: 31.33%;
+    margin-right: 28px;
+    margin-bottom: 42px;
+    background: #fff;
+}
+section.hostelsmainarea section.hostelmain section.wrapper ul li:nth-child(3),
+section.hostelsmainarea section.hostelmain section.wrapper ul li:nth-child(6),
+section.hostelsmainarea section.hostelmain section.wrapper ul li:nth-child(9),
+section.hostelsmainarea section.hostelmain section.wrapper ul li:nth-child(12),
+section.hostelsmainarea section.hostelmain section.wrapper ul li:nth-child(15),
+section.hostelsmainarea section.hostelmain section.wrapper ul li:nth-child(18),
+section.hostelsmainarea section.hostelmain section.wrapper ul li:nth-child(21){
+    margin-right: 0;
+}
+section.hostelsmainarea section.hostelmain section.wrapper ul li div.hostelimagemain {
+    position: relative;
+}
+section.dashboardmain.hostelsmainarea section.hostelmain section.wrapper ul li div.hostelimagemain img {}
+
+section.dashboardmain.hostelsmainarea section.hostelmain section.wrapper ul li div.hostelimagemain span.lr {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+section.dashboardmain.hostelsmainarea section.hostelmain section.wrapper ul li div.hostelimagemain span.lr img.left {
+    display: block;
+    height: 42px;
+    width: 42px;
+    position: absolute;
+    width: fit-content;
+    left: 8px;
+    cursor: pointer;
+    top: 11.5vh;
+    background: #f0f4fb;
+    border-radius: 50%;
+    opacity: 90%;
+}
+section.dashboardmain.hostelsmainarea section.hostelmain section.wrapper ul li div.hostelimagemain span.lr img.right {
+    display: block;
+    height: 42px;
+    position: absolute;
+    width: 42px;
+    right: 8px;
+    cursor: pointer;
+    top: 11.5vh;
+    background: #f0f4fb;
+    border-radius: 50%;
+    opacity: 90%;
+}
+section.hostelsmainarea section.hostelmain section.wrapper ul li div.hostelimagemain img {
+    height: 24vh;
+    width: 100%;
+    border-radius: 8px 8px 0 0;
+}
+section.hostelsmainarea section.hostelmain section.wrapper ul li div.bottom {
+    padding: 16px;
+}
+section.hostelsmainarea section.hostelmain section.wrapper ul li div.bottom div.one {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+section.hostelsmainarea section.hostelmain section.wrapper ul li div.bottom div.one h2.hostoname {}
+
+section.hostelsmainarea section.hostelmain section.wrapper ul li div.bottom div.one span.heart {
+    padding: 8px;
+    background: #fafafa;
+    border-radius: 50%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+section.hostelsmainarea section.hostelmain section.wrapper ul li div.bottom div.one span.heart img {
+    display: block;
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
+}
+section.hostelsmainarea section.hostelmain section.wrapper ul li div.bottom div.pricing {
+    display: flex;
+    align-items: center;
+}
+section.hostelsmainarea section.hostelmain section.wrapper ul li div.bottom div.pricing img {
+    display: block;
+    height: 1.5vh;
+    margin-right: 2px;
+}
+section.hostelsmainarea section.hostelmain section.wrapper ul li div.bottom div.pricing h3 {
+    color: #4882FF;
+    font-size: 16px;
+}
+section.hostelsmainarea section.hostelmain section.wrapper ul li div.bottom div.rating {
+    display: flex;
+    align-items: center;
+    margin: 1vh 0;
+}
+
+section.hostelsmainarea section.hostelmain section.wrapper ul li div.bottom div.rating img {
+    margin-right: 8px;
+}
+
+section.hostelsmainarea section.hostelmain section.wrapper ul li div.bottom div.rating div.rcount {
+    display: flex;
+    align-items: center;
+}
+
+section.hostelsmainarea section.hostelmain section.wrapper ul li div.bottom div.rating div.rcount h3 {
+    color: #999999;
+    font-size: 14px;
+}
+section.hostelsmainarea section.hostelmain section.wrapper ul li div.bottom button.edithostel {
+    background: #d3e2fb;
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 8px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+section.dashboardmain.hostelsmainarea section.hostelmain section.wrapper ul li div.hostelimagemain div.hosimageflex {
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+.hosimageflex img {
+    transition: opacity 0.5s ease-in-out;
+}
+
+.hosimageflex img.hide {
+    opacity: 0;
+}   
+
+section.bgaddnewhostelmain {
+    position: absolute;
+    background: #e3e3e3a6;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+button.addextraphotos {
+    background: #4880FF;
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 8px;
+    color: #fff;
+    position: relative;
+    left: 54vw;
+}
+section.addnewhostelmain {
+    position: absolute;
+    background: #fff;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    border-radius: 10px;
+    top: 16vh;
+    left: 20%;
+    z-index: 100;
+    width: 64vw;
+}
+section.addnewhostelmain section.wrapper section.closeaddnewhostelmain {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 1vh;
+}
+section.addnewhostelmain section.wrapper section.closeaddnewhostelmain img {
+    display: block;
+    height: 3.6vh;
+    padding: 12px;
+    cursor: pointer;
+    left: 2vw;
+    position: relative;
+    top: -6px;
+}
+section.addnewhostelmain section.wrapper ul.mainimageone{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+section.addnewhostelmain section.wrapper ul.mainimageone li{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+section.addnewhostelmain section.wrapper ul.mainimageone li img.mainimage.mainimagehostelmain1 {
+    display: block;
+    height: 96px;
+    width: 96px;
+    margin-bottom: 8px;
+    border-radius: 50%;
+}
+section.addnewhostelmain section.wrapper ul.mainimageone li h3.uploadphoto {
+    color: #4379EE;
+    font-size: 13px;
+    cursor: pointer;
+    margin-bottom: 1vh;
+}
+section.addnewhostelmain section.wrapper ul.mainimageone li input[type="file"].catchiamge {
+    position: absolute;
+    top: 98px;
+    opacity: 0;
+    z-index: 99;
+    cursor: pointer;
+}
+section.addnewhostelmain section.wrapper ul.mainimageone li input[type="text"] {
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 20vw;
+    margin-bottom: 1.6vh;
+    background: #f5f6fa;
+}
+section.addnewhostelmain section.wrapper ul.mainimageone li input[type="number"] {
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 20vw;
+    margin-bottom: 1.6vh;
+    background: #f5f6fa;
+}
+section.addnewhostelmain section.wrapper ul.subimagetwo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 8vw;
+}
+section.addnewhostelmain section.wrapper ul.subimagethree {
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 8vw;
+}
+section.addnewhostelmain section.wrapper ul.subimagetwo li,section.addnewhostelmain section.wrapper ul.subimagethree li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+section.addnewhostelmain section.wrapper ul.subimagetwo li img.subimg1 {
+    display: block;
+    height: 96px;
+    width: 96px;
+    margin-bottom: 8px;
+}
+section.addnewhostelmain section.wrapper ul.subimagetwo li img.subimg2 {
+    display: block;
+    height: 96px;
+    width: 96px;
+    margin-bottom: 8px;
+}
+
+section.addnewhostelmain section.wrapper ul.subimagetwo li img.subimg3 {
+    display: block;
+    height: 96px;
+    width: 96px;
+    margin-bottom: 8px;
+}
+
+section.addnewhostelmain section.wrapper ul.subimagetwo li img.subimg4 {
+    display: block;
+    height: 96px;
+    width: 96px;
+    margin-bottom: 8px;
+}
+
+section.addnewhostelmain section.wrapper ul.subimagetwo li h3.uploadphoto,section.addnewhostelmain section.wrapper ul.subimagethree li h3.uploadphoto {
+    color: #4379EE;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+section.addnewhostelmain section.wrapper ul.subimagetwo li input[type="file"].catchiamge,section.addnewhostelmain section.wrapper ul.subimagethree li input[type="file"].catchiamge {
+    position: absolute;
+    top: 98px;
+    opacity: 0;
+    z-index: 99;
+    cursor: pointer;
+}
+hr.greyline{
+    display: block;
+    height: 1.5px;
+    width: 100%;
+    background: #b9b9b9;
+    margin: 2vh 0;
+}
+
+section.addnewhostelmain section.wrapper section.addnowhostel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+section.addnewhostelmain section.wrapper section.addnowhostel button.addnewhostelnow {
+    display: block;
+    background: #4880FF;
+    padding: 8px 24px;
+    font-size: 13px;
+    border-radius: 8px;
+    color: #fff;
+    margin: 3vh 0;
+}
+button.cancelextraphotos{
+    background: #ff1010;
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 8px;
+    color: #fff;
+    position: relative;
+    left: 54vw;
+}
+
+section.addnewhostelmain section.wrapper ul.subimagethree li img.uploadedsubimagethree1 {
+    display: block;
+    height: 96px;
+    width: 96px;
+}
+
+section.addnewhostelmain section.wrapper ul.subimagethree li img.uploadedsubimagethree2 {
+    display: block;
+    height: 96px;
+    width: 96px;
+}
+
+section.addnewhostelmain section.wrapper ul.subimagethree li img.uploadedsubimagethree3 {
+    display: block;
+    height: 96px;
+    width: 96px;
+}
+
+section.addnewhostelmain section.wrapper ul.subimagethree li img.uploadedsubimagethree4 {
+    display: block;
+    height: 96px;
+    width: 96px;
+}
+
+section.addnewhostelmain section.wrapper ul.subimagethree li img.uploadedsubimagethree5 {
+    display: block;
+    height: 96px;
+    width: 96px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+section.edithostelmain {
+    position: absolute;
+    background: #fff;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    border-radius: 10px;
+    top: 16vh;
+    left: 20%;
+    z-index: 100;
+    width: 64vw;
+}
+section.edithostelmain section.wrapper section.closeedithostelmain {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 1vh;
+}
+section.edithostelmain section.wrapper section.closeedithostelmain img {
+    display: block;
+    height: 3.6vh;
+    padding: 12px;
+    cursor: pointer;
+    left: 2vw;
+    position: relative;
+    top: -6px;
+}
+section.edithostelmain section.wrapper ul.mainimageone{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+section.edithostelmain section.wrapper ul.mainimageone li{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+section.edithostelmain section.wrapper ul.mainimageone li img.mainimage.mainimagehostelmain1 {
+    display: block;
+    height: 96px;
+    width: 96px;
+    margin-bottom: 8px;
+    border-radius: 50%;
+}
+section.edithostelmain section.wrapper ul.mainimageone li h3.uploadphoto {
+    color: #4379EE;
+    font-size: 13px;
+    cursor: pointer;
+    margin-bottom: 1vh;
+}
+section.edithostelmain section.wrapper ul.mainimageone li input[type="file"].catchiamge {
+    position: absolute;
+    top: 98px;
+    opacity: 0;
+    z-index: 99;
+    cursor: pointer;
+}
+section.edithostelmain section.wrapper ul.mainimageone li input[type="text"] {
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 20vw;
+    margin-bottom: 1.6vh;
+    background: #f5f6fa;
+}
+section.edithostelmain section.wrapper ul.mainimageone li input[type="number"] {
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 20vw;
+    margin-bottom: 1.6vh;
+    background: #f5f6fa;
+}
+section.edithostelmain section.wrapper ul.subimagetwo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 8vw;
+}
+section.edithostelmain section.wrapper ul.subimagethree {
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 8vw;
+}
+section.edithostelmain section.wrapper ul.subimagetwo li,section.edithostelmain section.wrapper ul.subimagethree li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+section.edithostelmain section.wrapper ul.subimagetwo li img.subimg1 {
+    display: block;
+    height: 96px;
+    width: 96px;
+    margin-bottom: 8px;
+}
+section.edithostelmain section.wrapper ul.subimagetwo li img.subimg2 {
+    display: block;
+    height: 96px;
+    width: 96px;
+    margin-bottom: 8px;
+}
+
+section.edithostelmain section.wrapper ul.subimagetwo li img.subimg3 {
+    display: block;
+    height: 96px;
+    width: 96px;
+    margin-bottom: 8px;
+}
+
+section.edithostelmain section.wrapper ul.subimagetwo li img.subimg4 {
+    display: block;
+    height: 96px;
+    width: 96px;
+    margin-bottom: 8px;
+}
+
+section.edithostelmain section.wrapper ul.subimagetwo li h3.uploadphoto,section.edithostelmain section.wrapper ul.subimagethree li h3.uploadphoto {
+    color: #4379EE;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+section.edithostelmain section.wrapper ul.subimagetwo li input[type="file"].catchiamge,section.edithostelmain section.wrapper ul.subimagethree li input[type="file"].catchiamge {
+    position: absolute;
+    top: 98px;
+    opacity: 0;
+    z-index: 99;
+    cursor: pointer;
+}
+hr.greyline{
+    display: block;
+    height: 1.5px;
+    width: 100%;
+    background: #b9b9b9;
+    margin: 2vh 0;
+}
+
+section.edithostelmain section.wrapper section.addnowhostel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+section.edithostelmain section.wrapper section.addnowhostel button.edithostelnow {
+    display: block;
+    background: #4880FF;
+    padding: 8px 24px;
+    font-size: 13px;
+    border-radius: 8px;
+    color: #fff;
+    margin: 3vh 0;
+}
+button.cancelextraphotos{
+    background: #ff1010;
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 8px;
+    color: #fff;
+    position: relative;
+    left: 54vw;
+}
+
+section.edithostelmain section.wrapper ul.subimagethree li img.uploadedsubimagethree1 {
+    display: block;
+    height: 96px;
+    width: 96px;
+}
+
+section.edithostelmain section.wrapper ul.subimagethree li img.uploadedsubimagethree2 {
+    display: block;
+    height: 96px;
+    width: 96px;
+}
+
+section.edithostelmain section.wrapper ul.subimagethree li img.uploadedsubimagethree3 {
+    display: block;
+    height: 96px;
+    width: 96px;
+}
+
+section.edithostelmain section.wrapper ul.subimagethree li img.uploadedsubimagethree4 {
+    display: block;
+    height: 96px;
+    width: 96px;
+}
+
+section.edithostelmain section.wrapper ul.subimagethree li img.uploadedsubimagethree5 {
+    display: block;
+    height: 96px;
+    width: 96px;
+}
+
+section.bgedithostelmain{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background: rgba(227, 227, 227, 0.65);
+}
+
+.subimg1,.subimg2,.subimg3,.subimg4,.subimg5{
+    display: block;
+    height: 96px;
+    width: 96px;
+} 
+
+
+
+section.rentsmain {}
+
+section.rentsmain section.wrapper {}
+
+section.rentsmain section.wrapper h2 {}
+
+section.rentsmain section.wrapper section.renttable {
+    background: #fff;
+    border: 2px solid #d5d5d5;
+    border-radius: 8px;
+}
+section.rentsmain section.wrapper section.renttable section.renthead {}
+section.rentsmain section.wrapper section.renttable section.renthead ul {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #d5d5d5;
+    padding: 6px 12px;
+}
+section.rentsmain section.wrapper section.renttable section.renthead ul li {
+    margin-right: 16px;
+}
+section.rentsmain section.wrapper section.renttable section.renthead ul li:last-child {
+    margin-right: 0px;
+}
+section.rentsmain section.wrapper section.renttable section.renthead ul li h3 {
+    color: #202227;
+    font-size: 13px;
+}
+section.rentsmain section.wrapper section.renttable section.datasection {}
+section.rentsmain section.wrapper section.renttable section.datasection ul.datasectionmain {
+    display: flex;
+    align-items: center;
+    padding: 16px 12px;
+    border-bottom: 2px solid #d5d5d5;
+}
+section.rentsmain section.wrapper section.renttable section.datasection ul.datasectionmain:last-child {
+    border-bottom: 0;
+}
+section.rentsmain section.wrapper section.renttable section.datasection ul li {
+    margin-right: 16px;
+    display: flex;
+    align-items: center;
+}
+section.rentsmain section.wrapper section.renttable section.datasection ul li:last-child{
+    margin-right: 0;
+}
+section.rentsmain section.wrapper section.renttable section.renthead ul li:first-child,section.rentsmain section.wrapper section.renttable section.datasection ul li:first-child {
+    width: 5vw;
+    display: block;
+    text-align: center;
+}
+section.rentsmain section.wrapper section.renttable section.renthead ul li:nth-child(2), section.rentsmain section.wrapper section.renttable section.datasection ul li:nth-child(2) {
+    width: 18vw;
+    display: block;
+    text-align: center;
+}
+section.rentsmain section.wrapper section.renttable section.renthead ul li:nth-child(3), section.rentsmain section.wrapper section.renttable section.datasection ul li:nth-child(3) {
+    width: 8vw;
+    display: block;
+    text-align: center;
+}
+section.rentsmain section.wrapper section.renttable section.renthead ul li:nth-child(4), section.rentsmain section.wrapper section.renttable section.datasection ul li:nth-child(4) {
+    width: 5vw;
+    display: block;
+    text-align: center;
+}
+section.rentsmain section.wrapper section.renttable section.renthead ul li:nth-child(5), section.rentsmain section.wrapper section.renttable section.datasection ul li:nth-child(5) {
+    width: 8vw;
+    display: block;
+    text-align: center;
+}
+section.rentsmain section.wrapper section.renttable section.renthead ul li:nth-child(6), section.rentsmain section.wrapper section.renttable section.datasection ul li:nth-child(6) {
+    width: 14vw;
+    display: block;
+    text-align: center;
+}
+section.rentsmain section.wrapper section.renttable section.renthead ul li:nth-child(7), section.rentsmain section.wrapper section.renttable section.datasection ul li:nth-child(7) {
+    width: 8vw;
+    display: block;
+    text-align: center;
+}
+section.rentsmain section.wrapper section.renttable section.datasection ul li h4.hostellogomainrent {}
+
+section.rentsmain section.wrapper section.renttable section.datasection ul li h4.hostellogomainrent img {
+    display: block;
+    height: 72px;
+    width: 72px;
+    border-radius: 8px;
+}
+
+section.rentsmain section.wrapper section.renttable section.datasection ul li h4.hostelname {}
+section.rentsmain section.wrapper section.renttable section.datasection ul li h4 {
+    color: #656161;
+    font-size: 14px;
+}
+section.rentsmain section.wrapper section.renttable section.datasection ul li span.basepricerent {
+    display: flex;
+    align-items: center;
+}
+section.rentsmain section.wrapper section.renttable section.datasection ul li span.basepricerent img {
+    display: block;
+    height: 14px;
+    margin-right: 2px;
+}
+section.rentsmain section.wrapper section.renttable section.datasection ul li span.basepricerent h4 {
+    color: #4a80ff;
+    font-size: 16px;
+}
+
+section.rentsmain section.wrapper section.renttable section.datasection ul li span.ad {
+    margin-right: 8px;
+}
+
+section.rentsmain section.wrapper section.renttable section.datasection ul li span.ad img.adcricle {
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
+}
+section.rentsmain section.wrapper section.renttable section.datasection ul li span.ad:last-child{
+    margin-right: 0;
+}
+section.rentsmain section.wrapper section.renttable section.datasection ul li span.ad img.adcricle.blackadcirlce {}
+
+section.rentsmain section.wrapper section.renttable section.datasection ul li span.ad img.adcricle.greyadcricle {}
+
+section.rentsmain section.wrapper section.renttable section.datasection ul li span.ad img.adcricle.creamadcricle {}
+
+section.rentsmain section.wrapper section.renttable section.datasection ul li span.ad img.adcricle.skyblueadcricle {}
+
+section.rentsmain section.wrapper section.renttable section.datasection ul li span.ad img.adcricle.yellowadcricle {}
+
+section.rentsmain section.wrapper section.renttable section.datasection ul li span.ad img.adcricle.magentaadcricle {}
+
+section.rentsmain section.wrapper section.renttable section.datasection ul li span.ad img.adcricle.Violetadcricle {}
+
+section.rentsmain section.wrapper section.renttable section.datasection ul li span.ad img.adcricle.darkblueadcricle {}
+section.rentsmain section.wrapper section.renttable section.datasection ul li span.actionbuttonsed {
+    border: 2px solid #d5d5d5;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    background: #fafbfc;
+    justify-content: center;
+}
+section.rentsmain section.wrapper section.renttable section.datasection ul li span.actionbuttonsed img.edit {
+    border-right:2px solid #d5d5d5 ;
+    padding: 4px 12px;
+    cursor: pointer;
+    display: block;
+    height: 20px;
+    width: 20px;
+}
+
+section.rentsmain section.wrapper section.renttable section.datasection ul li span.actionbuttonsed img.delete {
+    padding: 4px 12px;
+    cursor: pointer;
+    display: block;
+    height: 20px;
+    width: 20px;
+}
+section.rentsmain section.wrapper section.renttable section.datasection ul li :last-child{
+    margin-right: 0;
+}
+
+
+
+
+
+section.wardenmainarea {}
+
+section.wardenmainarea section.uppermain {
+    margin-bottom: 5vh;
+}
+
+section.wardenmainarea section.uppermain section.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+section.wardenmainarea section.uppermain section.wrapper h2 {}
+
+section.wardenmainarea section.uppermain section.wrapper button.addnewwarden {
+    display: block;
+    background: #4880FF;
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 8px;
+    color: #fff;
+}
+
+section.wardenmainarea section.wardenlist {
+    background: #f5f6fa;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    border-radius: 8px;
+    border: 2px solid #d5d5d5;
+}
+
+section.wardenmainarea section.wardenlist ul.wardendetailsheader {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    display: flex
+;
+    align-items: center;
+    border-bottom: 2px solid #d5d5d5;
+    padding: 6px 12px;
+}
+section.wardenmainarea section.wardenlist ul.wardendetailsheader li {
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+}
+section.wardenmainarea section.wardenlist ul.wardendetailsheader li:first-child {
+    width: 6vw;
+}
+section.wardenmainarea section.wardenlist ul.wardendetailsheader li:nth-child(2) {
+    width: 24vw;
+}
+section.wardenmainarea section.wardenlist ul.wardendetailsheader li:nth-child(3) {
+    width: 10vw;
+}
+section.wardenmainarea section.wardenlist ul.wardendetailsheader li:nth-child(4) {
+    width: 26vw;
+}
+section.wardenmainarea section.wardenlist ul.wardendetailsheader li:nth-child(5) {
+}
+
+section.wardenmainarea section.wardenlist ul.wardendetailsheader li h3 {
+        color: #202227;
+    font-size: 13px;
+}
+
+section.wardenmainarea section.wardenlist ul.wardendetailsshownarea {
+    /* display: flex;
+    align-items: center;
+    padding: 16px 12px;
+    border-bottom: 2px solid #d5d5d5;
+    flex-direction: column; */
+}
+
+section.wardenmainarea section.wardenlist ul.wardendetailsshownarea li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #d5d5d5;
+    padding: 12px;
+        text-align: center;
+}
+section.wardenmainarea section.wardenlist ul.wardendetailsshownarea li:first-child {
+}
+section.wardenmainarea section.wardenlist ul.wardendetailsshownarea li:nth-child(2) {
+    
+}
+section.wardenmainarea section.wardenlist ul.wardendetailsshownarea li:nth-child(3) {
+}
+section.wardenmainarea section.wardenlist ul.wardendetailsshownarea li:nth-child(4) {
+}
+section.wardenmainarea section.wardenlist ul.wardendetailsshownarea li:nth-child(5) {
+}
+section.wardenmainarea section.wardenlist ul.wardendetailsshownarea li:last-child{
+    border-bottom: none;
+}
+section.wardenmainarea section.wardenlist ul.wardendetailsshownarea li img.wardenprofile {
+    display: block;
+    height: 54px;
+}
+section.wardenmainarea section.wardenlist ul.wardendetailsshownarea li h3.wardenname {
+    color: #656161;
+    font-size: 14px;
+    width: 24vw;
+}
+section.wardenmainarea section.wardenlist ul.wardendetailsshownarea li h4.contactnumber {
+    color: #656161;
+    font-size: 14px;
+    width: 10vw;
+}
+
+section.wardenmainarea section.wardenlist ul.wardendetailsshownarea li h4.hostelname {
+    color: #656161;
+    font-size: 14px;
+    width: 26vw;
+}
+
+section.wardenmainarea section.wardenlist ul.wardendetailsshownarea li span.actionbuttonsed {
+        border: 2px solid #d5d5d5;
+    border-radius: 8px;
+    display: flex
+;
+    align-items: center;
+    background: #fafbfc;
+    justify-content: center;
+}
+
+section.wardenmainarea section.wardenlist ul.wardendetailsshownarea li span.actionbuttonsed img.edit {
+    border-right: 2px solid #d5d5d5;
+    padding: 4px 12px;
+    cursor: pointer;
+    display: block;
+    height: 20px;
+    width: 20px;
+}
+
+section.wardenmainarea section.wardenlist ul.wardendetailsshownarea li span.actionbuttonsed img.delete {
+        padding: 4px 12px;
+    cursor: pointer;
+    display: block;
+    height: 20px;
+    width: 20px;
+}
+
+section.addwardengrey {
+    height: 100vh;
+    width: 100%;
+    background: #d8d8d866;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+section.addwarden {
+    position: absolute;
+    z-index: 20;
+    background: #fff;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+    height: 78vh;
+    width: 60vw;
+    top: 9vh;
+    left: 22vw;
+    border-radius: 8px;
+}
+section.addwarden section.wrapper {
+    padding: 12px;
+    margin: 0 0vw;
+}
+section.addwarden section.wrapper section.closeaddwarden {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+section.addwarden section.wrapper section.closeaddwarden img {
+    display: block;
+    height: 25px;
+    cursor: pointer;
+}
+section.addwarden section.wrapper h2.headaddwarden {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 2vh;
+}
+
+section.addwarden section.wrapper section.addwardennewdetails {}
+
+section.addwarden section.wrapper section.addwardennewdetails div.uploadwardenprofileicon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 1.6vh;
+    position: relative;
+}
+section.addwarden section.wrapper section.addwardennewdetails div.uploadwardenprofileicon img {
+    display: block;
+    height: 110px;
+    width: 114px;
+    border-radius: 50%;
+    margin-bottom: 1.2vh;
+}
+section.addwarden section.wrapper section.addwardennewdetails div.uploadwardenprofileicon h4 {
+    color: #4379EE;
+    font-size: 13px;
+    cursor: pointer;
+    margin-bottom: 1vh;
+}
+section.addwarden section.wrapper section.addwardennewdetails div.uploadwardenprofileicon input[type="file"] {
+    position: absolute;
+    bottom: 7px;
+    overflow: hidden;
+    opacity: 0;
+    cursor: pointer;
+}
+
+section.addwarden section.wrapper section.addwardennewdetails div.wardenname {
+    display: flex;
+    align-items: center;
+    flex-direction:column;
+}
+section.addwarden section.wrapper section.addwardennewdetails div.wardenname label {
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+section.addwarden section.wrapper section.addwardennewdetails div.wardenname input[type="text"] {
+    
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 28vw;
+    margin-bottom: 1.6vh;
+    background: #f5f6fa;
+}
+section.addwarden section.wrapper section.addwardennewdetails div.wardenemail {
+    display: flex;
+    align-items: center;
+    flex-direction:column;
+}
+
+section.addwarden section.wrapper section.addwardennewdetails div.wardenemail label {
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+section.addwarden section.wrapper section.addwardennewdetails div.wardenemail input[type="email"] {
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 28vw;
+    margin-bottom: 1.6vh;
+    background: #f5f6fa;
+}
+
+section.addwarden section.wrapper section.addwardennewdetails div.wardenpassword {
+    display: flex;
+    align-items: center;
+    flex-direction:column;
+}
+
+section.addwarden section.wrapper section.addwardennewdetails div.wardenpassword label {
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+section.addwarden section.wrapper section.addwardennewdetails div.wardenpassword input[type="text"] {
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 28vw;
+    margin-bottom: 1.6vh;
+    background: #f5f6fa;
+}
+
+section.addwarden section.wrapper section.addwardennewdetails div.wardencontactinfo {
+    display: flex;
+    align-items: center;
+    flex-direction:column;
+}
+
+section.addwarden section.wrapper section.addwardennewdetails div.wardencontactinfo label {
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+section.addwarden section.wrapper section.addwardennewdetails div.wardencontactinfo input[type="text"] {
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 28vw;
+    margin-bottom: 1.6vh;
+    background: #f5f6fa;
+}
+
+section.addwarden section.wrapper section.addwardennewdetails div.hostelnamewarden {
+    display: flex;
+    align-items: center;
+    flex-direction:column;
+}
+
+section.addwarden section.wrapper section.addwardennewdetails div.hostelnamewarden label {
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+section.addwarden section.wrapper section.addwardennewdetails div.hostelnamewarden input[type="text"] {
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 28vw;
+    margin-bottom: 1.6vh;
+    background: #f5f6fa;
+}
+
+section.addwarden section.wrapper section.addwardennewdetails section.addnewwardenbtn {
+    display: flex;
+    align-items:center;
+    justify-content: center;
+}
+section.addwarden section.wrapper section.addwardennewdetails section.addnewwardenbtn button.newwardenbutton {
+    display: block;
+    background: #4880FF;
+    padding: 8px 24px;
+    font-size: 13px;
+    border-radius: 8px;
+    color: #fff;
+    margin: 3vh 0;
+    margin-bottom: 5vh;
+}
+
+section.edithostelfullrentgrey {
+    height: 100vh;
+    width: 100%;
+    background: #c4c4c494;
+    position: absolute;
+}
+section.edithostelfullrent {
+    background: #fff;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    width: 69vw;
+    height: 68vh;
+    position: absolute;
+    border-radius: 8px;
+    top: 5vw;
+    left: 17%;
+    padding: 16px;
+}
+section.edithostelfullrent section.wrapper {
+    margin: 0;
+}
+section.edithostelfullrent section.wrapper section.closerentfull {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+section.edithostelfullrent section.wrapper section.closerentfull img.closerenticon {
+    display: block;
+    height: 25px;
+    cursor: pointer;
+}
+section.edithostelfullrent section.wrapper section.editnewrentdetails {}
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.hostelimage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    margin-bottom: 2vh;
+}
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.hostelimage img{
+    display: block;
+    height: 104px;
+    width: 104px;
+    border-radius: 50%;
+    margin-bottom: 1vh;
+}
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.hostelname
+ {
+    
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.hostelname label {
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.hostelname input[type="text"] {
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 28vw;
+    margin-bottom: 1.6vh;
+    background: #f5f6fa;
+}
+
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.hostelimage h4.upp {
+    color: #4379EE;
+    font-size: 13px;
+    cursor: pointer;
+    margin-bottom: 1vh;
+}
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.hostelimage input.uploadphotomainimage {
+    cursor: pointer;
+    position: absolute;
+    bottom: 6px;
+    opacity: 0;
+}
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.hostellocation {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.hostellocation label {
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.hostellocation input[type="text"] {
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 28vw;
+    margin-bottom: 1.6vh;
+    background: #f5f6fa;
+}
+
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.hoscategory {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.hoscategory label {
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.hoscategory input[type="text"] {
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 28vw;
+    margin-bottom: 1.6vh;
+    background: #f5f6fa;
+}
+
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.beds {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.beds label {
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.beds input[type="text"] {
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 28vw;
+    margin-bottom: 1.6vh;
+    background: #f5f6fa;
+}
+
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.divisions {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.divisions label {
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.divisions div.selectionselect {
+    margin-bottom: 3vh;
+}
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.divisions div.selectionselect span.ad {
+    position: relative;
+}
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.divisions div.selectionselect span.ad img.adcricle {}
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.divisions div.selectionselect span.ad input[type="checkbox"] {
+    position: absolute;
+    z-index: 99;
+    left: 4px;
+    top: 0px;
+    cursor: pointer;
+    opacity: 0;
+}
+
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.addnewrwentbutton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section.edithostelfullrent section.wrapper section.editnewrentdetails div.addnewrwentbutton button[type="submit"] {
+    display: block;
+    background: #4880FF;
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 8px;
+    color: #fff;
+}
+
+section.dashboardmain section.uppermain section.wrapper {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+section.dashboardmain section.uppermain section.wrapper h2 {}
+
+section.dashboardmain section.uppermain section.wrapper button.updateroomsnew {
+    display: block;
+    background: #4880FF;
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 8px;
+    color: #fff;
+}
+section.dashboardmain section.roomsallocationareamain {
+    display: block;
+    margin: 0 2vw;
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-top: 6vh;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+section.dashboardmain section.roomsallocationareamain ul {
+    display: flex
+;
+    align-items: center;
+    flex-wrap: wrap;
+}
+section.dashboardmain section.roomsallocationareamain ul li {
+    position: relative;
+    margin-right: 12px;
+    margin-bottom: 16px;
+    padding: 6px;
+    border: 2px solid #1ea83c;
+    display: block;
+    height: 16px;
+    width: 16px;
+    text-align: center;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+}
+section.dashboardmain section.roomsallocationareamain ul li:hover {
+    background:  #1ea83c;
+    
+    display: block;
+}
+section.dashboardmain section.roomsallocationareamain ul li:nth-child(27),
+section.dashboardmain section.roomsallocationareamain ul li:nth-child(54),
+section.dashboardmain section.roomsallocationareamain ul li:nth-child(81),
+section.dashboardmain section.roomsallocationareamain ul li:nth-child(108),
+section.dashboardmain section.roomsallocationareamain ul li:nth-child(135),
+section.dashboardmain section.roomsallocationareamain ul li:nth-child(162){
+    /* margin-right: 0; */
+}
+section.dashboardmain section.roomsallocationareamain ul li input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+}
+section.dashboardmain section.roomsallocationareamain ul li button.selectbedroom {
+    color: #1ea83c;
+}
+section.dashboardmain section.roomsallocationareamain ul li:hover button.selectbedroom ,section.dashboardmain section.roomsallocationareamain ul li.bedroombooked:hover button.selectbedroom{
+    color: #fff;
+}
+
+
+
+section.dashboardmain section.roomsallocationareamain ul li.bedroomlist{}
+
+section.dashboardmain section.roomsallocationareamain ul li.bedroombooked {
+    border: 2px solid #fcc42d;
+}
+section.dashboardmain section.roomsallocationareamain ul li.bedroombooked button.selectbedroom{
+    color: #fcc42d;
+}
+section.dashboardmain section.roomsallocationareamain ul li.bedroombooked:hover{
+    background: #fcc42d;
+}
+
+
+section.dashboardmain section.roomsallocationareamain ul li.reserved {
+    border: 2px solid #f55c2a;
+}
+section.dashboardmain section.roomsallocationareamain ul li.reserved button.selectbedroom{
+    color: #f55c2a;
+}
+section.dashboardmain section.roomsallocationareamain ul li.reserved:hover button.selectbedroom{
+    color: #fff;
+}
+section.dashboardmain section.roomsallocationareamain ul li.reserved:hover{
+    background: #f55c2a;
+}
+
+
+
+
+
+section.statusbedsallocation {
+    display: block;
+    margin: 0 2vw;
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-top: 6vh;
+    padding: 16px;
+    border-radius: 8px;
+    position: fixed;
+    bottom: 34px;
+    width: 78%;
+}
+
+section.statusbedsallocation ul.statusbedsallocation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+section.statusbedsallocation ul.statusbedsallocation li{
+    display: flex;
+    align-items: center;
+    margin-right: 12px;
+}
+section.statusbedsallocation ul.statusbedsallocation li:first-child {
+    position: relative;
+    margin-right: 12px;
+    cursor: pointer;
+}
+section.statusbedsallocation ul.statusbedsallocation li  h3.indexicon {
+    margin-right: 6px;
+    padding: 6px;
+    display: block;
+    height: 6px;
+    width: 6px;
+    border-radius: 4px;
+}
+section.statusbedsallocation ul.statusbedsallocation li:first-child  h3.indexicon {
+    padding: 6px;
+    border: 2px solid #fcc42d;
+    display: block;
+    border-radius: 4px;
+}
+section.statusbedsallocation ul.statusbedsallocation li:nth-child(2)  h3.indexicon {
+    padding: 6px;
+    border: 2px solid #1ea83c;
+    display: block;
+    border-radius: 4px;
+}
+section.statusbedsallocation ul.statusbedsallocation li:nth-child(3)  h3.indexicon {
+    padding: 6px;
+    border: 2px solid #f55c2a;
+    display: block;
+    border-radius: 4px;
+}
+section.statusbedsallocation ul.statusbedsallocation li h4{
+        color: #666;
+        font-size: 14px;
+}
+
+
+
+section.addbedroomallocation {
+    height: 100vh;
+    background: #00000087;
+    z-index: 10;
+    position: absolute;
+    width: 100%;
+}
+section.bedallocation {
+    position: absolute;
+    background: #fff;
+    z-index: 10;
+    left: 28%;
+    top: 6vh;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    width: 50vw;
+}
+section.bedallocation section.top {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+section.bedallocation section.top img {
+    display: block;
+    height: 24px;
+    cursor: pointer;
+}
+section.bedallocation .shortline {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: #7c7777;
+    margin: 4px 0;
+    margin-bottom: 16px;
+}
+section.bedallocation section.editoregion {}
+
+section.bedallocation section.editoregion h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+section.bedallocation section.editoregion div.bedroomnumber {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+section.bedallocation section.editoregion div.bedroomnumber h4{
+    margin-right: 2px;
+}
+
+section.bedallocation section.editoregion div.bedroomnumber h3.bedroomnumber {}
+
+section.bedallocation section.editoregion div.bedroomnumber h3.available{
+    color: #f55c2a;
+    margin-left: 4px;
+}
+section.bedallocation section.editoregion div.selectbedtype {}
+
+section.bedallocation section.editoregion div.selectbedtype label {}
+
+section.bedallocation section.editoregion div.selectbedtype select {
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 98.5%;
+    margin: 1.2vh 0;
+    background: #f5f6fa;
+}
+section.bedallocation section.editoregion div.roomcheckedinnumber {}
+
+section.bedallocation section.editoregion div.roomcheckedinnumber label {}
+
+section.bedallocation section.editoregion div.roomcheckedinnumber input[type="text"] {
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 95%;
+    margin: 1.2vh 0;
+    background: #f5f6fa;
+}
+section.bedallocation section.editoregion div.checkindate {
+}
+
+section.bedallocation section.editoregion div.checkindate label {
+    margin-right: 8px;
+}
+
+section.bedallocation section.editoregion div.checkindate h4.date {
+    color: #6b6969;
+    font-size: 13px;
+}
+section.bedallocation section.editoregion div.checkindate input{
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 95%;
+    margin: 1.2vh 0;
+    background: #f5f6fa;
+}
+section.bedallocation section.editoregion div.checkoutdate {
+
+}
+
+section.bedallocation section.editoregion div.checkoutdate label {
+    margin-right: 8px;
+}
+section.bedallocation section.editoregion div.checkoutdate input{
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 95%;
+    margin: 1.2vh 0;
+    background: #f5f6fa;
+}
+section.bedallocation section.editoregion div.checkoutdate h4.date {
+    color: #6b6969;
+    font-size: 13px;
+}
+
+section.bedallocation section.editoregion div.consumeraddress {}
+
+section.bedallocation section.editoregion div.consumeraddress label {}
+
+section.bedallocation section.editoregion div.consumeraddress textarea {
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 95%;
+    margin: 1.2vh 0;
+    background: #f5f6fa;
+}
+
+section.bedallocation section.editoregion div.consumercontact {}
+
+section.bedallocation section.editoregion div.consumercontact label {}
+
+section.bedallocation section.editoregion div.consumercontact input[type="text"] {
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 95%;
+    margin: 1.2vh 0;
+    background: #f5f6fa;
+}
+
+section.bedallocation section.editoregion button.savenow
+ {
+    display: block;
+    background: #4880FF;
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 8px;
+    color: #fff;
+    margin: 0 auto;
+}
+
+
+button.morders{
+    display: block;
+    background: #4880FF;
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 8px;
+    color: #fff;
+}
+section.orderstablearea {
+    margin-top: 3vh;
+    background: #f5f6fa;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    border-radius: 8px;
+    border: 2px solid #d5d5d5;
+}
+
+section.orderstablearea ul.headerorderstable {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #d5d5d5;
+    padding: 6px 12px;
+}
+section.orderstablearea ul.headerorderstable li:first-child {
+    
+}
+
+section.orderstablearea ul.headerorderstable li h3 {
+    color: #202227;
+    font-size: 13px;
+}
+
+section.orderstablearea ul.orderslistingarea {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #d5d5d5;
+    padding: 12px;
+    text-align: center;
+}
+
+section.orderstablearea ul.orderslistingarea li:first-child {
+    display: flex;
+    align-items: center;
+}
+section.orderstablearea ul.orderslistingarea li img.userprofileicon {
+    display: block;
+    height: 30px;
+    width: 30px;
+    margin-right: 8px;
+    border-radius: 50%;
+}
+section.orderstablearea ul.orderslistingarea li h4 {
+    color: #656161;
+    font-size: 14px;}
+
+section.orderstablearea ul.orderslistingarea li div.actionbuttons {}
+
+section.orderstablearea ul.orderslistingarea li div.actionbuttons button.orderedit {
+    margin-right: 10px;
+}
+
+button.contactadmins{
+    display: block;
+    background: #4880FF;
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 8px;
+    color: #fff;
+}
+
+
+section.adminchatarea {
+    margin-top: 4vh;
+}
+
+section.adminchatarea section.adminprofiles {}
+
+section.adminchatarea section.adminprofiles ul {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+section.adminchatarea section.adminprofiles ul li.main {
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 14vw;
+    border: 2px solid #fff;
+    margin-right: 16px;
+    margin-bottom: 24px;
+}
+section.adminchatarea section.adminprofiles ul li.main:hover{
+    border: 2px solid #f55c2a;
+}
+section.adminchatarea section.adminprofiles ul li div.one {
+    position: relative;
+}
+
+section.adminchatarea section.adminprofiles ul li div.one div.mainimg {}
+
+section.adminchatarea section.adminprofiles ul li div.one div.mainimg img.mainadminimg {
+    display: block;
+    height: 100px;
+    width: 100px;
+    border-radius: 14px;
+}
+section.adminchatarea section.adminprofiles ul li div.one div.mainimg img.threedot {
+    position: absolute;
+    top: 0;
+    right: -4vw;
+    display: block;
+    height: 2vh;
+    cursor: pointer;
+}
+section.adminchatarea section.adminprofiles ul li div.one div.titlemg {}
+section.adminchatarea section.adminprofiles ul li div.one div.titlemg h3.adminclass {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    background: #0d6dfcbd;
+    padding: 8px;
+    display: block;
+    width: fit-content;
+    border-radius: 6px;
+    position: absolute;
+    bottom: 0;
+    right: -14px;
+}
+section.adminchatarea section.adminprofiles ul li h2 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 3px;
+    margin: 0.5vh 0;
+}
+section.adminchatarea section.adminprofiles ul li h5 {
+    color: #A5A5A5;
+    font-size: 11px;
+}
+section.adminchatarea section.adminprofiles ul li a {}
+section.adminchatarea section.adminprofiles ul li a h3 {
+    color: #631aff;
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 3px;
+}
+section.adminchatarea section.adminprofiles ul li div.bottom {}
+section.adminchatarea section.adminprofiles ul li div.bottom ul {
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1vh;
+}
+section.adminchatarea section.adminprofiles ul li div.bottom ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+}
+section.adminchatarea section.adminprofiles ul li div.bottom ul li img.icons {
+    display: block;
+    height: 16px;
+    width: 16px;
+    padding: 5px;
+    background: #f55c2a26;
+    border-radius: 4px;
+}
+section.adminchatarea section.adminprofiles ul li div.bottom ul li a {}
+section.adminchatarea section.adminprofiles ul li div.bottom ul li a h4 {
+    font-size: 10px;
+    margin-left: 5px;
+}
+
+
+section.admindialogue {
+    position: absolute;
+    background: #fff;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    padding: 10px;
+    border-radius: 7px;
+    top: 23vh;
+    left: 32%;
+    z-index: 10;
+    width: 36vw;
+}
+section.greyadmindialogue {
+    height: 100vh;
+    width: 100%;
+    background: #a1989857;
+    position: absolute;
+    z-index: 5;
+}
+section.admindialogue ul {
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+/* section.admindialogue ul li {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column  ;
+    color: #0d6dfc;
+    border-bottom: 2px solid #d5d5d5;
+    font-size: 13px;
+    margin-bottom: 1px;
+    padding: 2px;
+}
+section.admindialogue ul li:last-child{
+    border: none;
+} */
+
+section.admindialogue ul li {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-bottom: 2px solid #666;
+    width: 100%;
+    justify-content: center;
+    padding: 6px;
+}
+section.admindialogue ul li:last-child {
+    border-bottom: none;
+}
+section.admindialogue ul li h4 {}
+section.admindialogue ul li img {
+    display: block;
+    height: 28px;
+    margin-left: 26px;
+}
+section.admindialogue h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+section.admindialogue section.closedg {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+section.admindialogue section.closedg img {
+    display: block;
+    height: 25px;
+    cursor: pointer;
+}
+
+
+
+section.concerncontact {
+    position: absolute;
+    z-index: 20;
+    background: #fff;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    left: 21%;
+    top: 21vh;
+    padding: 12px;
+    border-radius: 8px;
+    width: 56vw;
+}
+section.concerncontact h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section.concerncontact div.selectmatter {}
+
+section.concerncontact div.selectmatter label {
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+section.concerncontact div.selectmatter input {
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 97%;
+    margin: 1vh 0;
+    background: #f5f6fa;
+}
+
+section.concerncontact div.selectmatter datalist#concerncontact {}
+
+section.concerncontact div.selectmatter datalist#concerncontact option {}
+
+section.concerncontact div.choosecontactmethod {}
+
+section.concerncontact div.choosecontactmethod label{
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+section.concerncontact div.choosecontactmethod select#chooseconcerncontacctfirm {
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 100%;
+    margin: 1vh 0;
+    background: #f5f6fa;
+}
+
+section.concerncontact div.displayconcerneddetails {}
+
+section.concerncontact div.displayconcerneddetails label{
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+section.concerncontact div.displayconcerneddetails select#chooseconcerncontacctfirm {
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 100%;
+    margin: 1vh 0;
+    background: #f5f6fa;
+}
+
+section.concerncontact div.displayconcerneddetails select#chooseconcerncontacctfirm option {}
+
+section.concerncontact div.concernmessagecnt {}
+
+section.concerncontact div.concernmessagecnt textarea {
+    border: 2px solid #d5d5d5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 97%;
+    margin: 1vh 0;
+    background: #f5f6fa;
+}
+section.concerncontact a.redirect {
+    display: block;
+    background: #4880FF;
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 8px;
+    color: #fff;
+    text-align: center;
+}
+
+
+section.concernsgray {}
+
+section.concerncontact {}
+
+section.concerncontact section.close {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+section.concerncontact section.close img.concerncontacctclose {
+    display: block;
+    height: 26px;
+    cursor: pointer;
+}
+
+
+section.dashboardmain {}
+
+section.dashboardmain section.uppermain {}
+
+section.dashboardmain section.uppermain section.wrapper {}
+
+section.dashboardmain section.uppermain section.wrapper h2 {}
+
+section.dashboardmain section.wardeniconarea {
+    display: flex;
+    /* align-items: center; */
+    justify-content: space-between;
+}
+
+section.dashboardmain section.wardeniconarea section.left {
+    
+    
+    width: 20%;
+}
+section.dashboardmain section.wardeniconarea section.left section.top {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    margin-bottom: 3vh;
+    padding: 16px;
+    border-radius: 8px;
+    width: 15vw;
+    max-width: 15vw;
+    min-width: 15vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+section.dashboardmain section.wardeniconarea section.left section.top img.wardenprofile {
+    display: block;
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+}
+section.dashboardmain section.wardeniconarea section.left section.top div.username {
+    display: flex;
+    align-items: center;
+}
+
+section.dashboardmain section.wardeniconarea section.left section.top div.username h3 {
+    color: #0d6dfc;
+    font-size: 16px;
+    margin: 4px 0;
+}
+
+section.dashboardmain section.wardeniconarea section.left section.top div.username h3.usernamemain {}
+
+section.dashboardmain section.wardeniconarea section.left section.top h4.wardenemail {
+    color: #888888;
+    font-size: 13px;
+}
+
+section.dashboardmain section.wardeniconarea section.left section.bottom {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    padding: 16px;
+    border-radius: 8px;
+    width: 15vw;
+    max-width: 15vw;
+    min-width: 15vw;
+    min-height: 51.4vh;
+}
+section.dashboardmain section.wardeniconarea section.left section.bottom h2.prf{
+    margin-top: 1vh;
+}
+section.dashboardmain section.wardeniconarea section.left section.bottom h2
+
+{
+    font-size: 22px;
+}
+section.dashboardmain section.wardeniconarea section.left section.bottom div.name {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+section.dashboardmain section.wardeniconarea section.left section.bottom div.name h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 3px;
+}
+
+section.dashboardmain section.wardeniconarea section.left section.bottom div.name div.fl {
+    display: flex;
+    align-items: center;
+}
+
+section.dashboardmain section.wardeniconarea section.left section.bottom div.name div.fl h4.fname {
+    font-weight: 300;
+    font-size: 13px;
+}
+
+section.dashboardmain section.wardeniconarea section.left section.bottom div.name div.fl h4.lname {
+    font-weight: 300;
+    font-size: 13px;
+}
+section.dashboardmain section.wardeniconarea section.left section.bottom div.email {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+section.dashboardmain section.wardeniconarea section.left section.bottom div.email h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 3px;
+}
+
+section.dashboardmain section.wardeniconarea section.left section.bottom div.email h4 {
+    font-weight: 300;
+    font-size: 13px;
+}
+
+section.dashboardmain section.wardeniconarea section.left section.bottom div.tel {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+section.dashboardmain section.wardeniconarea section.left section.bottom div.tel h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 3px;
+}
+
+section.dashboardmain section.wardeniconarea section.left section.bottom div.tel h4 {
+    font-weight: 300;
+    font-size: 13px;
+}
+
+section.dashboardmain section.wardeniconarea section.left section.bottom div.hostelname {
+    display: flex;
+    align-items: center;
+}
+
+section.dashboardmain section.wardeniconarea section.left section.bottom div.hostelname h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 3px;
+}
+
+section.dashboardmain section.wardeniconarea section.left section.bottom div.hostelname h4 {
+    font-weight: 300;
+    font-size: 13px;
+}
+
+section.dashboardmain section.wardeniconarea section.left section.bottom h2 {}
+
+section.dashboardmain section.wardeniconarea section.left section.bottom div.plan {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+section.dashboardmain section.wardeniconarea section.left section.bottom div.plan h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 3px;
+}
+
+section.dashboardmain section.wardeniconarea section.left section.bottom div.plan h4 {
+    font-weight: 300;
+    font-size: 13px;
+}
+
+section.dashboardmain section.wardeniconarea section.left section.bottom div.theme {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+section.dashboardmain section.wardeniconarea section.left section.bottom div.theme h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 3px;
+}
+section.dashboardmain section.wardeniconarea section.left section.bottom div.theme div.themeimage {
+    display: flex
+;
+    align-items: center;
+    margin-left: 6px;
+    
+}
+section.dashboardmain section.wardeniconarea section.left section.bottom div.theme div.themeimage img {
+    display: block;
+    height: 20px;
+    cursor: pointer;
+}
+
+section.dashboardmain section.wardeniconarea section.right {
+    width: 78%;
+    display: flex;
+    justify-content: space-between;
+}
+section.dashboardmain section.wardeniconarea section.right section.one{
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    padding: 16px;
+    border-radius: 8px;
+    min-height: 24vh;
+    width: 70%;
+}
+
+section.dashboardmain section.wardeniconarea section.right section.one h2 {
+    font-size: 20px;
+    margin-bottom: 0.6vh;
+}
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails {}
+
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails h3
+ {
+    font-size: 16px;
+    margin-bottom: 0.7vh;
+}
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.named {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.named div.fname {}
+
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.named div.fname label {
+    font-size: 13px;
+}
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.named div.fname input[type="text"]
+ {
+    background: #e8e8e8;
+    width: 94%;
+    padding: 8px 12px;
+    margin: 4px 0;
+    border-radius: 4px;
+    margin-top: 6px;
+}
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.named div.lname {}
+
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.named div.lname label {
+    font-size: 13px;
+}
+
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.named div.lname input[type="text"] {
+    background: #e8e8e8;
+    width: 94%;
+    padding: 8px 12px;
+    margin: 4px 0;
+    border-radius: 4px;
+    margin-top: 6px;
+}
+
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.emailtel {}
+
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.emailtel div.em {}
+
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.emailtel div.em label {
+    font-size: 13px;
+}
+
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.emailtel div.em input[type="text"] {
+    background: #e8e8e8;
+    width: 97%;
+    padding: 8px 12px;
+    margin: 4px 0;
+    border-radius: 4px;
+}
+
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.emailtel div.tel {}
+
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.emailtel div.tel label {
+    font-size: 13px;
+}
+
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.emailtel div.tel input[type="text"] {
+    background: #e8e8e8;
+    width: 94%;
+    padding: 8px 12px;
+    margin: 4px 0;
+    border-radius: 4px;
+}
+
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails button.savechanges {
+    background: #477eff;
+    color: #fff;
+    padding: 10px 24px;
+    margin: 1vh 0;
+    border-radius: 7px;
+}
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails h2 {}
+
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.currentpass {}
+
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.currentpass label {
+    font-size: 13px;
+}
+
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.currentpass input {
+    background: #e8e8e8;
+    width: 94%;
+    padding: 8px 12px;
+    margin: 4px 0;
+    border-radius: 4px;
+}
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.updatepass {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: 3vh;
+}
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.updatepass div.one {}
+
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.updatepass div.one label {
+    font-size: 13px;
+}
+
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.updatepass div.one input[type="text"].upone {
+    background: #e8e8e8;
+    width: 94%;
+    padding: 8px 12px;
+    margin: 4px 0;
+    border-radius: 4px;
+}
+
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.updatepass div.tw0 {}
+
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.updatepass div.tw0 label {
+    font-size: 13px;
+}
+
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.updatepass div.tw0 input[type="text"].uptwo {
+    background: #e8e8e8;
+    width: 94%;
+    padding: 8px 12px;
+    margin: 4px 0;
+    border-radius: 4px;
+}
+section.dashboardmain section.wardeniconarea section.right section.one div.maindetails div.updatepass h5 {
+    position: absolute;
+    bottom: -21px;
+    color: #f40505;
+    font-size: 11px;
+    left: 1%;
+    opacity: 0;
+}
+section.dashboardmain section.wardeniconarea section.right section.one div.sf {}
+
+section.dashboardmain section.wardeniconarea section.right section.one div.sf button.savechanges {
+    background: #477eff;
+    color: #fff;
+    padding: 10px 24px;
+    margin: 1vh 0;
+    border-radius: 7px;
+    margin-right: 16px;
+}
+section.dashboardmain section.wardeniconarea section.right section.one div.sf a.forgotpass {
+    color: #8A8A8A;
+    text-decoration: underline;
+    font-size: 13px;
+}
+section.dashboardmain section.wardeniconarea section.right section.two {
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+section.dashboardmain section.wardeniconarea section.right section.two div.ho {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    padding: 8px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 14vw;
+    min-width: 15vw;
+    min-height: 11vh;
+    max-height: 11vh;
+    margin-bottom: 2vh;
+}
+section.dashboardmain section.wardeniconarea section.right section.two div.ho h3 {}
+
+section.dashboardmain section.wardeniconarea section.right section.two div.ho h1 {
+    font-size: 36px;
+    color: #d00000;
+}
+section.dashboardmain section.wardeniconarea section.right section.two div.tc {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    padding: 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 14vw;
+    min-width: 14vw;
+    min-height: 11vh;
+    max-height: 11vh;
+    margin-bottom: 3vh;
+}
+
+section.dashboardmain section.wardeniconarea section.right section.two div.tc h3 {}
+
+section.dashboardmain section.wardeniconarea section.right section.two div.tc h1 {
+    color: #00318f;
+    font-size: 36px;
+}
+
+section.dashboardmain section.wardeniconarea section.right section.two div.tr {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    padding: 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 14vw;
+    min-width: 14vw;
+    min-height: 11vh;
+    max-height: 11vh;
+    margin-bottom: 3vh;
+}
+
+section.dashboardmain section.wardeniconarea section.right section.two div.tr h3 {}
+
+section.dashboardmain section.wardeniconarea section.right section.two div.tr h1 {
+    font-size: 36px;
+    color: #00d53c;
+}
+
+section.dashboardmain section.wardeniconarea section.right section.two div.tro {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    padding: 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 14vw;
+    min-width: 14vw;
+    min-height: 11vh;
+    max-height: 11vh;
+    margin-bottom: 3vh;
+}
+
+section.dashboardmain section.wardeniconarea section.right section.two div.tro h3 {}
+
+section.dashboardmain section.wardeniconarea section.right section.two div.tro h1 {
+    font-size: 36px;
+}
+
+section.dashboardmain section.wardeniconarea section.right section.two div.mapindex {}
+section.dashboardmain section.wardeniconarea section.right section.two div.mapindex iframe {
+    display: block;
+    height: 112px;
+    width: 16vw;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    border-radius: 8px;
+}

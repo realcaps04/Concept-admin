@@ -1,0 +1,5319 @@
+*{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    background: none;
+    font-family: 'Cal Sans';
+    list-style: none;
+    text-decoration: none;
+    color: #000;
+    font-weight: 500;
+    border: none;
+    
+}
+body{
+    position: relative;
+    background: #fff !important;
+}
+.wrapper{
+    margin: 0 4vw;
+}
+button{
+    cursor: pointer;
+}
+.hide{
+    display: none;
+}
+
+header {
+    padding: 24px 0;
+}
+header section.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header section.wrapper section.left {
+    display: flex;
+    align-items: center;
+   
+}
+
+header section.wrapper section.left img.mainlogo {
+    display: block;
+    height: 4vh;
+     margin-right: 8px;
+}
+header section.wrapper section.left div.webname {}
+
+header section.wrapper section.left div.webname span.name {
+    display: flex
+;
+    align-items: center;
+
+}
+header section.wrapper section.left div.webname span.name h2.Hostel {
+    margin-right: 4px;
+    color: #0d6dfc;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+header section.wrapper section.left div.webname span.name h2.Haven {
+    color: #f55c2a;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+header section.wrapper section.left div.webname span.des {}
+
+header section.wrapper section.left div.webname span.des h3 {
+    color: #bababa;
+    font-size: 13px;
+}
+header section.wrapper section.center {}
+
+header section.wrapper section.center nav {}
+
+header section.wrapper section.center nav ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header section.wrapper section.center nav ul li {
+    margin-right: 28px;
+}
+header section.wrapper section.center nav ul li:last-child {
+    margin-right: 0;
+}
+
+header section.wrapper section.center nav ul li a {}
+
+header section.wrapper section.center nav ul li a h3 {
+    font-size: 16px;
+}
+header section.wrapper section.center nav ul li a h3:hover {
+    color: #0d6dfc;
+    font-weight: 600;
+}
+header section.wrapper section.right {}
+header section.wrapper section.right button.login {
+    color: #fff;
+    background: #0d6dfc;
+    padding: 9px 28px;
+    border-radius: 22px;
+    display: none;
+}
+
+header section.wrapper section.right button.profile {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    background: #0d6dfc;
+    padding: 3px 28px;
+    border-radius: 22px;
+    padding-left: 14px;
+}
+
+header section.wrapper section.right button.profile img {
+    display: block;
+    height: 3.5vh;
+    margin-right: 4px;
+}
+
+header section.wrapper section.right button.profile h3 {
+    color: #fff;
+    font-size: 13px;
+}
+header section.wrapper section.right button.hamopen {
+    position: relative;
+    right: -37px;
+}
+header section.wrapper section.right button.hamopen img {
+    display: block;
+    height: 38px;
+}
+section.herosecttion {
+    position: relative;
+}
+
+section.herosecttion section.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+section.herosecttion section.wrapper section.left {
+    margin-top: 16vh;
+}
+section.herosecttion section.wrapper section.left h4 {
+    color: #0d6dfc;
+    margin-bottom: 0vh;
+}
+section.herosecttion section.wrapper section.left span.ed {
+    display: flex;
+    align-items: center;
+}
+
+section.herosecttion section.wrapper section.left span.ed h2.ex {
+    margin-right: 14px;
+    font-weight: 700;
+    font-size: 48px;
+}
+
+section.herosecttion section.wrapper section.left span.ed h2.deals {
+    font-weight: 700;
+    font-size: 48px;
+    color: #0d6dfc;
+    text-decoration: underline;
+}
+section.herosecttion section.wrapper section.left span.sc {
+    display: flex;
+    align-items: center;
+}
+
+section.herosecttion section.wrapper section.left span.sc h2.stay {
+    margin-right: 14px;
+    font-weight: 700;
+    font-size: 48px;
+    color: #0d6dfc;
+}
+
+section.herosecttion section.wrapper section.left span.sc h2.comfortable {
+    font-weight: 700;
+    font-size: 48px;
+    color: #f55c2a;
+    text-decoration: underline;
+}
+
+section.herosecttion section.wrapper section.left span.ad {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3vh;
+}
+
+section.herosecttion section.wrapper section.left span.ad h2.AMAZING {
+    margin-right: 14px;
+    font-weight: 700;
+    font-size: 48px;
+    color: #f55c2a;
+}
+
+section.herosecttion section.wrapper section.left span.ad h2.DISCOUNTS {
+    font-weight: 700;
+    font-size: 48px;
+    text-decoration: underline;
+}
+section.herosecttion section.wrapper section.left h3.deshostel {
+    font-size: 15px;
+    max-width: 65%;
+    line-height: 1.4em;
+    color: #919191;
+    margin-bottom: 3vh;
+}
+section.herosecttion section.wrapper section.left h3.dn {
+    display: flex
+;
+    align-items: center;
+    font-weight: 500;
+    font-size: 16px;
+    color: #0d6dfc;
+    border: 2px solid #0d6dfc;
+    width: fit-content;
+    padding: 4px 28px;
+    /* padding-left: 19px; */
+    border-radius: 25px;
+}
+section.herosecttion section.wrapper section.right {
+    position: relative;
+}
+
+section.herosecttion section.wrapper section.right div.hosone {}
+section.herosecttion section.wrapper section.right div.hosone img.mainimg {
+    display: block;
+    height: 48vh;
+    border-radius: 50%;
+    width: 48vh;
+    position: absolute;
+    z-index: 4;
+    top: -6vh;
+    right: 106px;
+}
+section.herosecttion section.wrapper section.right div.hosone span.bg {
+    background: #faaf9682;
+    display: block;
+    height: 49vh;
+    width: 49vh;
+    border-radius: 50%;
+    position: absolute;
+    top: -7vh;
+    right: 81px;
+    z-index: 3;
+}
+section.herosecttion section.wrapper section.right div.hostwo {}
+
+section.herosecttion section.wrapper section.right div.hostwo img.mainimg {
+    display: block;
+    height: 48vh;
+    border-radius: 50%;
+    width: 48vh;
+    position: absolute;
+    z-index: 2;
+    top: -16vh;
+    right: 22px;
+}
+section.herosecttion section.wrapper section.right div.hostwo span.bg {
+    background: #87b7ff;
+    display: block;
+    height: 49vh;
+    width: 49vh;
+    border-radius: 50%;
+    position: absolute;
+    top: -17vh;
+    right: 0;
+}
+section.herosecttion section.wrapper section.right section.searcharea {
+    position: absolute;
+    z-index: 10;
+    right: 66px;
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    border-radius: 60px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    bottom: -33vh;
+    background: #fff;
+}
+section.herosecttion section.wrapper section.right section.searcharea div.location {
+    display: flex;
+    align-items: center;
+    margin-right: 14px;
+}
+section.herosecttion section.wrapper section.right section.searcharea div.location img {
+    display: block;
+    height: 2.5vh;
+    padding: 10px;
+    background: #e0f5ff;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+section.herosecttion section.wrapper section.right section.searcharea div.location select#locationselect {
+    cursor: pointer;
+}
+
+section.herosecttion section.wrapper section.right section.searcharea div.dateselect {
+    display: flex;
+    align-items: center;
+    margin-right: 14px;
+}
+
+section.herosecttion section.wrapper section.right section.searcharea div.dateselect img {
+    display: block;
+    height: 2.5vh;
+    padding: 10px;
+    background: #e0f5ff;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+section.herosecttion section.wrapper section.right section.searcharea div.dateselect #selectdate{
+    cursor: pointer;
+}
+section.herosecttion section.wrapper section.right section.searcharea div.amountselect select#selectamount {
+    cursor: pointer;
+}
+
+
+section.herosecttion section.wrapper section.right section.searcharea div.amountselect {
+    display: flex;
+    align-items: center;
+    margin-right: 12px;
+}
+
+section.herosecttion section.wrapper section.right section.searcharea div.amountselect img {
+    display: block;
+    height: 2.5vh;
+    padding: 10px;
+    background: #e0f5ff;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+section.herosecttion section.wrapper section.right section.searcharea div.amountselect select#selectamount {
+    cursor: pointer;
+}
+section.herosecttion section.wrapper section.right section.searcharea button.searchhostel {
+    color: #fff;
+    background: #0d6dfc;
+    padding: 9px 28px;
+    border-radius: 22px;
+    margin-right: -0.5vw;
+}
+
+
+
+section.specialrooms {
+    margin-bottom: 6vh;
+    margin-top: 28vh;
+    height: 70vh;
+    overflow: hidden;
+    position: relative;
+}
+section.specialrooms section.wrapper {}
+
+section.specialrooms section.wrapper section.top {
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+section.specialrooms section.wrapper section.top h3 {
+    font-size: 14px;
+    color: #0d6dfc;
+    margin-bottom: 0px;
+}
+section.specialrooms section.wrapper section.top span.sr {
+    display: flex
+;
+    align-items: center;
+    position: relative;
+}
+section.specialrooms section.wrapper section.top span.sr hr.blueunderline {
+    background: #0d6dfc;
+    display: block;
+    position: absolute;
+    height: 2.5px;
+    width: 6vw;
+    right: 11px;
+    bottom: 5px;
+}
+
+section.specialrooms section.wrapper section.top span.sr h2.Special {
+    margin-right: 10px;
+    font-weight: 700;
+    font-size: 32px;
+}
+
+
+
+section.specialrooms section.wrapper section.top span.sr h2.Rooms {
+    font-weight: 700;
+    font-size: 32px;
+    color: #f55c2a;
+}
+
+section.specialrooms section.wrapper section.top h4 {
+    font-size: 13px;
+    margin-bottom: 8vh;
+}
+
+section.specialrooms section.bottom {
+    margin-left: -8vw;
+}
+
+section.specialrooms section.bottom ul {
+    display: flex
+;
+    align-items: center;
+}
+section.specialrooms section.bottom ul li.flistsr {
+    margin-right: 2.5vw;
+    cursor: pointer;
+    position: relative;
+    /* padding: 72px 0; */
+}    
+/* section.specialrooms section.bottom ul li.flistsr:hover {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;      
+}    */
+section.specialrooms section.bottom ul li.flistsr div.imgtop:hover + section.specialrooms section.bottom ul li div.imgtop div.hosdes{
+    display: block;
+} 
+section.specialrooms section.bottom ul li div.imgtop{
+    transition: transform 0.3s ease;
+    position: relative;
+}
+.flistsr:hover .imgtop {
+    transform: translateY(-25px);
+}
+        
+        .flistsr:hover .hosdes {
+            display: block !important;
+            opacity: 1;
+        }
+section.specialrooms section.bottom ul li div.imgtop img {
+    display: block;
+    height: 28vh;
+    width: 12vw;
+    border-radius: 18px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+section.specialrooms section.bottom ul li  div.hosdes {
+    display: none;
+    position: absolute;
+    text-align: center;
+}
+
+section.specialrooms section.bottom ul li  div.hosdes h3 {
+    color: #000;
+    margin-bottom: 4px;
+}
+
+section.specialrooms section.bottom ul li  div.hosdes h4 {
+    font-size: 12px;
+    color: #919191;
+    margin-bottom: 8px;
+}
+
+section.specialrooms section.bottom ul li  div.hosdes a.seemore {
+    color: #000;
+    width: 100%;
+
+}
+section.specialrooms section.bottom ul li div.hosdes a.moredetails {
+    color: #fff;
+    background: #0d6dfc;
+    padding: 9px 28px;
+    border-radius: 22px;
+    width: 6vw;
+    display: block;
+    margin: 0 auto;
+    font-size: 14px;
+    margin-top: 6px;
+}
+section.specialrooms section.wrapper div.arrowarea {
+    margin-top: 17vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 47%;
+    bottom: 2vh;
+}
+section.specialrooms section.wrapper div.arrowarea div.left {}
+
+section.specialrooms section.wrapper div.arrowarea div.left img.lswipesr {
+    display: block;
+    height: 2.5vh;
+    padding: 10px;
+    background: #e0f5ff;
+    border-radius: 50%;
+    cursor: pointer;
+    transform: rotate(180deg);
+    margin-right: 24px;
+}
+section.specialrooms section.wrapper div.arrowarea div.right {}
+
+section.specialrooms section.wrapper div.arrowarea div.right img.rswipesr {
+    display: block;
+    height: 2.5vh;
+    padding: 10px;
+    background: #0d6dfc;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+
+section.features {
+    margin-bottom: 10vh;
+    margin-top: 5vh;
+}
+
+section.features section.wrapper {}
+
+section.features section.wrapper section.top {
+        display: flex
+;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 10vh;
+}
+
+section.features section.wrapper section.top h3{
+    font-size: 14px;
+    color: #0d6dfc;
+    margin-bottom: 0px;
+}
+section.features section.wrapper section.top span.fr {
+    display: flex
+;
+    align-items: center;
+    position: relative;
+}
+
+section.features section.wrapper section.top span.fr h2.Key {
+    margin-right: 10px;
+    font-weight: 700;
+    font-size: 32px;
+}
+
+section.features section.wrapper section.top span.fr h2.Features {
+        font-weight: 700;
+    font-size: 32px;
+    color: #f55c2a;
+}
+section.features section.wrapper section.top span.fr hr.blueunderline {
+    background: #0d6dfc;
+    display: block;
+    position: absolute;
+    height: 2.5px;
+    width: 8vw;
+    right: 0px;
+    bottom: 5px;
+}
+
+section.features section.wrapper section.top h4 {}
+
+section.features section.wrapper section.bottom {}
+
+section.features section.wrapper section.bottom ul {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap ;
+    width: 100%;
+    justify-content: space-between;
+}
+
+section.features section.wrapper section.bottom ul li {
+    display: block;
+    padding: 12px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    border-radius: 8px;
+    width: 30.33%;
+    margin-right: 16px;
+    margin-bottom: 2vh;
+    cursor: pointer;
+}
+section.features section.wrapper section.bottom ul li:hover {
+    background: #0d6dfc;
+}
+section.features section.wrapper section.bottom ul li:nth-child(3),section.features section.wrapper section.bottom ul li:nth-child(6){
+    margin-right: 0;
+}
+
+section.features section.wrapper section.bottom ul li img.top {
+    display: block;
+    height: 3.5vh;
+    padding: 8px;
+    background: #e0f5ff;
+    border-radius: 50%;
+    margin-bottom: 1vh;
+}
+section.features section.wrapper section.bottom ul li:hover img.top{
+    background: #fff;
+}
+section.features section.wrapper section.bottom ul li h3 {
+    font-size: 14px;
+}
+section.features section.wrapper section.bottom ul li h4 {
+    font-size: 13px;
+    max-width: 100%;
+    line-height: 1.4em;
+    color: #919191;
+    margin-bottom: 1vh;
+    margin-top: 0.2vh;
+}
+section.features section.wrapper section.bottom ul li:hover h3,section.features section.wrapper section.bottom ul li:hover h4{
+    color: #fff;
+}
+
+
+
+section.deals {}
+
+section.deals section.wrapper {}
+
+section.deals section.wrapper section.top {
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 6vh;
+}
+
+section.deals section.wrapper section.top h3 {
+    font-size: 14px;
+    color: #0d6dfc;
+    margin-bottom: 0px;
+}
+
+section.deals section.wrapper section.top span.dls {
+    display: flex
+;
+    align-items: center;
+    position: relative;
+}
+
+section.deals section.wrapper section.top span.dls h2.Exclusive {
+    margin-right: 10px;
+    font-weight: 700;
+    font-size: 32px;
+}
+
+section.deals section.wrapper section.top span.dls h2.Deals {
+    font-weight: 700;
+    font-size: 32px;
+    color: #f55c2a;
+}
+section.deals section.wrapper section.top span.dls hr.blueunderline {
+    background: #0d6dfc;
+    display: block;
+    position: absolute;
+    height: 2.5px;
+    width: 5vw;
+    right: 2px;
+    bottom: 5px;
+}
+
+section.deals section.wrapper section.top h4 {}
+
+section.deals section.bottom {
+    margin-left: -8vw;
+    overflow-x: hidden;
+}
+
+section.deals section.bottom ul {
+    display: flex
+;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+section.deals section.bottom ul li.dls {
+    cursor: pointer;
+    position: relative;
+    margin-right: 18px;
+}
+section.deals section.bottom ul li.dls:hover div.dimgtop img {
+        filter: opacity(0.7);
+}
+section.deals section.bottom ul li.dls:hover div.dealsdes{
+    display: block !important;
+    transition: transform 0.3s ease;
+}
+section.deals section.bottom ul li.dls div.dimgtop {}
+
+section.deals section.bottom ul li.dls div.dimgtop img {
+    display: block;
+    height: 28vh;
+    width: 12vw;
+    border-radius: 18px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+section.deals section.bottom ul li.dls div.dealsdes {
+    position: absolute;
+    top: 64px;
+    display: flex;
+    color: #fff;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    display: none;
+    
+}
+section.deals section.bottom ul li.dlsvisible div.dealsdes {
+    position: absolute;
+    top: 64px;
+    display: flex;
+    color: #fff;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+    
+}
+section.deals section.bottom ul li.dls div.dealsdes h3 {
+    color: #fff;
+    text-align: center;
+}
+section.deals section.bottom ul li.dls div.dealsdes h4 {
+    color: #fff;
+    font-size: 10px;
+    width: 100%;
+    text-align: center;
+    margin-top: 2vh;
+}
+section.deals section.bottom ul li.dls div.dealsdes a.moredetails {
+    color: #fff;
+    background: #0d6dfc;
+    padding: 6px 23px;
+    border-radius: 22px;
+    width: 5vw;
+    display: block;
+    margin: 0 auto;
+    font-size: 13px;
+    margin-top: 18px;
+}
+section.deals section.wrapper div.arrowarea {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4vh 0;
+}
+
+section.deals section.wrapper div.arrowarea div.left {}
+
+section.deals section.wrapper div.arrowarea div.left img.lswipesr {
+    display: block;
+    height: 2.5vh;
+    padding: 10px;
+    background: #e0f5ff;
+    border-radius: 50%;
+    cursor: pointer;
+    transform: rotate(180deg);
+    margin-right: 24px;
+}
+
+section.deals section.wrapper div.arrowarea div.right {}
+
+section.deals section.wrapper div.arrowarea div.right img.rswipesr {
+    display: block;
+    height: 2.5vh;
+    padding: 10px;
+    background: #0d6dfc;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+section.custoreview {
+    background: #e0f5ff;
+}
+section.custoreview section.wrapper {}
+
+section.custoreview section.wrapper ul {
+    padding: 36px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section.custoreview section.wrapper ul li {
+    margin-right: 36px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+section.custoreview section.wrapper ul li:last-child {
+    margin-right: 0;
+}
+section.custoreview section.wrapper ul li h2 {
+    color: #0d6dfc;
+    font-weight: 700;
+    font-size: 40px;
+}
+section.custoreview section.wrapper ul li h3 {
+    font-size: 14px;
+}
+
+
+
+section.news {
+    margin: 8vh 0;
+    overflow: hidden;
+}
+section.news section.wrapper {}
+
+section.news section.wrapper section.top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 6vh;
+}
+
+section.news section.wrapper section.top h3 {
+    font-size: 14px;
+    color: #0d6dfc;
+    margin-bottom: 0px;
+}
+
+section.news section.wrapper section.top span.dls2 {
+        display: flex
+;
+    align-items: center;
+    position: relative;
+}
+
+section.news section.wrapper section.top span.dls2 h2.Amazing {
+    margin-right: 10px;
+    font-weight: 700;
+    font-size: 32px;
+}
+
+section.news section.wrapper section.top span.dls2 h2.NewsBlog {
+    font-weight: 700;
+    font-size: 32px;
+    color: #f55c2a;
+}
+
+section.news section.wrapper section.top span.dls2 hr.blueunderline {
+    background: #0d6dfc;
+    display: block;
+    position: absolute;
+    height: 2.5px;
+    width: 5vw;
+    right: 2px;
+    bottom: 5px;
+}
+
+section.news section.wrapper section.top h4 {}
+
+section.news  section.bottom {}
+
+section.news  section.bottom ul {
+    display: flex;
+    align-items: center;
+    margin-left: -12vw;
+}
+
+section.news  section.bottom ul li {
+    margin-right: 24px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    border-radius: 14px;
+    cursor: pointer;
+}
+section.news  section.bottom ul li section.top {
+    margin-bottom: 0;
+}
+
+section.news  section.bottom ul li section.top img {
+    display: block;
+    height: 24vh;
+    border-radius: 14px 14px 0 0;
+}
+section.news  section.bottom ul li section.bottom {
+    padding: 12px;
+    position: relative;
+    z-index: 5;
+    top: -50px;
+    background: #fff;
+    border-radius: 14px 14px 0 0;
+}
+section.news  section.bottom ul li:hover,section.news  section.bottom ul li:hover section.bottom {
+    background: #0d6dfc;
+}
+section.news  section.bottom ul li section.bottom div.date {
+    display: flex;
+    align-items: center;
+}
+
+section.news  section.bottom ul li section.bottom div.date img.calendar {
+    display: block;
+    height: 3vh;
+    margin-right: 8px;
+}
+section.news  section.bottom ul li:hover section.bottom div.date img.calendar {
+    content: url(../images/calendar.png);
+}
+section.news  section.bottom ul li section.bottom div.date h3 {
+    color: #0d6dfc;
+    font-size: 13px;
+    color: #0d6dfc;
+}
+section.news  section.bottom ul li:hover section.bottom div.date h3 {
+    color: #fff;
+    font-size: 13px;
+    color: #fff;
+}
+section.news  section.bottom ul li section.bottom h2 {
+    color: #0d6dfc;
+    font-size: 16px;
+    font-weight: 600;
+}
+section.news  section.bottom ul li:hover section.bottom h2 {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+}
+section.news  section.bottom ul li section.bottom h4 {
+    color: #0d6dfc;
+    font-weight: 400;
+    font-size: 11px;
+    margin: 6px 0;
+    display: block;
+    max-width: 100%;
+}
+section.news  section.bottom ul li:hover section.bottom h4 {
+    color: #fff;
+    font-weight: 400;
+    font-size: 11px;
+    margin: 6px 0;
+    display: block;
+    max-width: 100%;
+}
+section.news  section.bottom ul li:hover section.bottom a.moredetails {
+    display: block;
+    color: #fff;
+    border: 2px solid #fff;
+}
+section.news  section.bottom ul li section.bottom a.moredetails {
+    display: none;
+    position: absolute;
+    color: #0d6dfc;
+    border: 2px solid #0d6dfc;
+    border-radius: 23px;
+    padding: 4px 15px;
+    font-size: 14px;
+    margin-top: 1vh;
+    transform: smooth(0.3s);
+}
+
+
+section.news section.wrapper div.arrowarea {
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    margin: 4vh 0;
+}
+
+section.news section.wrapper div.arrowarea div.left {
+
+}
+
+section.news section.wrapper div.arrowarea div.left img.lswipesr {
+    display: block;
+    height: 2.5vh;
+    padding: 10px;
+    background: #e0f5ff;
+    border-radius: 50%;
+    cursor: pointer;
+    transform: rotate(180deg);
+    margin-right: 24px;
+}
+
+section.news section.wrapper div.arrowarea div.right {}
+
+section.news section.wrapper div.arrowarea div.right img.rswipesr {
+        display: block;
+    height: 2.5vh;
+    padding: 10px;
+    background: #0d6dfc;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+
+section.subscribe {
+    background: #e0f5ff;
+    margin-bottom: 6vh;
+}
+
+section.subscribe section.wrapper {
+    padding: 48px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section.subscribe section.wrapper div.email {
+    background: #fff;
+    padding: 14px 84px;
+    padding-left: 14px;
+    border-radius: 28px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 31vw;
+}
+section.subscribe section.wrapper div.email input.emailinputhome {
+    background: transparent;
+    width: 24vw;
+}
+section.subscribe section.wrapper div.email button {
+    color: #fff;
+    background: #0d6dfc;
+    padding: 6px 23px;
+    border-radius: 22px;
+    width: 11vw;
+    display: block;
+    margin: 0 auto;
+    font-size: 13px;
+    position: absolute;
+    right: 10px;
+}
+
+
+
+footer {
+    padding: 28px 0;
+}
+
+footer section.wrapper {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+
+footer section.wrapper section.one {
+    display: flex;
+    align-items: center;
+}
+
+footer section.wrapper section.one div.fone {
+    
+}
+
+footer section.wrapper section.one div.fone section.left {
+        display: flex
+;
+    align-items: center;
+}
+
+footer section.wrapper section.one div.fone section.left img.mainlogo {
+        height: 4vh;
+    margin-right: 8px;
+}
+
+footer section.wrapper section.one div.fone section.left div.webname {}
+
+footer section.wrapper section.one div.fone section.left div.webname span.name {
+    display: flex
+;
+    align-items: center;
+}
+
+footer section.wrapper section.one div.fone section.left div.webname span.name h2.Hostel {
+    margin-right: 4px;
+    color: #0d6dfc;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+footer section.wrapper section.one div.fone section.left div.webname span.name h2.Haven {
+    color: #f55c2a;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+footer section.wrapper section.one div.fone section.left div.webname span.des {}
+
+footer section.wrapper section.one div.fone section.left div.webname span.des h3 {
+    color: #bababa;
+    font-size: 13px;
+}
+footer section.wrapper section.one div.fone h3.deshostel {
+    font-size: 13px;
+    max-width: 39%;
+    line-height: 1.3em;
+    color: #919191;
+    margin: 1vh 0;
+}
+footer section.wrapper section.one div.ftwo {
+    width: 8vw;
+}
+
+footer section.wrapper section.one div.ftwo ul {}
+
+footer section.wrapper section.one div.ftwo ul li {
+    margin-bottom: 0.6vh;
+}
+
+footer section.wrapper section.one div.ftwo ul li a {}
+
+footer section.wrapper section.one div.ftwo ul li a h3 {
+    color: #898686;
+    font-size: 14px;
+}
+footer section.wrapper section.one div.ftwo ul li a h3.bcl {
+    color: #0d6dfc;
+    font-weight: 600;
+    margin-bottom: 1vh;
+    font-size: 15px;
+}
+footer section.wrapper hr.ggline {
+    display: block;
+    height: 2px;
+    width: 9vw;
+    background: #e6e3e3;
+    transform: rotate(90deg);
+}
+footer section.wrapper section.two {
+    width: 11vw;
+}
+footer section.wrapper section.two ul {}
+
+footer section.wrapper section.two ul li {
+    margin-bottom: 0.9vh;
+}
+
+footer section.wrapper section.two ul li a {
+    
+}
+
+footer section.wrapper section.two ul li a h3 {
+    color: #898686;
+    font-size: 14px;
+}
+footer section.wrapper section.three {
+    
+}
+footer section.wrapper section.three ul {}
+footer section.wrapper section.three ul li {
+    margin-bottom: 1.4vh;
+    display: flex
+;
+    align-items: center;
+}
+footer section.wrapper section.three ul li h3 {
+    color: #000;
+    font-weight: 700;
+}
+footer section.wrapper section.three ul li div.l {}
+footer section.wrapper section.three ul li div.l img {
+    display: block;
+    height: 2.5vh;
+    padding: 10px;
+    background: #e0f5ff;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+footer section.wrapper section.three ul li div.r {}
+footer section.wrapper section.three ul li div.r h4 {
+    color: #898686;
+    font-size: 14px;
+    width: 13vw;
+}
+
+
+
+
+
+section.sun1 {
+    position: absolute;
+    z-index: 99;
+    top: 63vh;
+    left: -5%;
+}
+section.sun1 section.wrapper {}
+
+section.sun1 section.wrapper .sl1 {
+    display: block;
+    height: 28px;
+    width: 74px;
+    background: #faaf9682;
+    border-radius: 24px;
+    transform: rotate(-45deg);
+}
+section.sun1 section.wrapper .s12 {
+    display: block;
+    height: 28px;
+    width: 74px;
+    background: #faaf9682;
+    border-radius: 24px;
+    position: absolute;
+    top: 12vh;
+    transform: rotate(0deg);
+    left: 46%;
+}
+section.sun1 section.wrapper .s13 {
+    display: block;
+    height: 28px;
+    width: 74px;
+    background: #faaf9682;
+    border-radius: 24px;
+    position: absolute;
+    top: 23vh;
+    transform: rotate(45deg);
+}
+section.sun1 section.wrapper .s14 {
+    display: block;
+    height: 28px;
+    width: 74px;
+    background: #faaf9682;
+    border-radius: 24px;
+    display: none;
+}
+
+section.sun1 section.wrapper .s15 {
+    display: block;
+    height: 34px;
+    width: 74px;
+    background: #faaf9682;
+    border-radius: 24px;
+    display: none;
+}
+
+section.sun1 section.wrapper .s16 {
+    display: block;
+    height: 28px;
+    width: 74px;
+    background: #faaf9682;
+    border-radius: 24px;
+    display: none;
+}
+
+
+section.signupcontainer {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    position: absolute;
+    height: 64vh;
+    width: 52vw;
+    left: 24%;
+    top: 14vh;
+    border-radius: 12px;
+    background: #fff;
+    z-index: 9999999;
+}
+section.signupcontainer section.wrapper {
+    display: flex;
+    margin: 0;
+}
+
+section.signupcontainer section.wrapper section.left {
+    padding: 24px;
+}
+
+section.signupcontainer section.wrapper section.left div.languageselect {
+    margin-bottom: 1.6vh;
+    display: flex;
+    align-items: center;
+}
+
+section.signupcontainer section.wrapper section.left div.languageselect img {
+    margin-right: 8px;
+}
+
+section.signupcontainer section.wrapper section.left div.languageselect select {
+    color: #96A0B5;
+}
+section.signupcontainer section.wrapper section.left div.languageselect option{
+    color: #96A0B5;  
+}
+section.signupcontainer section.wrapper section.left div.logoarea {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+section.signupcontainer section.wrapper section.left div.logoarea img.logo {
+    display: block;
+    height: 4vh;
+    margin-right: 8px;
+}
+section.signupcontainer section.wrapper section.left div.logoarea h2 {
+    margin-right: 4px;
+    color: #0d6dfc;
+    font-size: 16px;
+    font-weight: 700;
+}
+section.signupcontainer section.wrapper section.left h3 {
+    font-size: 17px;
+    margin-bottom: 12px;
+    color: #8F95B2;
+    font-size: 13px;
+}
+section.signupcontainer section.wrapper section.left div.emailhead {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2.3vh;
+}
+section.signupcontainer section.wrapper section.left div.emailhead hr.signupline {
+    display: block;
+    height: 2px;
+    width: 8vw;
+    background: #8F95B2;
+}
+section.signupcontainer section.wrapper section.left div.emailhead h3 {
+    color: #8F95B2;
+    font-size: 14px;
+    margin-bottom: 0;
+    width: 8vw;
+}
+section.signupcontainer section.wrapper section.left section.detailsarea {}
+
+section.signupcontainer section.wrapper section.left section.detailsarea div.name {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.6vh;
+}
+
+section.signupcontainer section.wrapper section.left section.detailsarea div.name label {
+    font-size: 13px;
+    margin-bottom: 1.3vh;
+}
+section.signupcontainer section.wrapper section.left section.detailsarea div.name span.Name {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: 2px solid #D8DAE5;
+    padding: 8px 12px;
+    border-radius: 8px;
+    padding-left: 4px;
+}
+section.signupcontainer section.wrapper section.left section.detailsarea div.name span.Name img {
+    margin-right: 10px;
+}
+
+section.signupcontainer section.wrapper section.left section.detailsarea div.name span.Name input {
+    background: none;
+}
+
+section.signupcontainer section.wrapper section.left section.detailsarea div.emailarea {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.6vh;
+}
+
+section.signupcontainer section.wrapper section.left section.detailsarea div.emailarea label {
+    font-size: 13px;
+    margin-bottom: 1.3vh;
+}
+
+section.signupcontainer section.wrapper section.left section.detailsarea div.emailarea span.emailinput {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: 2px solid #D8DAE5;
+    padding: 8px 12px;
+    border-radius: 8px;
+    padding-left: 4px;
+}
+
+section.signupcontainer section.wrapper section.left section.detailsarea div.emailarea span.emailinput img {
+    margin-right: 10px;
+}
+
+section.signupcontainer section.wrapper section.left section.detailsarea div.emailarea span.emailinput input {
+    background: none;
+}
+
+section.signupcontainer section.wrapper section.left section.detailsarea div.password {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.6vh;
+}
+
+section.signupcontainer section.wrapper section.left section.detailsarea div.password label {
+    font-size: 13px;
+    margin-bottom: 1.3vh;
+}
+
+section.signupcontainer section.wrapper section.left section.detailsarea div.password span.passinput {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: 2px solid #D8DAE5;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-right: 10px;
+    padding-left: 4px;
+}
+
+section.signupcontainer section.wrapper section.left section.detailsarea div.password span.passinput img {
+    margin-right: 10px;
+}
+section.signupcontainer section.wrapper section.left section.detailsarea div.password span.passinput input {
+    background: none;
+    width: 99%;
+}
+section.signupcontainer section.wrapper section.left section.detailsarea div.password span.passinput img {
+    display: block;
+    height: 2.1vh;
+}
+section.signupcontainer section.wrapper section.left section.termsarea {
+    display: flex
+;
+    align-items: center;
+}
+section.signupcontainer section.wrapper section.left section.termsarea input {
+    margin-right: 10px;
+}
+
+section.signupcontainer section.wrapper section.left section.termsarea span.termload {
+    display: flex;
+    align-items: center;
+}
+section.signupcontainer section.wrapper section.left section.termsarea span.termload h3 {
+    font-size: 13px;
+    margin-bottom: 0;
+}
+section.signupcontainer section.wrapper section.left section.termsarea span.termload h3.tcnote {
+    margin-left: 6px;
+    color: #f55c2a;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}
+section.signupcontainer section.wrapper section.left button {
+    margin: 2vh 0;
+    background: #0d6dfc;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #fff;
+}
+section.signupcontainer section.wrapper section.left section.alreadylogged {
+    display: flex;
+    align-self: center;
+}
+
+section.signupcontainer section.wrapper section.left section.alreadylogged h3 {}
+
+section.signupcontainer section.wrapper section.left section.alreadylogged h3.alreadyregistered {
+    margin-left: 8px;
+    color: #f55c2a;
+    font-weight: 600;
+    cursor: pointer;
+}
+section.signupcontainer section.wrapper section.left section.alreadylogged h3.alreadyregistered:hover{
+    text-decoration: underline;
+}
+section.signupcontainer section.wrapper section.right {
+    height: 100%;
+}
+section.signupcontainer section.wrapper section.right img {
+    display: block;
+    height: 60vh;
+    width: 100%;
+    border-radius: 0 12px 12px 0;
+}
+
+
+
+
+
+section.logincontainer {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    position: absolute;
+    height: 64vh;
+    width: 52vw;
+    left: 24%;
+    top: 14vh;
+    border-radius: 12px;
+    background: #fff;
+    z-index: 9999999;
+    
+}
+section.logincontainer section.wrapper {
+    display: flex;
+    margin: 0;
+}
+
+section.logincontainer section.wrapper section.left {
+    padding: 24px;
+}
+
+section.logincontainer section.wrapper section.left div.languageselect {
+    margin-bottom: 1.6vh;
+    display: flex;
+    align-items: center;
+}
+
+section.logincontainer section.wrapper section.left div.languageselect img {
+    margin-right: 8px;
+}
+
+section.logincontainer section.wrapper section.left div.languageselect select {
+    color: #96A0B5;
+}
+section.logincontainer section.wrapper section.left div.languageselect option{
+    color: #96A0B5;  
+}
+section.logincontainer section.wrapper section.left div.logoarea {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+section.logincontainer section.wrapper section.left div.logoarea img.logo {
+    display: block;
+    height: 4vh;
+    margin-right: 8px;
+}
+section.logincontainer section.wrapper section.left div.logoarea h2 {
+    margin-right: 4px;
+    color: #0d6dfc;
+    font-size: 16px;
+    font-weight: 700;
+}
+section.logincontainer section.wrapper section.left h3 {
+    font-size: 17px;
+    margin-bottom: 12px;
+    color: #8F95B2;
+    font-size: 13px;
+}
+section.logincontainer section.wrapper section.left div.emailhead {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2.3vh;
+}
+section.logincontainer section.wrapper section.left div.emailhead hr.signupline {
+    display: block;
+    height: 2px;
+    width: 8vw;
+    background: #8F95B2;
+}
+section.logincontainer section.wrapper section.left div.emailhead h3 {
+    color: #8F95B2;
+    font-size: 14px;
+    margin-bottom: 0;
+    width: 7.6vw;
+}
+section.logincontainer section.wrapper section.left section.detailsarea {}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.name {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.6vh;
+}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.name label {
+    font-size: 13px;
+    margin-bottom: 1.3vh;
+}
+section.logincontainer section.wrapper section.left section.detailsarea div.name span.Name {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: 2px solid #D8DAE5;
+    padding: 8px 12px;
+    border-radius: 8px;
+    padding-left: 4px;
+}
+section.logincontainer section.wrapper section.left section.detailsarea div.name span.Name img {
+    margin-right: 10px;
+}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.name span.Name input {
+    background: none;
+}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.emailarea {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.6vh;
+}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.emailarea label {
+    font-size: 13px;
+    margin-bottom: 1.3vh;
+}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.emailarea span.emailinput {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: 2px solid #D8DAE5;
+    padding: 8px 12px;
+    border-radius: 8px;
+    padding-left: 4px;
+}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.emailarea span.emailinput img {
+    margin-right: 10px;
+}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.emailarea span.emailinput input {
+    background: none;
+}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.password {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.6vh;
+}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.password label {
+    font-size: 13px;
+    margin-bottom: 1.3vh;
+}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.password span.passinput {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: 2px solid #D8DAE5;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-right: 10px;
+    padding-left: 4px;
+}
+
+section.logincontainer section.wrapper section.left section.detailsarea div.password span.passinput img {
+    margin-right: 10px;
+}
+section.logincontainer section.wrapper section.left section.detailsarea div.password span.passinput input {
+    background: none;
+    width: 99%;
+}
+section.logincontainer section.wrapper section.left section.detailsarea div.password span.passinput img {
+    display: block;
+    height: 2.1vh;
+}
+section.logincontainer section.wrapper section.left section.termsarea {
+    display: flex
+;
+    align-items: center;
+}
+section.logincontainer section.wrapper section.left section.termsarea input {
+    margin-right: 10px;
+}
+
+section.logincontainer section.wrapper section.left section.termsarea span.termload {
+    display: flex;
+    align-items: center;
+}
+section.logincontainer section.wrapper section.left section.termsarea span.termload h3 {
+    font-size: 13px;
+    margin-bottom: 0;
+}
+section.logincontainer section.wrapper section.left section.termsarea span.termload h3.tcnote {
+    margin-left: 6px;
+    color: #f55c2a;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}
+section.logincontainer section.wrapper section.left button {
+    margin: 2vh 0;
+    background: #0d6dfc;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #fff;
+}
+section.logincontainer section.wrapper section.left section.alreadylogged {
+    display: flex;
+    align-self: center;
+}
+
+section.logincontainer section.wrapper section.left section.alreadylogged h3 {}
+
+section.logincontainer section.wrapper section.left section.alreadylogged h3.alreadyregistered {
+    margin-left: 8px;
+    color: #f55c2a;
+    font-weight: 600;
+    cursor: pointer;
+}
+section.logincontainer section.wrapper section.left section.alreadylogged h3.alreadyregistered:hover{
+    text-decoration: underline;
+}
+section.logincontainer section.wrapper section.right {
+    height: 100%;
+}
+section.logincontainer section.wrapper section.right img {
+    display: block;
+    height: 60vh;
+    width: 100%;
+    border-radius: 0 12px 12px 0;
+}
+
+
+
+section.logincontainer section.wrapper section.left section.rememberme {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+section.logincontainer section.wrapper section.left section.rememberme div.checkrem {
+    display: flex
+;
+    align-items: center;
+}
+section.logincontainer section.wrapper section.left section.rememberme div.checkrem input {
+    margin-right: 8px;
+}
+
+section.logincontainer section.wrapper section.left section.rememberme div.checkrem h3 {
+    margin-bottom: 0;
+    font-size: 12px;
+    color: #000;
+}
+
+section.logincontainer section.wrapper section.left section.rememberme span.forgotpass {}
+
+section.logincontainer section.wrapper section.left section.rememberme span.forgotpass h3.frgtpass {
+    color: #f55c2a;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+section.logincontainer section.wrapper section.left section.rememberme span.forgotpass h3.frgtpass:hover {
+    color: #f55c2a;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}
+section.logincontainer section.wrapper section.left button {}
+
+section.logincontainer section.wrapper section.left section.notregistered {
+    display: flex
+;
+    align-items: center;
+}
+section.logincontainer section.wrapper section.left section.notregistered h3 {}
+
+section.logincontainer section.wrapper section.left section.notregistered h3.notregisteredac {
+    color: #f55c2a;
+    font-weight: 600;
+    margin-left: 8px;
+}
+section.logincontainer section.wrapper section.left section.notregistered h3.notregisteredac:hover {
+    color: #f55c2a;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
+
+
+
+
+section.Forgotcontainer {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    position: absolute;
+    height: 64vh;
+    width: 52vw;
+    left: 24%;
+    top: 14vh;
+    border-radius: 12px;
+    z-index: 9999;
+    background-color: #fff;
+}
+section.Forgotcontainer section.wrapper {
+    display: flex;
+    margin: 0;
+}
+
+section.Forgotcontainer section.wrapper section.left {
+    padding: 24px;
+}
+
+section.Forgotcontainer section.wrapper section.left div.languageselect {
+    margin-bottom: 1.6vh;
+    display: flex;
+    align-items: center;
+}
+
+section.Forgotcontainer section.wrapper section.left div.languageselect img {
+    margin-right: 8px;
+}
+
+section.Forgotcontainer section.wrapper section.left div.languageselect select {
+    color: #96A0B5;
+}
+section.Forgotcontainer section.wrapper section.left div.languageselect option{
+    color: #96A0B5;  
+}
+section.Forgotcontainer section.wrapper section.left div.logoarea {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+section.Forgotcontainer section.wrapper section.left div.logoarea img.logo {
+    display: block;
+    height: 4vh;
+    margin-right: 8px;
+}
+section.Forgotcontainer section.wrapper section.left div.logoarea h2 {
+    margin-right: 4px;
+    color: #0d6dfc;
+    font-size: 16px;
+    font-weight: 700;
+}
+section.Forgotcontainer section.wrapper section.left h3 {
+    font-size: 17px;
+    margin-bottom: 12px;
+    color: #8F95B2;
+    font-size: 13px;
+}
+section.Forgotcontainer section.wrapper section.left div.emailhead {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2.3vh;
+}
+section.Forgotcontainer section.wrapper section.left div.emailhead hr.signupline {
+    display: block;
+    height: 2px;
+    width: 8vw;
+    background: #8F95B2;
+}
+section.Forgotcontainer section.wrapper section.left div.emailhead h3 {
+    color: #8F95B2;
+    font-size: 14px;
+    margin-bottom: 0;
+    width: 7.6vw;
+}
+section.Forgotcontainer section.wrapper section.left section.detailsarea {}
+
+section.Forgotcontainer section.wrapper section.left section.detailsarea div.name {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.6vh;
+}
+
+section.Forgotcontainer section.wrapper section.left section.detailsarea div.name label {
+    font-size: 13px;
+    margin-bottom: 1.3vh;
+}
+section.Forgotcontainer section.wrapper section.left section.detailsarea div.name span.Name {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: 2px solid #D8DAE5;
+    padding: 8px 12px;
+    border-radius: 8px;
+    padding-left: 4px;
+}
+section.Forgotcontainer section.wrapper section.left section.detailsarea div.name span.Name img {
+    margin-right: 10px;
+}
+
+section.Forgotcontainer section.wrapper section.left section.detailsarea div.name span.Name input {
+    background: none;
+}
+
+section.Forgotcontainer section.wrapper section.left section.detailsarea div.emailarea {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.6vh;
+}
+
+section.Forgotcontainer section.wrapper section.left section.detailsarea div.emailarea label {
+    font-size: 13px;
+    margin-bottom: 1.3vh;
+}
+
+section.Forgotcontainer section.wrapper section.left section.detailsarea div.emailarea span.emailinput {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: 2px solid #D8DAE5;
+    padding: 8px 12px;
+    border-radius: 8px;
+    padding-left: 4px;
+}
+
+section.Forgotcontainer section.wrapper section.left section.detailsarea div.emailarea span.emailinput img {
+    margin-right: 10px;
+}
+
+section.Forgotcontainer section.wrapper section.left section.detailsarea div.emailarea span.emailinput input {
+    background: none;
+}
+
+section.Forgotcontainer section.wrapper section.left section.detailsarea div.password {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.6vh;
+}
+
+section.Forgotcontainer section.wrapper section.left section.detailsarea div.password label {
+    font-size: 13px;
+    margin-bottom: 1.3vh;
+}
+
+section.Forgotcontainer section.wrapper section.left section.detailsarea div.password span.passinput {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: 2px solid #D8DAE5;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-right: 10px;
+    padding-left: 4px;
+}
+
+section.Forgotcontainer section.wrapper section.left section.detailsarea div.password span.passinput img {
+    margin-right: 10px;
+}
+section.Forgotcontainer section.wrapper section.left section.detailsarea div.password span.passinput input {
+    background: none;
+    width: 99%;
+}
+section.Forgotcontainer section.wrapper section.left section.detailsarea div.password span.passinput img {
+    display: block;
+    height: 2.1vh;
+}
+section.Forgotcontainer section.wrapper section.left section.termsarea {
+    display: flex
+;
+    align-items: center;
+}
+section.Forgotcontainer section.wrapper section.left section.termsarea input {
+    margin-right: 10px;
+}
+
+section.Forgotcontainer section.wrapper section.left section.termsarea span.termload {
+    display: flex;
+    align-items: center;
+}
+section.Forgotcontainer section.wrapper section.left section.termsarea span.termload h3 {
+    font-size: 13px;
+    margin-bottom: 0;
+}
+section.Forgotcontainer section.wrapper section.left section.termsarea span.termload h3.tcnote {
+    margin-left: 6px;
+    color: #f55c2a;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}
+section.Forgotcontainer section.wrapper section.left button {
+    margin: 2vh 0;
+    background: #0d6dfc;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #fff;
+}
+section.Forgotcontainer section.wrapper section.left section.alreadylogged {
+    display: flex;
+    align-self: center;
+}
+
+section.Forgotcontainer section.wrapper section.left section.alreadylogged h3 {}
+
+section.Forgotcontainer section.wrapper section.left section.alreadylogged h3.alreadyregistered {
+    margin-left: 8px;
+    color: #f55c2a;
+    font-weight: 600;
+    cursor: pointer;
+}
+section.Forgotcontainer section.wrapper section.left section.alreadylogged h3.alreadyregistered:hover{
+    text-decoration: underline;
+}
+section.Forgotcontainer section.wrapper section.right {
+    height: 100%;
+}
+section.Forgotcontainer section.wrapper section.right img {
+    display: block;
+    height: 60vh;
+    width: 100%;
+    border-radius: 0 12px 12px 0;
+}
+
+
+
+section.Forgotcontainer section.wrapper section.left section.rememberme {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+section.Forgotcontainer section.wrapper section.left section.rememberme div.checkrem {
+    display: flex
+;
+    align-items: center;
+}
+section.Forgotcontainer section.wrapper section.left section.rememberme div.checkrem input {
+    margin-right: 8px;
+}
+
+section.Forgotcontainer section.wrapper section.left section.rememberme div.checkrem h3 {
+    margin-bottom: 0;
+    font-size: 12px;
+    color: #000;
+}
+
+section.Forgotcontainer section.wrapper section.left section.rememberme span.forgotpass {}
+
+section.Forgotcontainer section.wrapper section.left section.rememberme span.forgotpass h3.frgtpass {
+    color: #f55c2a;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+section.Forgotcontainer section.wrapper section.left section.rememberme span.forgotpass h3.frgtpass:hover {
+    color: #f55c2a;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}
+section.Forgotcontainer section.wrapper section.left button {}
+
+section.Forgotcontainer section.wrapper section.left section.notregistered {
+    display: flex
+;
+    align-items: center;
+}
+section.Forgotcontainer section.wrapper section.left section.notregistered h3 {}
+
+section.Forgotcontainer section.wrapper section.left section.notregistered h3.notregisteredac {
+    color: #f55c2a;
+    font-weight: 600;
+    margin-left: 8px;
+}
+section.Forgotcontainer section.wrapper section.left section.notregistered h3.notregisteredac:hover {
+    color: #f55c2a;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+section.Forgotcontainer section.wrapper section.left section.rememberme {}
+
+section.Forgotcontainer section.wrapper section.left section.rememberme a:hover {
+    text-decoration: underline;
+    color: #f55c2a;
+}
+section.Forgotcontainer section.wrapper section.left section.rememberme a h3 {
+    font-weight: 600;
+    font-size: 14px;
+    color: #f55c2a;
+}
+
+
+section.loginbg {
+    background: #cfcfcfb8;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    z-index: 9999;
+}
+
+
+.flistsr {
+    position: relative;
+    transition: left 0.3s ease; /* Smooth animation */
+    /* Other styling as needed */
+}
+
+
+.dls {
+    position: relative;
+    /* Initial position (optional) */
+    left: 0;
+    /* Other styling as needed */
+}
+.nlswio {
+    position: relative;
+    /* Initial position (optional) */
+    left: 0;
+    /* Other styling as needed */
+}
+
+hr.ggline{
+    display: block;
+    height: 1.5px;
+    width: 100%;
+    background: #cfcfcf;
+}
+
+
+
+section.categoryheader {
+    padding: 6px 0;
+}
+
+section.categoryheader section.wrapper {}
+
+section.categoryheader section.wrapper ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+section.categoryheader section.wrapper ul li {
+    display: flex
+;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 8px;
+}
+section.categoryheader section.wrapper ul li:hover{
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    border-radius: 8px;
+}
+section.categoryheader section.wrapper ul li img {
+    display: block;
+    height: 5vh;
+    margin-bottom: 8px;
+}
+section.categoryheader section.wrapper ul li h3 {
+    font-size: 12px;
+    color: #0d6dfc;
+}       
+
+
+section.searchhostel {
+    margin: 2vh 0;
+    margin-bottom: 4vh;
+}
+section.searchhostel section.wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+section.searchhostel section.wrapper div.inputseacrarea {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border-radius: 8px;
+    border: 2px solid #cfcfcf;
+    padding: 6px 12px;
+}
+
+section.searchhostel section.wrapper div.inputseacrarea input {
+    width: 18vw;
+    margin-right: 8px;
+}
+section.searchhostel section.wrapper div.inputseacrarea img.seacrchicon {
+    display: block;
+    height: 3vh;
+}
+
+
+section.dealsarea {}
+
+section.dealsarea section.wrapper {
+    margin: 0 6vw;
+}
+section.dealsarea section.wrapper ul {
+    display: flex
+;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: flex-start;
+}
+section.dealsarea section.wrapper ul li {
+    margin-right: 28px;
+    width: 23.4%;
+    margin-bottom: 48px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 12px;
+    min-height: 46vh;
+}
+section.dealsarea section.wrapper ul li:nth-child(4),
+section.dealsarea section.wrapper ul li:nth-child(8),
+section.dealsarea section.wrapper ul li:nth-child(12),
+section.dealsarea section.wrapper ul li:nth-child(16),
+section.dealsarea section.wrapper ul li:nth-child(20),
+section.dealsarea section.wrapper ul li:nth-child(24),
+section.dealsarea section.wrapper ul li:nth-child(28),
+section.dealsarea section.wrapper ul li:nth-child(32) {
+    margin-right: 0;
+}
+section.dealsarea section.wrapper ul li section.top {
+    position: relative;
+    /* margin-bottom: 2vh; */
+    height: 33vh;
+    width: 20.4vw;
+}
+section.dealsarea section.wrapper ul li section.top img.hostelimage {
+    display: block;
+    height: 33vh;
+    width: 20.4vw;
+    border-radius: 16px 16px 0 0;
+}
+section.dealsarea section.wrapper ul li section.top h3.hostelhead {
+    position: absolute;
+    top: 19px;
+    background: #fff;
+    padding: 4px 12px;
+    font-size: 12px;
+    border-radius: 14px;
+    left: 14px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+section.dealsarea section.wrapper ul li section.bottom {
+    padding: 8px;
+}
+section.dealsarea section.wrapper ul li section.bottom div.one {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+section.dealsarea section.wrapper ul li section.bottom div.one h3 {
+    font-size: 14px;
+    font-weight: 500;
+}
+section.dealsarea section.wrapper ul li section.bottom div.one span.rating {
+    display: flex;
+    align-items: center;
+}
+
+section.dealsarea section.wrapper ul li section.bottom div.one span.rating img {
+    display: block;
+    height: 2vh;
+    margin-right: 8px;
+}
+section.dealsarea section.wrapper ul li section.bottom div.one span.rating h4 {}
+section.dealsarea section.wrapper ul li section.bottom h3.hostelshname {
+    color: #404040ab;
+    font-size: 13px;
+}
+section.dealsarea section.wrapper ul li section.bottom h4.date {
+    color: #404040ab;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+section.dealsarea section.wrapper ul li section.bottom div.pricing {
+    display: flex;
+    align-items: center;
+}
+
+section.dealsarea section.wrapper ul li section.bottom div.pricing img.rupeeicon {
+    display: block;
+    height: 2vh;
+}
+section.dealsarea section.wrapper ul li section.bottom div.pricing h3.hostelrate {}
+
+section.dealsarea section.wrapper ul li section.bottom div.pricing h4.timeinterval {
+    color: #404040ab;
+    font-size: 13px;
+    margin-left: 16px;
+}
+
+
+section.exlporemsg {
+    margin-bottom: 8vh;
+}
+
+section.exlporemsg section.wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+section.exlporemsg section.wrapper h3 {
+    margin-bottom: 3vh;
+}
+section.exlporemsg section.wrapper button.explore {
+    background: #000;
+    color: #fff;
+    font-size: 13px;
+    padding: 12px 18px;
+    border-radius: 8px;
+}
+
+
+
+section.hosteldtop {
+    margin-top: 1.5vh;
+}
+
+section.hosteldtop section.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+section.hosteldtop section.wrapper section.left {}
+
+section.hosteldtop section.wrapper section.left h2.hostelfullname {}
+
+section.hosteldtop section.wrapper section.right {
+    display: flex;
+    align-items: center;
+}
+
+section.hosteldtop section.wrapper section.right button.share {
+    display: flex;
+    align-items: center;
+    margin-right: 28px;
+}
+
+section.hosteldtop section.wrapper section.right button.share img {
+    margin-right: 8px;
+    display: block;
+    height: 2.5vh;
+}
+
+section.hosteldtop section.wrapper section.right button.share h3 {
+    text-decoration: underline;
+}
+
+section.hosteldtop section.wrapper section.right button.save {}
+section.hosteldtop section.wrapper section.right button.save h3{
+    text-decoration: underline;
+}
+
+
+
+section.imageshowarea {
+    margin: 4vh 0;
+}
+
+section.imageshowarea section.wrapper {}
+
+section.imageshowarea section.wrapper section.top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 4.5vh;
+}
+
+section.imageshowarea section.wrapper section.top section.left {
+    margin-right: 56px;
+}
+
+section.imageshowarea section.wrapper section.top section.left img.mainimage {
+    display: block;
+    height: 64vh;
+    width: 42vw;
+    border-radius: 18px;
+}
+section.imageshowarea section.wrapper section.top section.right {}
+section.imageshowarea section.wrapper section.top section.right ul {
+    display: flex
+;
+    flex-wrap: wrap;
+    width: 100%;
+}
+section.imageshowarea section.wrapper section.top section.right ul li {
+    width: 47.55%;
+    position: relative;
+}
+section.imageshowarea section.wrapper section.top section.right ul li:nth-child(1),section.imageshowarea section.wrapper section.top section.right ul li:nth-child(2)  {
+    margin-bottom: 28px;
+}
+section.imageshowarea section.wrapper section.top section.right ul li:nth-child(1),
+section.imageshowarea section.wrapper section.top section.right ul li:nth-child(3)  {
+    margin-right: 28px;
+}
+section.imageshowarea section.wrapper section.top section.right ul li img {
+    display: block;
+    height: 30vh;
+    width: 100%;
+    border-radius: 17px;
+}
+section.imageshowarea section.wrapper section.top section.right ul li button.showmore {
+    position: absolute;
+    background: #fff;
+    display: flex
+;
+    align-items: center;
+    width: 10vw;
+    padding: 10px 12px;
+    border-radius: 8px;
+        bottom: 23px;
+    z-index: 10;
+    right: 30px;
+}
+section.imageshowarea section.wrapper section.top section.right ul li button.showmore img {
+    display: block;
+    height: 2vh;
+    position: absolute;
+    left: -56px;
+}
+
+section.imageshowarea section.wrapper section.top section.right ul li button.showmore h3 {
+    font-size: 13px;
+    width: 32vw;
+    margin-left: 24px;
+}
+
+section.imageshowarea section.wrapper section.bottom {
+    display: flex
+;
+    align-items: center;
+    justify-content: flex-start;
+    display: none;
+    margin-bottom: 8vh;
+}
+section.imageshowarea section.wrapper section.bottom img {
+    margin-right: 36px;
+    width: 23.33%;
+    max-width: 16vw;
+    border-radius: 10px;
+}
+section.imageshowarea section.wrapper section.bottom img:last-child{
+    margin-right: 0;
+}
+
+
+section.imageshowarea section.wrapper section.description {}
+
+section.imageshowarea section.wrapper section.description {
+    display: flex;
+    justify-content: space-between;
+}
+
+section.imageshowarea section.wrapper section.description section.left {
+    width: 54%;
+    margin-right: 64px;
+}
+section.imageshowarea section.wrapper section.description section.left div.hostelnamed {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 8px;
+}
+section.imageshowarea section.wrapper section.description section.left div.hostelnamed h2 {
+    margin-left: 6px;
+    font-weight: 400;
+    font-size: 28px;
+}
+section.imageshowarea section.wrapper section.description section.left div.hostelnamed h2:first-child {
+    margin-left: 0px;
+}
+section.imageshowarea section.wrapper section.description section.left div.facilitiesarea {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 8px;
+}
+
+section.imageshowarea section.wrapper section.description section.left div.facilitiesarea h3 {
+    color: #404040;
+}
+section.imageshowarea section.wrapper section.description section.left div.facilitiesarea h3.dot {
+    margin: 0 8px;
+}
+section.imageshowarea section.wrapper section.description section.left div.facilitiesarea h3.num {
+    margin-right: 6px;
+}
+section.imageshowarea section.wrapper section.description section.left div.guestfavourite {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    padding: 12px 12px;
+    border-radius: 8px;
+    margin: 3vh 0;
+    border: 2px solid #404040;
+}
+
+section.imageshowarea section.wrapper section.description section.left div.guestfavourite img {}
+
+section.imageshowarea section.wrapper section.description section.left div.guestfavourite h5 {}
+section.imageshowarea section.wrapper section.description section.left div.guestfavourite div.ratingstar {
+    display: flex
+;
+    align-items: center;
+    flex-direction: column;
+}
+section.imageshowarea section.wrapper section.description section.left div.guestfavourite div.ratingstar h3 {}
+
+section.imageshowarea section.wrapper section.description section.left div.guestfavourite div.ratingstar img {}
+section.imageshowarea section.wrapper section.description section.left div.hostedarea {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1vh;
+}
+
+section.imageshowarea section.wrapper section.description section.left div.hostedarea div.one {
+    margin-right: 16px;
+}
+section.imageshowarea section.wrapper section.description section.left div.hostedarea div.one img {
+    display: block;
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+}
+section.imageshowarea section.wrapper section.description section.left div.hostedarea div.two {}
+
+section.imageshowarea section.wrapper section.description section.left div.hostedarea div.two div.hs1 {
+    display: flex;
+    align-items: center;
+}
+section.imageshowarea section.wrapper section.description section.left div.hostedarea div.two div.hs1 h2 {
+    font-size: 18px;
+}
+section.imageshowarea section.wrapper section.description section.left div.hostedarea div.two div.hs1 h2:first-child{
+    margin-right: 8px;
+}
+section.imageshowarea section.wrapper section.description section.left div.hostedarea div.two div.hs2 h3 {
+    color: #676464;
+    font-size: 13px;
+}
+section.imageshowarea section.wrapper section.description section.left div.hostedarea div.two div.hs1 h2.warden.name {}
+
+section.imageshowarea section.wrapper section.description section.left div.hostedarea {}
+
+section.imageshowarea section.wrapper section.description section.left div.hostedarea div.one {}
+
+section.imageshowarea section.wrapper section.description section.left div.hostedarea div.one h2 {}
+
+section.imageshowarea section.wrapper section.description section.left div.hostedarea div.one h2.warden.name {}
+
+section.imageshowarea section.wrapper section.description section.left div.hostedarea h4 {}
+section.imageshowarea section.wrapper section.description section.left hr.blackline {
+    display: block;
+    background: #000;
+    height: 1px;
+    width: 100%;
+    margin: 1vh 0;
+}
+section.imageshowarea section.wrapper section.description section.left div.cancellation {}
+
+section.imageshowarea section.wrapper section.description section.left div.cancellation ul {}
+
+section.imageshowarea section.wrapper section.description section.left div.cancellation ul li {
+    display: flex
+;
+    align-items: center;
+    margin: 1.5vh 0;
+}
+section.imageshowarea section.wrapper section.description section.left div.cancellation ul li img {
+    margin-right: 14px;
+}
+
+section.imageshowarea section.wrapper section.description section.left div.cancellation ul li div.two {}
+
+section.imageshowarea section.wrapper section.description section.left div.cancellation ul li div.two div.cn {
+    display: flex
+;
+    align-items: center;
+}
+section.imageshowarea section.wrapper section.description section.left div.cancellation ul li div.two div.cn h3 {}
+
+section.imageshowarea section.wrapper section.description section.left div.cancellation ul li div.two div.cn h3.cancellationdate {
+    margin-left: 8px;
+}
+
+section.imageshowarea section.wrapper section.description section.left div.cancellation ul li div.two h4 {
+    color: #676464;
+    font-size: 13px;
+}
+
+section.imageshowarea section.wrapper section.description section.left div.popular {}
+
+section.imageshowarea section.wrapper section.description section.left div.detaileddescribe {}
+
+section.imageshowarea section.wrapper section.description section.left div.detaileddescribe h3 {
+    font-size: 14px;
+    line-height: 1.5em;
+}
+section.imageshowarea section.wrapper section.description section.left div.sleepingarea {}
+
+section.imageshowarea section.wrapper section.description section.left div.placeoffers {}
+section.imageshowarea section.wrapper section.description section.right {
+    width: 32%;
+}
+section.description section.right section.rightone {
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    border-radius: 8px;
+}
+section.description section.right section.rightone div.rentminimum {
+    display: flex
+;
+    align-items: center;
+    margin-bottom: 0.8vh;
+    padding: 16px;
+}
+section.description section.right section.rightone div.rentminimum img {
+    display: block;
+    height: 1.6vh;
+}
+section.description section.right section.rightone div.rentminimum h2 {
+    margin-right: 8px;
+    font-size: 18px;
+}
+section.description section.right section.rightone div.rentminimum h3 {
+    margin-right: 8px;
+    font-size: 13px;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+section.description section.right section.rightone div.checkarea {
+    border: 1.8px solid #000;
+    border-radius: 8px;
+    margin: 16px;
+}
+
+section.description section.right section.rightone div.checkarea div.one {
+    
+}
+section.description section.right section.rightone div.checkarea div.one ul {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+section.description section.right section.rightone div.checkarea div.one ul li {
+    display: flex
+;
+    align-items: center;
+    flex-direction: column;
+    width: 48%;
+    cursor: pointer;
+    padding: 12px;
+}
+section.description section.right section.rightone div.checkarea div.one ul li:first-child {
+    border-right: 2px solid #000;
+}
+section.description section.right section.rightone div.checkarea div.one ul li h3 {
+    font-size: 14px;
+    color: #404040;
+    margin-bottom: 0;
+}
+section.description section.right section.rightone div.checkarea div.one ul li h3:first-child {
+    font-size: 20px;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 2px;
+}
+section.description section.right section.rightone div.checkarea div.two {
+    display: flex
+;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 12px;
+    border-top: 2px solid #000;
+}
+section.description section.right section.rightone div.checkarea div.two label {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+section.description section.right section.rightone div.checkarea div.two select {
+    width: 100%;
+    margin-top: 8px;
+    cursor: pointer;
+}
+section.description section.right section.rightone div.checkarea div.two select option{
+    cursor: pointer;
+}
+section.description section.right section.rightone button.reserve {
+    display: block;
+    margin: 0 auto;
+    background: #f55c2a;
+    color: #fff;
+    padding: 12px 12px;
+    width: 93%;
+    /* margin: 2vh 0; */
+    text-align: center;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    border-radius: 8px;
+    font-size: 15px;
+}
+section.description section.right section.rightone h3 {
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    color: #3C3C3C;
+    margin-bottom: 14px;
+}
+section.description section.right section.rightone div.chargingarea {}
+
+section.description section.right section.rightone div.chargingarea ul {
+    padding: 16px;
+}
+
+section.description section.right section.rightone div.chargingarea ul li {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.6vh;
+}
+section.description section.right section.rightone div.chargingarea ul li div.left {
+    display: flex
+;
+    align-items: center;
+}
+section.description section.right section.rightone div.chargingarea ul li div.left img {}
+
+section.description section.right section.rightone div.chargingarea ul li div.left h3.baseprice {
+    margin-bottom: 0;
+    margin-right: 6px;
+}
+section.description section.right section.rightone div.chargingarea ul li div.left img {
+    display: block;
+    height: 1.5vh;
+    margin-right: 2px;
+}
+section.description section.right section.rightone div.chargingarea ul li div.left h3.count {
+    margin-bottom: 0;
+    margin-right: 3px;
+}
+
+section.description section.right section.rightone div.chargingarea ul li div.left h3.days {
+    margin-bottom: 0;
+
+}
+
+section.description section.right section.rightone div.chargingarea ul li div.right {
+    display: flex;
+    align-items: center;
+}
+section.description section.right section.rightone div.chargingarea ul li div.right img {
+    display: block;
+    height: 1.5vh;
+}
+section.description section.right section.rightone div.chargingarea ul li div.right h3 {
+    margin-bottom: 0;
+}
+
+section.description section.right section.rightone hr.blackline {
+    display: block;
+    height: 1.6px;
+    background: #000;
+    width: 100%;
+}
+
+
+div.sleepingarea {
+    margin-bottom: 3vh;
+}
+
+div.sleepingarea h2 {
+    margin-bottom: 1.5vh;
+}
+div.sleepingarea ul {
+    display: flex
+;
+    align-items: center;
+}
+div.sleepingarea ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1vh;
+    padding: 8px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    padding: 16px;
+    border-radius: 8px;
+    border: 2px solid #565555;
+    margin-right: 16px;
+    cursor: pointer;
+    position: relative;
+}
+
+div.sleepingarea ul li img {
+    display: block;
+    height: 3vh;
+    margin-right: 16px;
+}
+div.sleepingarea ul li h3 {}
+
+div.sleepingarea ul li h4 {}
+
+
+div.sleepingarea ul li div.ss {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+div.sleepingarea ul li div.ss input {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+div.chargingarea ul li div.ss {
+    display: flex;
+    align-items: center;
+}
+div.chargingarea ul li div.ss img{
+    display: block;
+    height: 16px;
+}
+div.sleepingarea ul li div.ss h3 {}
+
+div.sleepingarea ul li div.ss h4 {
+    color: #404040;
+    font-size: 13px;
+}
+div.chargingarea ul li div.ss h3 {
+    margin-bottom: 0px !important;
+}
+div.sleepingarea ul li:has(div.ss input:checked) {
+    border: 2px solid #ff6536;
+}
+section.description section.right div.totalcharge {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+}
+section.description section.right div.totalcharge h2 {}
+
+section.description section.right div.totalcharge div.two {
+    display: flex
+;
+    align-items: center;
+}
+section.description section.right div.totalcharge div.two img {
+    display: block;
+    height: 2.4vh;
+    margin-right: 4px;
+}
+section.description section.right div.totalcharge div.two h2 {}
+section.description section.right section.righttwo {
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+    border-radius: 8px;
+    padding: 8px;
+    margin: 3vh 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+section.description section.right  section.righttwo div.rl1 {}
+
+section.description section.right  section.righttwo div.rl1 h3 {
+    font-size: 15px;
+}
+
+section.description section.right section.righttwo div.rl1 h3 span {
+    font-weight: 600;
+}
+section.description section.right  section.righttwo div.rl2 {}
+
+section.description section.right  section.righttwo div.rl2 img {}
+
+
+
+
+section.wardendetails {
+    margin-top: 6vh;
+}
+section.wardendetails section.wrapper {
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    padding: 18px 12px;
+    border-radius: 8px;
+    margin-bottom: 36px;
+    border: 2px solid #ffddd1;
+    padding-bottom: 0;
+}
+section.wardendetails section.wrapper section.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #ffddd1;
+    min-height: 12vh;
+    margin-bottom: 2vh;
+}
+section.wardendetails section.wrapper section.top section.left {
+    display: flex
+;
+    align-items: center;
+}
+section.wardendetails section.wrapper section.top section.left div.one {}
+
+section.wardendetails section.wrapper section.top section.left div.one img {
+    display: block;
+    height: 72px;
+    width: 72px;
+    margin-right: 16px;
+    border-radius: 50%;
+}
+section.wardendetails section.wrapper section.top section.left div.two {}
+
+section.wardendetails section.wrapper section.top section.left div.two h2.wardenname {}
+
+section.wardendetails section.wrapper section.top section.left div.two div.hosdetalingwarden {
+    display: flex
+;
+    align-items: center;
+}
+section.wardendetails section.wrapper section.top section.left div.two div.hosdetalingwarden h4.ownername {}
+
+section.wardendetails section.wrapper section.top section.left div.two div.hosdetalingwarden h4 {
+    color: #6e7485;
+    font-size: 13px;
+}
+
+section.wardendetails section.wrapper section.top section.left div.two div.hosdetalingwarden h4.hname {}
+
+section.wardendetails section.wrapper section.top section.left div.two div.hosdetalingwarden h4.hl {}
+
+section.wardendetails section.wrapper section.top section.left div.two div.hosdetalingwarden h4.hcn {}
+
+section.wardendetails section.wrapper section.top section.right {}
+
+section.wardendetails section.wrapper section.top section.right button.contacthostelmain {
+    display: flex
+;
+    align-items: center;
+    background: #ffeee8;
+    padding: 12px;
+    border-radius: 8px;
+}
+section.wardendetails section.wrapper section.top section.right button.contacthostelmain a  {
+    color: #ff6536;
+    font-size: 15px; 
+}
+
+section.wardendetails section.wrapper section.top section.right button.contacthostelmain img {
+    margin-left: 8px;
+}
+
+section.wardendetails section.wrapper section.bottom {}
+section.wardendetails section.wrapper section.bottom ul {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+section.wardendetails section.wrapper section.bottom ul li {
+    display: flex
+;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+}
+section.wardendetails section.wrapper section.bottom ul li h4 {
+    color: #4E5566;
+    font-size: 14px;
+}
+
+section.wardendetails section.wrapper section.bottom ul li hr.orangeunderline {
+    background: #ff6536;
+    height: 2px;
+    width: 100%;
+    margin-top: 1vh;
+    transition: opacity 0.5s ease-in-out;
+}
+section.wardendetails section.wrapper section.bottom ul li hr.orangeunderline.hide {
+    opacity: 0;
+}
+
+section.maindetaileenterarea {}
+
+section.maindetaileenterarea section.wrapper {
+}
+section.Generalareamain {
+    align-items: center;
+    justify-content: space-between;
+}
+ 
+section.maindetaileenterarea section.wrapper section.left {
+    width: 28%;
+    margin-right: 6vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    padding: 12px;
+    border-radius: 6px;
+    min-height: 54vh;
+}
+section.maindetaileenterarea section.wrapper section.left div.top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+section.maindetaileenterarea section.wrapper section.left div.top img {
+    display: block;
+    height: 212px;
+    width: 212px;
+}
+section.maindetaileenterarea section.wrapper section.left div.top div.uploadarea {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0000006e;
+    padding: 6px 0px;
+    width: 212px;
+    position: absolute;
+    bottom: 0;
+    cursor: pointer;
+}
+section.maindetaileenterarea section.wrapper section.left div.top div.uploadarea img.uploadsimple {
+    display: block;
+    height: 20px;
+    width: 20px;
+    margin-right: 8px;
+}
+section.maindetaileenterarea section.wrapper section.left div.top div.uploadarea h4 {
+    font-size: 13px;
+    color: #fff;
+}
+section.maindetaileenterarea section.wrapper section.left input.uploaduserprofilecart {
+    position: absolute;
+    bottom: 3px;
+    left: 0;
+    cursor: pointer;
+    opacity: 0;
+    z-index: 10;
+    width: 212px;
+}
+section.maindetaileenterarea section.wrapper section.left h5 {
+    display: block;
+    color: #6e7485;
+    margin: 1vh 0;
+    font-size: 12px;
+    max-width: 58%;
+    line-height: 1.5em;
+}
+section.maindetaileenterarea section.wrapper section.right {
+    width: 68%;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    padding: 12px;
+    border-radius: 6px;
+    min-height: 54vh;
+}
+
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea {}
+
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea div.namearea {}
+
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea div.namearea label {
+    font-size: 14px;
+    margin-bottom: 1vh;
+}
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea div.namearea div.namein {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea div.namearea div.namein input[type="text"] {
+    border: 2px solid #e9eaf0;
+    padding: 6px 12px;
+    font-size: 13px;
+    width: 45%;
+    margin-top: 1vh;
+    border-radius: 4px;
+}
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea div.usernamearea {}
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea div.usernamearea input[type="text"] {
+    border: 2px solid #e9eaf0;
+    padding: 6px 12px;
+    font-size: 13px;
+    width: 97%;
+    margin-top: 1vh;
+    border-radius: 4px;
+}
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea div.emailarea {
+    margin-top: 1vh;
+}
+
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea div.emailarea label {
+    font-size: 14px;
+    margin-bottom: 1vh;
+}
+
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea div.emailarea input[type="email"] {
+    border: 2px solid #e9eaf0;
+    padding: 6px 12px;
+    font-size: 13px;
+    width: 97%;
+    margin-right: 4vw;
+    margin-top: 1vh;
+    border-radius: 4px;
+}
+
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea div.addressarea {
+    margin-top: 1vh;
+}
+
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea div.addressarea label {
+    font-size: 14px;
+    margin-bottom: 1vh;
+}
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea div.usernamearea {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1vh;
+}
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea div.usernamearea label {
+    font-size: 14px;
+}
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea div.addressarea input[type="text"] {
+    border: 2px solid #e9eaf0;
+    padding: 6px 12px;
+    font-size: 13px;
+    width: 97%;
+    margin-right: 4vw;
+    margin-top: 1vh;
+    border-radius: 4px;
+}
+
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea div.locationarea {
+        margin-top: 1vh;
+}
+
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea div.locationarea label {
+    font-size: 14px;
+    margin-bottom: 1vh;
+}
+
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea div.locationarea input[type="text"] {
+    border: 2px solid #e9eaf0;
+    padding: 6px 12px;
+    font-size: 13px;
+    width: 97%;
+    margin-right: 4vw;
+    margin-top: 1vh;
+    border-radius: 4px;
+}
+
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea div.pincodearea {
+        margin-top: 1vh;
+}
+
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea div.pincodearea label {
+    font-size: 14px;
+    margin-bottom: 1vh;
+}
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea input::placeholder{
+    color: #c5c9d1;
+}
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea div.pincodearea input[type="text"] {
+    border: 2px solid #e9eaf0;
+    padding: 6px 12px;
+    font-size: 13px;
+    width: 97%;
+    margin-right: 4vw;
+    margin-top: 1vh;
+    border-radius: 4px;
+}
+section.maindetaileenterarea section.wrapper section.right section.generalinformationarea button.savechanges {
+    padding: 8px 12px;
+    background: #ff6536;
+    color: #fff;
+    margin: 2vh 0;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+section.hostelareamain {
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    border: 2px solid #e9eaf0;
+    border-radius: 6px;
+}
+section.hostelareamain section.hostelheaderenter {
+
+}
+section.hostelareamain section.hostelheaderenter ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #e9eaf0;
+}
+section.hostelareamain section.hostelheaderenter ul li.hosteldetails {
+    width: 36vw;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+section.hostelareamain section.hostelheaderenter ul li.hosteldetails h3 {
+    
+    color: #4e5566;
+    padding: 8px;
+    font-size: 13px;
+    margin-left: 4px;
+}
+
+section.hostelareamain section.hostelheaderenter ul li.prices {}
+
+section.hostelareamain section.hostelheaderenter ul li.prices h3 {
+    color: #4e5566;
+    padding: 8px;
+    font-size: 13px;
+    margin-left: 4px;
+}
+
+section.hostelareamain section.hostelheaderenter ul li.action {
+    width: 12vw;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section.hostelareamain section.hostelheaderenter ul li.action h3 {
+    color: #4e5566;
+    padding: 8px;
+    font-size: 13px;
+    margin-right: 4px;
+}
+
+section.hostelareamain section.hostedbottomenter {
+    padding: 18px;
+}
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3vh;
+    border-bottom: 2px solid #e9eaf0;
+    padding: 14px 0;
+}
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea:last-child{
+    margin-bottom: 0vh;
+    border-bottom: none;
+    padding: 14px 0;
+}
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails {
+    display: flex;
+    width: 36vw;
+}
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.one {}
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.one img.hostelmainimage {
+    display: block;
+    height: 96px;
+    width: 106px;
+    border-radius: 6px;
+    margin-right: 16px;
+}
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.two {}
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.two div.rating
+ {
+    display: flex
+;
+    align-items: center;
+}
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.two div.rating img {
+    margin-right: 4px;
+}
+
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.two div.rating h4 {
+    margin-right: 4px;
+}
+
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.two div.rating h5.countrate {
+    margin-right: 4px;
+    color: #8c94a3;
+    font-size: 12px;
+}
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.two h3.hostelnamecart {
+    font-size: 16px;
+    margin: 4px 0 3vh 0;
+}
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.two div.hosteddetailsarea {
+    display: flex
+;
+    align-items: center;
+}
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.two div.hosteddetailsarea h5 {}
+
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.two div.hosteddetailsarea h4.wardenname {}
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.two div.hosteddetailsarea h3 {
+    font-size: 16px;
+    margin-bottom: 6px;
+    font-weight: 700;
+    margin: 0 6px;
+    margin-bottom: 6px;
+}
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.two div.hosteddetailsarea h5 {
+    color: #4e5566;
+    font-size: 13px;
+}
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.prices {
+    width: 12vw;
+    text-align: center;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+}
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.prices div.one {
+    display: flex
+;
+    align-items: center;
+}
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.prices div.one h3.realprice1 {
+    display: flex;
+    align-items: baseline;
+}
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.prices div.one h3.realprice1 img {
+    display: block;
+    height: 2vh;
+    margin-right: 4px;
+}
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.prices div.one h3.realprice {
+    color: #ff6536;
+}
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.action {
+    display: flex
+;
+    align-items: center;
+}
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.action button.delete {
+    margin-right: 16px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    background: #fff;
+    padding: 10px 36px;
+    border-radius: 5px;
+    background: #cedaec;
+}
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.action button.reserved {
+    margin-right: 16px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    padding: 10px 36px;
+    border-radius: 5px;
+    background: #ff6536;
+    color: #fff;
+}
+section.hostelareamain section.hostedbottomenter ul.hosteldetailenterarea li.action img.liked {
+    background: #ffeee8;
+    padding: 6px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+section.wrapper.roomareamain h2 {}
+
+section.wrapper.roomareamain section.roomdetailsarea {
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.top {
+    border-bottom: 2px solid #cfcfcf;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left {
+    width: auto;
+    margin: auto;
+    display: block;
+    text-align: unset;
+    min-height: auto;
+    box-shadow: none;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.date {
+    display: flex
+;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.date .vline {
+    display: block;
+    background: #ff6536;
+    height: 30px;
+    width: 2px;
+    margin-left: 7px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.date div.checkimg {
+    display: flex
+;
+    align-items: center;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.date div.checkimg img {
+    display: block;
+    height: 28px;
+    margin-right: 10px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.date div.checkimg h5.checkinday {}
+
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.date div.checkimg h5.checkinmonth {}
+
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.date div.checkimg h5 {}
+
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.date div.checkimg h5.checkinyear {}
+
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.date div.checkimg h5 {}
+
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.date div.checkimg h5.checktime {}
+
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.date div.checkimg h5.checkinampm {}
+
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.date div.checkimg h5.checkoutday {}
+
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.date div.checkimg h5.checkoutmonth {}
+
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.date div.checkimg h5 {}
+
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.date div.checkimg h5.checkoutyear {}
+
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.date div.checkimg h5 {
+    color: #ff6536;
+    margin-right: 4px;
+    font-size: 14px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.date div.checkimg h5.checktime {}
+
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.date div.checkimg h5.checkoutampm {}
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.detabottom {
+    display: flex;
+    align-items: center;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.detabottom div.bed {
+    display: flex;
+    align-items: center;
+    margin-right: 16px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.detabottom div.bed img {
+    display: block;
+    height: 28px;
+    margin-right: 8px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.detabottom div.bed h4 {
+    font-size: 14px;
+    color: #4E5566;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.detabottom div.totalraterooms {
+    display: flex;
+    align-items: center;
+    margin-right: 16px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.detabottom div.totalraterooms img {
+    display: block;
+    height: 16px;
+    margin-right: 0px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.detabottom div.totalraterooms h4 {
+    font-size: 14px;
+    color: #4E5566;
+}
+
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.detabottom div.paymentoptions {
+    display: flex;
+    align-items: center;
+    margin-right: 16px;
+}
+
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.detabottom div.paymentoptions img {
+    display: block;
+    height: 24px;
+    margin-right: 8px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.top section.left div.detabottom div.paymentoptions h4 {
+    font-size: 14px;
+    color: #4E5566;
+}
+
+section.wrapper.roomareamain section.roomdetailsarea section.top section.right {
+    width: auto;
+}
+
+
+
+
+
+section.wrapper.roomareamain section.roomdetailsarea section.bottom {}
+
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul {
+    padding: 18px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li .greytotalline{
+
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.left {}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.left ul {
+    display: flex
+;
+    align-items: center;
+    flex-direction: column;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.left ul li {
+    display: flex;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.left ul li img {
+    display: block;
+    height: 96px;
+    width: 96px;
+    border-radius: 6px;
+    margin-right: 24px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.left ul li div.two {}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.left ul li div.two div.rating {
+    display: flex
+;
+    align-items: center;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.left ul li div.two div.rating img {
+    display: block;
+    height: 28px;
+    width: 28px;
+    margin-right: 4px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.left ul li div.two div.rating h4 {
+    margin-right: 6px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.left ul li div.two div.rating h5.countrate {
+    color: #6e7485;
+    font-size: 12px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.left ul li div.two h3.hostelnamecart {
+    margin-bottom: 3vh;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.left ul li div.two div.hosteddetailsarea {
+    display: flex
+;
+    align-items: center;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.left ul li div.two div.hosteddetailsarea h5 {}
+
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.left ul li div.two div.hosteddetailsarea h4.wardenname {}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.left ul li div.two div.hosteddetailsarea h3 {
+    font-size: 19px;
+    margin: 0 5px;
+    margin-bottom: 7px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.left ul li div.two div.hosteddetailsarea h5 {
+    color: #6e7485;
+}
+
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.right {}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.right div.dateselectedcheckin {
+    display: flex
+;
+    align-items: center;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.right div.dateselectedcheckin h5.checkinday {
+    margin-right: 4px;
+}
+
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.right div.dateselectedcheckin h5.checkinmonth {
+    margin-right: 4px;
+}
+
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.right div.dateselectedcheckin h5 {
+    margin-right: 4px;
+    font-size: 24px;
+}
+
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.right div.dateselectedcheckin h5.checkinyear {
+    margin-right: 4px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.right div.dateselectedcheckin h5 {
+    margin-right: 4px;
+    margin-bottom: 2vh;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.right div.dateselectedcheckin h5.checktime {
+    margin-right: 4px;
+}
+
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.right div.dateselectedcheckin h5.checkinampm {
+    margin-right: 4px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.right div.detabottom {
+    display: flex
+;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.right div.detabottom div.bed {
+    display: flex;
+    align-items: center;
+    margin-right: 14px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.right div.detabottom div.bed img {
+    display: block;
+    height: 28px;
+    margin-right: 8px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.right div.detabottom div.bed h4 {}
+
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.right div.detabottom div.totalraterooms {
+    display: flex;
+    align-items: center;
+    margin-right: 14px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.right div.detabottom div.totalraterooms img {
+    display: block;
+    height: 16px;
+    margin-right: 0px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.right div.detabottom div.totalraterooms h4 {}
+
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.right div.detabottom div.paymentoptions {
+    display: flex;
+    align-items: center;
+    margin-right: 14px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.right div.detabottom div.paymentoptions img {
+    display: block;
+    height: 24px;
+    margin-right: 8px;
+}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.right div.detabottom div.paymentoptions h4 {}
+
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.right div.userdetails {}
+section.wrapper.roomareamain section.roomdetailsarea section.bottom ul li div.right div.userdetails h3 {
+    font-size: 13px;
+}
+
+
+
+section.messageareamain {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 6vh;
+    min-height: 32vh;
+}
+section.messageareamain section.msgtop {}
+
+section.messageareamain section.msgtop h2 {
+    margin-bottom: 1.5vh;
+}
+
+section.messageareamain section.messagecontentselect {}
+
+section.messageareamain section.messagecontentselect label {
+    display: block;
+    width: 100%;
+    margin: 1vh 0;
+    font-size: 14px;
+    color: #1D2026;
+}
+section.messageareamain section.messagecontentselect input#customSelect {
+    border: 2px solid #e9eaf0;
+    width: 95%;
+    padding: 8px 16px;
+    padding-left: 13px;
+    border-radius: 6px;
+    color: #000;
+}
+section.messageareamain section.messagecontentselect datalist#optionsList {}
+
+section.messageareamain section.messagecontentselect datalist#optionsList option {}
+section.messageareamain section.messagecontentselect textarea {
+    border: 2px solid #e9eaf0;
+    width: 95%;
+    padding:  16px;
+    padding-left: 13px;
+    border-radius: 6px;
+    color: #000;
+}
+section.messageareamain section.messagecontentselect section.msgareabuttons {
+    display: flex
+;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 2vh 0;
+}
+section.messageareamain section.messagecontentselect section.msgareabuttons button.cancelmessage {
+    margin-right: 28px;
+    background: #cad9ef;
+    padding: 9px 28px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+    border-radius: 6px;
+    border: 2px solid #e9eaf0;
+}
+section.messageareamain section.messagecontentselect section.msgareabuttons button.sendmessage {
+    display: flex;
+    align-items: center;
+    background: #ff6636;
+    padding: 7px 28px;
+    border-radius: 6px;
+    /* border: 2px solid #ff6636; */
+}
+
+section.messageareamain section.messagecontentselect section.msgareabuttons button.sendmessage h4 {
+    color: #fff;
+}
+
+section.messageareamain section.messagecontentselect section.msgareabuttons button.sendmessage img {
+    margin-left: 8px;
+    
+}
+
+
+section.wrapper.paymentdetailsareamain {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    padding: 16px;
+    border-radius: 6px;
+}
+section.wrapper.paymentdetailsareamain ul.selectpaymentmethod {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4vh;
+    border-bottom: 2px solid #ffddd1;
+    padding-bottom: 36px;
+}
+section.wrapper.paymentdetailsareamain ul.selectpaymentmethod li {
+    display: flex
+;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 12%;
+    border: 2px solid #fff;
+}
+section.wrapper.paymentdetailsareamain ul.selectpaymentmethod li:hover{
+    border: 2px solid #ff6536;
+}
+section.wrapper.paymentdetailsareamain ul.selectpaymentmethod li img {
+    display: block;
+    height: 6vh;
+}
+section.wrapper.paymentdetailsareamain ul.selectpaymentmethod li h4 {
+    color: #201515;
+    font-size: 13px;
+    margin-top: 8px;
+}
+section.wrapper.paymentdetailsareamain section.cardpaymentarea {}
+
+section.wrapper.paymentdetailsareamain section.cardpaymentarea div.name {}
+
+section.wrapper.paymentdetailsareamain section.cardpaymentarea div.name label {
+    display: block;
+    width: 100%;
+    margin: 1vh 0;
+    font-size: 14px;
+    color: #1D2026;
+}
+
+section.wrapper.paymentdetailsareamain section.cardpaymentarea div.name input[type="text"] {
+    border: 2px solid #e9eaf0;
+    width: 95%;
+    padding: 8px 16px;
+    padding-left: 13px;
+    border-radius: 6px;
+    color: #000;
+}
+
+section.wrapper.paymentdetailsareamain section.cardpaymentarea div.cardnumber {}
+
+section.wrapper.paymentdetailsareamain section.cardpaymentarea div.cardnumber label {
+    display: block;
+    width: 100%;
+    margin: 1vh 0;
+    font-size: 14px;
+    color: #1D2026;
+}
+
+section.wrapper.paymentdetailsareamain section.cardpaymentarea div.cardnumber span.cardicon {
+    border: 2px solid #e9eaf0;
+    width: 95%;
+    padding: 4px 16px;
+    padding-left: 13px;
+    border-radius: 6px;
+    color: #000;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+section.wrapper.paymentdetailsareamain section.cardpaymentarea div.cardnumber span.cardicon img#card-icon-image {
+    display: block;
+    height: 28px;
+    width: 28px;
+    margin-right: 13px;
+    border-right: 2px solid #e9eaf0;
+    padding-right: 10px;
+    
+}
+section.wrapper.paymentdetailsareamain section.cardpaymentarea div.cardnumber span.cardicon input#cardnumber {
+    width: 100%;
+}
+section.wrapper.paymentdetailsareamain section.cardpaymentarea div.cardnumber span.cardicon p#card-validation-message {
+    position: absolute;
+    font-size: 12px;
+    bottom: 8px;
+    right: 15px;
+}
+section.wrapper.paymentdetailsareamain section.cardpaymentarea div.carddates {}
+
+section.wrapper.paymentdetailsareamain section.cardpaymentarea div.carddates div.month {}
+
+section.wrapper.paymentdetailsareamain section.cardpaymentarea div.carddates div.month label {
+    display: block;
+    width: 100%;
+    margin: 1vh 0;
+    font-size: 14px;
+    color: #1D2026;
+}
+
+section.wrapper.paymentdetailsareamain section.cardpaymentarea div.carddates div.month input[type="text"] {
+    border: 2px solid #e9eaf0;
+    width: 95%;
+    padding: 8px 16px;
+    padding-left: 13px;
+    border-radius: 6px;
+    color: #000;
+}
+
+section.wrapper.paymentdetailsareamain section.cardpaymentarea div.carddates div.cvv {}
+
+section.wrapper.paymentdetailsareamain section.cardpaymentarea div.carddates div.cvv label {
+    display: block;
+    width: 100%;
+    margin: 1vh 0;
+    font-size: 14px;
+    color: #1D2026;
+}
+
+section.wrapper.paymentdetailsareamain section.cardpaymentarea div.carddates div.cvv input[type="text"] {
+    border: 2px solid #e9eaf0;
+    width: 95%;
+    padding: 8px 16px;
+    padding-left: 13px;
+    border-radius: 6px;
+    color: #000;
+}
+section.wrapper.paymentdetailsareamain section.cardpaymentarea div.remembercard {
+    display: flex
+;
+    align-items: center;
+    margin: 1vh 0;
+}
+section.wrapper.paymentdetailsareamain section.cardpaymentarea div.remembercard input[type="checkbox"] {
+    margin-right: 6px;
+    cursor: pointer;
+}
+
+section.wrapper.paymentdetailsareamain section.cardpaymentarea div.remembercard h5 {
+    font-size: 12px;
+}
+section.wrapper.paymentdetailsareamain section.cardpaymentarea .savecard {
+    background: #ff6636;
+    padding: 8px 28px;
+    border-radius: 6px;
+    margin: 2vh 0;
+    color: #fff;
+}
+
+section.wrapper.paymentdetailsareamain section.cardpaymentarea section.savedcardarea {
+    margin-bottom: 4vh;
+}
+
+section.wrapper.paymentdetailsareamain section.cardpaymentarea section.savedcardarea ul {
+    max-width: 70%;
+}
+section.wrapper.paymentdetailsareamain section.cardpaymentarea section.savedcardarea ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid #e9eaf0;
+    width: 95%;
+    padding: 4px 16px;
+    padding-left: 13px;
+    border-radius: 6px;
+    color: #000;
+    margin-bottom: 2vh;
+    min-width: 60vw;
+    cursor: pointer;
+}
+section.wrapper.paymentdetailsareamain section.cardpaymentarea section.savedcardarea ul li:hover,section.wrapper.paymentdetailsareamain section.cardpaymentarea section.savedcardarea ul li:active,section.wrapper.paymentdetailsareamain section.cardpaymentarea section.savedcardarea ul li:focus-visible{
+    border: 2px solid green;
+}
+section.wrapper.paymentdetailsareamain section.cardpaymentarea section.savedcardarea ul li img.cardlogo {
+    display: block;
+    height: 32px;
+}
+section.wrapper.paymentdetailsareamain section.cardpaymentarea section.savedcardarea ul li input.savedcardnumber {}
+
+section.wrapper.paymentdetailsareamain section.cardpaymentarea section.savedcardarea ul li h3.expdate {
+    color: #4e5566;
+    font-size: 14px;
+}
+section.wrapper.paymentdetailsareamain section.cardpaymentarea section.savedcardarea ul li h3.cardname {
+    color: #4e5566;
+    font-size: 14px;
+}
+
+section.wrapper.paymentdetailsareamain section.upipaymentarea {}
+
+section.wrapper.paymentdetailsareamain section.upipaymentarea label {
+    display: block;
+    width: 100%;
+    margin: 1vh 0;
+    font-size: 14px;
+    color: #1D2026;
+}
+
+section.wrapper.paymentdetailsareamain section.upipaymentarea input[type="text"] {
+    border: 2px solid #e9eaf0;
+    width: 95%;
+    padding: 8px 16px;
+    padding-left: 13px;
+    border-radius: 6px;
+    color: #000;
+}
+
+section.wrapper.paymentdetailsareamain section.upipaymentarea button.saveupiid {
+    background: #ff6636;
+    padding: 8px 28px;
+    border-radius: 6px;
+    margin: 2vh 0;
+    color: #fff;
+}
+
+section.wrapper.paymentdetailsareamain section.qrpaymentarea {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+section.wrapper.paymentdetailsareamain section.qrpaymentarea label {}
+section.wrapper.paymentdetailsareamain section.qrpaymentarea img.upipaymentqrcode {
+    display: block;
+    height: 20vh;
+    margin-bottom: 3vh;
+}
+section.wrapper.paymentdetailsareamain section.qrpaymentarea div.paymentamnt {
+    display: flex
+;
+    align-items: center;
+}
+section.wrapper.paymentdetailsareamain section.qrpaymentarea div.paymentamnt h3 {}
+section.wrapper.paymentdetailsareamain section.qrpaymentarea label
+ {
+    margin: 2vh 0;
+}
+section.wrapper.paymentdetailsareamain section.qrpaymentarea input[type="text"] {
+    border: 2px solid #e9eaf0;
+    width: 30%;
+    padding: 8px 16px;
+    padding-left: 13px;
+    border-radius: 6px;
+    color: #000;
+    text-align: center;
+}
+section.wrapper.paymentdetailsareamain section.qrpaymentarea button.saveupiqr {
+    background: #ff6636;
+    padding: 8px 28px;
+    border-radius: 6px;
+    margin: 2vh 0;
+    color: #fff;
+}
+
+
+section.hamburgurprofileuserhostohaven {
+    height: 100%;
+    width: 16vw;
+    background: #ffffffde;
+    z-index: 9999;
+    position: absolute;
+    right: 0;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 8px 0 0 8px;
+}
+section.hamburgurprofileuserhostohaven section.hwrapper {
+    padding: 16px;
+}
+
+section.hamburgurprofileuserhostohaven section.hwrapper ul {}
+section.hamburgurprofileuserhostohaven section.hwrapper ul li:nth-child(2) {
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 2vh;
+}
+section.hamburgurprofileuserhostohaven section.hwrapper ul li:nth-child(2) {
+    font-size: 15px;
+    border-bottom: 3px solid #979797;
+    padding-bottom: 8px;
+}
+section.hamburgurprofileuserhostohaven section.hwrapper ul li:nth-child(2) img{
+    display: block;
+    height: 86px;
+    margin-right: 0;
+}
+section.hamburgurprofileuserhostohaven section.hwrapper ul li:nth-child(8){
+    border-bottom: 3px solid #979797;
+    padding-bottom: 8px;
+}
+
+section.hamburgurprofileuserhostohaven section.hwrapper ul li {
+    display: flex
+;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+section.hamburgurprofileuserhostohaven section.hwrapper ul li button.hamclose {
+    margin-top: 1vh;
+}
+section.hamburgurprofileuserhostohaven section.hwrapper ul li button.hamclose img {
+    display: block;
+    height: 37px;
+}
+section.hamburgurprofileuserhostohaven section.hwrapper ul li img {
+    display: block;
+    height: 26px;
+    margin-right: 8px;
+}
+section.hamburgurprofileuserhostohaven section.hwrapper ul li:nth-child(2) h3 {
+    font-size: 18px;
+}
+section.hamburgurprofileuserhostohaven section.hwrapper ul li h3 {
+    font-size: 15px;
+    cursor: pointer;
+    color: #444242;
+}
+section.hamburgurprofileuserhostohaven section.hwrapper ul li h2 {
+    font-size: 15px;
+    color: #67748e;
+    font-weight: 600;
+}
+
+
+
+section.usershamburger {
+    position: absolute;
+    background: #f4f5fa;
+    top: 0;
+    left: 0;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 5vw;
+    min-height: 100vh;
+    max-height: 100%;
+}
+section.usershamburger section.uwrapper {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    flex-direction: column;
+}
+
+section.usershamburger section.uwrapper div.logomain {
+    margin: 2vh 0;
+}
+section.usershamburger section.uwrapper div.logomain img {
+    display: block;
+    height: 4vh;
+}
+section.usershamburger section.uwrapper div.homego {
+    margin-bottom: 4vh;
+}
+
+section.usershamburger section.uwrapper div.homego a {}
+
+section.usershamburger section.uwrapper div.homego a img {
+    padding: 2px 0;
+}
+section.usershamburger section.uwrapper hr.smallugline {
+    display: block;
+    height: 2px;
+    width: 83%;
+    background: #4a35414f;
+    margin: 0 6px;
+    margin-bottom: 2vh;
+}
+section.usershamburger section.uwrapper div.udash {
+    display: block;
+    text-align: center;
+    width: 5vw;
+    background: #2684ff;
+    border-radius: 0 18px 18px 0;
+    margin-bottom: 2vh;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+section.usershamburger section.uwrapper div.udash a {}
+
+section.usershamburger section.uwrapper div.udash a img {
+    padding: 2px 0;
+}
+section.usershamburger section.uwrapper div.orders {
+    display: block;
+    text-align: center;
+    width: 5vw;
+    border-radius: 0 18px 18px 0;
+    margin-bottom: 2vh;
+}
+
+section.usershamburger section.uwrapper div.orders a {}
+
+section.usershamburger section.uwrapper div.orders a img {
+    padding: 2px 0;
+}
+
+section.usershamburger section.uwrapper div.uchat {
+    display: block;
+    text-align: center;
+    width: 5vw;
+    border-radius: 0 18px 18px 0;
+    margin-bottom: 2vh;
+}
+
+section.usershamburger section.uwrapper div.uchat img {}
+section.usershamburger section.uwrapper div.ulogout {
+    display: block;
+    text-align: center;
+    width: 5vw;
+    border-radius: 0 18px 18px 0;
+    margin-bottom: 2vh;
+    position: fixed;
+    bottom: 48px;
+}
+section.usershamburger section.uwrapper div.ulogout a {}
+
+section.usershamburger section.uwrapper div.ulogout a img {
+    display: block;
+    height: 4vh;
+    padding: 16px;
+}
+
+
+
+
+footer.udashfooter {
+    background: #f4f5fa;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 6vh;
+    padding: 0;
+}
+
+footer.udashfooter section.wrapper {
+    padding: 12px 0;
+}
+
+footer.udashfooter section.wrapper section.left {
+    display: flex;
+    align-items: center;
+}
+
+footer.udashfooter section.wrapper section.left h4 {
+    font-size: 14px;
+}
+
+footer.udashfooter section.wrapper section.left a {
+    margin-left: 8px;
+}
+
+footer.udashfooter section.wrapper section.left a h4 {
+    color: #2684FF;
+    font-size: 14px;
+}
+
+footer.udashfooter section.wrapper section.right {}
+
+footer.udashfooter section.wrapper section.right a.document {
+    margin-right: 8px;
+    color: #2684FF;
+    font-size: 14px;
+}
+
+footer.udashfooter section.wrapper section.right a.support {
+    color: #2684FF;
+    font-size: 14px;
+}
+
+
+
+
+section.userdashoardarea {}
+section.userdashoardarea section.wrapper {
+    margin: 0 4vw;
+    margin-left: 6vw;
+    margin-right: 28px;
+}
+section.userdashoardarea section.wrapper section.showpath {
+    display: flex;
+    align-items: center;
+    padding-top: 4vh;
+    position: relative;
+    left: 1vw;
+}
+section.userdashoardarea section.wrapper section.showpath h3 {
+    font-size: 14px;
+    color: #3a3541b5;
+    margin-right: 4px;
+    cursor: pointer;
+}
+section.userdashoardarea section.wrapper section.showpath h3.patharea {
+    color: #3A3541;
+}
+
+
+
+section.userprofiledashboard {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6vh;
+    margin-bottom: 10vh;
+}
+section.userprofiledashboard section.left {
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 24vw;
+    margin-left: 1vw;
+    border-radius: 14px;
+    padding: 12px;
+}
+section.userprofiledashboard section.left div.profile {
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 5vh;
+    margin-bottom: 2vh;
+}
+section.userprofiledashboard section.left div.profile img {
+    display: block;
+    height: 110px;
+    width: 110px;
+    border-radius: 8px;
+}
+section.userprofiledashboard section.left div.profile h4.profilename {
+    font-size: 14px;
+    margin-top: 1vh;
+    color: #3A3541;
+}
+section.userprofiledashboard section.left div.status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2vh;
+}
+section.userprofiledashboard section.left div.status div.verification {
+    display: flex;
+    align-items: center;
+}
+section.userprofiledashboard section.left div.status div.verification img {
+    display: block;
+    height: 22px;
+    background: #e5f0ff;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    padding: 6px;
+    border-radius: 6px;
+    margin-right: 14px;
+    cursor: pointer;
+}
+
+section.userprofiledashboard section.left div.status div.verification h3 {}
+
+section.userprofiledashboard section.left div.status div.verification h4 {}
+
+section.userprofiledashboard section.left div.status div.totalorders {
+    display: flex;
+    align-items: center;
+}
+
+section.userprofiledashboard section.left div.status div.totalorders img {
+    display: block;
+    height: 22px;
+    background: #e5f0ff;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    padding: 6px;
+    border-radius: 6px;
+    margin-right: 14px;
+    cursor: pointer;
+}
+section.userprofiledashboard section.left div.status div.verification div.one {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+section.userprofiledashboard section.left div.status div.verification div.one h3 {}
+
+section.userprofiledashboard section.left div.status div.verification div.one h4 {
+    color: #4a35419e;
+    font-size: 12px;
+}
+section.userprofiledashboard section.left div.status div.totalorders {}
+
+section.userprofiledashboard section.left div.status div.totalorders img {}
+
+section.userprofiledashboard section.left div.status div.totalorders div.one {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+section.userprofiledashboard section.left div.status div.totalorders div.one h3.ordercounttotal {}
+
+section.userprofiledashboard section.left div.status div.totalorders div.one h4 {
+    color: #4a35419e;
+    font-size: 12px;
+}
+
+section.userprofiledashboard section.left div.status div.totalorders h3.ordercounttotal {}
+
+section.userprofiledashboard section.left div.status div.totalorders h4 {}
+
+section.userprofiledashboard section.left h3 {}
+section.userprofiledashboard section.left hr.usdashline {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: #4a354166;
+    margin: 1vh 0;
+}
+section.userprofiledashboard section.left div.detailsdasharea {
+    margin-top: 2vh;
+}
+
+section.userprofiledashboard section.left div.detailsdasharea ul {}
+section.userprofiledashboard section.left div.detailsdasharea ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5vh;
+}
+section.userprofiledashboard section.left div.detailsdasharea ul li h4 {
+    color: #3A3541;
+    margin-right: 4px;
+    font-size: 14px;
+}
+section.userprofiledashboard section.left div.detailsdasharea ul li h5 {
+    color: #3a3541b0;
+    font-size: 12px;
+}
+section.userdashoardarea section.wrapper section.userprofiledashboard section.left button.ueditdetails {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    background: #2684FF;
+    color: #fff;
+    padding: 8px 40px;
+    border-radius: 8px;
+}
+section.userprofiledashboard section.right {
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 60vw;
+    margin-left: 1vw;
+    border-radius: 14px;
+}
+section.userprofiledashboard section.right h2 {
+    color: #3A3541;
+    padding: 12px;
+}
+section.userprofiledashboard section.right section.ordersudashtable {}
+
+section.userprofiledashboard section.right section.ordersudashtable ul.headerulheader {
+    background: #f9fafc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+}
+section.userprofiledashboard section.right section.ordersudashtable ul.headerulheader li {
+    border-right: 2px solid #3A3541;
+}
+section.userprofiledashboard section.right section.ordersudashtable ul.headerulheader li:first-child {
+    width: 24vw;
+}
+section.userprofiledashboard section.right section.ordersudashtable ul.headerulheader li:nth-child(2) {
+    width: 7vw;
+}
+section.userprofiledashboard section.right section.ordersudashtable ul.headerulheader li:nth-child(3){
+    width: 8vw;
+}
+section.userprofiledashboard section.right section.ordersudashtable ul.headerulheader li:nth-child(4) {
+    width: 10vw;
+}
+/* section.userprofiledashboard section.right section.ordersudashtable ul.headerulheader li:last-child {
+    border-right: none;
+} */
+section.userprofiledashboard section.right section.ordersudashtable ul.headerulheader li h3 {
+    font-size: 14px;
+    padding: 0 13px;
+}
+
+
+section.userdashoardarea section.wrapper section.userprofiledashboard section.right section.ordersudashtable {}
+
+section.userdashoardarea section.wrapper section.userprofiledashboard section.right section.ordersudashtable ul.headerulheader {}
+
+section.userdashoardarea section.wrapper section.userprofiledashboard section.right section.ordersudashtable ul.headerulheader li {}
+
+section.userdashoardarea section.wrapper section.userprofiledashboard section.right section.ordersudashtable ul.headerulheader li h3 {}
+
+section.userdashoardarea section.wrapper section.userprofiledashboard section.right section.ordersudashtable ul.bodyuserorderlist {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    border-top: 2px solid #d2d0d4;
+}
+section.userdashoardarea section.wrapper section.userprofiledashboard section.right section.ordersudashtable ul.bodyuserorderlist:last-child{
+    border-bottom: 2px solid #d2d0d4;
+}
+section.userdashoardarea section.wrapper section.userprofiledashboard section.right section.ordersudashtable ul.bodyuserorderlist li {}
+
+section.userdashoardarea section.wrapper section.userprofiledashboard section.right section.ordersudashtable ul.bodyuserorderlist li:nth-child(1) {
+    display: flex;
+    align-items: center;
+}
+section.userdashoardarea section.wrapper section.userprofiledashboard section.right section.ordersudashtable ul.bodyuserorderlist li:nth-child(2) {
+    display: flex
+;
+    align-items: center;
+}
+section.userdashoardarea section.wrapper section.userprofiledashboard section.right section.ordersudashtable ul.bodyuserorderlist li:nth-child(3){}
+section.userdashoardarea section.wrapper section.userprofiledashboard section.right section.ordersudashtable ul.bodyuserorderlist li:nth-child(4){}
+section.userdashoardarea section.wrapper section.userprofiledashboard section.right section.ordersudashtable ul.bodyuserorderlist li:nth-child(5){}
+
+
+
+section.userdashoardarea section.wrapper section.userprofiledashboard section.right section.ordersudashtable ul.bodyuserorderlist li img.hoslog {
+    display: block;
+    height: 64px;
+    width: 64px;
+    margin-right: 8px;
+}
+section.userdashoardarea section.wrapper section.userprofiledashboard section.right section.ordersudashtable ul.bodyuserorderlist li div.one {}
+section.userdashoardarea section.wrapper section.userprofiledashboard section.right section.ordersudashtable ul.bodyuserorderlist li div.one h3.hosname {
+    font-size: 15px;
+    color: #3A3541;
+}
+section.userdashoardarea section.wrapper section.userprofiledashboard section.right section.ordersudashtable ul.bodyuserorderlist li div.one h5 {
+    font-size: 12px;
+    color: #3a3541b5;
+}
+section.userdashoardarea section.wrapper section.userprofiledashboard section.right section.ordersudashtable ul.bodyuserorderlist li img {
+    display: block;
+    height: 19px;
+}
+section.userdashoardarea section.wrapper section.userprofiledashboard section.right section.ordersudashtable ul.bodyuserorderlist li h4 {}
+section.edituserusdashgrey {
+    position: absolute;
+    background: #d7d7d773;
+    width: 100%;
+    min-height: 100vh;
+    max-height: 100%;
+    z-index: 9;
+}
+section.edituserusdash {
+    position: absolute;
+    top: 4vh;
+    background: #fff;
+    left: 22vw;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    border-radius: 8px;
+    padding: 12px;
+    z-index: 10;
+    width: 56vw;
+}
+section.edituserusdash section.wrapper {
+    margin: 0;
+}
+
+
+section.edituserusdashgrey {}
+
+section.edituserusdash section.wrapper section.userdasheditclose {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+section.edituserusdash section.wrapper section.userdasheditclose img {
+    display: block;
+    height: 34px;
+    cursor: pointer;
+}   
+section.edituserusdash section.wrapper section.headertitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section.edituserusdash section.wrapper section.headertitle h2 {}
+
+section.edituserusdash section.wrapper section.headertitle h2.Username {
+    margin: 0 4px;
+    color: #2684FF;
+}
+
+section.edituserusdash section.wrapper hr.userdeditline {}
+
+section.edituserusdash section.wrapper section.editoareauser {}
+section.edituserusdash section.wrapper section.editoareauser div.editimageuser {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    margin-bottom: 2vh;
+}
+section.edituserusdash section.wrapper section.editoareauser div.editimageuser img {
+    display: block;
+    height: 138px;
+    width: 138px;
+    border-radius: 50%;
+}
+section.edituserusdash section.wrapper section.editoareauser div.editimageuser h3 {
+    color: #2684FF;
+    font-size: 14px;
+}
+section.edituserusdash section.wrapper section.editoareauser div.editimageuser input#editusermainimagedash {
+    position: absolute;
+    bottom: 0;
+    cursor: pointer;
+    opacity: 0;
+}
+
+section.edituserusdash section.wrapper section.editoareauser div.name {}
+section.edituserusdash section.wrapper section.editoareauser div.name label {
+    font-size: 14px;
+}
+section.edituserusdash section.wrapper section.editoareauser div.name input[type="text"] {
+    border: 2px solid #2684ff;
+    border-radius: 5px;
+    width: 95%;
+    padding: 7px 12px;
+    margin: 0.5vh 0;
+}
+section.edituserusdash section.wrapper .saveeditusdash{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+section.edituserusdash section.wrapper .saveeditusdash button {
+    display: block;
+    background: #2684ff;
+    color: #fff;
+    padding: 10px 29px;
+    margin: 9px 0;
+    border-radius: 6px;
+}
+
+section.edituserusdash section.wrapper section.editoareauser div.name {}
+
+section.edituserusdash section.wrapper section.editoareauser div.name label {
+    font-size: 14px;
+}
+
+section.edituserusdash section.wrapper section.editoareauser div.name input[type="text"] {
+    border: 2px solid #2684ff;
+    border-radius: 5px;
+    width: 95%;
+    padding: 7px 12px;
+    margin: 0.5vh 0;
+}
+
+section.edituserusdash section.wrapper section.editoareauser div.username {}
+
+section.edituserusdash section.wrapper section.editoareauser div.username label {
+    font-size: 14px;
+}
+
+section.edituserusdash section.wrapper section.editoareauser div.username input[type="text"] {
+    border: 2px solid #2684ff;
+    border-radius: 5px;
+    width: 95%;
+    padding: 7px 12px;
+    margin: 0.5vh 0;
+}
+
+section.edituserusdash section.wrapper section.editoareauser div.email {}
+
+section.edituserusdash section.wrapper section.editoareauser div.email label {
+    font-size: 14px;
+}
+
+section.edituserusdash section.wrapper section.editoareauser div.email input[type="text"] {
+    border: 2px solid #2684ff;
+    border-radius: 5px;
+    width: 95%;
+    padding: 7px 12px;
+    margin: 0.5vh 0;
+}
+
+section.edituserusdash section.wrapper section.editoareauser div.passwrod {}
+
+section.edituserusdash section.wrapper section.editoareauser div.passwrod label {
+    font-size: 14px;
+}
+
+section.edituserusdash section.wrapper section.editoareauser div.passwrod input[type="text"] {
+    border: 2px solid #2684ff;
+    border-radius: 5px;
+    width: 95%;
+    padding: 7px 12px;
+    margin: 0.5vh 0;
+}
+
+section.edituserusdash section.wrapper section.editoareauser div.contact {}
+
+section.edituserusdash section.wrapper section.editoareauser div.contact label {
+    font-size: 14px;
+}
+
+section.edituserusdash section.wrapper section.editoareauser div.contact input[type="text"] {
+    border: 2px solid #2684ff;
+    border-radius: 5px;
+    width: 95%;
+    padding: 7px 12px;
+    margin: 0.5vh 0; 
+}
+
+section.edituserusdash section.wrapper section.editoareauser div.country {}
+
+section.edituserusdash section.wrapper section.editoareauser div.country label{
+    font-size: 14px;
+}
+
+section.edituserusdash section.wrapper section.editoareauser div.country select#country {
+    border: 2px solid #2684ff;
+    border-radius: 5px;
+    width: 98.1%;
+    padding: 7px 12px;
+    margin: 0.5vh 0; 
+    cursor: pointer;
+}
+
+section.edituserusdash section.wrapper section.editoareauser div.language {}
+
+section.edituserusdash section.wrapper section.editoareauser div.language label{
+    font-size: 14px;
+}
+
+section.edituserusdash section.wrapper section.editoareauser div.language select#language {
+    border: 2px solid #2684ff;
+    border-radius: 5px;
+    width: 98.1%;
+    padding: 7px 12px;
+    margin: 0.5vh 0; 
+    cursor: pointer;
+}
+
+section.edituserusdash section.wrapper div.saveeditusdash {}
+
+section.edituserusdash section.wrapper div.saveeditusdash button {}
+section.userdashoardarea section.wrapper section.orderstotaluser {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-top: 6vh;
+    border-radius: 8px;
+}
+section.userdashoardarea section.wrapper section.orderstotaluser ul.headerordermainuser {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    padding: 9px;
+    background: #f1f1f6;
+    border-radius: 8px 8px 0 0;
+    border-bottom: 2px solid #d9d8dc;
+}
+
+section.userdashoardarea section.wrapper section.orderstotaluser ul.headerordermainuser li {}
+
+section.userdashoardarea section.wrapper section.orderstotaluser ul.headerordermainuser li h3 {
+    font-size: 14px;
+}
+section.orderstotaluser ul.bodyordermainuser {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 12px;
+    border-bottom: 2px solid #d9d8dc;
+}
+section.orderstotaluser ul.bodyordermainuser:last-child {
+    border-bottom: none;
+}
+section.orderstotaluser ul.bodyordermainuser li.one {
+    display: flex
+;
+    align-items: center;
+}
+section.orderstotaluser ul.bodyordermainuser li.one img.hostelmainimage {
+    display: block;
+    height: 54px;
+    width: 54px;
+    border-radius: 8px;
+    margin-right: 4px;
+}
+section.orderstotaluser ul.bodyordermainuser li.one div.onemain {}
+
+section.orderstotaluser ul.bodyordermainuser li.one div.onemain h4 {
+    font-size: 14px;
+}
+
+section.orderstotaluser ul.bodyordermainuser li.two {}
+
+section.orderstotaluser ul.bodyordermainuser li.two h4 {}
+section.orderstotaluser ul.bodyordermainuser li.three {
+    display: flex;
+    align-items: center;
+}
+section.orderstotaluser ul.bodyordermainuser li.three img {
+    display: block;
+    height: 14px;
+    margin-right: 1.5px;
+}
+section.orderstotaluser ul.bodyordermainuser li.three h4 {}
+
+section.orderstotaluser ul.bodyordermainuser li.four {}
+
+section.orderstotaluser ul.bodyordermainuser li.four h4.sdate {}
+
+section.orderstotaluser ul.bodyordermainuser li.five {}
+
+section.orderstotaluser ul.bodyordermainuser li.five h4.enddate {}
+
+section.orderstotaluser ul.bodyordermainuser li.six {}
+
+section.orderstotaluser ul.bodyordermainuser li.six h4.status {}
+
+section.orderstotaluser ul.bodyordermainuser li.sev {}
+section.orderstotaluser ul.bodyordermainuser li.sev div.actionbtns {
+    display: flex;
+    align-items: center;
+}
+section.orderstotaluser ul.bodyordermainuser li.sev div.actionbtns button.edit.update {
+    margin-right: 8px;
+}
+section.orderstotaluser ul.bodyordermainuser li.sev div.actionbtns button.edit.update img {
+    display: block;
+    height: 30px;
+    width: 30px;
+}
+section.orderstotaluser ul.bodyordermainuser li.sev div.actionbtns button.edit.delete {}
+
+section.orderstotaluser ul.bodyordermainuser li.sev div.actionbtns button.edit.delete img {
+    display: block;
+    height: 30px;
+    width: 30px;
+}
+
+
+
+section.confirmationareamain {}
+section.confirmationareamain h2:nth-of-type(1) {
+    margin-bottom: 2vh;
+}
+section.confirmationareamain section.confirmeddetailsarea {
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    border: 2px solid #e9eaf0;
+    border-radius: 6px;
+    margin-bottom: 4vh;
+    padding: 12px;
+}
+section.confirmationareamain section.confirmeddetailsarea div.fullname {
+    position: relative;
+}
+section.confirmationareamain section.confirmeddetailsarea div.fullname label {}
+section.confirmationareamain section.confirmeddetailsarea div.fullname input {
+    border: 2px solid #e9eaf0;
+    width: 95%;
+    padding: 8px 16px;
+    padding-left: 13px;
+    border-radius: 6px;
+    color: #000;
+    margin: 4px 0;
+}
+section.confirmationareamain section.confirmeddetailsarea div.fullname img.editicon {
+    display: block;
+    height: 25px;
+    cursor: pointer;
+    position: absolute;
+    top: 31px;
+    right: 53px;
+}
+section.confirmationareamain section.confirmeddetailsarea div.emailid {
+    position: relative;
+}
+section.confirmationareamain section.confirmeddetailsarea div.emailid label {}
+section.confirmationareamain section.confirmeddetailsarea div.emailid input {
+    border: 2px solid #e9eaf0;
+    width: 95%;
+    padding: 8px 16px;
+    padding-left: 13px;
+    border-radius: 6px;
+    color: #000;
+    margin: 4px 0;
+}
+section.confirmationareamain section.confirmeddetailsarea div.emailid img.editicon {
+    display: block;
+    height: 25px;
+    cursor: pointer;
+    position: absolute;
+    top: 31px;
+    right: 53px;
+}
+section.confirmationareamain section.confirmeddetailsarea div.mainaddress {
+    position: relative;
+}
+section.confirmationareamain section.confirmeddetailsarea div.mainaddress label {}
+section.confirmationareamain section.confirmeddetailsarea div.mainaddress input {
+    border: 2px solid #e9eaf0;
+    width: 95%;
+    padding: 8px 16px;
+    padding-left: 13px;
+    border-radius: 6px;
+    color: #000;
+    margin: 4px 0;
+}
+section.confirmationareamain section.confirmeddetailsarea div.mainaddress img.editicon {
+    display: block;
+    height: 25px;
+    cursor: pointer;
+    position: absolute;
+    top: 31px;
+    right: 53px;
+}
+section.confirmationareamain section.confirmeddetailsarea div.Locality {
+    position: relative;
+}
+section.confirmationareamain section.confirmeddetailsarea div.Locality label {}
+section.confirmationareamain section.confirmeddetailsarea div.Locality input {
+    border: 2px solid #e9eaf0;
+    width: 95%;
+    padding: 8px 16px;
+    padding-left: 13px;
+    border-radius: 6px;
+    color: #000;
+    margin: 4px 0;
+}
+section.confirmationareamain section.confirmeddetailsarea div.Locality img.editicon {
+    display: block;
+    height: 25px;
+    cursor: pointer;
+    position: absolute;
+    top: 31px;
+    right: 53px;
+}
+section.confirmationareamain section.confirmeddetailsarea div.pincode {
+    position: relative;
+}
+section.confirmationareamain section.confirmeddetailsarea div.pincode label {}
+section.confirmationareamain section.confirmeddetailsarea div.pincode input {
+    border: 2px solid #e9eaf0;
+    width: 95%;
+    padding: 8px 16px;
+    padding-left: 13px;
+    border-radius: 6px;
+    color: #000;
+    margin: 4px 0;
+}
+section.confirmationareamain section.confirmeddetailsarea div.pincode img.editicon {
+    display: block;
+    height: 25px;
+    cursor: pointer;
+    position: absolute;
+    top: 31px;
+    right: 53px;
+}
+section.confirmationareamain h2:nth-of-type(2) {
+    margin: 2vh 0;
+}
+section.confirmationareamain section.hostelmaindetails {
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    border: 2px solid #e9eaf0;
+    border-radius: 6px;
+    margin-bottom: 4vh;
+}
+section.confirmationareamain section.hostelmaindetails section.hostelheaderenter {}
+section.confirmationareamain section.hostelmaindetails section.hostelheaderenter ul {
+        display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #e9eaf0;
+}
+section.confirmationareamain section.hostelmaindetails section.hostelheaderenter ul li.hosteldetails {
+    width: 36vw;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+section.confirmationareamain section.hostelmaindetails section.hostelheaderenter ul li.hosteldetails h3 {
+    color: #4e5566;
+    padding: 8px;
+    font-size: 13px;
+    margin-left: 4px;
+}
+section.confirmationareamain section.hostelmaindetails section.hostelheaderenter ul li.prices {}
+section.confirmationareamain section.hostelmaindetails section.hostelheaderenter ul li.prices h3 {
+    color: #4e5566;
+    padding: 8px;
+    font-size: 13px;
+    margin-left: 4px;
+}
+section.confirmationareamain section.hostelmaindetails section.hostelheaderenter ul li.action {
+        width: 12vw;
+    text-align: center;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+}
+section.confirmationareamain section.hostelmaindetails section.hostelheaderenter ul li.action h3 {
+    color: #4e5566;
+    padding: 8px;
+    font-size: 13px;
+    margin-right: 4px;
+}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter {
+    padding: 18px;
+}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3vh;
+    border-bottom: 2px solid #e9eaf0;
+    padding: 14px 0;
+    box-shadow: none;
+}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails {
+        display: flex;
+    width: 36vw;
+}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.one {}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.one img.hostelmainimage {
+    display: block;
+    height: 96px;
+    width: 106px;
+    border-radius: 6px;
+    margin-right: 16px;
+}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.two {}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.two div.rating {
+    display: flex;
+    align-items: center;
+}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.two div.rating img {}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.two div.rating h4 {
+    margin-right: 4px;
+}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.two div.rating h5.countrate {
+        margin-right: 4px;
+    color: #8c94a3;
+    font-size: 12px;
+}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.two h3.hostelnamecart {
+    font-size: 16px;
+    margin: 4px 0 3vh 0;
+}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.two div.hosteddetailsarea {
+    display: flex;
+    align-items: center;
+}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.two div.hosteddetailsarea h5 {
+        color: #4e5566;
+    font-size: 13px;
+}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.two div.hosteddetailsarea h4.wardenname {}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.two div.hosteddetailsarea h3 {
+    font-size: 16px;
+    margin-bottom: 6px;
+    font-weight: 700;
+    margin: 0 6px;
+    margin-bottom: 6px;
+}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.hosteldetails div.two div.hosteddetailsarea h5 {
+    
+}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.prices {
+    width: 12vw;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.prices div.one {
+    display: flex;
+    align-items: center;
+}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.prices div.one h3.realprice1 {}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.prices div.one h3.realprice1 img {
+    display: block;
+    height: 2vh;
+    margin-right: 4px;
+}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.prices div.one h3.realprice {}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.action {}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.action button.delete {
+    margin-right: 16px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    background: #fff;
+    padding: 10px 36px;
+    border-radius: 5px;
+    background: #cedaec;
+}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.action button.reserved {
+    margin-right: 16px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    padding: 10px 36px;
+    border-radius: 5px;
+    background: #ff6536;
+    color: #fff;
+}
+section.confirmationareamain section.hostelmaindetails section.hostedbottomenter ul.hosteldetailenterarea li.action img.liked {
+    background: #ffeee8;
+    padding: 6px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+section.confirmationareamain h2:nth-of-type(3) {
+    margin: 2vh 0;
+}
+section.confirmationareamain ul {
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    padding-right: 14px;
+}
+section.confirmationareamain ul li {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+section.confirmationareamain ul li div.left {}
+section.confirmationareamain ul li div.left ul {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 18px;
+    box-shadow: none;
+}
+section.confirmationareamain ul li div.left ul li {}
+section.confirmationareamain ul li div.left ul li img {
+    display: block;
+    height: 96px;
+    width: 96px;
+    border-radius: 6px;
+    margin-right: 24px;
+}section.confirmationareamain ul li div.left ul li div.two {}
+section.confirmationareamain ul li div.left ul li div.two div.rating {
+    display: flex;
+    align-items: center;
+
+}
+section.confirmationareamain ul li div.left ul li div.two div.rating img {
+    display: block;
+    height: 24px;
+    margin-right: 0;
+    width: auto;
+}
+section.confirmationareamain ul li div.left ul li div.two div.rating h4 {}
+section.confirmationareamain ul li div.left ul li div.two div.rating h5.countrate {
+    color: #6e7485;
+    font-size: 12px;
+    margin-left: 4px;
+}
+section.confirmationareamain ul li div.left ul li div.two h3.hostelnamecart {
+    margin-bottom: 3vh;
+}
+section.confirmationareamain ul li div.left ul li div.two div.hosteddetailsarea {
+    display: flex;
+    align-items: center;
+}
+section.confirmationareamain ul li div.left ul li div.two div.hosteddetailsarea h5 {}
+section.confirmationareamain ul li div.left ul li div.two div.hosteddetailsarea h4.wardenname {}
+section.confirmationareamain ul li div.left ul li div.two div.hosteddetailsarea h3 {
+    font-size: 16px;
+    margin-bottom: 6px;
+    font-weight: 700;
+    margin: 0 6px;
+    margin-bottom: 6px;
+}
+section.confirmationareamain ul li div.left ul li div.two div.hosteddetailsarea h5 {
+        color: #4e5566;
+    font-size: 13px;
+}
+section.confirmationareamain ul li span.greytotalline {}
+section.confirmationareamain ul li div.right {}
+section.confirmationareamain ul li div.right div.dateselectedcheckin {
+    display: flex;
+    align-items: center;
+}
+section.confirmationareamain ul li div.right div.dateselectedcheckin h5.checkinday {
+        font-size: 24px;
+}
+section.confirmationareamain ul li div.right div.dateselectedcheckin h5.checkinmonth {
+        font-size: 24px;
+}
+section.confirmationareamain ul li div.right div.dateselectedcheckin h5 {
+        font-size: 24px;
+        margin-right: 4px;
+        margin-bottom: 2vh;
+}
+section.confirmationareamain ul li div.right div.dateselectedcheckin h5.checkinyear {}
+section.confirmationareamain ul li div.right div.dateselectedcheckin h5 {}
+section.confirmationareamain ul li div.right div.dateselectedcheckin h5.checktime {}
+section.confirmationareamain ul li div.right div.dateselectedcheckin h5.checkinampm {}
+section.confirmationareamain ul li div.right div.detabottom {
+    display: flex
+;
+    align-items: center;
+}
+section.confirmationareamain ul li div.right div.detabottom div.bed {
+    display: flex
+;
+    align-items: center;
+    margin-right: 14px;
+}
+section.confirmationareamain ul li div.right div.detabottom div.bed img {
+    display: block;
+    height: 28px;
+    margin-right: 8px;
+}
+section.confirmationareamain ul li div.right div.detabottom div.bed h4 {}
+section.confirmationareamain ul li div.right div.detabottom div.totalraterooms {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+}
+section.confirmationareamain ul li div.right div.detabottom div.totalraterooms img {
+    display: block;
+    height: 16px;
+    margin-right: 0px;
+}
+section.confirmationareamain ul li div.right div.detabottom div.totalraterooms h4 {}
+section.confirmationareamain ul li div.right div.detabottom div.paymentoptions {
+    display: flex;
+    align-items: center;
+}
+section.confirmationareamain ul li div.right div.detabottom div.paymentoptions img {
+    display: block;
+    height: 24px;
+    margin-right: 8px;
+}
+section.confirmationareamain ul li div.right div.detabottom div.paymentoptions h4 {}
+section.confirmationareamain ul li div.right div.userdetails {}
+section.confirmationareamain ul li div.right div.userdetails h3 {
+    font-size: 13px;
+    margin-top: 6vh;
+}
+section.confirmationareamain h2:nth-of-type(4) {
+    margin: 2vh 0;
+}
+section.confirmationareamain section.messagecontentselect {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 6vh;
+    min-height: 32vh;
+}
+section.confirmationareamain section.messagecontentselect label {
+    display: block;
+    width: 100%;
+    margin: 1vh 0;
+    font-size: 14px;
+    color: #1D2026;
+}
+section.confirmationareamain section.messagecontentselect input {
+    border: 2px solid #e9eaf0;
+    width: 95%;
+    padding: 8px 16px;
+    padding-left: 13px;
+    border-radius: 6px;
+    color: #000;
+}
+section.confirmationareamain section.messagecontentselect datalist {}
+section.confirmationareamain section.messagecontentselect datalist option {}
+section.confirmationareamain section.messagecontentselect textarea {
+    border: 2px solid #e9eaf0;
+    width: 95%;
+    padding: 16px;
+    padding-left: 13px;
+    border-radius: 6px;
+    color: #000;
+}
+section.confirmationareamain section.messagecontentselect section.msgareabuttons {
+    display: flex
+;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 2vh 0;
+}
+section.confirmationareamain section.messagecontentselect section.msgareabuttons button.cancelmessage {
+    margin-right: 28px;
+    background: #cad9ef;
+    padding: 9px 28px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+    border-radius: 6px;
+    border: 2px solid #e9eaf0;
+}
+section.confirmationareamain section.messagecontentselect section.msgareabuttons button.sendmessage {
+    display: flex
+;
+    align-items: center;
+    background: #ff6636;
+    padding: 7px 28px;
+    border-radius: 6px;
+}
+section.confirmationareamain section.messagecontentselect section.msgareabuttons button.sendmessage h4 {
+    color: #fff;
+}
+section.confirmationareamain section.messagecontentselect section.msgareabuttons button.sendmessage img {}
+section.confirmationareamain h2:nth-of-type(5) {}
+section.confirmationareamain section.choosenpaymentdetails {}
+section.confirmationareamain section.actionareaconfitm {}
+section.confirmationareamain section.actionareaconfitm button.cancelall {
+    background: #e90306;
+    padding: 8px 28px;
+    border-radius: 6px;
+    margin: 2vh 0;
+    color: #fff;
+    margin-right: 12px;
+}
+section.confirmationareamain section.actionareaconfitm button.confirmall {
+    background: #ff6636;
+    padding: 8px 28px;
+    border-radius: 6px;
+    margin: 2vh 0;
+    color: #fff;
+}
+
+
+
+section.wrapper.paymentareamain {}
+
+section.wrapper.paymentareamain section.paymentchoosen {
+    
+}
+
+section.wrapper.paymentareamain section.paymentchoosen ul.headpayon {
+    margin: 2vh 0;
+    
+}
+
+section.wrapper.paymentareamain section.paymentchoosen ul.headpayon li {
+    display: flex;
+    align-items: center;
+}
+section.wrapper.paymentareamain section.paymentchoosen ul.headpayon li:first-child {
+    margin-bottom: 3vh;
+}
+
+section.wrapper.paymentareamain section.paymentchoosen ul.headpayon li img.paymenticon {
+    display: block;
+    height: 6vh;
+    margin-right: 2vw;
+}
+section.wrapper.paymentareamain section.paymentchoosen ul.headpayon li h3.paymentmethodname {}
+
+section.wrapper.paymentareamain section.paymentchoosen ul.headpayon li h4 {}
+
+section.wrapper.paymentareamain section.paymentchoosen ul.headpayon li h3.methodselected {
+    color: #f55c2a;
+    margin: 0 8px;
+    font-size: 24px;
+}
+section.wrapper.paymentareamain section.paymentchoosen div.amountdescribe {
+    display: flex;
+    align-items: center;
+    margin: 2vh 0;
+}
+
+section.wrapper.paymentareamain section.paymentchoosen div.amountdescribe h4 {
+    margin-right: 1vw;
+}
+section.wrapper.paymentareamain section.paymentchoosen h5 {
+    color: #4E5566;
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+section.wrapper.paymentareamain section.paymentchoosen h5 {}
+
+section.wrapper.paymentareamain section.paymentchoosen button.completeorderwithpayment {
+    background: #ff6636;
+    padding: 8px 28px;
+    margin: 0 auto;
+    border-radius: 6px;
+    margin-top: 2vh;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 10vh;
+}
+
+
+section.paymentconfitmpopupregister {
+    height: 100vh;
+    width: 100%;
+    z-index: 999;
+}
+section.paymentconfitmpopupregister img {
+    position: absolute;
+    top: 13%;
+    left: 41vw;
+    height: 27vh;
+}

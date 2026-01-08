@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Haven</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="../../css/style1.css" />
+    <link rel="stylesheet" href="css/font.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="images/logo-hostel.png" type="image/x-icon">
+    <style>
+        .calendar-title{
+            color: #fff;
+        }
+        
+        /* Calendar styles */
+        #checkincalendar {
+            display: none;
+            position: absolute;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            width: 320px;
+            z-index: 1000;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background-color: #0d6dfc;
+            color: white;
+        }
+        
+        .calendar-title {
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+        }
+        
+        .calendar-nav {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .calendar-nav button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .calendar-nav button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .calendar-nav button svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            background-color: #f1f5f9;
+            padding: 12px 0;
+            text-align: center;
+            font-weight: 500;
+            font-size: 13px;
+            color: #64748b;
+        }
+        
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            padding: 12px;
+        }
+        
+        .calendar-day {
+            padding: 10px 0;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 14px;
+            font-weight: 400;
+            color: #334155;
+            position: relative;
+        }
+        
+        .calendar-day:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .calendar-day.today {
+            font-weight: 600;
+            color: #0d6dfc;
+        }
+        
+        .calendar-day.today::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 6px;
+            height: 6px;
+            background-color: #0d6dfc;
+            border-radius: 50%;
+        }
+        
+        .calendar-day.selected {
+            background-color: #0d6dfc;
+            color: white;
+            font-weight: 500;
+        }
+        
+        .calendar-day.selected.today::before {
+            background-color: white;
+        }
+        
+        .calendar-day.other-month {
+            color: #94a3b8;
+        }
+        
+        .calendar-footer {
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #e2e8f0;
+            background-color: #f8fafc;
+        }
+        
+        .calendar-footer button {
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .today-btn {
+            background-color: transparent;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+        }
+        
+        .today-btn:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .close-btn {
+            background-color: #0d6dfc;
+            color: white;
+            border: none;
+        }
+        
+        .close-btn:hover {
+            background-color: #2563eb;
+        }
+
+
+                /* Checkout Calendar styles - different color scheme */
+        #checkoutcalendar {
+            display: none;
+            position: absolute;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            width: 320px;
+            z-index: 1000;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .checkout-calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background-color: #f55c2a; /* Purple instead of blue */
+            color: white;
+        }
+        
+        .checkout-calendar-title {
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            color: #fff;
+        }
+        
+        .checkout-calendar-nav {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .checkout-calendar-nav button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .checkout-calendar-nav button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .checkout-calendar-nav button svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .checkout-calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            background-color: #f1f5f9;
+            padding: 12px 0;
+            text-align: center;
+            font-weight: 500;
+            font-size: 13px;
+            color: #64748b;
+        }
+        
+        .checkout-calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            padding: 12px;
+        }
+        
+        .checkout-calendar-day {
+            padding: 10px 0;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 14px;
+            font-weight: 400;
+            color: #334155;
+            position: relative;
+        }
+        
+        .checkout-calendar-day:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .checkout-calendar-day.today {
+            font-weight: 600;
+            color: #f55c2a; /* Purple instead of blue */
+        }
+        
+        .checkout-calendar-day.today::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 6px;
+            height: 6px;
+            background-color: #f55c2a; /* Purple instead of blue */
+            border-radius: 50%;
+        }
+        
+        .checkout-calendar-day.selected {
+            background-color: #f55c2a; /* Purple instead of blue */
+            color: white;
+            font-weight: 500;
+        }
+        
+        .checkout-calendar-day.selected.today::before {
+            background-color: white;
+        }
+        
+        .checkout-calendar-day.other-month {
+            color: #94a3b8;
+        }
+        
+        .checkout-calendar-footer {
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #e2e8f0;
+            background-color: #f8fafc;
+        }
+        
+        .checkout-calendar-footer button {
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .checkout-today-btn {
+            background-color: transparent;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+        }
+        
+        .checkout-today-btn:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .checkout-close-btn {
+            background-color: #f55c2a; /* Purple instead of blue */
+            color: white;
+            border: none;
+        }
+        
+        .checkout-close-btn:hover {
+            background-color: #f55c2a;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- paypopup -->
+     <section class="paymentconfitmpopupregister hide">
+        <img src="images/succsfully__registred.gif" alt="registered">
+     </section>
+     <!-- paypopup -->
+
+    <!--(popups calenadar)!-->
+            <div id="checkincalendar">
+        <div class="calendar-header">
+            <div class="calendar-nav">
+                <button class="prev-month">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <button class="next-month">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+            <div class="calendar-title">June 2025</div>
+            <div style="width: 60px;"></div> <!-- Spacer for balance -->
+        </div>
+        <div class="calendar-weekdays">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+        </div>
+        <div class="calendar-days"></div>
+        <div class="calendar-footer">
+            <button class="today-btn">Today</button>
+            <button class="close-btn">Apply</button>
+        </button>
+    </div>
+    </div>
+
+
+
+        <div id="checkoutcalendar" style="    top: 900.963px !important;
+    left: 1121.5px !important;">
+        <div class="checkout-calendar-header">
+            <div class="checkout-calendar-nav">
+                <button class="checkout-prev-month">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <button class="checkout-next-month">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+            <div class="checkout-calendar-title">July 2025</div>
+            <div style="width: 60px;"></div> <!-- Spacer for balance -->
+        </div>
+        <div class="checkout-calendar-weekdays">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+        </div>
+        <div class="checkout-calendar-days"></div>
+        <div class="checkout-calendar-footer">
+            <button class="checkout-today-btn">Today</button>
+            <button class="checkout-close-btn">Apply</button>
+        </div>
+    </div>
+    <!--(popups calenadar)!-->
+
+
+    <!--(popups)!-->
+
+
+    <section class="sun1" style="display:none;">
+        <section class="wrapper">
+            <h2 class="sl1"></h2>
+            <h2 class="s12"></h2>
+            <h2 class="s13"></h2>
+            <h2 class="s14"></h2>
+            <h2 class="s15"></h2>
+            <h2 class="s16"></h2>
+        </section>
+    </section>
+
+
+
+
+    <!--(popups)!-->
+
+
+    <!--(loginsection)!-->
+    <section class="loginbg hide"></section>
+
+        <section class="signupcontainer hide">
+        <section class="wrapper">
+            <section class="left">
+                <div class="languageselect">
+                    <img src="images/FLAG.svg" alt="flag" />
+                    <select name="" id="">
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                    </select>
+                </div>
+                <div class="logoarea">
+                    <img src="images/logomain.png" alt="logo-main" class="logo">
+                    <h2>Hosto Haven</h2>
+                </div>
+                <h3>Create an account and enjoy starting Hosto Haven!</h3>
+                <div class="emailhead">
+                    <hr class="signupline">
+                    <h3>Sign up with Email</h3>
+                    <hr class="signupline">
+                </div>
+                <section class="detailsarea">
+                    <div class="name">
+                        <label for="Name">Name</label>
+                        <span class="Name">
+                            <img src="images/bx_bx-user.svg" alt="vector-email">
+                            <input type="text" name="" id="" placeholder="John Smith">
+                        </span>
+                    </div>
+                    <div class="emailarea">
+                        <label for="Email">Email</label>
+                        <span class="emailinput">
+                            <img src="images/Vector.svg" alt="vector-email">
+                            <input type="email" name="" id="" placeholder="john@example.com">
+                        </span>
+                    </div>
+                    <div class="password">
+                        <label for="Pass">Password</label>
+                        <span class="passinput">
+                            <img src="images/lock.svg" alt="vector-email">
+                            <input type="password" name="" id="" placeholder="Min. 8 characters">
+                            <img src="images/akar-icons_eye.svg" alt="lock">
+                        </span>
+                    </div>
+                </section>
+                <section class="termsarea">
+                    <input type="checkbox" name="" id="" >
+                    <span class="termload">
+                        <h3>I agree to the</h3>
+                        <h3 class="tcnote">Terms & Conditions</h3>
+                    </span>
+                </section>
+                <button type="submit">Sign Up</button>
+                <section class="alreadylogged">
+                    <h3>Already have an Account?</h3>
+                    <h3 class="alreadyregistered">Login</h3>
+                </section>
+            </section>
+            <section class="right">
+                <img src="images/9712774_4155936.png" alt="rightimage">
+            </section>
+        </section>
+    </section>
+
+
+    <section class="logincontainer hide">
+        <section class="wrapper">
+            <section class="left">
+                <div class="languageselect">
+                    <img src="images/FLAG.svg" alt="flag" />
+                    <select name="" id="">
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                    </select>
+                </div>
+                <div class="logoarea">
+                    <img src="images/logomain.png" alt="logo-main" class="logo">
+                    <h2>Hosto Haven</h2>
+                </div>
+                <h3>Create an account and enjoy starting Hosto Haven!</h3>
+                <div class="emailhead">
+                    <hr class="signupline">
+                    <h3>Sign In with Email</h3>
+                    <hr class="signupline">
+                </div>
+                <section class="detailsarea">
+                    <div class="emailarea">
+                        <label for="Email">Email</label>
+                        <span class="emailinput">
+                            <img src="images/Vector.svg" alt="vector-email">
+                            <input type="email" name="" id="" placeholder="john@example.com">
+                        </span>
+                    </div>
+                    <div class="password">
+                        <label for="Pass">Password</label>
+                        <span class="passinput">
+                            <img src="images/lock.svg" alt="vector-email">
+                            <input type="password" name="" id="" placeholder="********">
+                            <img src="images/akar-icons_eye.svg" alt="lock">
+                        </span>
+                    </div>
+                </section>
+                <section class="rememberme">
+                    <div class="checkrem">
+                        <input type="checkbox" name="" id="" >
+                        <h3>Remember Me</h3>
+                    </div>
+                    <span class="forgotpass">
+                        <a href="forgot.html"><h3 class="frgtpass">Forgot your password?</h3></a>
+                    </span>
+                </section>
+                <button type="submit">Sign Up</button>
+                <section class="notregistered">
+                    <h3>Not registered yet?</h3>
+                    <h3 class="notregisteredac"> Create an Account</h3>
+                </section>
+            </section>
+            <section class="right">
+                <img src="images/9712774_4155936.png" alt="rightimage">
+            </section>
+        </section>
+    </section>
+
+
+
+
+
+
+    <!--(loginsection)!-->
+
+
+
+
+
+    <header>
+        <section class="wrapper">
+            <section class="left">
+                <img src="images/logomain.png" alt="logo-main-hostel" class="mainlogo">
+                <div class="webname">
+                    <span class="name">
+                        <h2 class="Hostel">Hostel</h2>
+                        <h2 class="Haven">Haven</h2>
+                    </span>
+                    <span class="des">
+                        <h3>your next space</h3>
+                    </span>
+                </div>
+            </section>
+            <section class="center">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="index.html">
+                                <h3>Home</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="About.html">
+                                <h3>About us</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="deals.html">
+                                <h3>Deals</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="blog.html">
+                                <h3>Blog</h3>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </section>
+            <section class="right">
+                <button class="login">Login</button>
+            </section>
+        </section>
+    </header>
+
+    <hr class="ggline">
+
+
+    <section class="wardendetails">
+        <section class="wrapper ">
+            <section class="top">
+                <section class="left">
+                    <div class="one">
+                        <img src="images/wardenPhotos.svg" alt="warden-photo">
+                    </div>
+                    <div class="two">
+                        <h2 class="wardenname">Kevin Gilbert</h2>
+                        <div class="hosdetalingwarden">
+                            <h4 class="ownername">Hostel Owner</h4>
+                            <h4>,</h4>
+                            <h4 class="hname">Hostel name</h4>
+                            <h4>,</h4>
+                            <h4 class="hl">Hostel Location</h4>
+                            <h4>,</h4>
+                            <h4 class="hcn">Contact number</h4>
+                        </div>
+                    </div>
+                </section>
+                <section class="right">
+                    <button class="contacthostelmain">
+                        <a href="tel:+917510483455">Contact  Warden</a>
+                        <img src="images/ArrowRight.svg" alt="arrow-contact warden" />
+                    </button>
+                </section>
+            </section>
+            <section class="bottom selectfillarea">
+                <ul>
+                    <li class="gi">
+                        <h4>General information</h4>
+                        <hr class="orangeunderline">
+                    </li>
+                    <li class="hd">
+                        <h4>Hostel Details</h4>
+                        <hr class="orangeunderline hide">
+                    </li>
+                    <li class="rm">
+                        <h4>Room details</h4>
+                        <hr class="orangeunderline hide">
+                    </li>
+                    <li class="msg">
+                        <h4>Message</h4>
+                        <hr class="orangeunderline hide">
+                    </li>
+                    <li class="pd">
+                        <h4>Payment Details</h4>
+                        <hr class="orangeunderline hide">
+                    </li>
+                    <li class="crfn">
+                        <h4>Confirmation</h4>
+                        <hr class="orangeunderline hide">
+                    </li>
+                    <li class="pyt">
+                        <h4>Payment</h4>
+                        <hr class="orangeunderline hide">
+                    </li>
+                </ul>
+            </section>
+        </section>
+        
+    </section>
+
+
+    <section class="maindetaileenterarea">
+        <section class="wrapper Generalareamain ">
+            <section class="left">
+                <div class="top">
+                    <img src="images/upload photo.jpg" alt="profile-photo-icon" class="uploadeduserprofilecart">
+                    <div class="uploadarea">
+                        <img src="images/UploadSimple.svg" alt="upload-profile-icon" class="uploadsimple">
+                        <h4>Upload Photo</h4>
+                    </div>
+                    <input type="file" accept="image/jpeg, image/png, image/jpg" class="uploaduserprofilecart" required>
+                </div>
+                <h5>Image size should be under 100MB and image ratio needs to be 1:1</h5>
+            </section>
+            <section class="right">
+                <section class="generalinformationarea">
+                    <div class="namearea">
+                    <label for="Fullname">Full name</label>
+                    <div class="namein">
+                        <input type="text" name="" id="" placeholder="First name">
+                        <input type="text" name="" id="" placeholder="Last name">
+                    </div>
+                    </div>
+                    <div class="usernamearea">
+                        <label for="Username">Username</label>
+                        <input type="text" name="" id="" placeholder="Enter your username">
+                    </div>
+                    <div class="emailarea">
+                        <label for="Email">Email</label>
+                        <input type="email" name="" id="" placeholder="Enter your email address">
+                    </div>
+                    <div class="addressarea">
+                        <label for="Address">Main Address</label>
+                        <input type="text" name="" id="" placeholder="USA Hambtoheven">
+                    </div>
+                    <div class="locationarea">
+                        <label for="Locality">Locality</label>
+                        <input type="text" name="" id="" placeholder="USA California">   
+                    </div>
+                    <div class="pincodearea">
+                        <label for="Pincode">Pin code</label>
+                        <input type="text" name="" id="" placeholder="285546">
+                    </div>
+                    <button class="savechanges">Save changes</button>
+                </section>
+
+
+
+            </section>
+        </section>
+
+        <section class="wrapper hostelareamain  hide">
+            <section class="hostelheaderenter">
+                <ul>
+                    <li class="hosteldetails">
+                        <h3>HOSTEL DETAILS</h3>
+                    </li>
+                    <li class="prices">
+                        <h3>PRICES</h3>
+                    </li>
+                    <li class="action">
+                        <h3>ACTION</h3>
+                    </li>
+                </ul>
+            </section>
+            <section class="hostedbottomenter">
+                <ul class="hosteldetailenterarea">
+                    <li class="hosteldetails">
+                        <div class="one">
+                            <img src="images/Rectangle 16.png" alt="rectangle-image-icon" class="hostelmainimage">
+                        </div>
+                        <div class="two">
+                            <div class="rating">
+                                <img src="images/Star.svg" alt="star-icon" />
+                                <h4>4.6</h4>
+                                <h5 class="countrate"> (451,444 Review)</h5>
+                            </div>
+                            <h3 class="hostelnamecart">Entire cabin in Granite Falls,Idukki,Kerala</h3>
+                            <div class="hosteddetailsarea">
+                                <h5></h5>
+                                <h4 class="wardenname">Harry Potter</h4>
+                                <h3>.</h3>
+                                <h5>Idukki</h5>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="prices">
+                        <div class="one">
+                            <h3 class="realprice1">
+                                <img src="images//rupee.png" alt="rupee-icon" />
+                            </h3>
+                            <h3 class="realprice">999</h3>
+                        </div>
+
+                    </li>
+                    <li class="action">
+                        <button class="delete">Delete</button>
+                        <button class="reserved">Reserved</button>
+                        <img src="images/Heart.svg" alt="heart" class="liked">
+                    </li>
+                </ul>
+                <ul class="hosteldetailenterarea">
+                    <li class="hosteldetails">
+                        <div class="one">
+                            <img src="images/Rectangle 16.png" alt="rectangle-image-icon" class="hostelmainimage">
+                        </div>
+                        <div class="two">
+                            <div class="rating">
+                                <img src="images/Star.svg" alt="star-icon" />
+                                <h4>4.6</h4>
+                                <h5 class="countrate"> (451,444 Review)</h5>
+                            </div>
+                            <h3 class="hostelnamecart">Entire cabin in Granite Falls,Idukki,Kerala</h3>
+                            <div class="hosteddetailsarea">
+                                <h5></h5>
+                                <h4 class="wardenname">Harry Potter</h4>
+                                <h3>.</h3>
+                                <h5>Idukki</h5>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="prices">
+                        <div class="one">
+                            <h3 class="realprice1">
+                                <img src="images//rupee.png" alt="rupee-icon" />
+                            </h3>
+                            <h3 class="realprice">999</h3>
+                        </div>
+
+                    </li>
+                    <li class="action">
+                        <button class="delete">Delete</button>
+                        <button class="reserved">Reserved</button>
+                        <img src="images/Heart.svg" alt="heart" class="liked">
+                    </li>
+                </ul>
+            </section>
+        </section>
+
+        <section class="wrapper roomareamain hide">
+            <h2>Room details</h2>
+            <section class="roomdetailsarea">
+                <section class="top">
+                    <section class="left">
+                        <div class="date">
+                            <div class="checkimg">
+                                <img src="images/check-in.png" alt="checkin-image">
+                                <h5 class="checkinday">1st</h5>
+                                <h5 class="checkinmonth">September</h5>
+                                <h5>,</h5>
+                                <h5 class="checkinyear">2025</h5>
+                                <h5>at</h5>
+                                <h5 class="checktime">12:30</h5>
+                                <h5 class="checkinampm">PM</h5>
+                            </div>
+                            <span class="vline"></span>
+                            <div class="checkimg">
+                                <img src="images/check-out.png" alt="checkout-image" style="margin-left: 10px;">
+                                <h5 class="checkoutday">31st</h5>
+                                <h5 class="checkoutmonth">September</h5>
+                                <h5>,</h5>
+                                <h5 class="checkoutyear">2025</h5>
+                                <h5>at</h5>
+                                <h5 class="checktime">11:30</h5>
+                                <h5 class="checkoutampm">PM</h5>
+                            </div>
+                        </div>
+                        <div class="detabottom">
+                            <div class="bed">
+                                <img src="images/bed.png" alt="bed-icon">
+                                <h4>Bed Room 1</h4>
+                            </div>
+                            <div class="totalraterooms">
+                                <img src="images/rupee.png" alt="rupee-icon"/>
+                                <h4>999</h4>
+                            </div>
+                            <div class="paymentoptions">
+                                <img src="images/wallet.png" alt="wallet-icon">
+                                <h4>All Payments Supported</h4>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <section class="bottom">
+                    <ul>
+                        <li>
+                            <div class="left">
+                                <ul>
+                                    <li>
+                                        <img src="images/Rectangle 17.png" alt="hostel-image-icon">
+                                        <div class="two">
+                                            <div class="rating">
+                                                <img src="images/Star.svg" alt="star-icon">
+                                                <h4>4.6</h4>
+                                                <h5 class="countrate"> (451,444 Review)</h5>
+                                            </div>
+                                            <h3 class="hostelnamecart">Entire cabin in Granite Falls,Idukki,Kerala</h3>
+                                            <div class="hosteddetailsarea">
+                                                <h5></h5>
+                                                <h4 class="wardenname">Harry Potter</h4>
+                                                <h3>.</h3>
+                                                <h5>Idukki</h5>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul>
+                                    <li>
+                                        <img src="images/Rectangle 17.png" alt="hostel-image-icon">
+                                        <div class="two">
+                                            <div class="rating">
+                                                <img src="images/Star.svg" alt="star-icon">
+                                                <h4>4.6</h4>
+                                                <h5 class="countrate"> (451,444 Review)</h5>
+                                            </div>
+                                            <h3 class="hostelnamecart">Entire cabin in Granite Falls,Idukki,Kerala</h3>
+                                            <div class="hosteddetailsarea">
+                                                <h5></h5>
+                                                <h4 class="wardenname">Harry Potter</h4>
+                                                <h3>.</h3>
+                                                <h5>Idukki</h5>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <span class="greytotalline"></span>
+                            <div class="right">
+                                <div class="dateselectedcheckin">
+                                    <h5 class="checkinday">1st</h5>
+                                    <h5 class="checkinmonth">September</h5>
+                                    <h5>,</h5>
+                                    <h5 class="checkinyear">2025</h5>
+                                    <h5>at</h5>
+                                    <h5 class="checktime">12:30</h5>
+                                    <h5 class="checkinampm">PM</h5>
+                                </div>
+                                <div class="detabottom">
+                                    <div class="bed">
+                                        <img src="images/bed.png" alt="bed-icon">
+                                        <h4>Bed Room 1</h4>
+                                    </div>
+                                    <div class="totalraterooms">
+                                        <img src="images/rupee.png" alt="rupee-icon">
+                                        <h4>999</h4>
+                                    </div>
+                                    <div class="paymentoptions">
+                                        <img src="images/wallet.png" alt="wallet-icon">
+                                        <h4>All Payments Supported</h4>
+                                    </div>
+                                </div>
+                                <div class="userdetails">
+                                    <h3>Anandhakrishnan</h3>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </section>
+        </section>
+
+        <section class="wrapper messageareamain hide">
+            <section class="msgtop">
+                <h2>New Message</h2>
+            </section>
+            <section class="messagecontentselect">
+                <label for="MessageTitle">Message Title</label>
+                <input type="text"
+                    list="optionsList"id="customSelect"name="customSelect"placeholder="Type or Select"autocomplete="off"> <!-- Prevents browser auto-suggestions -->
+
+                <datalist id="optionsList">
+                    <option value="Rent Renewation">
+                    <option value=" Something else...">
+                    <option value=" Something else...">
+                    <option value=" Something else...">
+                    <option value=" Something else...">
+                </datalist>
+                <label for="Message">Message</label>
+                <textarea name="" id="" cols="30" rows="10" placeholder="Write your message here..."></textarea>
+                <section class="msgareabuttons">
+                    <button class="cancelmessage">Cancel</button>
+                    <button class="sendmessage">
+                        <h4>Send Message</h4>
+                        <img src="images/PaperPlaneRight.svg" alt="paper-plane-message-sent-icon">
+                    </button>
+                </section>
+            </section>
+        </section>
+
+        <section class="wrapper paymentdetailsareamain hide">
+            <ul class="selectpaymentmethod">
+                <li class="cp">
+                    <img src="images/3d-credit-card.png" alt="payment-icon-unique" />
+                    <h4>Card Payments</h4>
+                </li>
+                <li class="up">
+                    <img src="images/icons8-google-pay-96.png" alt="payment-icon-unique" />
+                    <h4>Upi Payments</h4>
+                </li>
+                <li class="qr">
+                    <img src="images/icons8-qr-code-80.png" alt="payment-icon-unique" />
+                    <h4>QR Payments</h4>
+                </li>
+                <li class="nb">
+                    <img src="images/mobile-banking.png" alt="payment-icon-unique" />
+                    <h4>Net Banking</h4>
+                </li>
+            </ul>
+            <section class="cardpaymentarea ">
+                <section class="savedcardarea">
+                    <ul>
+                        <li>
+                            <img src="images/CreditCard.svg" alt="card-icon-image"id="card-icon-image1"  class="cardlogo">
+                            <input type="text" name="" id="cardnumber1" class="savedcardnumber" value="2270  6530 2346 2356" readonly>
+                            <h3 class="expdate">04/24</h3>
+                            <h3 class="cardname">John Smith</h3>
+                        </li>
+                        <li>
+                            <img src="images/CreditCard.svg" alt="card-icon-image"id="card-icon-image1"  class="cardlogo">
+                            <input type="text" name="" id="cardnumber1" class="savedcardnumber" value="2270  6530 2346 2356" readonly>
+                            <h3 class="expdate">04/24</h3>
+                            <h3 class="cardname">John Smith</h3>
+                        </li>
+                        <li>
+                            <img src="images/CreditCard.svg" alt="card-icon-image"id="card-icon-image1"  class="cardlogo">
+                            <input type="text" name="" id="cardnumber1" class="savedcardnumber" value="2270  6530 2346 2356" readonly>
+                            <h3 class="expdate">04/24</h3>
+                            <h3 class="cardname">John Smith</h3>
+                        </li>
+                    </ul>
+                </section>
+                <div class="name">
+                    <label for="Name">Name</label>
+                    <input type="text" name="" id="" placeholder="Name on Card" required>
+                </div>
+                <div class="cardnumber">
+                    <label for="Cardnumber">Card number</label>
+                    <span class="cardicon">
+                        <img src="images/CreditCard.svg" alt="CreditCard" id="card-icon-image">
+                        <input type="text" name="" id="cardnumber" placeholder="Label" required>
+                        <p id="card-validation-message" style="color: red; display: none;">Unsupported card type. Please try a different card.</p>
+                    </span>
+                </div>
+                <div class="carddates">
+                    <div class="month">
+                        <label for="MM/YY">MM/YY</label>
+                        <input type="text" name="" id="" placeholder="MM / YY" required>
+                    </div>
+                    <div class="cvv">
+                        <label for="CVC">CVC</label>
+                        <input type="text" name="" id="" placeholder="Security Code" required>
+                    </div>
+                </div>
+                <div class="remembercard">
+                    <input type="checkbox" name="" id="">
+                    <h5>Remember this card, save it on my card list</h5>
+                </div>
+                <button class="savecard">Save Card for Payment</button>
+            </section>
+            <section class="upipaymentarea hide">
+                <label for="Name">Name</label>
+                <input type="text" name="" id="" placeholder="Enter your name">
+                <label for="Upiid">Upi id</label>
+                <input type="text" name="" id="" placeholder="Enter you upi id....">
+
+                <button class="saveupiid">Save upi id</button>
+            </section>
+            <section class="qrpaymentarea hide">
+                <label for="Scan the Qr code for Payment">Scan the Qr code for Payment</label>
+                <img src="images/qr-code.png" alt="qr-code" class="upipaymentqrcode">
+                <div class="paymentamnt">
+                    <h3>Total Transaction amount is : ₹</h3>
+                    <h3>499</h3>
+                </div>
+                <label for="Enter your transaction id">Enter your transaction id</label>
+                <input type="text" name="" id="" placeholder="Enter your transaction id">
+                <button class="saveupiqr">Save Now</button>
+            </section>
+        </section>
+
+        <section class="wrapper confirmationareamain hide">
+            <h2>Confirmation</h2>
+            <section class="confirmeddetailsarea">
+                <div class="fullname">
+                    <label for="Renter's Full name">Renter's Full name</label>
+                    <input type="text" name="" id="" placeholder="John Smith" readonly>
+                    <img src="images/edit.png" alt="edit-icon-main" class="editicon">
+                </div>
+                <div class="emailid">
+                    <label for="Email address">Email address</label>
+                    <input type="email" name="" id="" placeholder="Johnsmith@example.com" readonly>
+                    <img src="images/edit.png" alt="edit-icon-main" class="editicon">
+                </div>
+                <div class="mainaddress">
+                    <label for="Full address">Full address</label>
+                    <input type="text" name="" id="" placeholder="John smith full address" readonly>
+                    <img src="images/edit.png" alt="edit-icon-main" class="editicon">
+                </div>
+                <div class="Locality">
+                    <label for="Locality">Locality</label>
+                    <input type="text" name="" id="" placeholder="California,India" readonly>
+                    <img src="images/edit.png" alt="edit-icon-main" class="editicon">
+                </div>
+                <div class="pincode">
+                    <label for="Pincode">Pincode</label>
+                    <input type="text" name="" id="" placeholder="2458776" readonly>
+                    <img src="images/edit.png" alt="edit-icon-main" class="editicon">
+                </div>
+            </section>
+            <h2>Hostel details</h2>
+            <section class="hostelmaindetails">
+                <section class="hostelheaderenter">
+                    <ul>
+                        <li class="hosteldetails">
+                            <h3>HOSTEL DETAILS</h3>
+                        </li>
+                        <li class="prices">
+                            <h3>PRICES</h3>
+                        </li>
+                        <li class="action">
+                            <h3>ACTION</h3>
+                        </li>
+                    </ul>
+                </section>
+                <section class="hostedbottomenter">
+                    <ul class="hosteldetailenterarea">
+                        <li class="hosteldetails">
+                            <div class="one">
+                                <img src="images/Rectangle 16.png" alt="rectangle-image-icon" class="hostelmainimage">
+                            </div>
+                            <div class="two">
+                                <div class="rating">
+                                    <img src="images/Star.svg" alt="star-icon">
+                                    <h4>4.6</h4>
+                                    <h5 class="countrate"> (451,444 Review)</h5>
+                                </div>
+                                <h3 class="hostelnamecart">Entire cabin in Granite Falls,Idukki,Kerala</h3>
+                                <div class="hosteddetailsarea">
+                                    <h5></h5>
+                                    <h4 class="wardenname">Harry Potter</h4>
+                                    <h3>.</h3>
+                                    <h5>Idukki</h5>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="prices">
+                            <div class="one">
+                                <h3 class="realprice1">
+                                    <img src="images//rupee.png" alt="rupee-icon">
+                                </h3>
+                                <h3 class="realprice">999</h3>
+                            </div>
+
+                        </li>
+                        <li class="action">
+                            <button class="delete">Delete</button>
+                            <button class="reserved">Reserved</button>
+                            <img src="images/Heart.svg" alt="heart" class="liked">
+                        </li>
+                    </ul>
+                    <ul class="hosteldetailenterarea">
+                        <li class="hosteldetails">
+                            <div class="one">
+                                <img src="images/Rectangle 16.png" alt="rectangle-image-icon" class="hostelmainimage">
+                            </div>
+                            <div class="two">
+                                <div class="rating">
+                                    <img src="images/Star.svg" alt="star-icon">
+                                    <h4>4.6</h4>
+                                    <h5 class="countrate"> (451,444 Review)</h5>
+                                </div>
+                                <h3 class="hostelnamecart">Entire cabin in Granite Falls,Idukki,Kerala</h3>
+                                <div class="hosteddetailsarea">
+                                    <h5></h5>
+                                    <h4 class="wardenname">Harry Potter</h4>
+                                    <h3>.</h3>
+                                    <h5>Idukki</h5>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="prices">
+                            <div class="one">
+                                <h3 class="realprice1">
+                                    <img src="images//rupee.png" alt="rupee-icon">
+                                </h3>
+                                <h3 class="realprice">999</h3>
+                            </div>
+
+                        </li>
+                        <li class="action">
+                            <button class="delete">Delete</button>
+                            <button class="reserved">Reserved</button>
+                            <img src="images/Heart.svg" alt="heart" class="liked">
+                        </li>
+                    </ul>
+                </section>
+            </section>
+            <h2>Room details</h2>
+            <ul>
+                <li>
+                    <div class="left">
+                        <ul>
+                            <li>
+                                <img src="images/Rectangle 17.png" alt="hostel-image-icon">
+                                <div class="two">
+                                    <div class="rating">
+                                        <img src="images/Star.svg" alt="star-icon">
+                                        <h4>4.6</h4>
+                                        <h5 class="countrate"> (451,444 Review)</h5>
+                                    </div>
+                                    <h3 class="hostelnamecart">Entire cabin in Granite Falls,Idukki,Kerala</h3>
+                                    <div class="hosteddetailsarea">
+                                        <h5></h5>
+                                        <h4 class="wardenname">Harry Potter</h4>
+                                        <h3>.</h3>
+                                        <h5>Idukki</h5>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <img src="images/Rectangle 17.png" alt="hostel-image-icon">
+                                <div class="two">
+                                    <div class="rating">
+                                        <img src="images/Star.svg" alt="star-icon">
+                                        <h4>4.6</h4>
+                                        <h5 class="countrate"> (451,444 Review)</h5>
+                                    </div>
+                                    <h3 class="hostelnamecart">Entire cabin in Granite Falls,Idukki,Kerala</h3>
+                                    <div class="hosteddetailsarea">
+                                        <h5></h5>
+                                        <h4 class="wardenname">Harry Potter</h4>
+                                        <h3>.</h3>
+                                        <h5>Idukki</h5>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <span class="greytotalline"></span>
+                    <div class="right">
+                        <div class="dateselectedcheckin">
+                            <h5 class="checkinday">1st</h5>
+                            <h5 class="checkinmonth">September</h5>
+                            <h5>,</h5>
+                            <h5 class="checkinyear">2025</h5>
+                            <h5>at</h5>
+                            <h5 class="checktime">12:30</h5>
+                            <h5 class="checkinampm">PM</h5>
+                        </div>
+                        <div class="detabottom">
+                            <div class="bed">
+                                <img src="images/bed.png" alt="bed-icon">
+                                <h4>Bed Room 1</h4>
+                            </div>
+                            <div class="totalraterooms">
+                                <img src="images/rupee.png" alt="rupee-icon">
+                                <h4>999</h4>
+                            </div>
+                            <div class="paymentoptions">
+                                <img src="images/wallet.png" alt="wallet-icon">
+                                <h4>All Payments Supported</h4>
+                            </div>
+                        </div>
+                        <div class="userdetails">
+                            <h3>Anandhakrishnan</h3>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <h2>Message details</h2>
+            <section class="messagecontentselect">
+                <label for="MessageTitle">Message Title</label>
+                <input type="text" list="optionsList" id="customSelect" name="customSelect" placeholder="Type or Select" autocomplete="off"> <!-- Prevents browser auto-suggestions -->
+
+                <datalist id="optionsList">
+                    <option value="Rent Renewation">
+                    </option><option value=" Something else...">
+                    </option><option value=" Something else...">
+                    </option><option value=" Something else...">
+                    </option><option value=" Something else...">
+                </option></datalist>
+                <label for="Message">Message</label>
+                <textarea name="" id="" cols="30" rows="10" placeholder="Write your message here..."></textarea>
+                <section class="msgareabuttons">
+                    <button class="cancelmessage">Cancel</button>
+                    <button class="sendmessage">
+                        <h4>Send Message</h4>
+                        <img src="images/PaperPlaneRight.svg" alt="paper-plane-message-sent-icon">
+                    </button>
+                </section>
+            </section>
+            <h2>Payment details</h2>
+            <section class="choosenpaymentdetails">
+                <!-- amount+payment method+other payment details -->
+            </section>
+            <section class="actionareaconfitm">
+                <button class="cancelall">Cancel Booking</button> <!-- < cancel koduthal oru popup koduthett refund kerumm enn kodukanam if payment done -->
+                <button class="confirmall">Confirm</button>
+            </section>
+        </section>
+
+        <section class="wrapper paymentareamain hide">
+            <section class="paymentchoosen">
+                <ul class="headpayon">
+                    <li>
+                        <img src="images/3d-credit-card.png" alt="" class="paymenticon">
+                        <h3 class="paymentmethodname">Credit Card</h3>
+                    </li>
+                    <li>
+                        <h4>Your have selected</h4> <h3 class="methodselected">credit card</h3> <h4>as your payment method.</h4>
+                    </li>
+                </ul>
+                <div class="amountdescribe">
+                    <h4>Total Amount to be Payable is</h4><h3 class="totalamount">999</h3>
+                </div>
+                <h5>Including all Charges applied</h5>
+                <button class="completeorderwithpayment">Confirm your Bed</button>
+            </section>
+        </section>
+    </section>
+
+
+
+
+
+
+    <footer>
+        <section class="wrapper">
+            <section class="one">
+                <div class="fone">
+                    <section class="left">
+                        <a href="index.html" style="display:flex;align-items:center;">
+                    <img src="images/logomain.png" alt="logo-main-hostel" class="mainlogo">
+                <div class="webname">
+                    <span class="name">
+                        <h2 class="Hostel">Hostel</h2>
+                        <h2 class="Haven">Haven</h2>
+                    </span>
+                    <span class="des">
+                        <h3>your next space</h3>
+                    </span>
+                </div>
+                </a>
+                    </section>
+                    <h3 class="deshostel">Welcome to your own Hostel Haven, We are exitced to introduce our latest features and offerings that enhance your hostel management system than any other providers.</h3>
+
+                </div>
+                <div class="ftwo">
+                    <ul>
+                        <li>
+                            <a href="index.html">
+                                <h3 class="bcl">Home</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <h3>About us</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <h3>Deals</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <h3>Blog</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <h3>Contact us</h3>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <hr class="ggline">
+            <section class="two">
+                <ul>
+                    <li>
+                        <a href="">
+                            <h3>Privacy Policy</h3>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <h3>Help & Supports</h3>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            <hr class="ggline">
+            <section class="three">
+                <ul>
+                    <li>
+                        <h3>Location</h3>
+                    </li>
+                    <li>
+                        <div class="l">
+                            <img src="images/location.png" alt="location">
+                        </div>
+                        <div class="r">
+                            <h4>JPM arts and Science College</h4>
+                            <h4>Labbakkada</h4>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+        </section>
+    </footer>
+
+
+
+
+</body>
+<script defer>
+    document.addEventListener('DOMContentLoaded', function() {
+    const lis = document.querySelectorAll('.selectfillarea li');
+
+    lis.forEach(li => {
+        li.addEventListener('click', function() {
+            lis.forEach(otherLi => {
+                if (otherLi === this) {
+                    otherLi.querySelector('.orangeunderline').classList.remove('hide');
+                } else {
+                    otherLi.querySelector('.orangeunderline').classList.add('hide');
+                }
+            });
+        });
+    });
+});
+</script>
+<script defer>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cardInput = document.getElementById('cardnumber');
+            const cardIcon = document.getElementById('card-icon-image');
+            const validationMessage = document.getElementById('card-validation-message');
+            
+            const initialIcon = cardIcon.src;
+            
+            cardInput.addEventListener('input', function() {
+                const cardNumber = cardInput.value.replace(/\D/g, '');
+                const firstDigit = cardNumber.charAt(0);
+                const firstTwo = cardNumber.substring(0, 2);
+                const firstFour = cardNumber.substring(0, 4);
+                
+                // Reset validation message
+                validationMessage.style.display = 'none';
+                
+                if (cardNumber.length === 0) {
+                    cardIcon.src = initialIcon;
+                    return;
+                }
+
+                let supported = false;
+
+                if (firstDigit === '4') {
+                    cardIcon.src = 'images/Visa.png';
+                    supported = true;
+                } 
+                else if ((firstTwo >= '51' && firstTwo <= '55') || 
+                         (firstFour >= '2221' && firstFour <= '2720')) {
+                    cardIcon.src = 'images/Mastercard.png';
+                    supported = true;
+                }
+                else if (firstTwo === '60' || firstTwo === '65' || 
+                         firstTwo === '81' || firstTwo === '82' || 
+                         cardNumber.startsWith('508') || 
+                         cardNumber.startsWith('606') || 
+                         cardNumber.startsWith('607') || 
+                         cardNumber.startsWith('608')) {
+                    cardIcon.src = 'images/rupay.png';
+                    supported = true;
+                }
+                else {
+                    cardIcon.src = 'images/CreditCard.svg';
+                }
+
+                if (!supported && cardNumber.length > 0) {
+                    validationMessage.style.display = 'block';
+                }
+            });
+        });
+    </script>
+
+<script defer>
+    document.addEventListener('DOMContentLoaded', function() {
+        const cardInputs = document.querySelectorAll('.savedcardnumber');
+        const cardIcons = document.querySelectorAll('.cardlogo');
+        
+        // Function to mask the card number
+        function maskCardNumber(cardNumber) {
+            const firstFour = cardNumber.substring(0, 4);
+            const remaining = cardNumber.substring(4);
+            return firstFour + remaining.replace(/\d/g, '*');
+        }
+        
+        // Function to update the card icon based on the card type
+        function updateCardIcon(cardIcon, cardNumber) {
+            const firstDigit = cardNumber.charAt(0);
+            const firstTwo = cardNumber.substring(0, 2);
+            const firstFour = cardNumber.substring(0, 4);
+            
+            if (firstDigit === '4') {
+                cardIcon.src = 'images/Visa.png';
+            } 
+            else if ((firstTwo >= '51' && firstTwo <= '55') || 
+                     (firstFour >= '2221' && firstFour <= '2720')) {
+                cardIcon.src = 'images/Mastercard.png';
+            }
+            else if (firstTwo === '60' || firstTwo === '65' || 
+                     firstTwo === '81' || firstTwo === '82' || 
+                     cardNumber.startsWith('508') || 
+                     cardNumber.startsWith('606') || 
+                     cardNumber.startsWith('607') || 
+                     cardNumber.startsWith('608')) {
+                cardIcon.src = 'images/rupay.png';
+            }
+            else {
+                cardIcon.src = 'images/CreditCard.svg';
+            }
+        }
+        
+        // Initial setup for each saved card number
+        cardInputs.forEach((cardInput, index) => {
+            const cardNumber = cardInput.value.replace(/\s/g, ''); // Remove spaces from the card number
+            cardInput.value = maskCardNumber(cardNumber); // Mask the card number
+            updateCardIcon(cardIcons[index], cardNumber); // Update the card icon
+        });
+    });
+</script>
+<script defer>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cardInput = document.querySelector('.savedcardnumber');
+            
+            if (cardInput) {
+                const cardNumber = cardInput.value.replace(/\s/g, ''); // Remove spaces from the card number
+                const firstFour = cardNumber.substring(0, 4); // Get the first four digits
+                const remaining = cardNumber.substring(4); // Get the remaining digits
+                const maskedNumber = firstFour + remaining.replace(/\d/g, '*'); // Replace remaining digits with asterisks
+                
+                cardInput.value = maskedNumber; // Update the input value
+            }
+        });
+</script>
+<script src="js/script.js"></script>
+<script src="../../js/alert.js" defer></script>
+<script src="../../js/prevent.js" defer></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const areas = {
+            gi: 'Generalareamain',
+            hd: 'hostelareamain',
+            rm: 'roomareamain',
+            msg: 'messageareamain',
+            pd: 'paymentdetailsareamain',
+            crfn: 'confirmationareamain',
+            pyt: 'paymentareamain'
+        };
+
+        const buttons = document.querySelectorAll('.selectfillarea ul li');
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Get the class name of the clicked button
+                const buttonClass = button.classList[0];
+                const targetId = areas[buttonClass];
+                const targetElement = document.getElementById(targetId);
+
+                // Function to hide all elements with animation
+                const hideElements = () => {
+                    Object.values(areas).forEach(areaId => {
+                        const element = document.getElementById(areaId);
+                        if (element && !element.classList.contains('hide')) {
+                            element.style.opacity = 1;
+                            element.style.transition = 'opacity 0.5s ease-out';
+                            setTimeout(() => {
+                                element.style.opacity = 0;
+                                setTimeout(() => {
+                                    element.classList.add('hide');
+                                }, 500);
+                            }, 0);
+                        }
+                    });
+                };
+
+                // Function to show the target element with animation
+                const showTargetElement = () => {
+                    if (targetElement && targetElement.classList.contains('hide')) {
+                        targetElement.classList.remove('hide');
+                        targetElement.style.opacity = 0;
+                        targetElement.style.transition = 'opacity 0.5s ease-in';
+                        setTimeout(() => {
+                            targetElement.style.opacity = 1;
+                        }, 0);
+                    }
+                };
+
+                // Hide all elements first
+                hideElements();
+
+                // Show the target element after all others are hidden
+                setTimeout(() => {
+                    showTargetElement();
+                }, 500);
+            });
+        });
+    });
+</script>
+<script src="js/cart.js" defer></script>
+<script defer>// vanilla-JS edit-toggle for confirmed-details inputs
+// targets only the inputs inside .confirmeddetailsarea
+window.addEventListener("DOMContentLoaded", () => {
+  const editIcons = document.querySelectorAll(
+    ".confirmeddetailsarea .editicon"
+  );
+
+  editIcons.forEach((icon) => {
+    icon.style.cursor = "pointer"; // optional visual cue
+
+    icon.addEventListener("click", () => {
+      // the related <input> is the previous sibling inside the same <div>
+      const input = icon.previousElementSibling;
+      if (!input || input.tagName !== "INPUT") return;
+
+      // toggle readonly state
+      input.readOnly = !input.readOnly;
+
+      if (!input.readOnly) {
+        input.focus();
+        // optional: add a class to highlight the editable field
+        // input.classList.add("editing");
+      } else {
+        // optional: remove highlight when locked again
+        // input.classList.remove("editing");
+      }
+    });
+  });
+});</script>
+<script defer>
+        // show payment confirmation box for 20 s, then go to dashboard
+    window.addEventListener("DOMContentLoaded", () => {
+    const confirmBtn = document.querySelector(".completeorderwithpayment");
+    const paymentPopup = document.querySelector(".paymentconfitmpopupregister");
+
+    if (!confirmBtn || !paymentPopup) return; // safety check
+
+    confirmBtn.addEventListener("click", () => {
+        // reveal popup
+        paymentPopup.classList.remove("hide");
+
+        setTimeout(() => {
+        window.location.href = "udashboard.html";
+        }, 5000);
+    });
+    });
+</script>
+</body>
+</html>

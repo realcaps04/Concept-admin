@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hotel UI - Admin Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .ui-header {
+      background: linear-gradient(135deg, #0ea5e9, #0284c7);
+      color: white;
+      padding: 32px;
+      border-radius: 16px;
+      margin-bottom: 32px;
+      box-shadow: 0 8px 24px rgba(14, 165, 233, 0.3);
+    }
+    .ui-header h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+    .ui-header p { font-size: 16px; opacity: 0.9; }
+    .ui-dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 32px; }
+    .dashboard-card { background: white; border: 2px solid var(--border); border-radius: 16px; padding: 24px; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+    .dashboard-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); border-color: #0ea5e9; }
+    .dashboard-card-icon { width: 56px; height: 56px; background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(2, 132, 199, 0.1)); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+    .dashboard-card-icon svg { width: 28px; height: 28px; color: #0ea5e9; }
+    .dashboard-card h3 { font-size: 20px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+    .dashboard-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <div class="background-blur bg-one"></div>
+  <div class="background-blur bg-two"></div>
+  <section class="shell shell-wide">
+    <div class="card">
+      <header class="card-header">
+        <div class="brand">
+          <div class="logo-wrap" aria-hidden="true"><img src="assets/logo.svg" alt="Admin portal logo" /></div>
+          <div>
+            <p class="eyebrow">Hotel</p>
+            <h1 class="page-title">Admin Dashboard</h1>
+          </div>
+        </div>
+        <div class="header-actions">
+          <a href="Uitypes.html" class="back-btn">Back to UI Types</a>
+          <button id="logoutBtn" class="logout-btn">Logout</button>
+        </div>
+      </header>
+      <main class="card-body">
+        <div class="ui-header">
+          <h1>Hotel Management Panel</h1>
+          <p>Hospitality & Lodging Management System</p>
+        </div>
+        <div class="ui-dashboard">
+          <div class="dashboard-card">
+            <div class="dashboard-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+            <h3>Room Management</h3><p>Manage room bookings, availability, and assignments</p>
+          </div>
+          <div class="dashboard-card">
+            <div class="dashboard-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <h3>Guest Services</h3><p>Handle guest check-ins, check-outs, and requests</p>
+          </div>
+          <div class="dashboard-card">
+            <div class="dashboard-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg></div>
+            <h3>Reservation System</h3><p>Process reservations and manage bookings</p>
+          </div>
+          <div class="dashboard-card">
+            <div class="dashboard-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+            <h3>Housekeeping</h3><p>Track room status, cleaning schedules, and maintenance</p>
+          </div>
+          <div class="dashboard-card">
+            <div class="dashboard-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/></svg></div>
+            <h3>Dining Services</h3><p>Manage restaurant, bar, and room service orders</p>
+          </div>
+          <div class="dashboard-card">
+            <div class="dashboard-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+            <h3>Financial Management</h3><p>Track revenue, expenses, and occupancy rates</p>
+          </div>
+        </div>
+      </main>
+    </div>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script>
+    const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const getSession = () => {
+      const sessionData = localStorage.getItem('superadmin_session');
+      if (!sessionData) return null;
+      try {
+        const session = JSON.parse(sessionData);
+        if (Date.now() - session.timestamp > 24 * 60 * 60 * 1000) {
+          localStorage.removeItem('superadmin_session');
+          return null;
+        }
+        return session;
+      } catch { return null; }
+    };
+    const clearSession = () => { localStorage.removeItem('superadmin_session'); };
+    const checkAuth = async () => {
+      const session = getSession();
+      if (!session) { window.location.href = 'Superadminindex.html'; return false; }
+      const { data, error } = await supabase.from('Superadmin').select('id, email, name, is_active').eq('email', session.email).eq('id', session.id).single();
+      if (error || !data || !data.is_active) { clearSession(); window.location.href = 'Superadminindex.html'; return false; }
+      return true;
+    };
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        if (confirm('Are you sure you want to logout?')) {
+          clearSession();
+          window.location.href = 'Superadminindex.html';
+        }
+      });
+    }
+    const init = async () => {
+      const isAuthenticated = await checkAuth();
+      if (!isAuthenticated) { return; }
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  </script>
+</body>
+</html>
+

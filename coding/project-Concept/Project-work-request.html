@@ -1,0 +1,2045 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Console Projects | Build The Future</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --text-main: #0f172a;
+            --text-sub: #64748b;
+            --border-light: #e2e8f0;
+            --card-surface: #ffffff;
+
+            /* Professional & Futuristic Accents */
+            --brand-primary: #2563eb;
+            /* Tech Blue */
+            --brand-violet: #7c3aed;
+            /* Innovation Violet */
+            --brand-success: #10b981;
+            /* Clean Green */
+            --brand-warn: #f59e0b;
+            /* Attention Orange */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            /* Futuristic subtle mesh gradient background */
+            background-image:
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.03) 0, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(124, 58, 237, 0.03) 0, transparent 50%);
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            /* Strict no-scroll constraint */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Navbar (Glassmorphism) --- */
+        .navbar {
+            height: 60px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 50;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-violet));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .logo-group:hover .logo-icon {
+            transform: rotate(-5deg) scale(1.05);
+        }
+
+        .logo-titles {
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+        }
+
+        .logo-main {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-sub {
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--brand-violet);
+            letter-spacing: 1px;
+        }
+
+        .nav-actions a {
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .link-login {
+            color: var(--text-sub);
+        }
+
+        .link-login:hover {
+            color: var(--text-main);
+            background: #f1f5f9;
+        }
+
+        .link-signup {
+            background: var(--text-main);
+            color: white;
+            margin-left: 10px;
+        }
+
+        .link-signup:hover {
+            background: var(--brand-primary);
+        }
+
+        /* --- Main Content Area --- */
+        .workspace {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .request-panel {
+            background: var(--card-surface);
+            border: 1px solid var(--border-light);
+            width: 100%;
+            max-width: 1200px;
+            /* Wide professional layout */
+            height: 100%;
+            max-height: 85vh;
+            /* Ensure it fits vertically */
+            border-radius: 20px;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.06);
+            padding: 30px 40px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-header {
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 15px;
+        }
+
+        .header-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -1px;
+        }
+
+        .header-text p {
+            font-size: 0.95rem;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .status-badge {
+            background: #f0fdf4;
+            color: #15803d;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid #bbf7d0;
+        }
+
+        /* --- Grid System --- */
+        form {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            /* 4 Column Grid */
+            grid-template-rows: auto auto auto 1fr;
+            /* Automatic rows, last one fills space */
+            gap: 20px 24px;
+            overflow-y: auto;
+            /* Allow internal scroll if absolutely needed on tiny screens */
+            padding-right: 5px;
+            /* Space for scrollbar */
+        }
+
+        /* Custom Scrollbar for form if needed */
+        form::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        form::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+
+        /* Grid Spans */
+        .span-1 {
+            grid-column: span 1;
+        }
+
+        .span-2 {
+            grid-column: span 2;
+        }
+
+        .span-3 {
+            grid-column: span 3;
+        }
+
+        .span-4 {
+            grid-column: span 4;
+        }
+
+        /* Form Controls */
+        .field-group {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-sub);
+            margin-left: 2px;
+        }
+
+        .input-box {
+            position: relative;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            background: #f8fafc;
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 12px 16px 12px 42px;
+            /* Large padding */
+            font-size: 0.95rem;
+            color: var(--text-main);
+            outline: none;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        input:hover,
+        select:hover,
+        textarea:hover {
+            background: #fff;
+            border-color: #cbd5e1;
+        }
+
+        /* Focus Effects by Section Color */
+        /* Personal (Blue) */
+        .type-personal input:focus {
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            background: #fff;
+        }
+
+        .type-personal:focus-within label,
+        .type-personal:focus-within i {
+            color: var(--brand-primary) !important;
+        }
+
+        /* Project (Violet) */
+        .type-project input:focus,
+        .type-project select:focus,
+        .type-project textarea:focus {
+            border-color: var(--brand-violet);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+            background: #fff;
+        }
+
+        .type-project:focus-within label,
+        .type-project:focus-within i {
+            color: var(--brand-violet) !important;
+        }
+
+        /* Details (Green/Orange) */
+        .type-details input:focus,
+        .type-details select:focus {
+            border-color: var(--brand-success);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+            background: #fff;
+        }
+
+        .type-details:focus-within label,
+        .type-details:focus-within i {
+            color: var(--brand-success) !important;
+        }
+
+        .type-file input:focus {
+            border-color: var(--brand-warn);
+            background: #fff;
+        }
+
+        .type-file:focus-within label,
+        .type-file:focus-within i {
+            color: var(--brand-warn) !important;
+        }
+
+        /* Icons */
+        .field-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 1rem;
+            pointer-events: none;
+            transition: color 0.2s;
+        }
+
+        textarea~.field-icon {
+            top: 16px;
+            transform: none;
+        }
+
+        /* Textarea */
+        textarea {
+            resize: nonel;
+            height: 100%;
+            min-height: 80px;
+            line-height: 1.5;
+            padding-left: 42px;
+        }
+
+        /* File Input */
+        input[type="file"] {
+            padding: 10px 10px 10px 42px;
+            font-size: 0.85rem;
+        }
+
+        input[type="file"]::file-selector-button {
+            border: none;
+            background: #e2e8f0;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #475569;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        /* Submit Button */
+        .action-area {
+            grid-column: span 4;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            border-top: 1px solid var(--border-light);
+            padding-top: 20px;
+            margin-top: 5px;
+        }
+
+        .btn-submit {
+            background: var(--text-main);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            background: var(--brand-primary);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        @media (max-width: 900px) {
+            form {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .span-1,
+            .span-2,
+            .span-3,
+            .span-4 {
+                grid-column: span 2;
+            }
+
+            body {
+                overflow: auto;
+                height: auto;
+            }
+
+            .request-panel {
+                height: auto;
+                max-height: none;
+            }
+        }
+
+        /* --- Domain Select Button --- */
+        .domain-select-btn {
+            width: 100%;
+            text-align: left;
+            background: #f8fafc;
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 12px 16px 12px 42px;
+            font-size: 0.95rem;
+            color: var(--text-sub);
+            outline: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: block;
+            font-family: inherit;
+            position: relative;
+        }
+
+        .domain-select-btn:hover {
+            background: #fff;
+            border-color: var(--brand-violet);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.08);
+        }
+
+        .domain-select-btn:focus {
+            border-color: var(--brand-violet);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        .domain-select-btn.selected {
+            color: var(--text-main);
+            font-weight: 500;
+            border-color: var(--brand-violet);
+        }
+
+        /* --- Date Select Button --- */
+        .date-select-btn {
+            width: 100%;
+            text-align: left;
+            background: #f8fafc;
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 12px 16px 12px 42px;
+            font-size: 0.95rem;
+            color: var(--text-sub);
+            outline: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: block;
+            font-family: inherit;
+            position: relative;
+        }
+
+        .date-select-btn:hover {
+            background: #fff;
+            border-color: var(--brand-success);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.08);
+        }
+
+        .date-select-btn.selected {
+            color: var(--text-main);
+            font-weight: 500;
+            border-color: var(--brand-success);
+        }
+
+        /* Calendar Styles */
+        .calendar-container {
+            padding: 15px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 0 5px;
+        }
+
+        .calendar-header h4 {
+            font-weight: 700;
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+
+        .calendar-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .cal-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-sub);
+            transition: all 0.2s;
+        }
+
+        .cal-btn:hover {
+            border-color: var(--brand-success);
+            color: var(--brand-success);
+            background: #f0fdf4;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .weekday {
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-sub);
+            padding-bottom: 10px;
+        }
+
+        .day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-main);
+        }
+
+        .day:hover:not(.empty) {
+            background: #f1f5f9;
+            color: var(--brand-success);
+        }
+
+        .day.today {
+            font-weight: 800;
+            color: var(--brand-success);
+            background: #f0fdf4;
+        }
+
+        .day.selected {
+            background: var(--brand-success) !important;
+            color: white !important;
+            font-weight: 700;
+        }
+
+        .day.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            pointer-events: none;
+            background: #f1f5f9;
+        }
+
+        .day.empty {
+            cursor: default;
+        }
+
+        .calendar-selects {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .calendar-selects select {
+            padding: 6px 30px 6px 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 10px;
+            border: 1px solid var(--border-light);
+            background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E") no-repeat right 8px center;
+            background-size: 14px;
+            color: var(--text-main);
+            cursor: pointer;
+            outline: none;
+            width: auto;
+            height: auto;
+            appearance: none;
+            -webkit-appearance: none;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .calendar-selects select:hover {
+            border-color: var(--brand-success);
+            background-color: #f0fdf4;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .calendar-selects select:focus {
+            border-color: var(--brand-success);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+        }
+
+        /* Styling the internal option tags (limited browser support but helpful for some) */
+        .calendar-selects select option {
+            padding: 10px;
+            background: white;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        /* Success Modal Styles */
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #f0fdf4;
+            color: var(--brand-success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 24px;
+            animation: successScale 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes successScale {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+
+        .success-msg {
+            color: var(--text-sub);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .discord-box {
+            background: #f8fafc;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .discord-box:hover {
+            border-color: #5865F2;
+            background: #f0f1ff;
+            transform: translateY(-2px);
+        }
+
+        .discord-icon {
+            width: 44px;
+            height: 44px;
+            background: #5865F2;
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .discord-text {
+            text-align: left;
+        }
+
+        .discord-text h5 {
+            color: var(--text-main);
+            font-weight: 700;
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .discord-text p {
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            margin: 0;
+        }
+
+        .success-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-dashboard {
+            background: var(--text-main);
+            color: white;
+            text-decoration: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: all 0.2s;
+            display: block;
+            text-align: center;
+        }
+
+        .btn-dashboard:hover {
+            background: var(--brand-success);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+        }
+
+        /* --- Login Modal Styles --- */
+        /* --- Login Modal Styles (Premium Glassmorphism) --- */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: modalFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .login-modal {
+            background: rgba(255, 255, 255, 0.95);
+            width: 90%;
+            max-width: 420px;
+            padding: 48px 40px;
+            border-radius: 28px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+            position: relative;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .login-header h2 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .login-header p {
+            color: var(--text-sub);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        #loginForm,
+        #signupForm {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .login-field {
+            margin-bottom: 24px;
+            width: 100%;
+        }
+
+        .login-field label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            margin-left: 4px;
+        }
+
+        .login-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .login-input-wrapper i {
+            position: absolute;
+            right: 16px;
+            color: #94a3b8;
+            font-size: 1.1rem;
+            transition: color 0.2s;
+            z-index: 10;
+        }
+
+        .login-field input {
+            width: 100%;
+            height: 56px;
+            padding: 0 16px 0 48px;
+            border-radius: 14px;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            font-size: 1rem;
+            font-family: inherit;
+            color: var(--text-main);
+            outline: none;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .login-field input:focus {
+            border-color: var(--brand-primary);
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
+        }
+
+        .login-field input:focus+i {
+            color: var(--brand-primary);
+        }
+
+        .login-error {
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: none;
+            text-align: center;
+            border: 1px solid #fee2e2;
+        }
+
+        .btn-login-submit {
+            width: 100%;
+            background: var(--brand-primary);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-login-submit:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px -5px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-login-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-login-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .close-login {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 32px;
+            height: 32px;
+            background: #f1f5f9;
+            color: var(--text-sub);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .close-login:hover {
+            background: #e2e8f0;
+            color: var(--text-main);
+            transform: rotate(90deg);
+        }
+
+        .modal-switch {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 0.9rem;
+            color: var(--text-sub);
+        }
+
+        .modal-switch a {
+            color: var(--brand-primary);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .modal-switch a:hover {
+            text-decoration: underline;
+        }
+
+        #signupModal .login-modal {
+            width: 95%;
+            max-width: 900px;
+            padding: 40px 48px;
+        }
+
+        #signupModal .login-header {
+            margin-bottom: 24px;
+        }
+
+        #signupForm {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .signup-row {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .signup-row {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="#" class="logo-group">
+            <div class="logo-icon"><i class="fas fa-terminal"></i></div>
+            <div class="logo-titles">
+                <span class="logo-main">Console Projects</span>
+                <span class="logo-sub">Build The Future</span>
+            </div>
+        </a>
+        <div class="nav-actions">
+            <a href="javascript:void(0)" onclick="openLoginModal()" class="link-login">Login</a>
+            <a href="javascript:void(0)" onclick="openSignupModal()" class="link-signup">Get Started</a>
+        </div>
+    </nav>
+
+    <div class="workspace">
+        <div class="request-panel">
+            <div class="panel-header">
+                <div class="header-text">
+                    <h1>New Project Request</h1>
+                    <p>Submit your requirements. We'll engineer the rest.</p>
+                </div>
+                <div class="status-badge">
+                    <i class="fas fa-bolt"></i> Fast Track Available
+                </div>
+            </div>
+
+            <form id="projectForm">
+                <!-- Personal Info (Blue) - Row 1 -->
+                <div class="field-group type-personal span-1">
+                    <label>First Name</label>
+                    <div class="input-box">
+                        <input type="text" id="firstName" required placeholder="John">
+                        <i class="fas fa-user field-icon"></i>
+                    </div>
+                </div>
+
+                <div class="field-group type-personal span-1">
+                    <label>Middle Name</label>
+                    <div class="input-box">
+                        <input type="text" id="middleName" placeholder="">
+                        <i class="fas fa-user-tag field-icon"></i>
+                    </div>
+                </div>
+
+                <div class="field-group type-personal span-1">
+                    <label>Last Name</label>
+                    <div class="input-box">
+                        <input type="text" id="lastName" required placeholder="Doe">
+                        <i class="fas fa-user field-icon"></i>
+                    </div>
+                </div>
+
+                <div class="field-group type-personal span-1">
+                    <label>Phone Number</label>
+                    <div class="input-box phone-group">
+                        <select id="studCountryCode" class="country-code-select"></select>
+                        <input type="tel" id="studPhone" required placeholder="98765 00000">
+                    </div>
+                </div>
+
+                <!-- Personal Info Row 2 -->
+                <div class="field-group type-personal span-2">
+                    <label>Email Address</label>
+                    <div class="input-box">
+                        <input type="email" id="studEmail" required placeholder="john@university.edu">
+                        <i class="fas fa-envelope field-icon"></i>
+                    </div>
+                </div>
+
+                <div class="field-group type-personal span-2">
+                    <label>Institution</label>
+                    <div class="input-box">
+                        <input type="text" id="college" placeholder="Institute of Technology">
+                        <i class="fas fa-university field-icon"></i>
+                    </div>
+                </div>
+
+                <!-- Project Specs (Violet) - Row 3 -->
+                <div class="field-group type-project span-1">
+                    <label>Domain</label>
+                    <div class="input-box">
+                        <button type="button" id="projTypeBtn" class="domain-select-btn" onclick="openDomainModal()">
+                            Select Domain
+                        </button>
+                        <input type="hidden" id="projType" name="projType">
+                        <i class="fas fa-layer-group field-icon"></i>
+                    </div>
+                </div>
+
+                <!-- Hidden Input for 'Other' Domain (Legacy, kept for compatibility if needed, but primary logic moves to popup) -->
+                <div class="field-group type-project span-1" id="otherDomainGroup" style="display: none;">
+                    <label>Specify Domain</label>
+                    <div class="input-box">
+                        <input type="text" id="otherDomainInput" placeholder="Custom Domain">
+                        <i class="fas fa-pen field-icon"></i>
+                    </div>
+                </div>
+
+                <div class="field-group type-project span-3" id="projTitleGroup">
+                    <label>Project Title</label>
+                    <div class="input-box">
+                        <input type="text" id="projTitle" required placeholder="e.g., Autonomous Drone Delivery">
+                        <i class="fas fa-heading field-icon"></i>
+                    </div>
+                </div>
+
+                <!-- Logistics (Green/Orange) - Row 4 -->
+                <div class="field-group type-details span-1">
+                    <label>Deadline</label>
+                    <div class="input-box">
+                        <button type="button" id="deadlineBtn" class="date-select-btn" onclick="openDateModal()">
+                            Set Deadline
+                        </button>
+                        <input type="hidden" id="deadline">
+                        <i class="fas fa-calendar-day field-icon"></i>
+                    </div>
+                </div>
+
+                <div class="field-group type-details span-1">
+                    <label>Budget</label>
+                    <div class="input-box">
+                        <select id="budget">
+                            <option value="" disabled selected>Estimate</option>
+                            <option value="min">&lt; ₹5,000</option>
+                            <option value="mid">₹5k - ₹15k</option>
+                            <option value="high">₹15k - ₹30k</option>
+                            <option value="max">&gt; ₹30,000</option>
+                        </select>
+                        <i class="fas fa-coins field-icon"></i>
+                    </div>
+                </div>
+
+                <!-- Referral Code (New) - Shares row with Deadline/Budget/File -->
+                <div class="field-group type-details span-1">
+                    <label>Referral Code <span style="font-size:0.7em; color:#10b981;">(Optional: 10%
+                            Off)</span></label>
+                    <div class="input-box">
+                        <input type="text" id="referralCode" placeholder="Enter Code">
+                        <i class="fas fa-ticket-alt field-icon"></i>
+                    </div>
+                </div>
+
+                <div class="field-group type-file span-1">
+                    <label>Abstract (PDF) <span style="color:#ef4444">*</span></label>
+                    <div class="input-box">
+                        <input type="file" id="abstractFile" accept="application/pdf" required>
+                        <i class="fas fa-file-pdf field-icon"></i>
+                    </div>
+                </div>
+
+                <!-- Design Details (Optional) - Row 5 -->
+                <div class="field-group type-details span-2">
+                    <label>Design Link <span style="font-size:0.7em; color:var(--text-sub);">(Optional: Figma,
+                            Pinterest, etc.)</span></label>
+                    <div class="input-box">
+                        <input type="url" id="designLink" placeholder="https://figma.com/file/...">
+                        <i class="fas fa-link field-icon"></i>
+                    </div>
+                </div>
+
+                <div class="field-group type-file span-2">
+                    <label>Design Concept <span style="font-size:0.7em; color:var(--text-sub);">(Optional:
+                            Image/PDF)</span></label>
+                    <div class="input-box">
+                        <input type="file" id="designFile" accept="image/*,application/pdf">
+                        <i class="fas fa-palette field-icon"></i>
+                    </div>
+                </div>
+
+                <!-- Description - Row 4 (Fills rest) -->
+                <div class="field-group type-project span-4" style="height: 100%;">
+                    <label>Detailed Description</label>
+                    <div class="input-box" style="height: 100%;">
+                        <textarea id="desc" required
+                            placeholder="Describe the core logic, modules, and preferred technology stack..."></textarea>
+                        <i class="fas fa-align-left field-icon"></i>
+                    </div>
+                </div>
+
+                <!-- Action - Footer -->
+                <div class="action-area">
+                    <button type="submit" id="submitBtn" class="btn-submit">
+                        <i class="fas fa-paper-plane"></i> Submit Request
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Popup Modal -->
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 450px; text-align: center; padding: 40px 30px;">
+            <div class="success-icon">
+                <i class="fas fa-check-double"></i>
+            </div>
+            <h3 class="success-title">Submission Successful!</h3>
+            <p class="success-msg">Your project request has been logged. Our developers will review your requirements
+                and get back to you shortly.</p>
+
+            <a href="https://discord.gg/7ZdbMunn" target="_blank" class="discord-box">
+                <div class="discord-icon">
+                    <i class="fab fa-discord"></i>
+                </div>
+                <div class="discord-text">
+                    <h5>Join Community</h5>
+                    <p>Get real-time updates on Discord</p>
+                </div>
+                <i class="fas fa-chevron-right" style="margin-left: auto; color: #cbd5e1;"></i>
+            </a>
+
+            <div class="success-btns">
+                <a href="users-dashboard.html" class="btn-dashboard">Go to Dashboard</a>
+                <button type="button" class="btn-cancel" onclick="location.reload()"
+                    style="background: transparent; border: 1px solid var(--border-light);">Submit Another</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Domain Search Modal -->
+    <div id="domainModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Select Domain</h3>
+                <button type="button" class="close-modal" onclick="closeDomainModal()"><i
+                        class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="domainSearch" placeholder="Search domains (e.g., 'Robotics')..."
+                        oninput="filterDomains()">
+                </div>
+                <div id="domainResults" class="domain-list"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" onclick="closeDomainModal()">Cancel</button>
+                    <button type="button" class="btn-confirm" id="confirmDomainBtn"
+                        onclick="confirmDomainSelection()">Select Domain</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Date Search Modal -->
+    <div id="dateModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header" style="background: linear-gradient(to bottom, #f0fdf4, #ffffff);">
+                <h3>Set Project Deadline</h3>
+                <button type="button" class="close-modal" onclick="closeDateModal()"><i
+                        class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <div class="calendar-selects">
+                            <select id="calMonth" onchange="updateCalendarView()">
+                                <option value="0">January</option>
+                                <option value="1">February</option>
+                                <option value="2">March</option>
+                                <option value="3">April</option>
+                                <option value="4">May</option>
+                                <option value="5">June</option>
+                                <option value="6">July</option>
+                                <option value="7">August</option>
+                                <option value="8">September</option>
+                                <option value="9">October</option>
+                                <option value="10">November</option>
+                                <option value="11">December</option>
+                            </select>
+                            <select id="calYear" onchange="updateCalendarView()"></select>
+                        </div>
+                        <div class="calendar-controls" style="margin-left: auto;">
+                            <button type="button" class="cal-btn" onclick="changeMonth(-1)"><i
+                                    class="fas fa-chevron-left"></i></button>
+                            <button type="button" class="cal-btn" onclick="changeMonth(1)"><i
+                                    class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                    <div id="calendarGrid" class="calendar-grid"></div>
+                </div>
+                <div class="modal-footer" style="padding: 10px 0 0 0; background: transparent;">
+                    <button type="button" class="btn-cancel" onclick="closeDateModal()"
+                        style="padding: 8px 16px; font-size: 0.85rem;">Clear</button>
+                    <button type="button" class="btn-confirm" onclick="setToday()"
+                        style="background: var(--brand-success); padding: 8px 16px; font-size: 0.85rem;">Today</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Modern Modal System */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            width: 100%;
+            max-width: 550px;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            padding: 24px 24px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, #f8fafc, #ffffff);
+        }
+
+        .modal-header h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+
+        .close-modal {
+            background: #f1f5f9;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-sub);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .close-modal:hover {
+            background: #fee2e2;
+            color: #ef4444;
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 0 24px 24px;
+        }
+
+        .search-bar {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .search-bar input {
+            padding-left: 44px;
+            height: 48px;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: #f8fafc;
+            border: 1px solid var(--border-light);
+            width: 100%;
+            transition: all 0.2s;
+        }
+
+        .search-bar input:focus {
+            background: #fff;
+            border-color: var(--brand-violet);
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+        }
+
+        .domain-list {
+            max-height: 360px;
+            overflow-y: auto;
+            border-radius: 12px;
+            background: #f8fafc;
+            padding: 8px;
+            border: 1px solid var(--border-light);
+        }
+
+        .domain-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .domain-list::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .domain-item {
+            padding: 12px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 4px;
+        }
+
+        .domain-item:hover {
+            background: #ffffff;
+            color: var(--brand-violet);
+            transform: translateX(4px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .domain-item i {
+            width: 30px;
+            height: 30px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-sub);
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .domain-item:hover i {
+            background: rgba(124, 58, 237, 0.1);
+            color: var(--brand-violet);
+        }
+
+        .domain-item.active {
+            background: var(--brand-violet);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .domain-item.active i {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+        }
+
+        .domain-item.custom-option {
+            border: 1px dashed var(--brand-warn);
+            background: #fffbeb;
+            margin-top: 10px;
+        }
+
+        .modal-footer {
+            padding: 16px 24px 24px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            background: #ffffff;
+        }
+
+        .btn-cancel {
+            background: #f1f5f9;
+            color: var(--text-sub);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-confirm {
+            background: var(--text-main);
+            color: #ffffff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+        }
+
+
+        .btn-confirm:hover:not(:disabled) {
+            background: var(--brand-violet);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.3);
+        }
+
+        /* --- Combined Phone Input Styling --- */
+        .phone-group {
+            display: flex !important;
+            align-items: center;
+            background: #f8fafc;
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .phone-group:hover {
+            background: #fff;
+            border-color: #cbd5e1;
+        }
+
+        .phone-group:focus-within {
+            background: #fff;
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Inherit focus color for project form based on section */
+        .type-personal .phone-group:focus-within {
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .country-code-select {
+            width: auto !important;
+            max-width: 120px;
+            padding: 12px 8px 12px 12px !important;
+            border: none !important;
+            background: transparent !important;
+            border-right: 1px solid var(--border-light) !important;
+            border-radius: 0 !important;
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: none !important;
+            outline: none !important;
+            -webkit-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+            background-repeat: no-repeat !important;
+            background-position: right 2px center !important;
+            background-size: 12px !important;
+            padding-right: 20px !important;
+        }
+
+        .country-code-select option {
+            color: #000;
+            background: #fff;
+            padding: 10px;
+        }
+
+        .phone-group input {
+            border: none !important;
+            box-shadow: none !important;
+            background: transparent !important;
+            padding: 12px 16px !important;
+            height: 100%;
+        }
+
+        .password-toggle {
+            cursor: pointer;
+            z-index: 20;
+            pointer-events: auto !important;
+            position: absolute;
+            right: 16px;
+            color: #94a3b8;
+            font-size: 1.1rem;
+            transition: color 0.2s;
+        }
+
+        .password-toggle:hover {
+            color: var(--brand-primary);
+        }
+    </style>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="login-overlay">
+        <div class="login-modal">
+            <div class="close-login" onclick="closeLoginModal()"><i class="fas fa-times"></i></div>
+            <div class="login-header">
+                <h2>Welcome Back</h2>
+                <p>Log in to manage your engineering projects and track real-time updates.</p>
+            </div>
+            <form id="loginForm">
+                <div id="loginError" class="login-error"></div>
+                <div class="login-field">
+                    <label>Email Address</label>
+                    <div class="login-input-wrapper">
+                        <input type="email" id="loginEmail" placeholder="name@university.com" required>
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                </div>
+                <div class="login-field">
+                    <label>Password</label>
+                    <div class="login-input-wrapper">
+                        <input type="password" id="loginPassword" placeholder="••••••••" required>
+                        <i class="fas fa-eye password-toggle" onclick="togglePassword('loginPassword', this)"></i>
+                    </div>
+                </div>
+                <button type="submit" class="btn-login-submit" id="btnLogin">Log In to Dashboard</button>
+            </form>
+            <div class="modal-switch">
+                Don't have an account? <a href="javascript:void(0)" onclick="switchToSignup()">Sign Up</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="login-overlay">
+        <div class="login-modal">
+            <div class="close-login" onclick="closeSignupModal()"><i class="fas fa-times"></i></div>
+            <div class="login-header">
+                <h2>Create Account</h2>
+                <p>Join Console Projects to build and manage your engineering projects.</p>
+            </div>
+            <form id="signupForm">
+                <div id="signupError" class="login-error"></div>
+
+                <div class="signup-row">
+                    <div class="login-field" style="flex: 2;">
+                        <label>First Name</label>
+                        <div class="login-input-wrapper">
+                            <input type="text" id="signupFirstName" placeholder="John" required>
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                    <div class="login-field" style="flex: 1;">
+                        <label>Middle Name</label>
+                        <div class="login-input-wrapper">
+                            <input type="text" id="signupMiddleName" placeholder="Von">
+                            <i class="fas fa-user-tag"></i>
+                        </div>
+                    </div>
+                    <div class="login-field" style="flex: 2;">
+                        <label>Last Name</label>
+                        <div class="login-input-wrapper">
+                            <input type="text" id="signupLastName" placeholder="Doe" required>
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="signup-row">
+                    <div class="login-field" style="flex: 1;">
+                        <label>Email Address</label>
+                        <div class="login-input-wrapper">
+                            <input type="email" id="signupEmail" placeholder="name@university.com" required>
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                    </div>
+                    <div class="login-field" style="flex: 1;">
+                        <label>Phone Number</label>
+                        <div class="login-input-wrapper phone-group">
+                            <select id="signupCountryCode" class="country-code-select"></select>
+                            <input type="tel" id="signupPhone" placeholder="98765 43210" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="signup-row">
+                    <div class="login-field" style="flex: 1;">
+                        <label>Password</label>
+                        <div class="login-input-wrapper">
+                            <input type="password" id="signupPassword" placeholder="••••••••" required>
+                            <i class="fas fa-eye password-toggle" onclick="togglePassword('signupPassword', this)"></i>
+                        </div>
+                    </div>
+                    <div class="login-field" style="flex: 1;">
+                        <label>Confirm Password</label>
+                        <div class="login-input-wrapper">
+                            <input type="password" id="signupConfirm" placeholder="••••••••" required>
+                            <i class="fas fa-eye password-toggle" onclick="togglePassword('signupConfirm', this)"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-login-submit" id="btnSignup">Create Account</button>
+            </form>
+            <div class="modal-switch">
+                Already have an account? <a href="javascript:void(0)" onclick="switchToLogin()">Log In</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SDK & Logic -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        (function () {
+            const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+            const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+            window.openLoginModal = function () { document.getElementById('loginModal').style.display = 'flex'; };
+            window.closeLoginModal = function () {
+                document.getElementById('loginModal').style.display = 'none';
+                document.getElementById('loginError').style.display = 'none';
+            };
+            window.openSignupModal = function () { document.getElementById('signupModal').style.display = 'flex'; };
+            window.closeSignupModal = function () {
+                document.getElementById('signupModal').style.display = 'none';
+                document.getElementById('signupError').style.display = 'none';
+            };
+            window.togglePassword = function (fieldId, icon) {
+                const input = document.getElementById(fieldId);
+                if (input.type === "password") {
+                    input.type = "text";
+                    icon.classList.remove("fa-eye");
+                    icon.classList.add("fa-eye-slash");
+                } else {
+                    input.type = "password";
+                    icon.classList.remove("fa-eye-slash");
+                    icon.classList.add("fa-eye");
+                }
+            };
+            window.switchToSignup = function () { closeLoginModal(); openSignupModal(); };
+            window.switchToLogin = function () { closeSignupModal(); openLoginModal(); };
+
+            window.openDomainModal = function () {
+                document.getElementById('domainModal').style.display = 'flex';
+                setTimeout(() => { document.getElementById('domainSearch').focus(); filterDomains(); }, 50);
+            };
+            window.closeDomainModal = function () { document.getElementById('domainModal').style.display = 'none'; };
+            window.openDateModal = function () {
+                document.getElementById('dateModal').style.display = 'flex';
+                const yearSelect = document.getElementById('calYear');
+                if (yearSelect.options.length === 0) {
+                    for (let y = currentYear; y <= currentYear + 10; y++) {
+                        const opt = document.createElement('option'); opt.value = y; opt.textContent = y; yearSelect.appendChild(opt);
+                    }
+                }
+                renderCalendar();
+            };
+            window.closeDateModal = function () { document.getElementById('dateModal').style.display = 'none'; };
+            window.updateCalendarView = function () {
+                currentMonth = parseInt(document.getElementById('calMonth').value);
+                currentYear = parseInt(document.getElementById('calYear').value);
+                renderCalendar();
+            };
+            window.changeMonth = function (delta) {
+                currentMonth += delta;
+                if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+                else if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+                renderCalendar();
+            };
+            window.setToday = function () {
+                const today = new Date();
+                const dStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+                selectedDateValue = dStr; document.getElementById('deadline').value = dStr;
+                const btn = document.getElementById('deadlineBtn');
+                btn.textContent = today.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                btn.classList.add('selected'); closeDateModal();
+            };
+            window.filterDomains = function () {
+                const query = document.getElementById('domainSearch').value.trim().toLowerCase();
+                const list = document.getElementById('domainResults');
+                list.innerHTML = '';
+                techDomains.filter(d => d.name.toLowerCase().includes(query)).forEach(domain => {
+                    const div = document.createElement('div');
+                    div.className = `domain-item ${domain.name === selectedDomainValue ? 'active' : ''}`;
+                    div.innerHTML = `<i class="fas ${domain.icon}"></i> <span>${domain.name}</span>`;
+                    div.onclick = () => { selectedDomainValue = domain.name; filterDomains(); };
+                    list.appendChild(div);
+                });
+                if (query.length > 0) {
+                    const customDiv = document.createElement('div');
+                    const rawQuery = document.getElementById('domainSearch').value.trim();
+                    customDiv.className = `domain-item custom-option ${selectedDomainValue === rawQuery ? 'active' : ''}`;
+                    customDiv.style.marginTop = "8px";
+                    customDiv.innerHTML = `<i class="fas fa-check-circle"></i> <span>Use: "${rawQuery}"</span>`;
+                    customDiv.onclick = () => { selectedDomainValue = rawQuery; filterDomains(); };
+                    list.appendChild(customDiv);
+                }
+            };
+            window.confirmDomainSelection = function () {
+                if (selectedDomainValue) {
+                    const btn = document.getElementById('projTypeBtn');
+                    btn.textContent = selectedDomainValue; btn.classList.add('selected');
+                    document.getElementById('projType').value = selectedDomainValue; closeDomainModal();
+                }
+            };
+
+            window.onclick = function (event) {
+                if (event.target.id == 'domainModal') closeDomainModal();
+                if (event.target.id == 'dateModal') closeDateModal();
+                if (event.target.id == 'loginModal') closeLoginModal();
+                if (event.target.id == 'signupModal') closeSignupModal();
+            };
+
+            function renderCalendar() {
+                const grid = document.getElementById('calendarGrid'); grid.innerHTML = '';
+                document.getElementById('calMonth').value = currentMonth; document.getElementById('calYear').value = currentYear;
+                const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+                const firstDayIndex = new Date(currentYear, currentMonth, 1).getDay();
+                ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].forEach(day => {
+                    const div = document.createElement('div'); div.className = 'weekday'; div.innerText = day; grid.appendChild(div);
+                });
+                for (let i = 0; i < firstDayIndex; i++) {
+                    const div = document.createElement('div'); div.className = 'day empty'; grid.appendChild(div);
+                }
+                const today = new Date(); today.setHours(0, 0, 0, 0);
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const div = document.createElement('div'); div.className = 'day'; div.innerText = i;
+                    const dObj = new Date(currentYear, currentMonth, i);
+                    const dStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+                    if (dObj < today) { div.classList.add('disabled'); } else {
+                        if (selectedDateValue === dStr) div.classList.add('selected');
+                        if (today.getTime() === dObj.getTime()) div.classList.add('today');
+                        div.onclick = () => {
+                            selectedDateValue = dStr; document.getElementById('deadline').value = dStr;
+                            const btn = document.getElementById('deadlineBtn');
+                            btn.textContent = new Date(dStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                            btn.classList.add('selected'); closeDateModal();
+                        };
+                    }
+                    grid.appendChild(div);
+                }
+            }
+
+            const techDomains = [
+                { name: "Full Stack Development", icon: "fa-laptop-code" },
+                { name: "Frontend Development", icon: "fa-paints-roller" },
+                { name: "Backend Development", icon: "fa-server" },
+                { name: "Mobile App Development", icon: "fa-mobile-alt" },
+                { name: "Game Development", icon: "fa-gamepad" },
+                { name: "Artificial Intelligence", icon: "fa-brain" },
+                { name: "Machine Learning", icon: "fa-robot" },
+                { name: "Data Science", icon: "fa-chart-pie" },
+                { name: "Cloud Computing", icon: "fa-cloud" },
+                { name: "Cybersecurity", icon: "fa-shield-alt" },
+                { name: "Blockchain & Web3", icon: "fa-cube" },
+                { name: "Internet of Things (IoT)", icon: "fa-microchip" },
+                { name: "Robotics", icon: "fa-gears" },
+                { name: "DevOps", icon: "fa-infinity" },
+                { name: "UI/UX Design", icon: "fa-bezier-curve" },
+                { name: "E-Commerce", icon: "fa-shopping-cart" },
+                { name: "Embedded Systems", icon: "fa-memory" },
+                { name: "Natural Language Processing", icon: "fa-comment-dots" },
+                { name: "Computer Vision", icon: "fa-eye" },
+                { name: "FinTech", icon: "fa-hand-holding-dollar" },
+                { name: "EdTech", icon: "fa-graduation-cap" },
+                { name: "HealthTech", icon: "fa-heart-pulse" }
+            ].sort((a, b) => a.name.localeCompare(b.name));
+
+            const countryCodes = [
+                { code: "+93", name: "Afghanistan" }, { code: "+355", name: "Albania" }, { code: "+213", name: "Algeria" },
+                { code: "+1-684", name: "American Samoa" }, { code: "+376", name: "Andorra" }, { code: "+244", name: "Angola" },
+                { code: "+1-264", name: "Anguilla" }, { code: "+672", name: "Antarctica" }, { code: "+1-268", name: "Antigua and Barbuda" },
+                { code: "+54", name: "Argentina" }, { code: "+374", name: "Armenia" }, { code: "+297", name: "Aruba" },
+                { code: "+61", name: "Australia" }, { code: "+43", name: "Austria" }, { code: "+994", name: "Azerbaijan" },
+                { code: "+1-242", name: "Bahamas" }, { code: "+973", name: "Bahrain" }, { code: "+880", name: "Bangladesh" },
+                { code: "+1-246", name: "Barbados" }, { code: "+375", name: "Belarus" }, { code: "+32", name: "Belgium" },
+                { code: "+501", name: "Belize" }, { code: "+229", name: "Benin" }, { code: "+1-441", name: "Bermuda" },
+                { code: "+975", name: "Bhutan" }, { code: "+591", name: "Bolivia" }, { code: "+387", name: "Bosnia and Herzegovina" },
+                { code: "+267", name: "Botswana" }, { code: "+55", name: "Brazil" }, { code: "+246", name: "British Indian Ocean Territory" },
+                { code: "+1-284", name: "British Virgin Islands" }, { code: "+673", name: "Brunei" }, { code: "+359", name: "Bulgaria" },
+                { code: "+226", name: "Burkina Faso" }, { code: "+257", name: "Burundi" }, { code: "+855", name: "Cambodia" },
+                { code: "+237", name: "Cameroon" }, { code: "+1", name: "Canada" }, { code: "+238", name: "Cape Verde" },
+                { code: "+1-345", name: "Cayman Islands" }, { code: "+236", name: "Central African Republic" }, { code: "+235", name: "Chad" },
+                { code: "+56", name: "Chile" }, { code: "+86", name: "China" }, { code: "+61", name: "Christmas Island" },
+                { code: "+61", name: "Cocos Islands" }, { code: "+57", name: "Colombia" }, { code: "+269", name: "Comoros" },
+                { code: "+682", name: "Cook Islands" }, { code: "+506", name: "Costa Rica" }, { code: "+385", name: "Croatia" },
+                { code: "+53", name: "Cuba" }, { code: "+599", name: "Curacao" }, { code: "+357", name: "Cyprus" },
+                { code: "+420", name: "Czech Republic" }, { code: "+243", name: "Democratic Republic of the Congo" }, { code: "+45", name: "Denmark" },
+                { code: "+253", name: "Djibouti" }, { code: "+1-767", name: "Dominica" }, { code: "+1-809", name: "Dominican Republic" },
+                { code: "+670", name: "East Timor" }, { code: "+593", name: "Ecuador" }, { code: "+20", name: "Egypt" },
+                { code: "+503", name: "El Salvador" }, { code: "+240", name: "Equatorial Guinea" }, { code: "+291", name: "Eritrea" },
+                { code: "+372", name: "Estonia" }, { code: "+251", name: "Ethiopia" }, { code: "+500", name: "Falkland Islands" },
+                { code: "+298", name: "Faroe Islands" }, { code: "+679", name: "Fiji" }, { code: "+358", name: "Finland" },
+                { code: "+33", name: "France" }, { code: "+689", name: "French Polynesia" }, { code: "+241", name: "Gabon" },
+                { code: "+220", name: "Gambia" }, { code: "+995", name: "Georgia" }, { code: "+49", name: "Germany" },
+                { code: "+233", name: "Ghana" }, { code: "+350", name: "Gibraltar" }, { code: "+30", name: "Greece" },
+                { code: "+299", name: "Greenland" }, { code: "+1-473", name: "Grenada" }, { code: "+1-671", name: "Guam" },
+                { code: "+502", name: "Guatemala" }, { code: "+44-1481", name: "Guernsey" }, { code: "+224", name: "Guinea" },
+                { code: "+245", name: "Guinea-Bissau" }, { code: "+592", name: "Guyana" }, { code: "+509", name: "Haiti" },
+                { code: "+504", name: "Honduras" }, { code: "+852", name: "Hong Kong" }, { code: "+36", name: "Hungary" },
+                { code: "+354", name: "Iceland" }, { code: "+91", name: "India" }, { code: "+62", name: "Indonesia" },
+                { code: "+98", name: "Iran" }, { code: "+964", name: "Iraq" }, { code: "+353", name: "Ireland" },
+                { code: "+44-1624", name: "Isle of Man" }, { code: "+972", name: "Israel" }, { code: "+39", name: "Italy" },
+                { code: "+225", name: "Ivory Coast" }, { code: "+1-876", name: "Jamaica" }, { code: "+81", name: "Japan" },
+                { code: "+44-1534", name: "Jersey" }, { code: "+962", name: "Jordan" }, { code: "+7", name: "Kazakhstan" },
+                { code: "+254", name: "Kenya" }, { code: "+686", name: "Kiribati" }, { code: "+383", name: "Kosovo" },
+                { code: "+965", name: "Kuwait" }, { code: "+996", name: "Kyrgyzstan" }, { code: "+856", name: "Laos" },
+                { code: "+371", name: "Latvia" }, { code: "+961", name: "Lebanon" }, { code: "+266", name: "Lesotho" },
+                { code: "+231", name: "Liberia" }, { code: "+218", name: "Libya" }, { code: "+423", name: "Liechtenstein" },
+                { code: "+370", name: "Lithuania" }, { code: "+352", name: "Luxembourg" }, { code: "+853", name: "Macau" },
+                { code: "+389", name: "Macedonia" }, { code: "+261", name: "Madagascar" }, { code: "+265", name: "Malawi" },
+                { code: "+60", name: "Malaysia" }, { code: "+960", name: "Maldives" }, { code: "+223", name: "Mali" },
+                { code: "+356", name: "Malta" }, { code: "+692", name: "Marshall Islands" }, { code: "+222", name: "Mauritania" },
+                { code: "+230", name: "Mauritius" }, { code: "+262", name: "Mayotte" }, { code: "+52", name: "Mexico" },
+                { code: "+691", name: "Micronesia" }, { code: "+373", name: "Moldova" }, { code: "+377", name: "Monaco" },
+                { code: "+976", name: "Mongolia" }, { code: "+382", name: "Montenegro" }, { code: "+1-664", name: "Montserrat" },
+                { code: "+212", name: "Morocco" }, { code: "+258", name: "Mozambique" }, { code: "+95", name: "Myanmar" },
+                { code: "+264", name: "Namibia" }, { code: "+674", name: "Nauru" }, { code: "+977", name: "Nepal" },
+                { code: "+31", name: "Netherlands" }, { code: "+599", name: "Netherlands Antilles" }, { code: "+687", name: "New Caledonia" },
+                { code: "+64", name: "New Zealand" }, { code: "+505", name: "Nicaragua" }, { code: "+227", name: "Niger" },
+                { code: "+234", name: "Nigeria" }, { code: "+683", name: "Niue" }, { code: "+850", name: "North Korea" },
+                { code: "+1-670", name: "Northern Mariana Islands" }, { code: "+47", name: "Norway" }, { code: "+968", name: "Oman" },
+                { code: "+92", name: "Pakistan" }, { code: "+680", name: "Palau" }, { code: "+970", name: "Palestine" },
+                { code: "+507", name: "Panama" }, { code: "+675", name: "Papua New Guinea" }, { code: "+595", name: "Paraguay" },
+                { code: "+51", name: "Peru" }, { code: "+63", name: "Philippines" }, { code: "+64", name: "Pitcairn" },
+                { code: "+48", name: "Poland" }, { code: "+351", name: "Portugal" }, { code: "+1-787", name: "Puerto Rico" },
+                { code: "+974", name: "Qatar" }, { code: "+242", name: "Republic of the Congo" }, { code: "+262", name: "Reunion" },
+                { code: "+40", name: "Romania" }, { code: "+7", name: "Russia" }, { code: "+250", name: "Rwanda" },
+                { code: "+590", name: "Saint Barthelemy" }, { code: "+290", name: "Saint Helena" }, { code: "+1-869", name: "Saint Kitts and Nevis" },
+                { code: "+1-758", name: "Saint Lucia" }, { code: "+590", name: "Saint Martin" }, { code: "+508", name: "Saint Pierre and Miquelon" },
+                { code: "+1-784", name: "Saint Vincent and the Grenadines" }, { code: "+685", name: "Samoa" }, { code: "+378", name: "San Marino" },
+                { code: "+239", name: "Sao Tome and Principe" }, { code: "+966", name: "Saudi Arabia" }, { code: "+221", name: "Senegal" },
+                { code: "+381", name: "Serbia" }, { code: "+248", name: "Seychelles" }, { code: "+232", name: "Sierra Leone" },
+                { code: "+65", name: "Singapore" }, { code: "+1-721", name: "Sint Maarten" }, { code: "+421", name: "Slovakia" },
+                { code: "+386", name: "Slovenia" }, { code: "+677", name: "Solomon Islands" }, { code: "+252", name: "Somalia" },
+                { code: "+27", name: "South Africa" }, { code: "+82", name: "South Korea" }, { code: "+211", name: "South Sudan" },
+                { code: "+34", name: "Spain" }, { code: "+94", name: "Sri Lanka" }, { code: "+249", name: "Sudan" },
+                { code: "+597", name: "Suriname" }, { code: "+47", name: "Svalbard and Jan Mayen" }, { code: "+268", name: "Swaziland" },
+                { code: "+46", name: "Sweden" }, { code: "+41", name: "Switzerland" }, { code: "+963", name: "Syria" },
+                { code: "+886", name: "Taiwan" }, { code: "+992", name: "Tajikistan" }, { code: "+255", name: "Tanzania" },
+                { code: "+66", name: "Thailand" }, { code: "+228", name: "Togo" }, { code: "+690", name: "Tokelau" },
+                { code: "+676", name: "Tonga" }, { code: "+1-868", name: "Trinidad and Tobago" }, { code: "+216", name: "Tunisia" },
+                { code: "+90", name: "Turkey" }, { code: "+993", name: "Turkmenistan" }, { code: "+1-649", name: "Turks and Caicos Islands" },
+                { code: "+688", name: "Tuvalu" }, { code: "+1-340", name: "U.S. Virgin Islands" }, { code: "+256", name: "Uganda" },
+                { code: "+380", name: "Ukraine" }, { code: "+971", name: "United Arab Emirates" }, { code: "+44", name: "United Kingdom" },
+                { code: "+1", name: "United States" }, { code: "+598", name: "Uruguay" }, { code: "+998", name: "Uzbekistan" },
+                { code: "+678", name: "Vanuatu" }, { code: "+39", name: "Vatican" }, { code: "+58", name: "Venezuela" },
+                { code: "+84", name: "Vietnam" }, { code: "+681", name: "Wallis and Futuna" },
+                { code: "+212", name: "Western Sahara" }, { code: "+967", name: "Yemen" },
+                { code: "+260", name: "Zambia" }, { code: "+263", name: "Zimbabwe" }
+            ];
+
+            const populateCountryCodes = (selectId) => {
+                const select = document.getElementById(selectId);
+                select.innerHTML = ''; // Clear existing
+                countryCodes.forEach(c => {
+                    const opt = document.createElement('option');
+                    opt.value = c.code;
+                    opt.textContent = `${c.name} (${c.code})`;
+                    if (c.code === "+91" && c.name === "India") {
+                        opt.selected = true;
+                    }
+                    select.appendChild(opt);
+                });
+            };
+
+            // Populate on load
+            populateCountryCodes('studCountryCode');
+            populateCountryCodes('signupCountryCode');
+
+            // Event listeners for forms (using local variables from IIFE closure)
+            document.getElementById('projectForm').addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const btn = document.getElementById('submitBtn'); const orig = btn.innerHTML;
+                btn.disabled = true; btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Submitting...';
+                try {
+                    const fName = document.getElementById('firstName').value.trim();
+                    const mName = document.getElementById('middleName').value.trim();
+                    const lName = document.getElementById('lastName').value.trim();
+                    const fullName = `${fName} ${mName} ${lName}`.replace(/\s+/g, ' ').trim();
+                    const { error } = await supabase.from('project_requests').insert([{
+                        student_name: fullName, email: document.getElementById('studEmail').value,
+                        phone: `${document.getElementById('studCountryCode').value} ${document.getElementById('studPhone').value.trim()}`, college_name: document.getElementById('college').value,
+                        project_type: document.getElementById('projType').value, project_title: document.getElementById('projTitle').value,
+                        deadline: document.getElementById('deadline').value || null, budget_range: document.getElementById('budget').value,
+                        referral_code: document.getElementById('referralCode').value, design_link: document.getElementById('designLink').value,
+                        description: document.getElementById('desc').value
+                    }]);
+                    if (error) throw error;
+                    localStorage.setItem('user_project_email', document.getElementById('studEmail').value);
+                    document.getElementById('successModal').style.display = 'flex';
+                    this.reset();
+                } catch (err) { alert("Submission Error: " + err.message); } finally { btn.disabled = false; btn.innerHTML = orig; }
+            });
+
+            document.getElementById('loginForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = document.getElementById('btnLogin'); const errArea = document.getElementById('loginError');
+                btn.disabled = true; btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Verifying...';
+                errArea.style.display = 'none';
+                try {
+                    const { data, error } = await supabase.from('project_users').select('*')
+                        .eq('email', document.getElementById('loginEmail').value.trim())
+                        .eq('password', document.getElementById('loginPassword').value).single();
+                    if (error || !data) throw new Error("Incorrect email or password.");
+                    localStorage.setItem('user_project_email', data.email);
+                    window.location.href = 'users-dashboard.html';
+                } catch (err) {
+                    errArea.textContent = err.message; errArea.style.display = 'block';
+                    btn.disabled = false; btn.innerText = "Log In to Dashboard";
+                }
+            });
+
+            document.getElementById('signupForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = document.getElementById('btnSignup'); const errArea = document.getElementById('signupError');
+                btn.disabled = true; btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Creating...';
+                errArea.style.display = 'none';
+                try {
+                    const email = document.getElementById('signupEmail').value.trim();
+                    const password = document.getElementById('signupPassword').value;
+                    const confirm = document.getElementById('signupConfirm').value;
+                    // Gather specific name fields
+                    const first_name = document.getElementById('signupFirstName').value.trim();
+                    const middle_name = document.getElementById('signupMiddleName').value.trim();
+                    const last_name = document.getElementById('signupLastName').value.trim();
+                    const phoneRaw = document.getElementById('signupPhone').value.trim();
+                    const phone = `${document.getElementById('signupCountryCode').value} ${phoneRaw}`;
+
+                    if (password !== confirm) {
+                        throw new Error("Passwords do not match.");
+                    }
+
+                    // Check if email already exists
+                    const { data: existingUser } = await supabase.from('project_users').select('email').eq('email', email).maybeSingle();
+                    if (existingUser) throw new Error("An account with this email already exists.");
+
+                    const { error } = await supabase.from('project_users').insert([{
+                        email,
+                        password,
+                        first_name,
+                        middle_name,
+                        last_name,
+                        phone
+                    }]);
+                    if (error) throw error;
+
+                    localStorage.setItem('user_project_email', email);
+                    window.location.href = 'users-dashboard.html';
+                } catch (err) {
+                    errArea.textContent = err.message; errArea.style.display = 'block';
+                    btn.disabled = false; btn.innerText = "Create Account";
+                }
+            });
+
+            // Initialize calendar variables
+            let currentMonth = new Date().getMonth();
+            let currentYear = new Date().getFullYear();
+            let selectedDateValue = null;
+            let selectedDomainValue = null;
+        })();
+    </script>
+</body>
+
+</html>

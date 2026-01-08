@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Partial Page Refresh Demo</title>
+    <style>
+        #content-area {
+            border: 2px solid #ccc;
+            padding: 20px;
+            width: 300px;
+            margin: 20px auto;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+        #content-area.loading {
+            background-color: #f0f0f0;
+        }
+        button {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div id="content-area">
+        <h3>Random Number</h3>
+        <div id="dynamic-content">Loading...</div>
+        <p>Last updated: <span id="update-time">Now</span></p>
+    </div>
+    <button onclick="refreshContent()">Refresh Manually</button>
+
+    <script>
+        // Automatic refresh every 3 seconds
+        setInterval(refreshContent, 3000);
+
+        // Initial load
+        refreshContent();
+
+        function refreshContent() {
+            // Show loading state
+            const contentArea = document.getElementById('content-area');
+            contentArea.classList.add('loading');
+            document.getElementById('dynamic-content').textContent = 'Loading...';
+
+            // Simulate network request with setTimeout
+            setTimeout(() => {
+                // Generate random content
+                const randomNumber = Math.floor(Math.random() * 1000);
+                const currentTime = new Date().toLocaleTimeString();
+
+                // Update content
+                document.getElementById('dynamic-content').textContent = randomNumber;
+                document.getElementById('update-time').textContent = currentTime;
+                contentArea.classList.remove('loading');
+                
+                console.log('Content refreshed!');
+            }, 500); // Simulated delay
+        }
+    </script>
+</body>
+</html>

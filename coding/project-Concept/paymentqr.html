@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Payment QR | Admin Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Base Mobile-First Layout Adjustments */
+        .card-body {
+            padding: 20px;
+            /* Reduced padding from default if needed */
+        }
+
+        .input-section {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-width: 600px;
+            margin: 0 auto;
+            /* Removed top margin for tighter mobile look */
+            width: 100%;
+        }
+
+        .receiver-details-card {
+            background: #f8faff;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            gap: 12px;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .detail-label {
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            /* Keep label on one line if possible */
+        }
+
+        .detail-value {
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'SF Mono', 'Roboto Mono', monospace;
+            text-align: right;
+            word-break: break-all;
+            /* Ensure long IDs don't overflow */
+        }
+
+        /* Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            /* Semi-transparent backdrop */
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 0.2s ease;
+            padding: 20px;
+        }
+
+        .popup-overlay.hidden {
+            display: none;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .qr-popup-content {
+            background: #fff;
+            padding: 24px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            max-width: 380px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            animation: popupSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes popupSlideIn {
+            from {
+                transform: translateY(20px) scale(0.96);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .qr-popup-content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #6366f1, #a855f7);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .qr-code-img {
+            width: 100%;
+            max-width: 240px;
+            /* Limit max size */
+            height: auto;
+            aspect-ratio: 1;
+            /* Keep square */
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #eee;
+        }
+
+        .generated-amount {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .scan-instruction {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        /* Mobile Specific Overrides */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px !important;
+                display: block !important;
+                height: auto !important;
+            }
+
+            .shell {
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .card {
+                border-radius: 16px !important;
+                box-shadow: none !important;
+                border: none !important;
+            }
+
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+                padding: 20px 16px !important;
+            }
+
+            .header-actions {
+                width: 100%;
+                display: flex;
+                justify-content: flex-start;
+            }
+
+            .back-btn {
+                width: auto !important;
+                padding: 8px 16px;
+            }
+
+            .card-body {
+                padding: 16px !important;
+            }
+
+            .receiver-details-card {
+                padding: 16px !important;
+            }
+
+            .detail-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+
+            .detail-value {
+                text-align: left;
+                font-size: 14px;
+                /* Reduced slightly for safety */
+                width: 100%;
+            }
+
+            /* Adjust Overlay for Mobile */
+            .popup-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: auto !important;
+                height: auto !important;
+                padding: 16px !important;
+                background: rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(4px);
+                z-index: 1000;
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                box-sizing: border-box !important;
+            }
+
+            /* Ensure popup fits perfectly */
+            .qr-popup-content {
+                width: 90% !important;
+                /* Simple percentage */
+                max-width: 360px !important;
+                margin: auto !important;
+                /* Restore magic centering */
+                padding: 24px 16px;
+                max-height: 80vh;
+                box-sizing: border-box !important;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+                transform: translateX(-22%) !important;
+                top: -28vh;
+                /* Slight manual adjustment to perfect visual center */
+            }
+
+            /* Input field inside popup */
+            #generatedUrl {
+                font-size: 13px !important;
+                flex: 1 !important;
+                width: auto !important;
+                min-width: 0 !important;
+                /* crucial for flex shrinking */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-blur bg-one"></div>
+    <div class="background-blur bg-two"></div>
+
+    <section class="shell shell-wide">
+        <div class="card">
+            <header class="card-header">
+                <div class="brand">
+                    <div class="logo-wrap" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6"
+                            style="width: 24px; height: 24px; color: #5ba6ff;">
+                            <path d="M3 7V5a2 2 0 0 1 2-2h2" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M17 3h2a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M21 17v2a2 2 0 0 1-2 2h-2" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M7 21H5a2 2 0 0 1-2-2v-2" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <rect x="7" y="7" width="10" height="10" rx="1" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="eyebrow">Financial Tools</p>
+                        <h1 class="page-title">Generate QR Code</h1>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <a href="payment_generation.html" class="back-btn">Back</a>
+                </div>
+            </header>
+
+            <main class="card-body">
+                <div class="input-section">
+                    <form id="qrForm" onsubmit="generateQR(event)">
+                        <div class="field">
+                            <label
+                                style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text);">Customer
+                                Name</label>
+                            <div class="input"
+                                style="padding: 12px; background: #fff; border: 1px solid var(--border); border-radius: 12px;">
+                                <input type="text" id="nameInput" placeholder="Enter customer name" required
+                                    style="font-size: 16px; font-weight: 500; width: 100%; border: none; outline: none; background: transparent; color: var(--text);" />
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label
+                                style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text);">Enter
+                                Amount (INR)</label>
+                            <div class="input">
+                                <span style="color: var(--text); font-weight: 600; padding-right: 4px;">₹</span>
+                                <input type="number" id="amountInput" placeholder="0.00" min="1" step="0.01" required
+                                    style="font-size: 18px; font-weight: 600;" />
+                            </div>
+                            <small>Enter the specific amount for this payment request.</small>
+                        </div>
+
+                        <div class="field">
+                            <label
+                                style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text);">Service
+                                Type</label>
+                            <div class="input"
+                                style="padding: 12px; background: #fff; border: 1px solid var(--border); border-radius: 12px;">
+                                <input list="serviceOptions" id="serviceInput" placeholder="Search or select service"
+                                    required
+                                    style="font-size: 16px; font-weight: 500; width: 100%; border: none; outline: none; background: transparent; color: var(--text);" />
+                                <datalist id="serviceOptions">
+                                    <option value="Possession Certificate"></option>
+                                    <option value="Encumbrance Certificate"></option>
+                                    <option value="Vidyalakshmi Portal Registration"></option>
+                                    <option value="Bank Loans and Services"></option>
+                                    <option value="Personal Certificates"></option>
+                                </datalist>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="cta" style="width: 100%;">
+                            <span>Generate QR Code</span>
+                            <span class="glow"></span>
+                        </button>
+                    </form>
+
+                    <div class="receiver-details-card">
+                        <h3 style="font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 16px;">
+                            Beneficiary Details</h3>
+
+                        <div class="detail-row">
+                            <span class="detail-label">Payment Type</span>
+                            <span class="detail-value">Unified Payments Interface (UPI)</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">UPI ID</span>
+                            <span class="detail-value">7510483455@ikwik</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Account No.</span>
+                            <span class="detail-value">41189296858</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">IFSC Code</span>
+                            <span class="detail-value">SBIN0064986</span>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <!-- Success/Link Display Section (Initially Hidden) -->
+    <div id="linkResult" class="popup-overlay hidden">
+        <div class="qr-popup-content">
+            <button class="popup-close" onclick="closePopup()" style="position: absolute; right: 20px; top: 20px;">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                </svg>
+            </button>
+
+            <div
+                style="width: 48px; height: 48px; background: #ecfdf5; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: #10b981;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 6L9 17l-5-5" />
+                </svg>
+            </div>
+
+            <h3 style="margin-bottom: 8px; font-size: 18px;">Payment Link Generated</h3>
+            <p style="font-size: 14px; color: var(--muted); margin-bottom: 24px;">Share this link with the customer to
+                receive payment.</p>
+
+            <div class="field" style="width: 100%; text-align: left; margin-bottom: 24px;">
+                <label
+                    style="font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 8px; display: block;">Payment
+                    URL</label>
+                <div class="input"
+                    style="display: flex; align-items: center; padding: 0; overflow: hidden; background: #f8faff;">
+                    <input type="text" id="generatedUrl" readonly
+                        style="border: none; background: transparent; padding: 12px; font-size: 13px; color: var(--text); width: 100%;" />
+                    <button onclick="copyLink()"
+                        style="background: var(--primary); color: #fff; border: none; padding: 12px 16px; font-size: 13px; font-weight: 600; cursor: pointer; height: 100%; white-space: nowrap;">
+                        Copy
+                    </button>
+                </div>
+            </div>
+
+            <a id="openLinkBtn" href="#" target="_blank" class="cta"
+                style="width: 100%; margin-bottom: 12px; text-decoration: none; display: flex; justify-content: center; align-items: center;">
+                Open Payment Page
+            </a>
+
+            <button class="cta ghost" onclick="closePopup()" style="width: 100%;">Close</button>
+        </div>
+    </div>
+
+    <script>
+        function generateQR(event) {
+            event.preventDefault();
+
+            const amount = document.getElementById('amountInput').value;
+            const customerName = document.getElementById('nameInput').value;
+            const serviceType = document.getElementById('serviceInput').value;
+
+            if (!amount || amount <= 0) {
+                alert('Please enter a valid amount.');
+                return;
+            }
+
+            if (!customerName) {
+                alert('Please enter customer name.');
+                return;
+            }
+
+            if (!serviceType) {
+                alert('Please select a service type.');
+                return;
+            }
+
+            // Construct the Absolute URL to payableqr.html
+            const basePath = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
+            // Encode amount in data (legacy support), add others as params
+            const paymentUrl = `${basePath}/payableqr.html?data=${btoa(amount)}&name=${encodeURIComponent(customerName)}&service=${encodeURIComponent(serviceType)}`;
+
+            // Update Link UI
+            document.getElementById('generatedUrl').value = paymentUrl;
+            document.getElementById('openLinkBtn').href = paymentUrl;
+
+            // Show Success Modal
+            document.getElementById('linkResult').classList.remove('hidden');
+        }
+
+        function copyLink() {
+            const copyText = document.getElementById("generatedUrl");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+            navigator.clipboard.writeText(copyText.value);
+
+            // Visual feedback
+            const btn = document.querySelector('button[onclick="copyLink()"]');
+            const originalText = btn.innerText;
+            btn.innerText = "Copied!";
+            setTimeout(() => {
+                btn.innerText = originalText;
+            }, 2000);
+        }
+
+        function closePopup() {
+            document.getElementById('linkResult').classList.add('hidden');
+        }
+
+        // Close on clicking overlay
+        document.getElementById('linkResult').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closePopup();
+            }
+        });
+    </script>
+</body>
+
+</html>

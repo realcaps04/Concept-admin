@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay Securely</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f6f8fb;
+            --card: #ffffff;
+            --text: #1d2433;
+            --muted: #5f6b85;
+            --primary: #5ba6ff;
+            --border: #e6e9f2;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            color: var(--text);
+        }
+
+        .payment-card {
+            background: var(--card);
+            padding: 32px;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .payment-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #6366f1, #a855f7);
+        }
+
+        h1 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            margin-top: 10px;
+        }
+
+        p {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .qr-wrapper {
+            background: #fff;
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .qr-code-img {
+            width: 200px;
+            height: 200px;
+            display: block;
+        }
+
+        .amount-display {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .payment-logos {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-box {
+            padding: 8px;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-text {
+            margin-top: 32px;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .cta-pay {
+            background: linear-gradient(90deg, #6366f1, #a855f7);
+            color: white;
+            padding: 14px 24px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            box-sizing: border-box;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+            transition: transform 0.2s ease;
+            text-decoration: none;
+            margin-top: 24px;
+        }
+
+        .cta-pay:active {
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 480px) {
+            .payment-card {
+                padding: 24px;
+            }
+
+            .qr-code-img {
+                width: 180px;
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="payment-card">
+        <h1>Scan to Pay</h1>
+        <p>Use any UPI app to complete the payment securely.</p>
+
+        <div class="qr-wrapper">
+            <img id="qrImage" class="qr-code-img" alt="Payment QR Code" src="" />
+        </div>
+
+        <div class="amount-display" id="displayAmount">₹0.00</div>
+        <div
+            style="font-size: 14px; font-weight: 500; color: var(--muted); background: #f8faff; padding: 4px 12px; border-radius: 20px; display: inline-block;">
+            Paying: Beneficiary
+        </div>
+
+        <!-- Pay Now Button (Visible on Mobile) -->
+        <a id="payNowBtn" href="#" class="cta-pay" style="display: none;">
+            <span style="font-weight: 600;">Pay with UPI App</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="margin-left: 8px;">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+        </a>
+
+        <div class="payment-logos">
+            <div class="logo-box"><img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo-vector.svg/1024px-UPI-Logo-vector.svg.png"
+                    height="20" alt="UPI"></div>
+            <div class="logo-box"><img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/PhonePe_Logo.svg/1280px-PhonePe_Logo.svg.png"
+                    height="20" alt="PhonePe"></div>
+            <div class="logo-box"><img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Google_Pay_Logo.svg/1024px-Google_Pay_Logo.svg.png"
+                    height="20" alt="GPay"></div>
+            <div class="logo-box"><img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Paytm_Logo_%28standalone%29.svg/512px-Paytm_Logo_%28standalone%29.svg.png"
+                    height="20" alt="Paytm"></div>
+        </div>
+
+        <div class="footer-text">
+            Secured by Admin Portal Payments
+        </div>
+    </div>
+
+    <!-- jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        let amount = '0';
+        let customerName = 'Guest';
+        let serviceType = 'General Service';
+
+        // Decode params
+        if (urlParams.has('data')) {
+            try {
+                amount = atob(urlParams.get('data'));
+            } catch (e) {
+                console.error('Invalid encoded amount');
+            }
+        } else {
+            amount = urlParams.get('amount') || '0';
+        }
+
+        if (urlParams.has('name')) customerName = decodeURIComponent(urlParams.get('name'));
+        if (urlParams.has('service')) serviceType = decodeURIComponent(urlParams.get('service'));
+
+        // Configuration
+        const upiId = '7510483455@ikwik';
+        const payeeName = 'Beneficiary';
+
+        // Update UI
+        document.getElementById('displayAmount').textContent = '₹' + parseFloat(amount).toFixed(2);
+
+        // Show context
+        const contextDiv = document.querySelector('div[style*="Paying: Beneficiary"]');
+        if (contextDiv) {
+            contextDiv.innerHTML = `Paying for: ${serviceType}<br><span style="font-size:12px;opacity:0.8">Customer: ${customerName}</span>`;
+            contextDiv.style.textAlign = 'center';
+        }
+
+        function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+        // Generate PDF Invoice
+        async function generateInvoice() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Colors
+            const primaryColor = [99, 102, 241]; // #6366f1
+            const dateStr = new Date().toLocaleDateString();
+            const timeStr = new Date().toLocaleTimeString();
+            const invoiceNo = 'INV-' + Math.floor(Math.random() * 100000);
+
+            // Header
+            doc.setFillColor(...primaryColor);
+            doc.rect(0, 0, 210, 40, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(24);
+            doc.setFont('helvetica', 'bold');
+            doc.text("PAYMENT RECEIPT", 105, 25, { align: 'center' });
+
+            // Info Section
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+
+            let y = 55;
+            doc.text(`Receipt No: ${invoiceNo}`, 14, y);
+            doc.text(`Date: ${dateStr} ${timeStr}`, 150, y);
+
+            y += 10;
+            doc.setFont('helvetica', 'bold');
+            doc.text("Billed To:", 14, y);
+            doc.setFont('helvetica', 'normal');
+            doc.text(customerName, 14, y + 5);
+
+            // Payment Status
+            doc.setFillColor(236, 253, 245); // Light green
+            doc.setTextColor(16, 185, 129); // Green text
+            doc.setFont('helvetica', 'bold');
+            doc.roundedRect(150, y - 5, 40, 12, 2, 2, 'F');
+            doc.text("PAID", 170, y + 2, { align: 'center' });
+
+            // Table
+            y += 25;
+            doc.autoTable({
+                startY: y,
+                head: [['Description', 'Amount']],
+                body: [
+                    [serviceType, `INR ${parseFloat(amount).toFixed(2)}`],
+                ],
+                theme: 'grid',
+                headStyles: { fillColor: primaryColor, textColor: 255, fontStyle: 'bold' },
+                foot: [['Total', `INR ${parseFloat(amount).toFixed(2)}`]],
+                footStyles: { fillColor: [240, 240, 240], textColor: 0, fontStyle: 'bold' }
+            });
+
+            // Signatory
+            y = doc.lastAutoTable.finalY + 40;
+
+            // Load signature image
+            try {
+                const imgData = "assets/signature.jpg"; // Relative path might be tricky in jsPDF if CORS
+                // For local usage/demo we might need base64. 
+                // Assuming the user's browser can access this relative path.
+                // Or better, we load it into an Image object first.
+                const img = new Image();
+                img.src = 'assets/signature.jpg';
+                await new Promise(r => img.onload = r);
+
+                doc.addImage(img, 'JPEG', 140, y - 25, 40, 20); // Width 40, Height 20
+                doc.line(140, y, 180, y); // Underline
+                doc.setFontSize(10);
+                doc.setTextColor(0, 0, 0);
+                doc.text("Authorized Signatory", 160, y + 5, { align: 'center' });
+            } catch (err) {
+                console.warn("Signature load failed, skipping.", err);
+                doc.text("(Signed Digitally)", 160, y, { align: 'center' });
+            }
+
+            // Footer
+            doc.setFontSize(8);
+            doc.setTextColor(150);
+            doc.text("This is a computer generated receipt.", 105, 280, { align: 'center' });
+
+            doc.save(`Invoice_${customerName}_${invoiceNo}.pdf`);
+        }
+
+        // Generate QR Code & Handle Deep Link
+        if (amount && amount > 0) {
+            const upiLink = `upi://pay?pa=${upiId}&pn=${payeeName}&am=${amount}&cu=INR`;
+            const encodedLink = encodeURIComponent(upiLink);
+            const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodedLink}`;
+            document.getElementById('qrImage').src = qrApiUrl;
+
+            const payBtn = document.getElementById('payNowBtn');
+            payBtn.href = upiLink;
+
+            // Handle Payment Simulation / Success
+            payBtn.addEventListener('click', () => {
+                // Determine if we should treat this as success for invoice generation
+                // Real UPI flow doesn't callback to web easily. We assume user returns or we set a timeout.
+                // For demo/prototype: Ask user or just generate after a delay?
+                // User requirement: "after successfull payment automatically open... and download pdf"
+                // Browsers block auto-download without interaction. 
+                // We will simulate "Success" UI then download.
+
+                setTimeout(() => {
+                    const confirmPayment = confirm("Did you complete the payment? Click OK to download Receipt.");
+                    if (confirmPayment) {
+                        generateInvoice();
+                    }
+                }, 5000); // Wait 5s for app switch
+            });
+
+            if (isMobile() || window.innerWidth < 800) {
+                payBtn.style.display = 'inline-flex';
+                // Auto-open logic (only works if user interaction context allows, or limited)
+                // setTimeout(() => { window.location.href = upiLink; }, 1000);
+            }
+        } else {
+            document.body.innerHTML = '<div style="text-align:center; padding: 40px; color: #555;">Invalid Payment Link</div>';
+        }
+    </script>
+</body>
+
+</html>

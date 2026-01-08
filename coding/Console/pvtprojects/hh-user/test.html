@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Calendar</title>
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --primary-light: #e6e9ff;
+            --text-color: #2b2d42;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-gray: #6c757d;
+            --white: #ffffff;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            background-color: var(--light-gray);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .calendar-container {
+            width: 100%;
+            max-width: 380px;
+            max-height: 45vh;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .calendar-scrollable {
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .calendar-header {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 15px;
+            text-align: center;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .month-year-display {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-button {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 3px 8px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .nav-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            background: var(--primary-light);
+            padding: 8px 0;
+            font-weight: 500;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .weekday {
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            padding: 10px;
+            min-height: 150px;
+        }
+
+        .day {
+            aspect-ratio: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        .day:hover {
+            background: var(--medium-gray);
+        }
+
+        .day.today {
+            background: var(--primary-color);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .day.selected {
+            background: var(--primary-color);
+            color: var(--white);
+            font-weight: 600;
+            transform: scale(1.05);
+            box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--primary-color);
+        }
+
+        .day.other-month {
+            color: var(--dark-gray);
+            opacity: 0.5;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px;
+            border-top: 1px solid var(--medium-gray);
+            flex-shrink: 0;
+        }
+
+        .select-container {
+            position: relative;
+            width: 48%;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius);
+            background-color: var(--white);
+            font-size: 0.8rem;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .select-container::after {
+            content: '▼';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.6rem;
+            color: var(--dark-gray);
+            pointer-events: none;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            padding: 0 12px 12px;
+            flex-shrink: 0;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: #3a56d4;
+        }
+
+        .btn-secondary {
+            background: var(--medium-gray);
+            color: var(--text-color);
+        }
+
+        .btn-secondary:hover {
+            background: #d3d9df;
+        }
+    </style>
+</head>
+<body>
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <button class="nav-button" id="prev-year">«</button>
+            <div class="month-year-display">
+                <span id="current-month">June</span>
+                <span id="current-year">2023</span>
+            </div>
+            <button class="nav-button" id="next-year">»</button>
+        </div>
+        
+        <div class="calendar-scrollable">
+            <div class="weekdays">
+                <div class="weekday">Sun</div>
+                <div class="weekday">Mon</div>
+                <div class="weekday">Tue</div>
+                <div class="weekday">Wed</div>
+                <div class="weekday">Thu</div>
+                <div class="weekday">Fri</div>
+                <div class="weekday">Sat</div>
+            </div>
+            
+            <div class="days-grid" id="days-grid">
+                <!-- Days will be populated by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="select-container">
+                <select id="month-select">
+                    <option value="0">January</option>
+                    <option value="1">February</option>
+                    <option value="2">March</option>
+                    <option value="3">April</option>
+                    <option value="4">May</option>
+                    <option value="5">June</option>
+                    <option value="6">July</option>
+                    <option value="7">August</option>
+                    <option value="8">September</option>
+                    <option value="9">October</option>
+                    <option value="10">November</option>
+                    <option value="11">December</option>
+                </select>
+            </div>
+            <div class="select-container">
+                <select id="year-select">
+                    <!-- Years will be populated by JavaScript -->
+                </select>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn btn-secondary">Cancel</button>
+            <button class="btn btn-primary">Select Date</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const daysGrid = document.getElementById('days-grid');
+            const currentMonthEl = document.getElementById('current-month');
+            const currentYearEl = document.getElementById('current-year');
+            const monthSelect = document.getElementById('month-select');
+            const yearSelect = document.getElementById('year-select');
+            const prevYearBtn = document.getElementById('prev-year');
+            const nextYearBtn = document.getElementById('next-year');
+            
+            let currentDate = new Date();
+            let selectedDate = new Date(); // Default to current date
+            
+            // Initialize year dropdown
+            const currentYear = currentDate.getFullYear();
+            for (let year = currentYear - 10; year <= currentYear + 10; year++) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                if (year === currentYear) {
+                    option.selected = true;
+                }
+                yearSelect.appendChild(option);
+            }
+            
+            // Initialize month dropdown to current month
+            monthSelect.value = currentDate.getMonth();
+            
+            // Render calendar
+            renderCalendar();
+            
+            // Event listeners
+            monthSelect.addEventListener('change', function() {
+                currentDate.setMonth(parseInt(this.value));
+                renderCalendar();
+            });
+            
+            yearSelect.addEventListener('change', function() {
+                currentDate.setFullYear(parseInt(this.value));
+                renderCalendar();
+            });
+            
+            prevYearBtn.addEventListener('click', function() {
+                currentDate.setFullYear(currentDate.getFullYear() - 1);
+                yearSelect.value = currentDate.getFullYear();
+                renderCalendar();
+            });
+            
+            nextYearBtn.addEventListener('click', function() {
+                currentDate.setFullYear(currentDate.getFullYear() + 1);
+                yearSelect.value = currentDate.getFullYear();
+                renderCalendar();
+            });
+            
+            function renderCalendar() {
+                const year = currentDate.getFullYear();
+                const month = currentDate.getMonth();
+                
+                // Update month and year display
+                currentMonthEl.textContent = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(currentDate);
+                currentYearEl.textContent = year;
+                
+                // Update dropdowns
+                monthSelect.value = month;
+                yearSelect.value = year;
+                
+                // Get first day of month and total days in month
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                const daysInPrevMonth = new Date(year, month, 0).getDate();
+                
+                // Clear the grid
+                daysGrid.innerHTML = '';
+                
+                // Add days from previous month
+                for (let i = firstDay - 1; i >= 0; i--) {
+                    const dayElement = document.createElement('div');
+                    dayElement.classList.add('day', 'other-month');
+                    dayElement.textContent = daysInPrevMonth - i;
+                    daysGrid.appendChild(dayElement);
+                }
+                
+                // Add days from current month
+                const today = new Date();
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.classList.add('day');
+                    dayElement.textContent = i;
+                    
+                    // Highlight today
+                    if (i === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+                        dayElement.classList.add('today');
+                    }
+                    
+                    // Highlight selected date
+                    if (i === selectedDate.getDate() && month === selectedDate.getMonth() && year === selectedDate.getFullYear()) {
+                        dayElement.classList.add('selected');
+                    }
+                    
+                    dayElement.addEventListener('click', function() {
+                        // Remove selected class from all days
+                        document.querySelectorAll('.day').forEach(day => {
+                            day.classList.remove('selected');
+                        });
+                        
+                        // Add selected class to clicked day
+                        this.classList.add('selected');
+                        
+                        // Update selected date
+                        selectedDate = new Date(year, month, i);
+                    });
+                    
+                    daysGrid.appendChild(dayElement);
+                }
+                
+                // Calculate how many days from next month to show
+                const totalCells = firstDay + daysInMonth;
+                const remainingCells = totalCells % 7;
+                const nextMonthDays = remainingCells === 0 ? 0 : 7 - remainingCells;
+                
+                // Add days from next month
+                for (let i = 1; i <= nextMonthDays; i++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.classList.add('day', 'other-month');
+                    dayElement.textContent = i;
+                    daysGrid.appendChild(dayElement);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

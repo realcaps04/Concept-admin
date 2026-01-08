@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UI Types - Customer Categories</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .ui-types-header {
+      margin-bottom: 32px;
+    }
+
+    .ui-types-header h2 {
+      font-size: 26px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .ui-types-header .subtitle {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .ui-types-grid {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .ui-type-card {
+      background: #ffffff;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 12px;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(21, 41, 76, 0.08);
+      min-height: 120px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ui-type-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: currentColor;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .ui-type-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(21, 41, 76, 0.15);
+    }
+
+    .ui-type-card:hover::before {
+      opacity: 1;
+    }
+
+    .ui-type-card-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .ui-type-card:hover .ui-type-card-icon {
+      transform: scale(1.1);
+    }
+
+    .ui-type-card-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .ui-type-card-title {
+      font-size: 12px;
+      font-weight: 600;
+      margin: 0;
+      text-align: center;
+      color: inherit;
+      line-height: 1.3;
+    }
+
+    .ui-type-card-description {
+      font-size: 9px;
+      color: inherit;
+      opacity: 0.9;
+      text-align: center;
+      margin-top: -4px;
+      line-height: 1.2;
+    }
+
+    /* Color Variants */
+    .ui-type-government {
+      background: linear-gradient(135deg, #1e40af, #1e3a8a);
+      color: #ffffff;
+      border-color: #1e40af;
+    }
+
+    .ui-type-private {
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      color: #ffffff;
+      border-color: #7c3aed;
+    }
+
+    .ui-type-mobile-shop {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #ffffff;
+      border-color: #f59e0b;
+    }
+
+    .ui-type-court {
+      background: linear-gradient(135deg, #dc2626, #b91c1c);
+      color: #ffffff;
+      border-color: #dc2626;
+    }
+
+    .ui-type-college-school {
+      background: linear-gradient(135deg, #059669, #047857);
+      color: #ffffff;
+      border-color: #059669;
+    }
+
+    .ui-type-hospital {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: #ffffff;
+      border-color: #ef4444;
+    }
+
+    .ui-type-bank {
+      background: linear-gradient(135deg, #0891b2, #0e7490);
+      color: #ffffff;
+      border-color: #0891b2;
+    }
+
+    .ui-type-restaurant {
+      background: linear-gradient(135deg, #ea580c, #c2410c);
+      color: #ffffff;
+      border-color: #ea580c;
+    }
+
+    .ui-type-retail {
+      background: linear-gradient(135deg, #db2777, #be185d);
+      color: #ffffff;
+      border-color: #db2777;
+    }
+
+    .ui-type-ngo {
+      background: linear-gradient(135deg, #16a34a, #15803d);
+      color: #ffffff;
+      border-color: #16a34a;
+    }
+
+    .ui-type-hotel {
+      background: linear-gradient(135deg, #0ea5e9, #0284c7);
+      color: #ffffff;
+      border-color: #0ea5e9;
+    }
+
+    .ui-type-pharmacy {
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+      color: #ffffff;
+      border-color: #8b5cf6;
+    }
+
+    .ui-type-console-projects {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      color: #ffffff;
+      border-color: #1e293b;
+    }
+
+    @media (max-width: 1400px) {
+      .ui-types-grid {
+        grid-template-columns: repeat(10, 1fr);
+        gap: 10px;
+      }
+
+      .ui-type-card {
+        padding: 14px 10px;
+        min-height: 110px;
+      }
+
+      .ui-type-card-icon {
+        width: 36px;
+        height: 36px;
+      }
+
+      .ui-type-card-icon svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .ui-type-card-title {
+        font-size: 11px;
+      }
+
+      .ui-type-card-description {
+        font-size: 8px;
+      }
+    }
+
+    @media (max-width: 1200px) {
+      .ui-types-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 12px;
+      }
+
+      .ui-type-card {
+        padding: 18px 14px;
+        min-height: 130px;
+      }
+
+      .ui-type-card-icon {
+        width: 44px;
+        height: 44px;
+      }
+
+      .ui-type-card-icon svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      .ui-type-card-title {
+        font-size: 13px;
+      }
+
+      .ui-type-card-description {
+        font-size: 10px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .ui-types-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+
+      .ui-type-card {
+        padding: 20px 16px;
+        min-height: 140px;
+      }
+
+      .ui-type-card-icon {
+        width: 48px;
+        height: 48px;
+      }
+
+      .ui-type-card-icon svg {
+        width: 26px;
+        height: 26px;
+      }
+
+      .ui-type-card-title {
+        font-size: 14px;
+      }
+
+      .ui-type-card-description {
+        font-size: 11px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .ui-types-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .ui-type-card {
+        padding: 24px 18px;
+        min-height: 150px;
+      }
+
+      .ui-type-card-icon {
+        width: 52px;
+        height: 52px;
+      }
+
+      .ui-type-card-icon svg {
+        width: 28px;
+        height: 28px;
+      }
+
+      .ui-type-card-title {
+        font-size: 15px;
+      }
+
+      .ui-type-card-description {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background-blur bg-one"></div>
+  <div class="background-blur bg-two"></div>
+
+  <section class="shell shell-wide">
+    <div class="card">
+      <header class="card-header">
+        <div class="brand">
+          <div class="logo-wrap" aria-hidden="true">
+            <img src="assets/logo.svg" alt="Admin portal logo" />
+          </div>
+          <div>
+            <p class="eyebrow">Super Admin</p>
+            <h1 class="page-title">UI Types</h1>
+          </div>
+        </div>
+        <div class="header-actions">
+          <a href="AdminsConsole.html" class="back-btn">Back to Console</a>
+          <button id="logoutBtn" class="logout-btn">Logout</button>
+        </div>
+      </header>
+
+      <main class="card-body">
+        <div class="ui-types-header">
+          <h2>Select Customer UI Type</h2>
+          <p class="subtitle">
+            Choose a pre-built UI template based on customer category. When assigned to an admin,
+            they will receive a customized panel matching their organization type.
+          </p>
+        </div>
+
+        <div class="ui-types-grid">
+          <!-- Government -->
+          <div class="ui-type-card ui-type-government" onclick="selectUIType('government', 'Government')">
+            <div class="ui-type-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2L2 7l10 5 10-5-10-5Z" />
+                <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+              </svg>
+            </div>
+            <h3 class="ui-type-card-title">Government</h3>
+            <p class="ui-type-card-description">Official & Public Sector</p>
+          </div>
+
+          <!-- Private -->
+          <div class="ui-type-card ui-type-private" onclick="selectUIType('private', 'Private')">
+            <div class="ui-type-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                <path d="M9 9h6v6H9z" />
+              </svg>
+            </div>
+            <h3 class="ui-type-card-title">Private</h3>
+            <p class="ui-type-card-description">Private Organizations</p>
+          </div>
+
+          <!-- Mobile Shop -->
+          <div class="ui-type-card ui-type-mobile-shop" onclick="selectUIType('mobile_shop', 'Mobile Shop')">
+            <div class="ui-type-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                <line x1="12" y1="18" x2="12" y2="18.01" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3 class="ui-type-card-title">Mobile Shop</h3>
+            <p class="ui-type-card-description">Mobile & Electronics</p>
+          </div>
+
+          <!-- Court -->
+          <div class="ui-type-card ui-type-court" onclick="selectUIType('court', 'Court')">
+            <div class="ui-type-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path
+                  d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </div>
+            <h3 class="ui-type-card-title">Court</h3>
+            <p class="ui-type-card-description">Legal & Judicial</p>
+          </div>
+
+          <!-- College/School -->
+          <div class="ui-type-card ui-type-college-school" onclick="selectUIType('college_school', 'College/School')">
+            <div class="ui-type-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                <path d="M10 8h4" />
+              </svg>
+            </div>
+            <h3 class="ui-type-card-title">College/School</h3>
+            <p class="ui-type-card-description">Educational Institutions</p>
+          </div>
+
+          <!-- Hospital -->
+          <div class="ui-type-card ui-type-hospital" onclick="selectUIType('hospital', 'Hospital')">
+            <div class="ui-type-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2v20M2 12h20" stroke-linecap="round" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </div>
+            <h3 class="ui-type-card-title">Hospital</h3>
+            <p class="ui-type-card-description">Healthcare & Medical</p>
+          </div>
+
+          <!-- Bank -->
+          <div class="ui-type-card ui-type-bank" onclick="selectUIType('bank', 'Bank')">
+            <div class="ui-type-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="2" y="8" width="20" height="14" rx="2" ry="2" />
+                <path d="M6 8V6a4 4 0 0 1 8 0v2" />
+                <line x1="8" y1="14" x2="16" y2="14" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3 class="ui-type-card-title">Bank</h3>
+            <p class="ui-type-card-description">Financial Services</p>
+          </div>
+
+          <!-- Restaurant -->
+          <div class="ui-type-card ui-type-restaurant" onclick="selectUIType('restaurant', 'Restaurant')">
+            <div class="ui-type-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
+                <path d="M7 2v20" />
+                <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3z" />
+              </svg>
+            </div>
+            <h3 class="ui-type-card-title">Restaurant</h3>
+            <p class="ui-type-card-description">Food & Dining</p>
+          </div>
+
+          <!-- Retail -->
+          <div class="ui-type-card ui-type-retail" onclick="selectUIType('retail', 'Retail')">
+            <div class="ui-type-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <path d="M16 10a4 4 0 0 1-8 0" />
+              </svg>
+            </div>
+            <h3 class="ui-type-card-title">Retail</h3>
+            <p class="ui-type-card-description">Retail & Shopping</p>
+          </div>
+
+          <!-- NGO -->
+          <div class="ui-type-card ui-type-ngo" onclick="selectUIType('ngo', 'NGO')">
+            <div class="ui-type-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+            </div>
+            <h3 class="ui-type-card-title">NGO</h3>
+            <p class="ui-type-card-description">Non-Profit Organizations</p>
+          </div>
+
+          <!-- Hotel -->
+          <div class="ui-type-card ui-type-hotel" onclick="selectUIType('hotel', 'Hotel')">
+            <div class="ui-type-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+              </svg>
+            </div>
+            <h3 class="ui-type-card-title">Hotel</h3>
+            <p class="ui-type-card-description">Hospitality & Lodging</p>
+          </div>
+
+          <!-- Pharmacy -->
+          <div class="ui-type-card ui-type-pharmacy" onclick="selectUIType('pharmacy', 'Pharmacy')">
+            <div class="ui-type-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="8" width="18" height="14" rx="2" />
+                <path d="M8 8V6a4 4 0 1 1 8 0v2" />
+                <line x1="12" y1="14" x2="12" y2="18" stroke-linecap="round" />
+                <line x1="10" y1="16" x2="14" y2="16" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3 class="ui-type-card-title">Pharmacy</h3>
+            <p class="ui-type-card-description">Medical & Pharmaceutical</p>
+          </div>
+
+          <!-- Console Projects -->
+          <div class="ui-type-card ui-type-console-projects"
+            onclick="selectUIType('console_projects', 'Console Projects')">
+            <div class="ui-type-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <polyline points="4 17 10 11 4 5"></polyline>
+                <line x1="12" y1="19" x2="20" y2="19"></line>
+              </svg>
+            </div>
+            <h3 class="ui-type-card-title">Console Projects</h3>
+            <p class="ui-type-card-description">Internal & Dev Tools</p>
+          </div>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script>
+    const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Session management
+    const getSession = () => {
+      const sessionData = localStorage.getItem('superadmin_session');
+      if (!sessionData) return null;
+      try {
+        const session = JSON.parse(sessionData);
+        if (Date.now() - session.timestamp > 24 * 60 * 60 * 1000) {
+          localStorage.removeItem('superadmin_session');
+          return null;
+        }
+        return session;
+      } catch {
+        return null;
+      }
+    };
+
+    const clearSession = () => {
+      localStorage.removeItem('superadmin_session');
+    };
+
+    // Check authentication
+    const checkAuth = async () => {
+      const session = getSession();
+      if (!session) {
+        window.location.href = 'Superadminindex.html';
+        return false;
+      }
+
+      const { data, error } = await supabase
+        .from('Superadmin')
+        .select('id, email, name, is_active')
+        .eq('email', session.email)
+        .eq('id', session.id)
+        .single();
+
+      if (error || !data || !data.is_active) {
+        clearSession();
+        window.location.href = 'Superadminindex.html';
+        return false;
+      }
+
+      return true;
+    };
+
+    // Select UI Type handler - navigate to corresponding UI page
+    window.selectUIType = function (type, displayName) {
+      // Map UI types to their corresponding HTML pages
+      const uiTypePages = {
+        'government': 'governmentUi.html',
+        'private': 'privateUi.html',
+        'mobile_shop': 'mobileShopUi.html',
+        'court': 'courtUi.html',
+        'college_school': 'collegeSchoolUi.html',
+        'hospital': 'hospitalUi.html',
+        'bank': 'bankUi.html',
+        'restaurant': 'restaurantUi.html',
+        'retail': 'retailUi.html',
+        'ngo': 'ngoUi.html',
+        'hotel': 'hotelUi.html',
+        'pharmacy': 'pharmacyUi.html',
+        'console_projects': 'cpdashboard.html'
+      };
+
+      // Store selected UI type for later use
+      sessionStorage.setItem('selected_ui_type', type);
+      sessionStorage.setItem('selected_ui_type_display', displayName);
+
+      // Navigate to the corresponding UI page
+      const page = uiTypePages[type];
+      if (page) {
+        window.location.href = page;
+      } else {
+        alert(`UI Type "${displayName}" page is not available yet.`);
+      }
+    };
+
+    // Logout handler
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        if (confirm('Are you sure you want to logout?')) {
+          clearSession();
+          window.location.href = 'Superadminindex.html';
+        }
+      });
+    }
+
+    // Initialize
+    const init = async () => {
+      const isAuthenticated = await checkAuth();
+      if (!isAuthenticated) {
+        return;
+      }
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  </script>
+</body>
+
+</html>

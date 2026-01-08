@@ -1,0 +1,71 @@
+section.pcalert {
+    border: 2px solid #262626;
+    border-radius: 8px;
+    width: 42vw;
+    background: #1a1a1a;
+    margin-right: 12px;
+    min-height: 12vh;
+    position: absolute;
+    z-index: 9999;
+    left: 30%;
+    opacity: 0;
+    transition: opacity 0.3s ease; 
+}
+.pcalert.show {
+    opacity: 1;
+}
+
+.pcalert.hide {
+    opacity: 0;
+}
+section.pcalert section.wrapper {
+    margin: 0 0.5vw;
+    padding: 12px;
+}
+section.pcalert section.wrapper h2 {
+    font-family: "Inter", sans-serif;
+    color: #fff;
+    font-size: 18px;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 1.5em;
+}
+section.pcalert hr.pcline {
+    display: block;
+    background: #5e5e5e;
+    height: 2px;
+    width: 100%;
+}
+section.pcalert section.wrapper h3.continue {
+    color: #007AFF;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    cursor: pointer;
+    font-family: "Inter", sans-serif;
+}
+.pcalertbg {
+    display: block;
+    position: absolute;
+    display: block;
+    height: 160vh;
+    width: 100%;
+    background: #0b0b0bdb;
+    z-index: 999;
+}
+@media  all  and (max-width:480px){
+    section.pcalert {
+    width: 93vw;
+    margin-right: 12px;
+    min-height: 12vh;
+    left: 3%;
+}
+section.pcalert section.wrapper h2 {
+    font-size: 14px;
+}
+section.pcalert section.wrapper h3.continue {
+    font-size: 15px;
+}
+
+}

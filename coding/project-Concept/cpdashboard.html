@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admins Console - Dashboard</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css"> <!-- Base styles (mostly overridden) -->
+    <link rel="stylesheet" href="css/cpdashboard.css"> <!-- Dashboard specific override -->
+</head>
+
+<body class="cp-body">
+
+    <!-- Main Area -->
+    <div class="cp-main">
+
+        <!-- Top Header -->
+        <header class="cp-header">
+            <div style="display: flex; align-items: center; gap: 12px; margin-right: 20px;">
+                <img src="assets/logo.svg" alt="Logo" class="cp-logo">
+                <h1 style="font-size: 20px; font-weight: 700; color: #1C2434; margin: 0;">AdminsConsole</h1>
+            </div>
+
+            <!-- Back Link (moved from sidebar) -->
+            <a href="AdminsConsole.html" class="cp-back-link" style="margin-left: 0; padding: 0;">
+                <svg class="cp-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z" />
+                </svg>
+                Back to Console
+            </a>
+
+            <div style="flex: 1;"></div>
+
+            <div class="cp-header-actions">
+                <!-- Notification -->
+                <button class="cp-action-btn">
+                    <span class="dot"></span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                </button>
+                <!-- Message -->
+                <button class="cp-action-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                </button>
+                <!-- User -->
+                <div class="cp-user-profile">
+                    <div class="cp-user-info">
+                        <span class="cp-user-name">Thomas Anree</span>
+                        <span class="cp-user-role">UX Designer</span>
+                    </div>
+                    <div class="cp-avatar">
+                        <!-- Placeholder avatar or user inititals -->
+                        <img src="https://ui-avatars.com/api/?name=Thomas+Anree&background=random" alt="User">
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <main class="cp-content-area">
+            <!-- Top Stats -->
+            <div class="cp-grid cp-grid-4">
+                <!-- Stat 1 -->
+                <div class="cp-card">
+                    <div class="cp-stat-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <div class="cp-stat-value">18.6K</div>
+                    <div class="cp-stat-label">
+                        Console Admins
+                        <span class="cp-trend up">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="3">
+                                <path d="M18 15l-6-6-6 6" />
+                            </svg>
+                            18%
+                        </span>
+                    </div>
+                </div>
+                <!-- Stat 2 -->
+                <div class="cp-card">
+                    <div class="cp-stat-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                    </div>
+                    <div class="cp-stat-value">55.9K</div>
+                    <div class="cp-stat-label">
+                        Console Users
+                        <span class="cp-trend up">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="3">
+                                <path d="M18 15l-6-6-6 6" />
+                            </svg>
+                            25%
+                        </span>
+                    </div>
+                </div>
+                <!-- Stat 3 -->
+                <div class="cp-card">
+                    <div class="cp-stat-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M3 3v18h18"></path>
+                            <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"></path>
+                        </svg>
+                    </div>
+                    <div class="cp-stat-value">$4,350</div>
+                    <div class="cp-stat-label">
+                        Total Profit
+                        <span class="cp-trend up">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="3">
+                                <path d="M18 15l-6-6-6 6" />
+                            </svg>
+                            12%
+                        </span>
+                    </div>
+                </div>
+                <!-- Stat 4 -->
+                <div class="cp-card">
+                    <div class="cp-stat-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path
+                                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                            </path>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                    </div>
+                    <div class="cp-stat-value">2,450</div>
+                    <div class="cp-stat-label">
+                        Products
+                        <span class="cp-trend down">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="3">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                            2%
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Operations Row -->
+            <div class="cp-grid cp-grid-4">
+                <div class="cp-card hover-card">
+                    <div class="cp-stat-icon" style="background: #E0E7FF; color: #3C50E0;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <div class="cp-stat-value" style="font-size: 18px;">Manage Users</div>
+                    <div class="cp-stat-label">System Access</div>
+                </div>
+                <div class="cp-card hover-card">
+                    <div class="cp-stat-icon" style="background: #FEF3C7; color: #D97706;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path
+                                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="cp-stat-value" style="font-size: 18px;">Settings</div>
+                    <div class="cp-stat-label">Global Config</div>
+                </div>
+                <div class="cp-card hover-card">
+                    <div class="cp-stat-icon" style="background: #DCFCE7; color: #10B981;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
+                    <div class="cp-stat-value" style="font-size: 18px;">Security</div>
+                    <div class="cp-stat-label">Audit Logs</div>
+                </div>
+                <div class="cp-card hover-card">
+                    <div class="cp-stat-icon" style="background: #FEE2E2; color: #EF4444;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                    </div>
+                    <div class="cp-stat-value" style="font-size: 18px;">Backups</div>
+                    <div class="cp-stat-label">Data Recovery</div>
+                </div>
+            </div>
+
+            <!-- Projects Row -->
+            <div class="cp-grid cp-grid-4">
+                <div class="cp-card hover-card">
+                    <div class="cp-stat-icon" style="background: #E0E7FF; color: #3C50E0;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="cp-stat-value" style="font-size: 18px;">Project Alpha</div>
+                    <div class="cp-stat-label">Active - v1.2</div>
+                </div>
+                <div class="cp-card hover-card">
+                    <div class="cp-stat-icon" style="background: #E0E7FF; color: #3C50E0;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="cp-stat-value" style="font-size: 18px;">Project Beta</div>
+                    <div class="cp-stat-label">Development</div>
+                </div>
+                <div class="cp-card hover-card">
+                    <div class="cp-stat-icon" style="background: #E0E7FF; color: #3C50E0;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="cp-stat-value" style="font-size: 18px;">Internal Tools</div>
+                    <div class="cp-stat-label">Maintenance</div>
+                </div>
+                <div class="cp-card hover-card">
+                    <div class="cp-stat-icon" style="background: #F3F4F6; color: #6B7280;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </div>
+                    <div class="cp-stat-value" style="font-size: 18px;">New Project</div>
+                    <div class="cp-stat-label">Create</div>
+                </div>
+            </div>
+
+            <!-- Maintenance Row -->
+            <div class="cp-grid cp-grid-4">
+                <div class="cp-card hover-card">
+                    <div class="cp-stat-icon" style="background: #FFEDD5; color: #F97316;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path
+                                d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                            </path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                    </div>
+                    <div class="cp-stat-value" style="font-size: 18px;">Issues</div>
+                    <div class="cp-stat-label">12 Pending</div>
+                </div>
+                <div class="cp-card hover-card">
+                    <div class="cp-stat-icon" style="background: #F1F5F9; color: #64748B;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                    </div>
+                    <div class="cp-stat-value" style="font-size: 18px;">Monitoring</div>
+                    <div class="cp-stat-label">System Health</div>
+                </div>
+                <div class="cp-card hover-card">
+                    <div class="cp-stat-icon" style="background: #F1F5F9; color: #64748B;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path>
+                            <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
+                        </svg>
+                    </div>
+                    <div class="cp-stat-value" style="font-size: 18px;">Documentation</div>
+                    <div class="cp-stat-label">Update Wiki</div>
+                </div>
+                <div class="cp-card hover-card">
+                    <div class="cp-stat-icon" style="background: #F1F5F9; color: #64748B;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                    </div>
+                    <div class="cp-stat-value" style="font-size: 18px;">Support</div>
+                    <div class="cp-stat-label">Help Center</div>
+                </div>
+            </div>
+
+
+        </main>
+    </div>
+
+</body>
+
+</html>

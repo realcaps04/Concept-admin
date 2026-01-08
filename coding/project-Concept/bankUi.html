@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bank UI - Admin Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .ui-header {
+      background: linear-gradient(135deg, #0891b2, #0e7490);
+      color: white;
+      padding: 32px;
+      border-radius: 16px;
+      margin-bottom: 32px;
+      box-shadow: 0 8px 24px rgba(8, 145, 178, 0.3);
+    }
+    .ui-header h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+    .ui-header p { font-size: 16px; opacity: 0.9; }
+    .ui-dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 32px; }
+    .dashboard-card { background: white; border: 2px solid var(--border); border-radius: 16px; padding: 24px; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+    .dashboard-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); border-color: #0891b2; }
+    .dashboard-card-icon { width: 56px; height: 56px; background: linear-gradient(135deg, rgba(8, 145, 178, 0.1), rgba(14, 116, 144, 0.1)); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+    .dashboard-card-icon svg { width: 28px; height: 28px; color: #0891b2; }
+    .dashboard-card h3 { font-size: 20px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+    .dashboard-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <div class="background-blur bg-one"></div>
+  <div class="background-blur bg-two"></div>
+  <section class="shell shell-wide">
+    <div class="card">
+      <header class="card-header">
+        <div class="brand">
+          <div class="logo-wrap" aria-hidden="true"><img src="assets/logo.svg" alt="Admin portal logo" /></div>
+          <div>
+            <p class="eyebrow">Bank</p>
+            <h1 class="page-title">Admin Dashboard</h1>
+          </div>
+        </div>
+        <div class="header-actions">
+          <a href="Uitypes.html" class="back-btn">Back to UI Types</a>
+          <button id="logoutBtn" class="logout-btn">Logout</button>
+        </div>
+      </header>
+      <main class="card-body">
+        <div class="ui-header">
+          <h1>Banking Administration Panel</h1>
+          <p>Financial Services Management System</p>
+        </div>
+        <div class="ui-dashboard">
+          <div class="dashboard-card">
+            <div class="dashboard-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="8" width="20" height="14" rx="2" ry="2"/><path d="M6 8V6a4 4 0 0 1 8 0v2"/></svg></div>
+            <h3>Account Management</h3><p>Manage customer accounts and banking services</p>
+          </div>
+          <div class="dashboard-card">
+            <div class="dashboard-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+            <h3>Transaction Processing</h3><p>Handle deposits, withdrawals, and transfers</p>
+          </div>
+          <div class="dashboard-card">
+            <div class="dashboard-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+            <h3>Loan Management</h3><p>Process loans, applications, and repayment schedules</p>
+          </div>
+          <div class="dashboard-card">
+            <div class="dashboard-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <h3>Customer Relations</h3><p>Manage customer profiles and service requests</p>
+          </div>
+          <div class="dashboard-card">
+            <div class="dashboard-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+            <h3>Financial Reporting</h3><p>Generate financial reports and analytics</p>
+          </div>
+          <div class="dashboard-card">
+            <div class="dashboard-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <h3>Security & Compliance</h3><p>Monitor security, fraud detection, and compliance</p>
+          </div>
+        </div>
+      </main>
+    </div>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script>
+    const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const getSession = () => {
+      const sessionData = localStorage.getItem('superadmin_session');
+      if (!sessionData) return null;
+      try {
+        const session = JSON.parse(sessionData);
+        if (Date.now() - session.timestamp > 24 * 60 * 60 * 1000) {
+          localStorage.removeItem('superadmin_session');
+          return null;
+        }
+        return session;
+      } catch { return null; }
+    };
+    const clearSession = () => { localStorage.removeItem('superadmin_session'); };
+    const checkAuth = async () => {
+      const session = getSession();
+      if (!session) { window.location.href = 'Superadminindex.html'; return false; }
+      const { data, error } = await supabase.from('Superadmin').select('id, email, name, is_active').eq('email', session.email).eq('id', session.id).single();
+      if (error || !data || !data.is_active) { clearSession(); window.location.href = 'Superadminindex.html'; return false; }
+      return true;
+    };
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        if (confirm('Are you sure you want to logout?')) {
+          clearSession();
+          window.location.href = 'Superadminindex.html';
+        }
+      });
+    }
+    const init = async () => {
+      const isAuthenticated = await checkAuth();
+      if (!isAuthenticated) { return; }
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  </script>
+</body>
+</html>
+

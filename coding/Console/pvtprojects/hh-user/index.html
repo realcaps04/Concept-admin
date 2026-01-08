@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Haven</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="../../css/style1.css" />
+    <link rel="stylesheet" href="css/font.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="images/logo-hostel.png" type="image/x-icon">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --primary-light: #e6e9ff;
+            --text-color: #2b2d42;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-gray: #6c757d;
+            --white: #ffffff;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+
+.selecteddate {
+    cursor: pointer;
+    width: 104px;
+    text-align: center;
+    font-size: 13px;
+}
+
+        .selecteddate:hover {
+            border-color: var(--primary-color);
+        }
+
+        .calendar-popup {
+            position: absolute;
+            z-index: 1000;
+            width: 100%;
+            max-width: 380px;
+            max-height: 45vh;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.2s, transform 0.2s;
+            pointer-events: none;
+        }
+
+        .calendar-popup.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            position: absolute;
+            top: 41vh !important;
+        }
+
+        .calendar-scrollable {
+            overflow-y: auto;
+            flex: 1;
+        }
+
+.calendar-header {
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 15px;
+    text-align: center;
+    position: relative;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.month-year-display {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: flex
+;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    margin: 0 2vw;
+    padding: 5px 16px;
+    border-radius: 25px;
+}
+#prev-year, #next-year {
+    padding: 12px;
+    border-radius: 50%;
+    height: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+}
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            background: var(--primary-light);
+            padding: 8px 0;
+            font-weight: 500;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .weekday {
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            padding: 10px;
+            min-height: 150px;
+        }
+
+        .day {
+            aspect-ratio: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        .day:hover {
+            background: var(--medium-gray);
+        }
+
+        .day.today {
+            background: var(--primary-color);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .day.selected {
+            background: var(--primary-color);
+            color: var(--white);
+            font-weight: 600;
+            transform: scale(1.05);
+            box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--primary-color);
+        }
+
+        .day.other-month {
+            color: var(--dark-gray);
+            opacity: 0.5;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px;
+            border-top: 1px solid var(--medium-gray);
+            flex-shrink: 0;
+        }
+
+        .select-container {
+            position: relative;
+            width: 48%;
+        }
+
+        .select-container::after {
+            content: '▼';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.6rem;
+            color: var(--dark-gray);
+            pointer-events: none;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            padding: 0 12px 12px;
+            flex-shrink: 0;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: #3a56d4;
+        }
+
+        .btn-secondary {
+            background: var(--medium-gray);
+            color: var(--text-color);
+        }
+
+        .btn-secondary:hover {
+            background: #d3d9df;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+
+        .overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+
+
+         /* Animation classes */
+        .slide-in {
+            animation: slideIn 0.3s ease forwards;
+        }
+        
+        .slide-out {
+            animation: slideOut 0.3s ease forwards;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(-100%); opacity: 0; }
+        }
+        
+
+    </style>
+</head>
+
+<body>
+
+    <!--(popups calenadar)!-->
+
+
+     <div class="overlay" id="calendarOverlay"></div>
+    <div class="calendar-popup" id="calendarPopup" style="top:41vh !important;">
+        <div class="calendar-header">
+            <button class="nav-button" id="prev-year">«</button>
+            <div class="month-year-display">
+                <span id="current-month">June</span>
+                <span id="current-year">2023</span>
+            </div>
+            <button class="nav-button" id="next-year">»</button>
+        </div>
+        
+        <div class="calendar-scrollable">
+            <div class="weekdays">
+                <div class="weekday">Sun</div>
+                <div class="weekday">Mon</div>
+                <div class="weekday">Tue</div>
+                <div class="weekday">Wed</div>
+                <div class="weekday">Thu</div>
+                <div class="weekday">Fri</div>
+                <div class="weekday">Sat</div>
+            </div>
+            
+            <div class="days-grid" id="days-grid">
+                <!-- Days will be populated by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="select-container">
+                <select id="month-select">
+                    <option value="0">January</option>
+                    <option value="1">February</option>
+                    <option value="2">March</option>
+                    <option value="3">April</option>
+                    <option value="4">May</option>
+                    <option value="5">June</option>
+                    <option value="6">July</option>
+                    <option value="7">August</option>
+                    <option value="8">September</option>
+                    <option value="9">October</option>
+                    <option value="10">November</option>
+                    <option value="11">December</option>
+                </select>
+            </div>
+            <div class="select-container">
+                <select id="year-select">
+                    <!-- Years will be populated by JavaScript -->
+                </select>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn btn-secondary" id="cancelBtn">Cancel</button>
+            <button class="btn btn-primary" id="selectBtn">Select</button>
+        </div>
+    </div>
+
+    <!--(popups calenadar)!-->
+
+    <!--(popups loading alert)!-->
+
+    <!-- <section class="pcalert">
+        <section class="wrapper">
+            <h2>"Hosto Haven" is built as a pc responsed project kindly view in Any Desktop devices</h2>
+        </section>
+
+        <hr class="pcline">
+
+        <section class="wrapper">
+            <h3 class="continue">Continue</h3>
+        </section>
+    </section>
+    <section class="pcalertbg"></section> -->
+
+
+    <!--(popups loading alert)!-->
+
+
+    <!--(popups)!-->
+
+
+    <section class="sun1">
+        <section class="wrapper">
+            <h2 class="sl1"></h2>
+            <h2 class="s12"></h2>
+            <h2 class="s13"></h2>
+            <h2 class="s14"></h2>
+            <h2 class="s15"></h2>
+            <h2 class="s16"></h2>
+        </section>
+    </section>
+
+
+
+    <section class="hamburgurprofileuserhostohaven hide">
+        <section class="hwrapper">
+            <ul>
+                <li style="display:flex;align-items:center;justify-content:flex-end;">
+                    <button class="hamclose">
+                        <img src="images/menu.png" alt="menu-button-icon" />
+                    </button>
+                </li>
+                <li>
+                    <img src="images/wardenPhotos.svg" alt="hamburgurslide-icon-image" />
+                    <h3>Username</h3>
+                </li>
+                <li>
+                    <img src="images/dashboard.png" alt="hamburgurslide-icon-image" />
+                    <h3>Dashboard</h3>
+                </li>
+                <li>
+                    <img src="images/shopping-list.png" alt="hamburgurslide-icon-image" />
+                    <h3>Orders</h3>
+                </li>
+                <li>
+                    <img src="images/medical.png" alt="hamburgurslide-icon-image" />
+                    <h3>Billing</h3>
+                </li>
+                <li>
+                    <img src="images/medical.png" alt="hamburgurslide-icon-image" />
+                    <h3>Categories</h3>
+                </li>
+                <li>
+                    <img src="images/medical.png" alt="hamburgurslide-icon-image" />
+                    <h3>Coupon Code</h3>
+                </li>
+                <li>
+                    <img src="images/medical.png" alt="hamburgurslide-icon-image" />
+                    <h3>Hostels</h3>
+                </li>
+                <li>
+                    <h2>ACCOUNT PAGES</h2>
+                </li>
+                <li>
+                    <img src="images/profile-ham.png" alt="hamburgurslide-icon-image" />
+                    <h3>Profile</h3>
+                </li>
+                <li>
+                    <img src="images/credit-card.png" alt="hamburgurslide-icon-image" />
+                    <h3>Wardens</h3>
+                </li>
+                <li>
+                    <img src="images/credit-card.png" alt="hamburgurslide-icon-image" />
+                    <h3>Admins</h3>
+                </li>
+                <li>
+                    <img src="images/credit-card.png" alt="hamburgurslide-icon-image" />
+                    <h3>Payments</h3>
+                </li>
+                <li>
+                    <img src="images/power-off.png" alt="hamburgurslide-icon-image" />
+                    <h3>Logout</h3>
+                </li>
+            </ul>
+        </section>
+    </section>
+
+
+
+
+    <!--(popups)!-->
+
+
+    <!--(loginsection)!-->
+    <section class="loginbg hide"></section>
+
+        <section class="signupcontainer hide">
+        <section class="wrapper">
+            <section class="left">
+                <div class="languageselect">
+                    <img src="images/FLAG.svg" alt="flag" />
+                    <select name="" id="">
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                    </select>
+                </div>
+                <div class="logoarea">
+                    <img src="images/logomain.png" alt="logo-main" class="logo">
+                    <h2>Hosto Haven</h2>
+                </div>
+                <h3>Create an account and enjoy starting Hosto Haven!</h3>
+                <div class="emailhead">
+                    <hr class="signupline">
+                    <h3>Sign up with Email</h3>
+                    <hr class="signupline">
+                </div>
+                <section class="detailsarea">
+                    <div class="name">
+                        <label for="Name">Name</label>
+                        <span class="Name">
+                            <img src="images/bx_bx-user.svg" alt="vector-email">
+                            <input type="text" name="" id="" placeholder="John Smith">
+                        </span>
+                    </div>
+                    <div class="emailarea">
+                        <label for="Email">Email</label>
+                        <span class="emailinput">
+                            <img src="images/Vector.svg" alt="vector-email">
+                            <input type="email" name="" id="" placeholder="john@example.com">
+                        </span>
+                    </div>
+                    <div class="password">
+                        <label for="Pass">Password</label>
+                        <span class="passinput">
+                            <img src="images/lock.svg" alt="vector-email">
+                            <input type="password" name="" id="" placeholder="Min. 8 characters">
+                            <img src="images/akar-icons_eye.svg" alt="lock">
+                        </span>
+                    </div>
+                </section>
+                <section class="termsarea">
+                    <input type="checkbox" name="" id="" >
+                    <span class="termload">
+                        <h3>I agree to the</h3>
+                        <h3 class="tcnote">Terms & Conditions</h3>
+                    </span>
+                </section>
+                <button type="submit">Sign Up</button>
+                <section class="alreadylogged">
+                    <h3>Already have an Account?</h3>
+                    <h3 class="alreadyregistered">Login</h3>
+                </section>
+            </section>
+            <section class="right">
+                <img src="images/9712774_4155936.png" alt="rightimage">
+            </section>
+        </section>
+    </section>
+
+
+    <section class="logincontainer hide">
+        <section class="wrapper">
+            <section class="left">
+                <div class="languageselect">
+                    <img src="images/FLAG.svg" alt="flag" />
+                    <select name="" id="">
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                    </select>
+                </div>
+                <div class="logoarea">
+                    <img src="images/logomain.png" alt="logo-main" class="logo">
+                    <h2>Hosto Haven</h2>
+                </div>
+                <h3>Create an account and enjoy starting Hosto Haven!</h3>
+                <div class="emailhead">
+                    <hr class="signupline">
+                    <h3>Sign In with Email</h3>
+                    <hr class="signupline">
+                </div>
+                <section class="detailsarea">
+                    <div class="emailarea">
+                        <label for="Email">Email</label>
+                        <span class="emailinput">
+                            <img src="images/Vector.svg" alt="vector-email">
+                            <input type="email" name="" id="" placeholder="john@example.com">
+                        </span>
+                    </div>
+                    <div class="password">
+                        <label for="Pass">Password</label>
+                        <span class="passinput">
+                            <img src="images/lock.svg" alt="vector-email">
+                            <input type="password" name="" id="" placeholder="********">
+                            <img src="images/akar-icons_eye.svg" alt="lock">
+                        </span>
+                    </div>
+                </section>
+                <section class="rememberme">
+                    <div class="checkrem">
+                        <input type="checkbox" name="" id="" >
+                        <h3>Remember Me</h3>
+                    </div>
+                    <span class="forgotpass">
+                        <a href="forgot.html"><h3 class="frgtpass">Forgot your password?</h3></a>
+                    </span>
+                </section>
+                <button type="submit">Sign Up</button>
+                <section class="notregistered">
+                    <h3>Not registered yet?</h3>
+                    <h3 class="notregisteredac"> Create an Account</h3>
+                </section>
+            </section>
+            <section class="right">
+                <img src="images/9712774_4155936.png" alt="rightimage">
+            </section>
+        </section>
+    </section>
+
+
+
+
+
+
+    <!--(loginsection)!-->
+
+
+
+
+
+    <header>
+        <section class="wrapper">
+            <section class="left">
+                <a href="index.html" style="display:flex;align-items:center;">
+                    <img src="images/logomain.png" alt="logo-main-hostel" class="mainlogo">
+                <div class="webname">
+                    <span class="name">
+                        <h2 class="Hostel">Hostel</h2>
+                        <h2 class="Haven">Haven</h2>
+                    </span>
+                    <span class="des">
+                        <h3>your next space</h3>
+                    </span>
+                </div>
+                </a>
+            </section>
+            <section class="center">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="index.html">
+                                <h3>Home</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="About.html">
+                                <h3>About us</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="deals.html">
+                                <h3>Deals</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="blog.html">
+                                <h3>Blog</h3>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </section>
+            <section class="right">
+                <button class="login">Login</button>
+                <button class="profile" >
+                    <img src="images/user.png" alt="user-image">
+                    <h3>View Profile</h3>
+                </button>
+                <button class="hamopen" style="display: none;">
+                    <img src="images/menu.png" alt="hamburgur-open-icon" />
+                </button>
+            </section>
+        </section>
+    </header>
+
+
+    <section class="herosecttion">
+        <section class="wrapper">
+            <section class="left">
+                <h4>LATEST OFFERING</h4>
+                <span class="ed">
+                    <h2 class="ex">EXCLUSIVE</h2>
+                    <h2 class="deals">DEALS,</h2>
+                </span>
+                <span class="sc">
+                    <h2 class="stay">STAY</h2>
+                    <h2 class="comfortable">COMFORTABLE</h2>
+                </span>
+                <span class="ad">
+                    <h2 class="AMAZING">AMAZING</h2>
+                    <h2 class="DISCOUNTS">DISCOUNTS</h2>
+                </span>
+                <h3 class="deshostel">
+                    Welcome to your own Hostel Haven, We are exitced to introduce our latest features and offerings that enhance your hostel management system than any other providers.
+                </h3>
+                <h3 class="dn">Discover Now</h3>
+            </section>
+            <section class="right">
+                <div class="hosone">
+                    <img src="images/hero1.jpg" alt="hero1" class="mainimg">
+                    <span class="bg"></span>
+                </div>
+                <div class="hostwo">
+                    <img src="images/hero2.jpg" alt="hero2" class="mainimg">
+                    <span class="bg"></span>
+                </div>
+                <section class="searcharea">
+                    <div class="location">
+                        <img src="images/location.png" alt="location">
+                        <select name="locationselect" id="locationselect">
+                            <option value="">Kattappana</option>
+                            <option value="">Kattappana</option>
+                            <option value="">Kattappana</option>
+                            <option value="">Kattappana</option>
+                            <option value="">Kattappana</option>
+                            <option value="">Kattappana</option>
+                        </select>
+                    </div>
+                    <div class="dateselect">
+                        <img src="images/calendar-silhouette.png" alt="calendar">
+                        <div class="selecteddate" id="dateDisplay">Select a date</div>
+                    </div>
+                    <div class="amountselect">
+                        <img src="images/doller.png" alt="dollar">
+                        <select name="selectamount" id="selectamount">
+                            <option value="">5000</option>
+                            <option value="">5000</option>
+                            <option value="">5000</option>
+                            <option value="">5000</option>
+                            <option value="">5000</option>
+                            <option value="">5000</option>
+                        </select>
+                    </div>
+                    <button class="searchhostel">Search</button>
+                </section>
+            </section>
+        </section>
+    </section>
+
+    <section class="specialrooms">
+        <section class="wrapper">
+            <section class="top">
+                <h3>Take Yourself</h3>
+                <span class="sr">
+                    <h2 class="Special">Special</h2>
+                    <h2 class="Rooms">Rooms,</h2>
+                    <hr class="blueunderline">
+                </span>
+                <h4>Highlights the exclusive hostel deals offered by our business partners and explains their benefits.</h4>
+            </section>
+        </section>
+            <section class="bottom">
+               <ul>
+                <li class="flistsr">
+                    <div class="imgtop">
+                        <img src="images/hs1.jpg" alt="hostelimage" />
+                        
+                    </div>
+                    <div class="hosdes">
+                        <h3>Disney Home</h3>
+                        <h4>Explore the Amenties and Features Availabe in the Disney Hostel</h4>
+                        <a href="" class="seemore">See More</a>
+                        <a href="" class="moredetails">More Details</a>
+                    </div>
+                </li>
+                <li class="flistsr">
+                    <div class="imgtop">
+                        <img src="images/hs2.jpg" alt="hostelimage" />
+                        
+                    </div>
+                    <div class="hosdes">
+                        <h3>Disney Home</h3>
+                        <h4>Explore the Amenties and Features Availabe in the Disney Hostel</h4>
+                        <a href="" class="seemore">See More</a>
+                        <a href="" class="moredetails">More Details</a>
+                    </div>
+                </li>
+                <li class="flistsr">
+                    <div class="imgtop">
+                        <img src="images/hs3.jpg" alt="hostelimage" />
+                        
+                    </div>
+                    <div class="hosdes">
+                        <h3>Disney Home</h3>
+                        <h4>Explore the Amenties and Features Availabe in the Disney Hostel</h4>
+                        <a href="" class="seemore">See More</a>
+                        <a href="" class="moredetails">More Details</a>
+                    </div>
+                </li>
+                <li class="flistsr">
+                    <div class="imgtop">
+                        <img src="images/hs4.jpg" alt="hostelimage" />
+                        
+                    </div>
+                    <div class="hosdes">
+                        <h3>Disney Home</h3>
+                        <h4>Explore the Amenties and Features Availabe in the Disney Hostel</h4>
+                        <a href="" class="seemore">See More</a>
+                        <a href="" class="moredetails">More Details</a>
+                    </div>
+                </li>
+                <li class="flistsr">
+                    <div class="imgtop">
+                        <img src="images/hs5.jpg" alt="hostelimage" />
+                        
+                    </div>
+                    <div class="hosdes">
+                        <h3>Disney Home</h3>
+                        <h4>Explore the Amenties and Features Availabe in the Disney Hostel</h4>
+                        <a href="" class="seemore">See More</a>
+                        <a href="" class="moredetails">More Details</a>
+                    </div>
+                </li>
+                <li class="flistsr">
+                    <div class="imgtop">
+                        <img src="images/hs6.jpg" alt="hostelimage" />
+                        
+                    </div>
+                    <div class="hosdes">
+                        <h3>Disney Home</h3>
+                        <h4>Explore the Amenties and Features Availabe in the Disney Hostel</h4>
+                        <a href="" class="seemore">See More</a>
+                        <a href="" class="moredetails">More Details</a>
+                    </div>
+                </li>
+                <li class="flistsr">
+                    <div class="imgtop">
+                        <img src="images/hs7.jpg" alt="hostelimage" />
+                        
+                    </div>
+                    <div class="hosdes">
+                        <h3>Disney Home</h3>
+                        <h4>Explore the Amenties and Features Availabe in the Disney Hostel</h4>
+                        <a href="" class="seemore">See More</a>
+                        <a href="" class="moredetails">More Details</a>
+                    </div>
+                </li>
+                <li class="flistsr">
+                    <div class="imgtop">
+                        <img src="images/hs8.jpg" alt="hostelimage" />
+                        
+                    </div>
+                    <div class="hosdes">
+                        <h3>Disney Home</h3>
+                        <h4>Explore the Amenties and Features Availabe in the Disney Hostel</h4>
+                        <a href="" class="seemore">See More</a>
+                        <a href="" class="moredetails">More Details</a>
+                    </div>
+                </li>
+                <li class="flistsr">
+                    <div class="imgtop">
+                        <img src="images/hs1.jpg" alt="hostelimage" />
+                        
+                    </div>
+                    <div class="hosdes">
+                        <h3>Disney Home</h3>
+                        <h4>Explore the Amenties and Features Availabe in the Disney Hostel</h4>
+                        <a href="" class="seemore">See More</a>
+                        <a href="" class="moredetails">More Details</a>
+                    </div>
+                </li>
+                <li class="flistsr">
+                    <div class="imgtop">
+                        <img src="images/hs1.jpg" alt="hostelimage" />
+                        
+                    </div>
+                    <div class="hosdes">
+                        <h3>Disney Home</h3>
+                        <h4>Explore the Amenties and Features Availabe in the Disney Hostel</h4>
+                        <a href="" class="seemore">See More</a>
+                        <a href="" class="moredetails">More Details</a>
+                    </div>
+                </li>
+               </ul>
+            </section>
+        <section class="wrapper">
+            <div class="arrowarea">
+                <div class="left">
+                    <img src="images/next.png" alt="left-swipe" class="lswipesr">
+                </div>
+                <div class="right">
+                    <img src="images/next (1).png" alt="right-swipe" class="rswipesr">
+                </div>
+            </div>
+        </section>
+
+    </section>
+
+
+
+    <section class="features">
+        <section class="wrapper">
+            <section class="top">
+                <h3>Features</h3>
+            <span class="fr">
+                <h2 class="Key">Key</h2>
+                <h2 class="Features">Features</h2>
+                <hr class="blueunderline">
+            </span>
+            <h4>Discover the Key features that make our hostel deals stand out from the rest of providers.</h4>
+            </section>
+            <section class="bottom">
+                <ul>
+                    <li>
+                        <img src="images/save-money.png" alt="li-kf-image-icon" class="top">
+                        <h3>Best Price Guarantee</h3>
+                        <h4>Find the best hotel deals at the lowest prices. We guarantee that you won't find a better price anywhere else</h4>
+                    </li>
+                    <li>
+                        <img src="images/checklist.png" alt="li-kf-image-icon" class="top">
+                        <h3>Wide Selection</h3>
+                        <h4>Choose from a wide range of hotels, from budget-friendly options to luxury accommodations, to suit your preferences and budget.</h4>
+                    </li>
+                    <li>
+                        <img src="images/deal.png" alt="li-kf-image-icon" class="top">
+                        <h3>Exclusive Deals</h3>
+                        <h4>Access excinive deals and discounts that are only available on our hotel deals landing page. Save big on your next hotel booking</h4>
+                    </li>
+                    <li>
+                        <img src="images/review.png" alt="li-kf-image-icon" class="top">
+                        <h3>User Reviews</h3>
+                        <h4>Read real user reviews and ratings to make informed decisions about the hotels you're interested in. Get insights from follow travelers</h4>
+                    </li>
+                    <li>
+                        <img src="images/booking.png" alt="li-kf-image-icon" class="top">
+                        <h3>Easy Booking Process</h3>
+                        <h4>Our streamlined booking process makes it quick and easy to secure your hotel reservation. Book with confidence in just a few clicks.</h4>
+                    </li>
+                    <li>
+                        <img src="images/directions.png" alt="li-kf-image-icon" class="top">
+                        <h3>Flexible Cancellation Policy</h3>
+                        <h4>Enjoy peace of mind with our flexible canceitation policy. Change or cancel your reservation without any hassle or extra foes</h4>
+                    </li>
+                </ul>
+            </section>
+        </section>
+    </section>
+
+
+
+    <section class="deals">
+        <section class="wrapper">
+            <section class="top">
+                <h3>Deals</h3>
+            <span class="dls">
+                <h2 class="Exclusive">Exclusive</h2>
+                <h2 class="Deals">Deals</h2>
+                <hr class="blueunderline">
+            </span>
+            <h4>Discover the Key Deals that make our hostel deals stand out from the rest of providers.</h4>
+            </section>
+        </section>
+
+            <section class="bottom">
+               <ul>
+                <li class="dls">
+                    <div class="dimgtop">
+                        <img src="images/hs1.jpg" alt="hostelimage">
+                        
+                    </div>
+                    <div class="dealsdes">
+                        <h3>Disney Home</h3>
+                        <h4>Explore the Amenties and Features Availabe in the Disney Hostel</h4>
+                        <a href="" class="moredetails">More Details</a>
+                    </div>
+                </li>
+                <li class="dls">
+                    <div class="dimgtop">
+                        <img src="images/hs2.jpg" alt="hostelimage">
+                        
+                    </div>
+                    <div class="dealsdes">
+                        <h3>Disney Home</h3>
+                        <h4>Explore the Amenties and Features Availabe in the Disney Hostel</h4>
+                        <a href="" class="moredetails">More Details</a>
+                    </div>
+                </li>
+                <li class="dls">
+                    <div class="dimgtop">
+                        <img src="images/hs3.jpg" alt="hostelimage">
+                        
+                    </div>
+                    <div class="dealsdes">
+                        <h3>Disney Home</h3>
+                        <h4>Explore the Amenties and Features Availabe in the Disney Hostel</h4>
+                        <a href="" class="moredetails">More Details</a>
+                    </div>
+                </li>
+                <li class="dls">
+                    <div class="dimgtop">
+                        <img src="images/hs4.jpg" alt="hostelimage">
+                        
+                    </div>
+                    <div class="dealsdes">
+                        <h3>Disney Home</h3>
+                        <h4>Explore the Amenties and Features Availabe in the Disney Hostel</h4>
+                        <a href="" class="moredetails">More Details</a>
+                    </div>
+                </li>
+                <li class="dls dlsvisible   ">
+                    <div class="dimgtop">
+                        <img src="images/hs5.jpg" alt="hostelimage">
+                        
+                    </div>
+                    <div class="dealsdes">
+                        <h3>Disney Home</h3>
+                        <h4>Explore the Amenties and Features Availabe in the Disney Hostel</h4>
+                        <a href="" class="moredetails">More Details</a>
+                    </div>
+                </li>
+                <li class="dls">
+                    <div class="dimgtop">
+                        <img src="images/hs6.jpg" alt="hostelimage">
+                        
+                    </div>
+                    <div class="dealsdes">
+                        <h3>Disney Home</h3>
+                        <h4>Explore the Amenties and Features Availabe in the Disney Hostel</h4>
+                        <a href="" class="moredetails">More Details</a>
+                    </div>
+                </li>
+                <li class="dls">
+                    <div class="dimgtop">
+                        <img src="images/hs7.jpg" alt="hostelimage">
+                        
+                    </div>
+                    <div class="dealsdes">
+                        <h3>Disney Home</h3>
+                        <h4>Explore the Amenties and Features Availabe in the Disney Hostel</h4>
+                        <a href="" class="moredetails">More Details</a>
+                    </div>
+                </li>
+                <li class="dls">
+                    <div class="dimgtop">
+                        <img src="images/hs8.jpg" alt="hostelimage">
+                        
+                    </div>
+                    <div class="dealsdes">
+                        <h3>Disney Home</h3>
+                        <h4>Explore the Amenties and Features Availabe in the Disney Hostel</h4>
+                        <a href="" class="moredetails">More Details</a>
+                    </div>
+                </li>
+                <li class="dls">
+                    <div class="dimgtop">
+                        <img src="images/hs1.jpg" alt="hostelimage">
+                        
+                    </div>
+                    <div class="dealsdes">
+                        <h3>Disney Home</h3>
+                        <h4>Explore the Amenties and Features Availabe in the Disney Hostel</h4>
+                        <a href="" class="moredetails">More Details</a>
+                    </div>
+                </li>
+                <li class="dls">
+                    <div class="dimgtop">
+                        <img src="images/hs1.jpg" alt="hostelimage">
+                        
+                    </div>
+                    <div class="dealsdes">
+                        <h3>Disney Home</h3>
+                        <h4>Explore the Amenties and Features Availabe in the Disney Hostel</h4>
+                        <a href="" class="moredetails">More Details</a>
+                    </div>
+                </li>
+               </ul>
+            </section>
+
+
+
+        <section class="wrapper">
+            <div class="arrowarea">
+                <div class="left">
+                    <img src="images/next.png" alt="left-swipe" class="lswipesr">
+                </div>
+                <div class="right">
+                    <img src="images/next (1).png" alt="right-swipe" class="rswipesr">
+                </div>
+            </div>
+        </section>
+
+
+    </section>
+
+
+    <section class="custoreview">
+        <section class="wrapper">
+            <ul>
+                <li>
+                    <h2>3780+</h2>
+                    <h3>Happy Customers</h3>
+                </li>
+                <li>
+                    <h2>6500+</h2>
+                    <h3>Total Rooms</h3>
+                </li>
+                <li>
+                    <h2>99.1%</h2>
+                    <h3>Positive Reviews</h3>
+                </li>
+            </ul>
+        </section>
+    </section>
+
+    <section class="news">
+        <section class="wrapper">
+            <section class="top">
+                <h3>News & Blogs</h3>
+            <span class="dls2">
+                <h2 class="Amazing">Amazing</h2>
+                <h2 class="NewsBlog">News & Blog</h2>
+                <hr class="blueunderline">
+            </span>
+            <h4>News and blogs for Latest updates</h4>
+            </section>
+        </section>
+            <section class="bottom">
+                <ul>
+                    <li class="nlswio">
+                        <section class="top">
+                            <img src="images/customer-experience-creative-collage.jpg" alt="customer-experience head">
+                        </section>
+                        <section class="bottom">
+                            <div class="date">
+                                <img src="images/calendar (1).png" alt="calendar-icon" class="calendar">
+                                <h3>October 22, 2025</h3>
+                            </div>
+                            <h2>Monthly Hostel Packages</h2>
+                            <h4>Our streamlined booking process makes it quick and easy to secure your hotel reservation. Book with confidence in just a few clicks.</h4>
+                            <a href="" class="moredetails">More Details</a>
+                        </section>
+                    </li>
+                    <li class="nlswio">
+                        <section class="top">
+                            <img src="images/customer-experience-creative-collage.jpg" alt="customer-experience head">
+                        </section>
+                        <section class="bottom">
+                            <div class="date">
+                                <img src="images/calendar (1).png" alt="calendar-icon" class="calendar">
+                                <h3>October 22, 2025</h3>
+                            </div>
+                            <h2>Monthly Hostel Packages</h2>
+                            <h4>Our streamlined booking process makes it quick and easy to secure your hotel reservation. Book with confidence in just a few clicks.</h4>
+                            <a href="" class="moredetails">More Details</a>
+                        </section>
+                    </li>
+                    <li class="nlswio">
+                        <section class="top">
+                            <img src="images/customer-experience-creative-collage.jpg" alt="customer-experience head">
+                        </section>
+                        <section class="bottom">
+                            <div class="date">
+                                <img src="images/calendar (1).png" alt="calendar-icon" class="calendar">
+                                <h3>October 22, 2025</h3>
+                            </div>
+                            <h2>Monthly Hostel Packages</h2>
+                            <h4>Our streamlined booking process makes it quick and easy to secure your hotel reservation. Book with confidence in just a few clicks.</h4>
+                            <a href="" class="moredetails">More Details</a>
+                        </section>
+                    </li>
+                    <li class="nlswio">
+                        <section class="top">
+                            <img src="images/customer-experience-creative-collage.jpg" alt="customer-experience head">
+                        </section>
+                        <section class="bottom">
+                            <div class="date">
+                                <img src="images/calendar (1).png" alt="calendar-icon" class="calendar">
+                                <h3>October 22, 2025</h3>
+                            </div>
+                            <h2>Monthly Hostel Packages</h2>
+                            <h4>Our streamlined booking process makes it quick and easy to secure your hotel reservation. Book with confidence in just a few clicks.</h4>
+                            <a href="" class="moredetails">More Details</a>
+                        </section>
+                    </li>
+                    <li class="nlswio">
+                        <section class="top">
+                            <img src="images/customer-experience-creative-collage.jpg" alt="customer-experience head">
+                        </section>
+                        <section class="bottom">
+                            <div class="date">
+                                <img src="images/calendar (1).png" alt="calendar-icon" class="calendar">
+                                <h3>October 22, 2025</h3>
+                            </div>
+                            <h2>Monthly Hostel Packages</h2>
+                            <h4>Our streamlined booking process makes it quick and easy to secure your hotel reservation. Book with confidence in just a few clicks.</h4>
+                            <a href="" class="moredetails">More Details</a>
+                        </section>
+                    </li>
+                    <li class="nlswio">
+                        <section class="top">
+                            <img src="images/customer-experience-creative-collage.jpg" alt="customer-experience head">
+                        </section>
+                        <section class="bottom">
+                            <div class="date">
+                                <img src="images/calendar (1).png" alt="calendar-icon" class="calendar">
+                                <h3>October 22, 2025</h3>
+                            </div>
+                            <h2>Monthly Hostel Packages</h2>
+                            <h4>Our streamlined booking process makes it quick and easy to secure your hotel reservation. Book with confidence in just a few clicks.</h4>
+                            <a href="" class="moredetails">More Details</a>
+                        </section>
+                    </li>
+                    <li class="nlswio">
+                        <section class="top">
+                            <img src="images/customer-experience-creative-collage.jpg" alt="customer-experience head">
+                        </section>
+                        <section class="bottom">
+                            <div class="date">
+                                <img src="images/calendar (1).png" alt="calendar-icon" class="calendar">
+                                <h3>October 22, 2025</h3>
+                            </div>
+                            <h2>Monthly Hostel Packages</h2>
+                            <h4>Our streamlined booking process makes it quick and easy to secure your hotel reservation. Book with confidence in just a few clicks.</h4>
+                            <a href="" class="moredetails">More Details</a>
+                        </section>
+                    </li>
+                    <li class="nlswio">
+                        <section class="top">
+                            <img src="images/customer-experience-creative-collage.jpg" alt="customer-experience head">
+                        </section>
+                        <section class="bottom">
+                            <div class="date">
+                                <img src="images/calendar (1).png" alt="calendar-icon" class="calendar">
+                                <h3>October 22, 2025</h3>
+                            </div>
+                            <h2>Monthly Hostel Packages</h2>
+                            <h4>Our streamlined booking process makes it quick and easy to secure your hotel reservation. Book with confidence in just a few clicks.</h4>
+                            <a href="" class="moredetails">More Details</a>
+                        </section>
+                    </li>
+                    <li class="nlswio">
+                        <section class="top">
+                            <img src="images/customer-experience-creative-collage.jpg" alt="customer-experience head">
+                        </section>
+                        <section class="bottom">
+                            <div class="date">
+                                <img src="images/calendar (1).png" alt="calendar-icon" class="calendar">
+                                <h3>October 22, 2025</h3>
+                            </div>
+                            <h2>Monthly Hostel Packages</h2>
+                            <h4>Our streamlined booking process makes it quick and easy to secure your hotel reservation. Book with confidence in just a few clicks.</h4>
+                            <a href="" class="moredetails">More Details</a>
+                        </section>
+                    </li>
+                    <li class="nlswio">
+                        <section class="top">
+                            <img src="images/customer-experience-creative-collage.jpg" alt="customer-experience head">
+                        </section>
+                        <section class="bottom">
+                            <div class="date">
+                                <img src="images/calendar (1).png" alt="calendar-icon" class="calendar">
+                                <h3>October 22, 2025</h3>
+                            </div>
+                            <h2>Monthly Hostel Packages</h2>
+                            <h4>Our streamlined booking process makes it quick and easy to secure your hotel reservation. Book with confidence in just a few clicks.</h4>
+                            <a href="" class="moredetails">More Details</a>
+                        </section>
+                    </li>
+                </ul>
+            </section>
+        <section class="wrapper">
+            <div class="arrowarea">
+                <div class="left">
+                    <img src="images/next.png" alt="left-swipe" class="lswipesr">
+                </div>
+                <div class="right">
+                    <img src="images/next (1).png" alt="right-swipe" class="rswipesr">
+                </div>
+            </div>
+        </section>
+    </section>
+
+
+    <section class="subscribe">
+        <section class="wrapper">
+            <div class="email">
+                <input type="email" name="" id="" class="emailinputhome" placeholder="Enter your email">
+                <button type="submit">Subscribe Newsletter</button>
+            </div>
+        </section>
+    </section>
+
+
+    <footer>
+        <section class="wrapper">
+            <section class="one">
+                <div class="fone">
+                    <section class="left">
+                        <img src="images/logomain.png" alt="logo-main-hostel" class="mainlogo">
+                        <div class="webname">
+                            <span class="name">
+                                <h2 class="Hostel">Hostel</h2>
+                                <h2 class="Haven">Haven</h2>
+                            </span>
+                            <span class="des">
+                                <h3>your next space</h3>
+                            </span>
+                        </div>
+                    </section>
+                    <h3 class="deshostel">Welcome to your own Hostel Haven, We are exitced to introduce our latest features and offerings that enhance your hostel management system than any other providers.</h3>
+
+                </div>
+                <div class="ftwo">
+                    <ul>
+                        <li>
+                            <a href="index.html">
+                                <h3 class="bcl">Home</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <h3>About us</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <h3>Deals</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <h3>Blog</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <h3>Contact us</h3>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <hr class="ggline">
+            <section class="two">
+                <ul>
+                    <li>
+                        <a href="">
+                            <h3>Privacy Policy</h3>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <h3>Help & Supports</h3>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            <hr class="ggline">
+            <section class="three">
+                <ul>
+                    <li>
+                        <h3>Location</h3>
+                    </li>
+                    <li>
+                        <div class="l">
+                            <img src="images/location.png" alt="location">
+                        </div>
+                        <div class="r">
+                            <h4>JPM arts and Science College</h4>
+                            <h4>Labbakkada</h4>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+        </section>
+    </footer>
+
+
+
+
+
+
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const hamOpen   = document.querySelector('.hamopen');
+    const hamClose  = document.querySelector('.hamclose');
+    const menu      = document.querySelector('.hamburgurprofileuserhostohaven');
+
+    if (!hamOpen || !hamClose || !menu) return;
+
+    /* ---------- 1-time setup ---------- */
+    menu.style.transition = 'transform .35s ease';
+    menu.style.transform  = 'translateX(100%)';   // start hidden
+    menu.style.position   = 'fixed';
+    menu.style.top        = '0';
+    menu.style.right      = '0';
+    menu.style.bottom     = '0';
+    menu.style.width      = '260px';              // tweak as needed
+    menu.style.zIndex     = '9999';
+    menu.style.background = '#fff';               // tweak as needed
+
+    /* ---------- open ---------- */
+    hamOpen.addEventListener('click', () => {
+      menu.classList.remove('hide');
+      requestAnimationFrame(() => menu.style.transform = 'translateX(0)');
+    });
+
+    /* ---------- close ---------- */
+    hamClose.addEventListener('click', () => {
+      menu.style.transform = 'translateX(100%)';
+      menu.addEventListener('transitionend', () => menu.classList.add('hide'), { once: true });
+    });
+  });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Get all the necessary elements
+    const loginLink = document.querySelector('.login');
+    const loginBg = document.querySelector('.loginbg');
+    const signupContainer = document.querySelector('.signupcontainer');
+    const alreadyRegistered = document.querySelector('.alreadyregistered');
+    const loginContainer = document.querySelector('.logincontainer');
+    const notRegistered = document.querySelector('.notregisteredac');
+    
+    // Animation function
+    function animateElement(element, show, duration = 300) {
+        return new Promise((resolve) => {
+            if (show) {
+                element.style.display = 'block';
+                element.style.opacity = '0';
+                element.classList.remove('hide');
+                
+                let start = null;
+                const fadeIn = (timestamp) => {
+                    if (!start) start = timestamp;
+                    const progress = timestamp - start;
+                    const opacity = Math.min(progress / duration, 1);
+                    element.style.opacity = opacity;
+                    
+                    if (progress < duration) {
+                        window.requestAnimationFrame(fadeIn);
+                    } else {
+                        element.style.opacity = '';
+                        resolve();
+                    }
+                };
+                window.requestAnimationFrame(fadeIn);
+            } else {
+                let start = null;
+                const fadeOut = (timestamp) => {
+                    if (!start) start = timestamp;
+                    const progress = timestamp - start;
+                    const opacity = Math.max(1 - progress / duration, 0);
+                    element.style.opacity = opacity;
+                    
+                    if (progress < duration) {
+                        window.requestAnimationFrame(fadeOut);
+                    } else {
+                        element.style.opacity = '';
+                        element.classList.add('hide');
+                        element.style.display = 'none';
+                        resolve();
+                    }
+                };
+                window.requestAnimationFrame(fadeOut);
+            }
+        });
+    }
+    
+    // Function to hide all modal elements with animation
+    async function hideAllModals() {
+        await Promise.all([
+            animateElement(loginBg, false),
+            animateElement(loginContainer, false),
+            animateElement(signupContainer, false)
+        ]);
+    }
+    
+    // Click on login link - show background and login container
+    if (loginLink) {
+        loginLink.addEventListener('click', async function(e) {
+            e.preventDefault();
+            await animateElement(loginBg, true);
+            await animateElement(loginContainer, true);
+        });
+    }
+    
+    // Click on "Already Registered" - show login, hide signup
+    if (alreadyRegistered) {
+        alreadyRegistered.addEventListener('click', async function(e) {
+            e.preventDefault();
+            await animateElement(signupContainer, false);
+            await animateElement(loginContainer, true);
+        });
+    }
+    
+    // Click on "Not Registered" - show signup, hide login
+    if (notRegistered) {
+        notRegistered.addEventListener('click', async function(e) {
+            e.preventDefault();
+            await animateElement(loginContainer, false);
+            await animateElement(signupContainer, true);
+        });
+    }
+    
+    // Click outside modal containers - hide everything
+    document.addEventListener('click', async function(e) {
+        const isLoginContainer = e.target.closest('.logincontainer');
+        const isSignupContainer = e.target.closest('.signupcontainer');
+        const isLoginLink = e.target.closest('.login');
+        
+        if (!isLoginContainer && !isSignupContainer && !isLoginLink) {
+            await hideAllModals();
+        }
+    });
+    
+    // Prevent clicks inside modals from closing them
+    [loginContainer, signupContainer].forEach(container => {
+        if (container) {
+            container.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        }
+    });
+});
+
+</script>
+<script src="js/script.js"></script>
+<script src="../../js/alert.js" defer></script>
+<script src="../../js/prevent.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,3820 @@
+*{
+    color: #fff;
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Inter Regular';
+    outline: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    background: none;
+}
+input{
+    background: transparent;
+}
+body{
+    background: #0d0c0a;
+    position: relative;
+}
+.wrapper{
+    display: block;
+    margin: 0 3.5vw;
+}
+button{
+    cursor: pointer;
+    background-color: transparent;
+}
+a{
+    
+}
+.hide{
+    display: none;
+}
+hr.line{
+    display: block;
+    width: 100%;
+    height: 4px;
+    background: #1a1a1a;
+}
+hr.vline{
+    background: #262626;
+    height: 1.8px;
+    width: 100%;
+}
+hr.nline{
+    display: block;
+    width: 100%;
+    background: #262626;
+    height: 2px;
+}
+
+section.notificationalert {
+    position: absolute;
+    z-index: 100;
+    top: 5vh;
+    right: 8vw;
+    border-radius: 12px;
+    border: 2px solid #262626;
+    background: #1a1a1a;
+    width: 24vw;
+}
+section.notificationalert section.wrapper {
+    margin: 0 0.2vw;
+    padding: 8px;
+}
+section.notificationalert section.wrapper section.top {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+section.notificationalert section.wrapper section.top div.left {
+    display: flex
+;
+    align-items: center;
+}
+section.notificationalert section.wrapper section.top div.left h2 {
+    margin-right: 6px;
+    font-size: 14px;
+}
+section.notificationalert section.wrapper section.top div.left span.count{
+    cursor: pointer;
+    position: relative;
+}
+section.notificationalert section.wrapper section.top div.left span.count img {
+
+}
+section.notificationalert section.wrapper section.top div.left span.count h3 {
+    position: absolute;
+    top: 4px;
+    font-size: 12px;
+    left: 8px;
+}
+section.notificationalert section.wrapper section.top div.right {
+    display: flex;
+    align-items: center;
+}
+section.notificationalert section.wrapper section.top div.right h3.mark {
+    font-size: 13px;
+    color: #6219ff;
+    cursor: pointer;
+}
+section.notificationalert section.wrapper section.top div.right img {
+        cursor: pointer;
+}
+section.notificationalert section.wrapper section.pinnedmsg {
+    display: flex;
+    justify-content: space-between;
+}
+section.notificationalert section.wrapper section.pinnedmsg div.left {}
+section.notificationalert section.wrapper section.pinnedmsg div.left img
+ {
+    display: block;
+    height: 4vh;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+section.notificationalert section.wrapper section.pinnedmsg div.center {}
+section.notificationalert section.wrapper section.pinnedmsg div.center h3.content {
+    font-size: 9px;
+    line-height: 1.6em;
+    margin-bottom: 0.6vh;
+}
+section.notificationalert section.wrapper section.pinnedmsg div.center h3.time {
+    color: #C9C8E1;
+    font-size: 12px;
+}
+section.notificationalert section.wrapper section.pinnedmsg div.right {}
+section.notificationalert section.wrapper section.pinnedmsg div.right img
+ {
+    display: block;
+    height: 2.5vh;
+}
+section.notificationalert section.wrapper section.notimsg {
+    display: flex
+;
+    justify-content: space-between;
+}
+section.notificationalert section.wrapper section.notimsg div.left {}
+section.notificationalert section.wrapper section.notimsg div.left img {
+    display: block;
+    height: 5vh;
+    margin-right: 8px;
+}
+section.notificationalert section.wrapper section.notimsg div.right {}
+
+section.notificationalert section.wrapper section.notimsg div.right h2.ownername {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+section.notificationalert section.wrapper section.notimsg div.right h4.message {
+    font-size: 12px;
+    margin-bottom: 14px;
+}
+section.notificationalert section.wrapper section.notimsg div.right span.buttons {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 60%;
+    margin-bottom: 0.8vh;
+}
+section.notificationalert section.wrapper section.notimsg div.right span.buttons a.connectmail.mailemail {
+    padding: 7px 12px;
+    background: #631aff;
+    border-radius: 8px;
+    font-size: 15px;
+    /* border: 2px solid #631aff; */
+    font-family: 'Inter SemiBold';
+}
+section.notificationalert section.wrapper section.notimsg div.right span.buttons h3.cancel {
+    border: 2px solid #262626;
+    padding: 7px 16px;
+    font-size: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+section.notificationalert section.wrapper section.notimsg div.right h3.time {
+    color: #C9C8E1;
+    font-size: 12px;
+}
+section.notificationalert section.wrapper section.end {}
+section.notificationalert section.wrapper section.end section.mm {
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+}
+section.notificationalert section.wrapper section.end section.mm img {
+    margin-right: 8px;
+}
+
+section.notificationalert section.wrapper section.end section.mm h3 {
+    font-size: 12.5px;
+}
+
+header {}
+header section.wrapper {
+    padding: 28px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+header section.wrapper section.left {}
+header section.wrapper section.left span.logo {
+    display: flex
+;
+    align-items: flex-end;
+}
+header section.wrapper section.left span.logo img {
+    margin-right: 8px;
+    display: block;
+    height: 2.3vh;
+}
+
+header section.wrapper section.left span.logo h2 {
+    font-size: 18px;
+    font-family: 'Gropled';
+}
+header section.wrapper section.center {}
+
+header section.wrapper section.center nav {}
+
+header section.wrapper section.center nav ul {
+    display: flex;
+    align-items: center;
+}
+
+header section.wrapper section.center nav ul li {
+    margin-right: 48px;
+}
+header section.wrapper section.center nav ul li:last-child {
+    margin-right: 0px;
+}
+header section.wrapper section.center nav ul li a {}
+
+header section.wrapper section.center nav ul li a h3 {
+    font-size: 14px;
+}
+header section.wrapper section.right {
+    display: flex;
+    align-items: center;
+}
+header section.wrapper section.right button.mailemail.connectus {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 2px 14px;
+    border-radius: 31px;
+    position: relative;
+    margin-right: 12px;
+}
+
+header section.wrapper section.right button.mailemail.connectus h3 {
+    color: #000;
+    margin-right: 12px;
+    font-size: 13px;
+}
+header section.wrapper section.right button.mailemail.connectus img.ellipse {
+    display: block;
+    height: 3.5vh;
+}
+header section.wrapper section.right button.mailemail.connectus img.ArrowRightOutline {
+    position: absolute;
+    right: 15px;
+}
+
+header section.wrapper section.right a.emailicon {
+    margin-right: 12px;
+}
+
+header section.wrapper section.right a.emailicon img {}
+
+header section.wrapper section.right div.notify {
+    position: relative;
+    cursor: pointer;
+}
+
+header section.wrapper section.right div.notify img {
+    z-index: 1;
+}
+header section.wrapper section.right div.notify h4.notificationcount {
+    position: absolute;
+    top: 4px;
+    right:10px;
+    font-size: 12px;
+}
+header section.wrapper section.right section.profile {
+    margin-left: 16px;
+}
+
+header section.wrapper section.right section.profile span.picon {
+    cursor: pointer;
+}
+header section.wrapper section.right section.profile span.picon img.picon {
+    display: block;
+    height: 5vh;
+}
+header section.wrapper section.right section.mobilehamburgur {
+    display: none;
+}
+
+header section.wrapper section.right section.mobilehamburgur img {}
+
+
+
+section.hero {
+    margin-top: 14vh;
+}
+section.hero section.wrapper {
+    display: flex;
+    /* align-items: center; */
+    justify-content: space-between;
+}
+section.hero section.wrapper section.left {
+    width: 48%; 
+}
+
+section.hero section.wrapper section.left div.vision {}
+section.hero section.wrapper section.left div.vision h2 {
+    font-family: 'Gropled';
+    font-size: 60px;
+}
+section.hero section.wrapper section.left div.vision span.bp {
+    display: flex;
+    align-items: center;
+    margin-top: 0.6vh;
+    margin-bottom: 3.3vh;
+}
+section.hero section.wrapper section.left div.vision span.bp h2 {
+    font-family: 'Gropled';
+}
+
+section.hero section.wrapper section.left div.vision span.bp img {
+    margin: 0 8px;
+}
+section.hero section.wrapper section.left h4 {
+    font-family: 'Inter Medium1';
+    width: 111%;
+    font-size: 13px;
+    line-height: 1.5em;
+    margin-bottom: 4vh;
+}
+section.hero section.wrapper section.left a.browseprojects {
+    display: flex
+;
+    align-items: center;
+    background: #fff;
+    padding: 12px 60px;
+    border-radius: 31px;    
+    width: fit-content;
+    padding-left: 13px;
+    margin-bottom: 5vh;
+}
+section.hero section.wrapper section.left a.browseprojects h3 {
+    color: #000 ;
+    font-size: 14px;
+}
+
+section.hero section.wrapper section.left a.browseprojects h2 {
+    position: relative;
+
+}
+section.hero section.wrapper section.left a.browseprojects h2 img.one {
+    position: absolute;
+    z-index: 1;
+    top: -16px;
+    display: block;
+    height: 3.5vh;
+    right: -51px;
+}
+section.hero section.wrapper section.left a.browseprojects h2 img.two {
+    position: absolute;
+    top: -14px;
+    z-index: 2;
+    right: -49px;
+}
+
+section.hero section.wrapper section.left section.exellence {
+    margin-bottom: 4vh;
+}
+section.hero section.wrapper section.left section.exellence ul {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 80%;
+}
+section.hero section.wrapper section.left section.exellence ul li {
+    border: 2px solid #fff;
+    border-radius: 12px;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 12px;
+}
+
+section.hero section.wrapper section.left section.exellence ul li h2 {
+    margin-right: 8px;
+}
+
+section.hero section.wrapper section.left section.exellence ul li h5 {
+    color: #999999;
+}
+
+
+section.hero section.wrapper section.left section.exellence ul li.click {
+    border: 2px solid #262523;
+    background: #262523;
+}   
+
+section.hero section.wrapper section.left section.te {
+    position: relative;
+}
+section.hero section.wrapper section.left section.te hr.hline {
+    display: block;
+    height: 2px;
+    width: 9vw;
+    position: absolute;
+    background: #262626;
+    transform: rotate(90deg);
+    left: 18.2vw;
+    top: 80px;
+}
+section.hero section.wrapper section.left section.te ul {
+    display: flex;  
+    align-items: center;
+    justify-content: space-between;
+}
+section.hero section.wrapper section.left section.te ul li {
+    max-width: 45%;
+}
+section.hero section.wrapper section.left section.te ul li div.top
+ {
+    display: flex
+;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+section.hero section.wrapper section.left section.te ul li div.top img {
+    margin-right: 16px;
+    display: block;
+    height: 6vh;
+}
+
+section.hero section.wrapper section.left section.te ul li div.top h3 {}
+
+section.hero section.wrapper section.left section.te ul li div.bottom {}
+
+section.hero section.wrapper section.left section.te ul li div.bottom h4 {}
+
+section.hero section.wrapper section.right {
+    width: 42%;
+    display: flex;
+    justify-content: flex-end;
+}
+section.hero section.wrapper section.right img {
+    width: 80%;
+    height: 60vh;
+    border-radius: 48px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+
+section.explore {}
+
+section.explore section.wrapper {}
+section.explore section.wrapper ul {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5vh 0;
+
+}
+section.explore section.wrapper ul li {
+    border: 2px solid #262626;
+    border-radius: 8px;
+    padding: 12px;
+    width: 20.33%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    background: #1a1a1a;
+}
+section.explore section.wrapper ul li span.connectme{
+    cursor: pointer;
+    position: absolute;
+    right: 14px;
+    top: 11px;
+}
+
+
+section.explore section.wrapper ul li span.connectme img {
+    display: block;
+    height: 2.5vh;
+}
+section.explore section.wrapper ul li div.top {
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    margin-bottom: 4.5vh;
+    margin-top: 2.6vh;
+}
+section.explore section.wrapper ul li div.top img.one {
+    display: block;
+    height: 4vh;
+}
+section.explore section.wrapper ul li div.top img.two {
+    position: absolute;
+}
+
+section.explore section.wrapper ul li div.bottom {
+    margin-bottom: 2vh;
+}
+section.explore section.wrapper ul li div.bottom h3{
+    font-size: 16px;
+}
+
+
+section.projects {}
+
+section.projects section.wrapper {}
+section.projects section.wrapper section.top {
+    margin-top: 8vh;
+    display: flex;
+    justify-content: space-between;
+}
+section.projects section.wrapper section.top section.left {}
+section.projects section.wrapper section.top section.left h2
+ {
+    font-family: 'Gropled';
+    font-size: 32px;
+    margin-bottom: 24px;
+}
+section.projects section.wrapper section.top section.right {
+    display: flex;
+    max-width: 65%;
+}
+section.projects section.wrapper section.top section.right h5 {
+    color: #999999;
+    font-size: 12px;
+    margin-right: 12px;
+    line-height: 1.5em;
+}
+section.projects section.wrapper section.top section.right a.viewallprojects {
+    display: flex
+;
+    align-items: center;
+    background: #fff;
+    padding: 0px 40px;
+    border-radius: 35px;
+    width: 26vw;
+    padding-left: 13px;
+    position: relative;
+    height: 5vh;
+}
+section.projects section.wrapper section.top section.right a.viewallprojects h3 {
+    color: #000;
+    font-size: 14px;
+}
+
+section.projects section.wrapper section.top section.right a.viewallprojects h2 {}
+section.projects section.wrapper section.top section.right a.viewallprojects h2 img.one {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    height: 3.5vh;
+    top: 8px;
+    right: 18px;
+}
+section.projects section.wrapper section.top section.right a.viewallprojects h2 img.two {
+    position: absolute;
+    z-index: 2;
+    top: 8px;
+    right: 18px;
+}
+section.projects section.wrapper section.bottom {}
+section.projects section.wrapper section.bottom ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8vh;
+}
+section.projects section.wrapper section.bottom ul li {}
+
+section.projects section.wrapper section.bottom ul li section.top {
+    margin-bottom: 3vh;
+    position: relative;
+}
+section.projects section.wrapper section.bottom ul li section.top img.projecthomeimg {
+    display: block;
+    height: 20vh;
+    border-radius: 18px;
+}
+section.projects section.wrapper section.bottom ul li section.top span.projectname {
+    position: absolute;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    background: #fff;
+    display: block;
+    color: #000;
+    padding: 6px 20px;
+    top: 15px;
+    left: 16px;
+    border-radius: 21px;
+    font-size: 13px;
+    padding-left: 14px;
+    font-family: 'Inter SemiBold';
+}
+section.projects section.wrapper section.bottom ul li section.bottom {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+section.projects section.wrapper section.bottom ul li section.bottom div.left
+ {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    background: #631AFF;
+    padding: 5px 12px;
+    border-radius: 28px;
+    margin-right: 7px;
+    padding-left: 8px;
+}
+section.projects section.wrapper section.bottom ul li section.bottom div.left span.lone {}
+section.projects section.wrapper section.bottom ul li section.bottom div.left span.lone h3 {
+    margin-right: 8px;
+    background: #000;
+    padding: 11px 22px;
+    font-size: 14px;
+    border-radius: 19px;
+}
+section.projects section.wrapper section.bottom ul li section.bottom div.left h3.pvalue {
+    font-size: 16px;
+}
+section.projects section.wrapper section.bottom ul li section.bottom div.right {}
+
+section.projects section.wrapper section.bottom ul li section.bottom div.right a {}
+
+section.projects section.wrapper section.bottom ul li section.bottom div.right a img {
+    display: block;
+    height: 5vh;
+}
+
+
+
+section.journey {}
+
+section.journey section.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+section.journey section.wrapper section.left {}
+section.journey section.wrapper section.left img {
+    display: block;
+    height: 42vh;
+    border-radius: 12px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+section.journey section.wrapper section.right {
+    width: 54%;
+}
+section.journey section.wrapper section.right h2{
+    font-family: 'Gropled';
+    font-size: 32px;
+    margin-bottom: 16px;
+}
+section.journey section.wrapper section.right h5 {
+    color: #999999;
+    line-height: 1.5em;
+    font-size: 14px;
+    margin-bottom: 32px;
+}
+section.journey section.wrapper section.right ul {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 70%;
+}
+section.journey section.wrapper section.right ul li {
+    border: 2px solid #262626;
+    border-radius: 8px;
+    padding: 12px;
+    width: 25.33%;
+    background: #1a1a1a;
+}
+section.journey section.wrapper section.right ul li h2 {
+    margin-bottom: 4px;
+    font-family: 'Inter Regular';
+}
+section.journey section.wrapper section.right ul li h5 {
+    margin-bottom: 0;
+}
+
+
+
+
+
+section.testimonials {
+    margin-top: 10vh;
+}
+
+section.testimonials section.wrapper {}
+section.testimonials section.wrapper section.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 7vh;
+}
+section.testimonials section.wrapper section.top div.left {}
+section.testimonials section.wrapper section.top div.left h2 {
+    font-family: 'Gropled';
+    font-size: 32px;
+    margin-bottom: 24px;
+}
+section.testimonials section.wrapper section.top div.right {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 58%;
+}
+
+section.testimonials section.wrapper section.top div.right h5 {
+    color: #999999;
+    font-size: 12px;
+    margin-right: 12px;
+    line-height: 1.5em;
+}
+
+section.testimonials section.wrapper section.top div.right a.viewalltestimonials {
+    display: flex
+;
+    align-items: center;
+    background: #fff;
+    padding: 0px 40px;
+    border-radius: 35px;
+    width: 19vw;
+    padding-left: 13px;
+    position: relative;
+    height: 5vh;
+}
+section.testimonials section.wrapper section.top div.right a.viewalltestimonials h3 {
+    color: #000;
+    font-size: 14px;
+}
+section.testimonials section.wrapper section.top div.right a.viewalltestimonials h2 {}
+
+section.testimonials section.wrapper section.top div.right a.viewalltestimonials h2 img.one {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    height: 3.5vh;
+    top: 8px;
+    right: 18px;
+}
+section.testimonials section.wrapper section.top div.right a.viewalltestimonials h2 img.two {
+    position: absolute;
+    z-index: 2;
+    top: 8px;
+    right: 18px;
+}
+section.testimonials section.wrapper section.bottom {}
+
+section.testimonials section.wrapper section.bottom ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+section.testimonials section.wrapper section.bottom ul li {
+    border: 2px solid #262626;
+    border-radius: 8px;
+    padding: 12px;
+    width: 23.33%;
+    background: #1a1a1a;
+    margin-right: 12px;
+    min-height: 22vh;
+}
+section.testimonials section.wrapper section.bottom ul li:last-child{
+    margin-right: 0;
+}
+section.testimonials section.wrapper section.bottom ul li div.top {
+    display: flex;
+    align-items: center;
+}
+
+section.testimonials section.wrapper section.bottom ul li div.top span.left {}
+
+section.testimonials section.wrapper section.bottom ul li div.top span.left img {
+    margin-right: 12px;
+    display: block;
+    height: 6.5vh;
+}
+
+section.testimonials section.wrapper section.bottom ul li div.top span.right {}
+
+section.testimonials section.wrapper section.bottom ul li div.top span.right h2 {
+    font-size: 16px;
+}
+
+section.testimonials section.wrapper section.bottom ul li div.top span.right h3 {
+    color: #999999;
+    font-size: 12.5px;
+    margin-top: 6px;
+}
+section.testimonials section.wrapper section.bottom ul li div.center
+ {
+    margin: 6px 0;
+}
+section.testimonials section.wrapper section.bottom ul li div.center h3 {}
+
+section.testimonials section.wrapper section.bottom ul li div.bottom {}
+
+section.testimonials section.wrapper section.bottom ul li div.bottom h5 {
+    font-size: 12px;
+}
+section.testimonials section.wrapper hr.smallgrey
+ {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: #262627;
+    margin: 50px 0 24px;
+}
+section.testimonials section.wrapper section.arrow
+ {
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8vh;
+}
+section.testimonials section.wrapper section.arrow span.left {}
+
+section.testimonials section.wrapper section.arrow span.left img {
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+section.testimonials section.wrapper section.arrow span.right {}
+
+section.testimonials section.wrapper section.arrow span.right img {
+     cursor: pointer;   
+}
+
+
+
+section.faq {
+    margin-bottom: 10vh;
+}
+
+section.faq section.wrapper {}
+section.faq section.wrapper section.mtop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8vh;
+}
+section.faq section.wrapper section.mtop section.left {}
+section.faq section.wrapper section.mtop section.left h2 {
+    font-family: 'Gropled';
+    font-size: 32px;
+    margin-bottom: 24px;
+}
+section.faq section.wrapper section.mtop section.right {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    width: 58%;
+}
+section.faq section.wrapper section.mtop section.right h5 {
+    color: #999999;
+    font-size: 12px;
+    margin-right: 12px;
+    line-height: 1.5em;
+}
+section.faq section.wrapper section.mtop section.right a.viewallfaqs
+ {
+    display: flex
+;
+    align-items: center;
+    background: #fff;
+    padding: 0px 40px;
+    border-radius: 35px;
+    width: 8vw;
+    padding-left: 13px;
+    position: relative;
+    height: 5vh;
+}
+section.faq section.wrapper section.mtop section.right a.viewallfaqs h3 {
+    color: #000;
+    font-size: 14px;
+}
+
+section.faq section.wrapper section.mtop section.right a.viewallfaqs h2 {}
+
+section.faq section.wrapper section.mtop section.right a.viewallfaqs h2 img.one {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    height: 3.5vh;
+    top: 8px;
+    right: 18px;
+}
+
+section.faq section.wrapper section.mtop section.right a.viewallfaqs h2 img.two {
+    position: absolute;
+    z-index: 2;
+    top: 8px;
+    right: 18px;
+}
+section.faq section.wrapper section.bottom {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    background: #1a1a1a;
+    border-radius: 16px;
+    padding: 26px;
+}
+section.faq section.wrapper section.bottom ul {
+    /* width: 100%;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; */
+}
+section.faq section.wrapper section.bottom ul li {
+    width: 100%;
+}
+section.faq section.wrapper section.bottom ul li hr.fline {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: #262627;
+    margin: 6px 0 12px;
+}
+section.faq section.wrapper section.bottom ul li .nflex {
+    display: flex
+;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+section.faq section.wrapper section.bottom ul li .nflex section.left {
+    width: 85%;
+}
+section.faq section.wrapper section.bottom ul li .nflex section.left h3 {
+    font-size: 15px;
+}
+section.faq section.wrapper section.bottom ul li .nflex section.right {}
+
+section.faq section.wrapper section.bottom ul li .nflex section.right span.expand {
+    cursor: pointer;
+}
+section.faq section.wrapper section.bottom ul li .nflex section.right span.expand img
+ {
+    display: block;
+    height: 4vh;
+}
+
+
+
+footer{
+    background: #121110;
+}
+footer section.wrapper {}
+footer section.wrapper section.top  
+ {
+    padding: 4vh 0;
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+footer section.wrapper section.top section.left {}
+
+footer section.wrapper section.top section.left span.logo {
+    display: flex;
+    align-items: flex-end;
+}
+
+footer section.wrapper section.top section.left span.logo img {
+    margin-right: 8px;
+    display: block;
+    height: 2.3vh;
+}
+
+footer section.wrapper section.top section.left span.logo h2 {
+    font-size: 18px;
+    font-family: 'Gropled';
+}
+footer section.wrapper section.top section.right
+ {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+footer section.wrapper section.top section.right div.one {
+    margin-right: 8vw
+}
+footer section.wrapper section.top section.right div.one ul
+ {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+footer section.wrapper section.top section.right div.one ul li {
+    margin-right: 16px;
+}
+footer section.wrapper section.top section.right div.one ul li:last-child {
+    margin-right: 0px;
+}
+footer section.wrapper section.top section.right div.one ul li a {}
+footer section.wrapper section.top section.right div.one ul li a h3 {
+    font-size: 15px;
+}
+section.liveprojects section.wrapper ul li section.top {
+    margin: 0;
+    margin-bottom: 3vh;
+    position: relative;
+}
+section.liveprojects section.wrapper ul li section.top img.projecthomeimg {
+    display: block;
+    height: 20vh;
+    border-radius: 18px;
+}
+footer section.wrapper section.top section.right div.two {
+    display: flex
+;
+    align-items: center;
+}
+footer section.wrapper section.top section.right div.two a.support {
+    display: flex
+;
+    align-items: center;
+    background: #fff;
+    padding: 0px 40px;
+    border-radius: 35px;
+    width: 4.6vw;
+    padding-left: 13px;
+    position: relative;
+    height: 5vh;
+    margin-right: 12px;
+}
+footer section.wrapper section.top section.right div.two a.support h3 {
+    color: #000;
+    font-size: 14px;
+}
+
+footer section.wrapper section.top section.right div.two a.support h2 {}
+
+footer section.wrapper section.top section.right div.two a.support h2 img.one {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    height: 3.5vh;
+    top: 8px;
+    right: 18px;
+}
+
+footer section.wrapper section.top section.right div.two a.support h2 img.two {
+    position: absolute;
+    z-index: 2;
+    top: 8px;
+    right: 18px;
+}
+
+footer section.wrapper section.top section.right div.two h1.upscroll {
+    cursor: pointer;
+}
+footer section.wrapper section.top section.right div.two h1.upscroll img {
+    display: block;
+    height: 5vh;
+}
+footer section.wrapper section.center {
+    display: flex
+;
+    /* align-items: center; */
+    justify-content: space-between;
+}
+
+footer section.wrapper section.center div.vision {}
+footer section.wrapper section.center div.vision h2 {
+    font-family: 'Gropled';
+    font-size: 60px;
+}
+footer section.wrapper section.center div.vision span.bp {
+    display: flex
+;
+    align-items: center;
+    margin-top: 0.6vh;
+    margin-bottom: 3.3vh;
+}
+
+footer section.wrapper section.center div.vision span.bp h2 {}
+
+footer section.wrapper section.center div.vision span.bp img {
+    margin: 0 8px;
+}
+
+footer section.wrapper section.center div.connections {}
+footer section.wrapper section.center div.connections ul
+ {
+    display: flex
+;
+align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+footer section.wrapper section.center div.connections ul li {
+    margin-right: 16px;
+}
+footer section.wrapper section.center div.connections ul li:last-child{
+    margin-right: 0px;
+}
+footer section.wrapper section.center div.connections ul li a {}
+footer section.wrapper section.center div.connections ul li a img {
+    display: block;
+    height: 5vh;
+}
+footer section.wrapper section.center div.connections span.email {
+    background: #0d0c0a;
+    border: 2px solid #262627;;
+    padding: 10px 36px;
+    border-radius: 21px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 12px;
+}
+footer section.wrapper section.center div.connections span.email input[type="email"] {
+    outline: none;
+    background: none;
+
+}
+footer section.wrapper section.center div.connections span.email img {
+    position: relative;
+    right: -20px;
+    display: block;
+    height: 3vh;
+    cursor: pointer;
+}
+footer section.wrapper hr.fline {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: #262627;
+    margin: 15px 0 28px;
+}
+footer section.wrapper section.bottom {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 24px;
+}
+footer section.wrapper section.bottom section.left {
+    display: flex;
+    align-items: center;
+}
+
+footer section.wrapper section.bottom section.left img {
+    margin-right: 12px;
+}
+
+footer section.wrapper section.bottom section.left h3 {
+    color: #969392;
+    font-size: 13px;
+}
+
+footer section.wrapper section.bottom section.right {}
+
+footer section.wrapper section.bottom section.right ul {
+    display: flex;
+    align-self: center;
+}
+
+footer section.wrapper section.bottom section.right ul li:nth-child(2) {
+    margin: 0 8px;
+}
+
+footer section.wrapper section.bottom section.right ul li h3 {
+    color: #969392;
+    font-size: 13px;
+}
+
+
+#chatbase-message-bubbles,#chatbase-bubble-window{
+        width: 364px !important;
+    height: 58dvh !important;
+}
+.group .h-full .max-h-dvh{
+    width: 364px !important;
+    height: 58dvh !important;
+}
+#chatbase-bubble-button{
+    bottom: 4rem !important;
+    right: 3rem !important;
+}
+
+
+/* projects.html*/
+
+section.liveprojects {
+    padding-top: 4vh;
+}
+
+section.liveprojects section.wrapper {}
+
+section.liveprojects section.wrapper section.top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3vh;
+}
+section.liveprojects section.wrapper hr.line{
+    margin-bottom: 36px;
+}
+section.liveprojects section.wrapper section.top section.left {}
+section.liveprojects section.wrapper section.top section.left h2 {
+    font-family: 'Gropled';
+    font-size: 36px;
+}
+section.liveprojects section.wrapper section.top section.right {
+    max-width: 70%
+;
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+section.liveprojects section.wrapper section.top section.right h5 {
+    color: #999999;
+    font-size: 13px;
+    margin-right: 12px;
+    line-height: 1.5em;
+}
+section.liveprojects section.wrapper section.top section.right section.search {
+    display: flex
+;
+    align-items: center;
+    right: -35px;
+    position: relative;
+}
+
+section.liveprojects section.wrapper section.top section.right section.search div.left {
+    display: flex
+;
+        align-items: center;
+        border: 2px solid #262626;
+        border-radius: 18px;
+        padding: 6px 12px;
+        width: 78.33%;
+        position: relative;
+        background: #1a1a1a;
+        padding-left: 10px;
+}
+
+section.liveprojects section.wrapper section.top section.right section.search div.left input[type="search"] {
+    background: none;
+    width: 16vw;
+}
+
+section.liveprojects section.wrapper section.top section.right section.search div.left img {}
+
+section.liveprojects section.wrapper section.top section.right section.search div.right {}
+
+section.liveprojects section.wrapper section.top section.right section.search div.right h2.close-hamburgur {}
+
+section.liveprojects section.wrapper section.top section.right section.search div.right h2.close-hamburgur img {
+    display: block;
+        height: 5vh;
+}
+section.liveprojects section.wrapper ul {
+    display: flex
+;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 8vh;
+    flex-wrap: wrap;
+}
+section.liveprojects section.wrapper ul li {
+    margin-right: 24px;
+    margin-bottom: 5vh;
+    width: 23.66%;
+}
+section.liveprojects section.wrapper ul li:nth-child(4),
+section.liveprojects section.wrapper ul li:nth-child(8),
+section.liveprojects section.wrapper ul li:nth-child(12),
+section.liveprojects section.wrapper ul li:nth-child(16),
+section.liveprojects section.wrapper ul li:nth-child(20),
+section.liveprojects section.wrapper ul li:nth-child(24),
+section.liveprojects section.wrapper ul li:nth-child(28),
+section.liveprojects section.wrapper ul li:nth-child(32),
+section.liveprojects section.wrapper ul li:nth-child(36),
+section.liveprojects section.wrapper ul li:nth-child(40){
+    margin-right: 0;
+}
+
+section.liveprojects section.wrapper ul li section.top {
+    width: 100%;
+}
+
+section.liveprojects section.wrapper ul li section.top img.projecthomeimg {
+    width: 100%;
+}
+section.liveprojects section.wrapper ul li section.top span.projectname {
+    position: absolute;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    background: #fff;
+    display: block;
+    color: #000;
+    padding: 6px 20px;
+    top: 15px;
+    left: 16px;
+    border-radius: 21px;
+    font-size: 13px;
+    padding-left: 14px;
+    font-family: 'Inter SemiBold';
+}
+section.liveprojects section.wrapper ul li section.bottom {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+section.liveprojects section.wrapper ul li section.bottom div.left {
+        display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    background: #631AFF;
+    padding: 5px 12px;
+    border-radius: 28px;
+    margin-right: 7px;
+    padding-left: 8px;
+}
+
+section.liveprojects section.wrapper ul li section.bottom div.left span.lone {}
+section.liveprojects section.wrapper ul li section.bottom div.left span.lone h3 {
+    margin-right: 8px;
+    background: #000;
+    padding: 11px 22px;
+    font-size: 14px;
+    border-radius: 19px;
+}
+section.liveprojects section.wrapper ul li section.bottom div.left h3.pvalue {
+    font-size: 16px;
+}
+
+section.liveprojects section.wrapper ul li section.bottom div.right {}
+
+section.liveprojects section.wrapper ul li section.bottom div.right a {}
+
+section.liveprojects section.wrapper ul li section.bottom div.right a img {
+    display: block;
+    height: 5vh;
+}
+section.liveprojects section.wrapper section.noprojectsfound {
+    text-align: center;
+}
+section.liveprojects section.wrapper section.noprojectsfound img {
+    display: block;
+    height: 48vh;
+    margin: 0 auto;
+    margin-bottom: 16px;
+}
+section.liveprojects section.wrapper section.noprojectsfound h3{
+    color: #999999;
+    font-size: 14px;
+    margin-right: 12px;
+    line-height: 1.5em;
+}
+
+section.noprojectsfound section.connectbtns {}
+
+section.noprojectsfound section.connectbtns h2.connectus.mailemail {
+    margin: 0 auto;
+    background: #fff;
+    color: #000;
+    margin-top: 24px;
+    padding: 9px 28px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: block;
+    width: 6vw;
+}
+
+
+
+/* projects.html*/
+
+
+
+
+
+/* services.html*/
+
+section.serviceslist {
+    margin-top: 6vh;
+}
+
+section.serviceslist section.wrapper {}
+
+section.serviceslist section.wrapper ul {}
+section.serviceslist section.wrapper ul li
+ {
+    display: flex
+;
+    justify-content: space-between;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    border-radius: 12px;
+    margin-bottom: 56px;
+    border: 2px solid #262626;
+}
+section.serviceslist section.wrapper ul li section.left {}
+section.serviceslist section.wrapper ul li section.left img {
+    display: block;
+    height: 28vh;
+    margin-right: 48px;
+    border-radius: 12px 0 0 12px;
+    width: 28vw;
+}
+section.serviceslist section.wrapper ul li section.right {
+    padding: 12px;
+}
+
+section.serviceslist section.wrapper ul li section.right h2.servicename {
+    margin-bottom: 12px;
+}
+section.serviceslist section.wrapper ul li section.right h3.servicedescribe {
+    color: #999999;
+    font-size: 14px;
+    margin-right: 0;
+    line-height: 1.5em;
+    margin-bottom: 13px;
+}
+
+section.serviceslist section.wrapper ul li section.right ul.languages {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 18px
+}
+section.serviceslist section.wrapper ul li section.right ul.languages li {
+    display: block;
+    width: fit-content;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    background: #262523;
+    margin-right: 16px;
+}
+section.serviceslist section.wrapper ul li section.right ul.languages li a {}
+section.serviceslist section.wrapper ul li section.right ul.languages li a h3 {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+section.serviceslist section.wrapper ul li section.right h1.knowdetails {
+    width: 6vw;
+    background: #fff;
+    color: #000;
+    padding: 8px 16px;
+    border-radius: 6px;
+}
+
+
+/* services.html*/
+
+
+
+
+
+/*learn.html */
+
+
+
+
+section.learningsection {}
+
+section.learningsection section.wrapper {}
+
+section.learningsection section.wrapper section.top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3vh;
+}
+
+section.learningsection section.wrapper section.top section.left {}
+section.learningsection section.wrapper section.top section.left h2 {
+    font-family: 'Gropled';
+    font-size: 36px;
+}
+section.learningsection section.wrapper section.top section.right {
+    max-width: 70%;
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+
+section.learningsection section.wrapper section.top section.right section.search {
+    display: flex
+;
+    align-items: center;
+    right: -35px;
+    position: relative;
+}
+
+section.learningsection section.wrapper section.top section.right section.search div.left {
+    display: flex
+;
+    align-items: center;
+    border: 2px solid #262626;
+    border-radius: 18px;
+    padding: 6px 12px;
+    width: 78.33%;
+    position: relative;
+    background: #1a1a1a;    
+    padding-left: 10px;
+}
+
+section.learningsection section.wrapper section.top section.right section.search div.left input[type="search"] {
+        background: none;
+    width: 16vw;
+}
+
+section.learningsection section.wrapper section.top section.right section.search div.left img {}
+section.learningsection section.wrapper ul.learningtopics {
+    display: flex
+;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 28px;
+}
+section.learningsection section.wrapper ul.learningtopics li {
+    display: block;
+    width: fit-content;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    background: #262523;
+    margin-right: 16px;
+    cursor: pointer;
+}
+section.learningsection section.wrapper ul.learningtopics li h3 {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+section.learningsection section.wrapper hr.line {
+    margin-bottom: 36px;
+}
+
+
+
+section.topicvideos {}
+
+section.topicvideos section.wrapper {}
+section.topicvideos section.wrapper ul {
+    display: flex
+;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+}
+section.topicvideos section.wrapper ul li {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    border-radius: 12px;
+    border: 2px solid #262626;
+    width: 23.88%;
+    margin-right: 16px;
+    min-height: 39.4vh;
+    margin-bottom: 4vh;
+}
+section.topicvideos section.wrapper ul li:nth-child(4),
+section.topicvideos section.wrapper ul li:nth-child(8),
+section.topicvideos section.wrapper ul li:nth-child(12),
+section.topicvideos section.wrapper ul li:nth-child(16),
+section.topicvideos section.wrapper ul li:nth-child(20),
+section.topicvideos section.wrapper ul li:nth-child(24),
+section.topicvideos section.wrapper ul li:nth-child(28),
+section.topicvideos section.wrapper ul li:nth-child(32),
+section.topicvideos section.wrapper ul li:nth-child(36),
+section.topicvideos section.wrapper ul li:nth-child(40){
+    margin-right: 0;
+}
+section.topicvideos section.wrapper ul li section.top {}
+section.topicvideos section.wrapper ul li section.top img {
+    display: block;
+    height: 22vh;
+    width: 100%;
+    margin-bottom: 6px;
+    border-radius: 12px 12px 0 0;
+}
+section.topicvideos section.wrapper ul li section.bottom {
+    padding: 12px;
+}
+section.topicvideos section.wrapper ul li section.bottom h2.topicname {
+    font-size: 18px;
+}
+section.topicvideos section.wrapper ul li section.bottom h3.topicdes {
+    color: #999999;
+    font-size: 12px;
+    margin-right: 0;
+    line-height: 1.5em;
+    margin-bottom: 13px;
+    max-width: 100%;
+    display: block;
+    margin-top: 6px;
+}
+section.topicvideos section.wrapper ul li section.bottom a {
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 7px;
+    width: 100%;
+    padding: 5px 0px;
+}
+section.topicvideos section.wrapper ul li section.bottom a h1.viewvideos {
+    color: #000;
+    font-size: 14px;
+}
+section.topicvideos section.wrapper ul li section.bottom a img {
+    display: block;
+    height: 2.5vh;
+    margin-left: 12px;
+}
+section.topicvideos section.wrapper section.notopicsfound {
+    text-align: center;
+}
+section.topicvideos section.wrapper section.notopicsfound img {
+    display: block;
+    height: 48vh;
+    margin: 0 auto;
+    margin-bottom: 16px;
+}
+
+section.topicvideos section.wrapper section.notopicsfound h3 {
+    color: #999999;
+    font-size: 14px;
+    margin-right: 12px;
+    line-height: 1.5em;
+}
+
+section.topicvideos section.wrapper section.notopicsfound section.connectbtns {}
+
+section.topicvideos section.wrapper section.notopicsfound section.connectbtns h2.connectus.mailemail {
+        margin: 0 auto;
+    background: #fff;
+    color: #000;
+    margin-top: 24px;
+    padding: 9px 28px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: block;
+    width: 6vw;
+}
+
+
+
+ section.topicvideos section.wrapper ul li.translateup {
+            transition: all 0.3s ease;
+            /* Initial state */
+            transform: translateY(0) scale(1);
+        }
+        
+        /* Hover state - moves up 20px and scales to 1.1x size */
+         section.topicvideos section.wrapper ul li.translateup:hover {
+            transform: translateY(-15px) scale(1);
+        }
+
+
+/*learn.html */
+
+
+
+
+/*all.html */
+
+section.alllearningsection {}
+
+section.alllearningsection section.wrapper {}
+
+section.alllearningsection section.wrapper section.top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3vh;
+}
+
+section.alllearningsection section.wrapper section.top section.left {}
+
+section.alllearningsection section.wrapper section.top section.left h2 {
+    font-family: 'Gropled';
+    font-size: 36px;
+}
+
+section.alllearningsection section.wrapper section.top section.right {
+    max-width: 70%;
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+
+section.alllearningsection section.wrapper section.top section.right section.search {
+    display: flex
+;
+    align-items: center;
+    right: -35px;
+    position: relative;
+}
+
+section.alllearningsection section.wrapper section.top section.right section.search div.left {
+    display: flex
+;
+    align-items: center;
+    border: 2px solid #262626;
+    border-radius: 18px;
+    padding: 6px 12px;
+    width: 78.33%;
+    position: relative;
+    background: #1a1a1a;
+    padding-left: 10px;
+}
+
+section.alllearningsection section.wrapper section.top section.right section.search div.left input[type="search"] {
+    background: none;
+    width: 16vw;
+}
+
+section.alllearningsection section.wrapper section.top section.right section.search div.left img {}
+
+section.alllearningsection section.wrapper hr.line {
+        margin-bottom: 36px;
+}
+section.alltopicsarea {}
+
+section.alltopicsarea section.wrapper {}
+
+section.alltopicsarea section.wrapper ul {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+section.alltopicsarea section.wrapper ul li.topichoverborder {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    width: 23.88%;
+    margin-right: 16px;
+    min-height: 39.4vh;
+    margin-bottom: 4vh;
+    border-radius: 12px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgb(38, 38, 38);
+    border-image: initial;
+    cursor: pointer;
+}
+section.alltopicsarea section.wrapper ul li.topichoverborder:nth-child(4),
+section.alltopicsarea section.wrapper ul li.topichoverborder:nth-child(8),
+section.alltopicsarea section.wrapper ul li.topichoverborder:nth-child(12),
+section.alltopicsarea section.wrapper ul li.topichoverborder:nth-child(16),
+section.alltopicsarea section.wrapper ul li.topichoverborder:nth-child(20),
+section.alltopicsarea section.wrapper ul li.topichoverborder:nth-child(24),
+section.alltopicsarea section.wrapper ul li.topichoverborder:nth-child(28),
+section.alltopicsarea section.wrapper ul li.topichoverborder:nth-child(32),
+section.alltopicsarea section.wrapper ul li.topichoverborder:nth-child(36),
+section.alltopicsarea section.wrapper ul li.topichoverborder:nth-child(40){
+    margin-right: 0;
+}
+section.alltopicsarea section.wrapper ul li.topichoverborder:hover{
+    border: 2px solid #fff;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+}
+section.alltopicsarea section.wrapper ul li.topichoverborder section.top {
+    position: relative;
+}
+
+section.alltopicsarea section.wrapper ul li.topichoverborder section.top img.languagelogo {
+    position: absolute;
+    display: block;
+    height: 3.5vh;
+    width: 3.5vh;
+    bottom: 0;
+    right: 14px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+    transition: all 0.3s ease;
+    border-radius: 0;
+}
+
+section.alltopicsarea section.wrapper ul li.topichoverborder section.top img {
+    display: block;
+    height: 22vh;
+    width: 100%;
+    margin-bottom: 6px;
+    border-radius: 12px 12px 0px 0px;
+}
+
+section.alltopicsarea section.wrapper ul li.topichoverborder section.top img.videologo {
+    position: absolute;
+    display: block;
+    height: 8.5vh;
+    width: 8.5vh;
+    top: 35%;
+    left: 38%
+;
+}
+
+section.alltopicsarea section.wrapper ul li.topichoverborder section.bottom {
+        padding: 12px;
+        position: relative;
+}
+
+section.alltopicsarea section.wrapper ul li.topichoverborder section.bottom h2.topicname {
+    font-size: 18px;
+}
+
+section.alltopicsarea section.wrapper ul li.topichoverborder section.bottom h3.topicdes {
+    color: rgb(153, 153, 153);
+    font-size: 12px;
+    margin-right: 0px;
+    line-height: 1.5em;
+    margin-bottom: 13px;
+    max-width: 100%;
+    display: block;
+    margin-top: 6px;
+}
+
+section.alltopicsarea section.wrapper ul li.topichoverborder section.bottom a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: rgb(255, 255, 255);
+    border-radius: 7px;
+    padding: 5px 0px;
+}
+
+section.alltopicsarea section.wrapper ul li.topichoverborder section.bottom a h1.viewvideos {
+    color: rgb(0, 0, 0);
+    font-size: 14px;
+}
+
+section.alltopicsarea section.wrapper ul li.topichoverborder section.bottom a img {
+    display: block;
+    height: 2.5vh;
+    margin-left: 12px;
+}
+section.alltopicsarea section.wrapper ul li.topichoverborder section.bottom a.downloadentire {
+    background: none;
+    width: 30px;
+    height: 30px;
+    display: block;
+    border-radius: 50%;
+    background: transparent;
+    padding: 0;
+}
+section.alltopicsarea section.wrapper ul li.topichoverborder section.bottom a.downloadentire img{
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin-left: 0;
+    position: absolute;
+    right: 16px;
+}
+
+
+section.alltopicsareaunique {
+    margin-bottom: 16vh;
+}
+
+section.alltopicsareaunique section.wrapper {}
+section.alltopicsareaunique section.wrapper ul {
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+section.alltopicsareaunique section.wrapper ul li.downloaduni {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    border-radius: 8px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgb(38, 38, 38);
+    border-image: initial;
+    padding: 6px 18px;
+    margin-bottom: 36px;
+    width: 54vw;
+    background: #0d0c0a;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+section.alertunibg{
+    position: absolute;
+    height: 160vh;
+    width: 100%;
+    background: #0b0b0bdb;
+    z-index: 999;
+}
+section.alltopicsareaunique section.wrapper ul li.downloaduni:hover{
+    border-color: rgb(255, 255, 255);
+}
+section.alltopicsareaunique section.wrapper ul li.downloaduni img.consolelogo {
+    display: block;
+    height: 30px;
+    margin-right: 24px;
+}
+section.alltopicsareaunique section.wrapper ul li.downloaduni h2 {
+    margin-right: 28px;
+    font-family: 'Gropled';
+    font-size: 16px;
+    margin-bottom: 0;
+    display: block;
+    background: linear-gradient(to right, #2e2e30, #5a5a5c);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-weight: 700;
+}
+
+section.alltopicsareaunique section.wrapper ul li.downloaduni a.downloadsingle {}
+section.alltopicsareaunique section.wrapper ul li.downloaduni a.downloadsingle img {
+    display: block;
+    height: 22px;
+}
+
+
+section.alertunibg {
+
+}
+section.alertmainuni {
+    border: 2px solid #262626;
+    border-radius: 8px;
+    width: 42vw;
+    background: #1a1a1a;
+    margin-right: 12px;
+    min-height: 12vh;
+    position: absolute;
+    z-index: 99999;
+    left: 30%;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    top: 40vh;
+}
+section.alertmainuni section.wrapper {
+        margin: 0 0.5vw;
+    padding: 12px;
+}
+section.alertmainuni section.wrapper h2 {
+    font-family: 'Inter Regular';
+    color: #fff;
+    font-size: 16px;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 1.5em;
+}
+
+section.alertmainuni hr.pcline {
+        display: block;
+    background: #5e5e5e;
+    height: 2px;
+    width: 100%;
+}
+
+section.alertmainuni section.wrapper h3.continue {
+    color: #007AFF;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    cursor: pointer;
+    font-family: 'Inter Regular';
+}
+
+
+/*all.html */
+
+
+
+/*htmltopics.html */
+
+section.htmlplayvideo {}
+
+section.htmlplayvideo section.wrapper {}
+
+section.htmlplayvideo section.wrapper section.top {
+    display: flex
+;
+    justify-content: space-between;
+    margin-bottom: 3vh;
+}
+
+section.htmlplayvideo section.wrapper section.top section.left {}
+
+section.htmlplayvideo section.wrapper section.top section.left h2 {
+    font-family: 'Gropled';
+    font-size: 28px;
+}
+
+section.htmlplayvideo section.wrapper hr.line {
+    margin-bottom: 36px;
+}
+section.playvideoarea {}
+
+section.playvideoarea section.wrapper {}
+section.playvideoarea section.wrapper section.top {
+    display: flex;
+    justify-content: space-between;
+}
+section.playvideoarea section.wrapper section.top div.youtube-container {
+    width: 65%;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    height: 58vh;
+}
+section.playvideoarea section.wrapper section.top div.youtube-container iframe {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+section.playvideoarea section.wrapper section.top div.describearea {
+    width: 22%;
+    border: 2px solid #262626;
+    border-radius: 8px;
+    padding: 16px;
+    background: #1a1a1a;
+    cursor: pointer;
+}
+section.playvideoarea section.wrapper section.top div.describearea:hover{
+    border: 2px solid #fff;
+}
+section.playvideoarea section.wrapper section.top div.describearea ul {}
+
+section.playvideoarea section.wrapper section.top div.describearea ul li {}
+section.playvideoarea section.wrapper section.top div.describearea ul li h2 {
+    font-family: 'Gropled';
+    font-size: 22px;
+    margin-bottom: 6px;
+    display: flex
+;
+    align-items: center;
+}
+section.playvideoarea section.wrapper section.top div.describearea ul li h2.minh2{
+    font-size: 18px;
+}
+section.playvideoarea section.wrapper section.top div.describearea ul li img.underline {
+    display: block;
+    margin-bottom: 34px;
+    height: 8px;
+    width: 5vw;
+}
+section.playvideoarea section.wrapper section.top div.describearea ul li img {}
+
+section.playvideoarea section.wrapper section.top div.describearea ul li h2 img {
+    display: block;
+    height: 2.6vh;
+    margin-right: 10px;
+}
+section.playvideoarea section.wrapper section.top div.describearea ul li h3 {
+    color: #999999;
+    line-height: 1.5em;
+    font-size: 13px;
+    margin-bottom: 12px;
+    margin-left: 32px;
+}
+section.playvideoarea section.wrapper section.top div.describearea ul li div.contentintopic {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2vh;
+}
+section.playvideoarea section.wrapper section.top div.describearea ul li div.contentintopic ul {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+section.playvideoarea section.wrapper section.top div.describearea ul li div.contentintopic ul li {
+    margin-bottom: 14px;
+    display: flex;
+    align-items: flex-start;
+}
+section.playvideoarea section.wrapper section.top div.describearea ul li div.contentintopic ul li img {
+    display: block;
+    height: 1.7vh;
+    margin-right: 8px;
+}
+section.playvideoarea section.wrapper section.top div.describearea ul li div.contentintopic ul li h4 {
+    font-size: 11px;
+    line-height: 1.6em;
+}
+section.playvideoarea section.wrapper section.bottom {}
+
+section.playvideoarea section.wrapper section.bottom section.main {}
+section.playvideoarea section.wrapper section.bottom section.main h2 {
+    font-family: 'Gropled';
+    font-size: 22px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+}
+section.playvideoarea section.wrapper section.bottom section.main img.underline {
+    display: block;
+    margin-bottom: 24px;
+    height: 8px;
+    width: 5vw;
+}
+section.playvideoarea section.wrapper section.bottom div.one {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 11%;
+}
+section.playvideoarea section.wrapper section.bottom div.one h3.lang {
+    background: #fff;
+    color: #000;
+    padding: 8px 32px;
+    font-size: 15px;
+    margin-right: 16px;
+    border-radius: 23px;
+    cursor: pointer;
+}
+section.playvideoarea section.wrapper section.bottom div.one h3.pcat {
+    color: #fff;
+    padding: 8px 32px;
+    font-size: 15px;
+    margin-right: 16px;
+    border-radius: 23px;
+    border: 2px solid #262626;
+    background: #1a1a1a;
+    cursor: pointer;
+}
+
+section.playvideoarea section.wrapper section.bottom div.two {}
+
+section.playvideoarea section.wrapper section.bottom div.two h3 {
+    color: #999999;
+    line-height: 1.5em;
+    font-size: 16px;
+    margin-top: 15px;
+}
+section.playvideoarea hr.line {
+    margin: 5vh 0;
+}
+
+
+
+
+
+/*htmltopics.html */
+
+
+
+/*about.html */
+
+section.abouthero {
+    margin-top: 14px;
+}
+
+section.abouthero section.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+section.abouthero section.wrapper h2 {
+    font-size: 44px;
+    margin-bottom: 16px;
+}
+section.abouthero section.wrapper h3 {
+    color: #999999;
+    line-height: 1.6em;
+    font-size: 16px;
+}
+section.abouthero section.wrapper h3 span {
+    color: #6b26ff;
+    font-family: 'Gropled';
+    font-size: 26px;
+    margin: 0 6px;
+}
+section.abouthero section.wrapper section.listup {
+    margin-top: 4vh;
+    margin-bottom: 2.7vh;
+}
+section.abouthero section.wrapper section.listup ul {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+section.abouthero section.wrapper section.listup ul li {
+    display: flex
+;
+    align-items: center;
+    background: #fff;
+    margin-right: 28px;
+    border-radius: 8px;
+    padding: 8px;
+}
+section.abouthero section.wrapper section.listup ul li:nth-child(2){
+    margin-right: 0;
+}
+section.abouthero section.wrapper section.listup ul li div.left {}
+section.abouthero section.wrapper section.listup ul li div.left img {
+    display: block;
+    height: 36px;
+    width: 44px;
+    margin-right: 16px;
+}
+section.abouthero section.wrapper section.listup ul li div.right {}
+section.abouthero section.wrapper section.listup ul li div.right h5 {
+    color: #000;
+    font-size: 13px;
+}
+section.abouthero section.wrapper section.listup ul li div.right h3 {
+    color: #656565;
+}
+section.abouthero section.wrapper ul.featurehero {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+section.abouthero section.wrapper ul.featurehero li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 24px;
+}
+section.abouthero section.wrapper ul.featurehero li:last-child{
+    margin-right: 0;
+}
+section.abouthero section.wrapper ul.featurehero li img {
+    display: block;
+    height: 1.6vh;
+    margin-right: 8px;
+}
+
+section.abouthero section.wrapper ul.featurehero li h4 {
+    color: #999999;
+    font-size: 13px;
+}
+
+section.bannerarea {
+    margin-top: 8vh;
+    display: block;
+    height: 60vh;
+    position: relative;
+}
+section.bannerarea section.wrapper {
+    display: flex
+;
+    align-items: center;
+    position: relative;
+}
+section.bannerarea section.wrapper img.one
+ {
+    display: block;
+    height: 56vh;
+    position: absolute;
+    left: 22%;
+    top: 60px;
+    z-index: 1;
+}
+section.bannerarea section.wrapper img.two {
+    display: block;
+    height: 56vh;
+    position: absolute;
+    top: -4px;
+    left: 36%;
+    z-index: 2;
+}
+section.bannerarea section.wrapper img.three {
+    display: block;
+    height: 76vh;
+    z-index: 3;
+    position: absolute;
+    left: 50.7%;
+    top: -100px;
+}
+
+section.bannerarea .box{
+    display: block;
+    width: 100%;
+}
+section.bannerarea .box img.limage {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 4;
+}
+
+section.abtfeactures {
+    padding: 10vh 0;
+}
+section.abtfeactures section.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0;
+}
+section.abtfeactures section.wrapper ul {
+    width: 65%;
+}
+
+section.abtfeactures section.wrapper ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 64px;
+    border: 2px solid #0d0c0a;
+}
+section.abtfeactures section.wrapper ul li:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border: 2px solid #fff;
+    border-radius: 12px;
+}
+
+section.abtfeactures section.wrapper ul li:last-child {
+    margin-bottom: 0;
+}
+
+section.abtfeactures section.wrapper ul li section.left {}
+section.abtfeactures section.wrapper ul li section.left img
+ {
+    display: block;
+    height: 27vh;
+    width: 24vw;
+    margin-right: 36px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 12px;
+}
+section.abtfeactures section.wrapper ul li section.left img:hover
+ {
+    border-radius: 12px 0 0 12px;
+}
+section.abtfeactures section.wrapper ul li section.right {
+    padding: 12px;
+}
+section.abtfeactures section.wrapper ul li section.right div.top {
+    display: flex
+;
+    align-items: center;
+    margin-bottom: 16px;
+}
+section.abtfeactures section.wrapper ul li section.right div.top img {
+    display: block;
+    height: 4vh;
+    margin-right: 12px;
+}
+section.abtfeactures section.wrapper ul li section.right div.top h2 {}
+section.abtfeactures section.wrapper ul li section.right h4{
+    color: #999999;
+    line-height: 1.5em;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+section.abtfeactures section.wrapper ul li section.right ul {
+    width: 100%;
+    display: flex
+;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+section.abtfeactures section.wrapper ul li section.right ul li {
+    margin-right: 14px;
+    display: block;
+    width: fit-content;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    background: #262523;
+}
+section.abtfeactures section.wrapper ul li section.right ul li h3
+ {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+
+
+section.cases {
+    margin-bottom: 10vh;
+}
+section.cases section.casewrapper{
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0;
+    flex-direction: column;
+}
+section.cases section.wrapper {
+    background: #16161a;
+    padding: 16px;
+    border-radius: 14px;
+    border: 2px solid #26262b;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin: 0;
+}
+section.cases section.wrapper  h2 {
+    font-family: 'Gropled';
+    font-size: 36px;
+    margin-bottom: 36px;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+}
+section.cases section.wrapper section.top {
+    background: #16161a;
+    padding: 5px 10px;
+    border: 2px solid #46464a;
+    border-radius: 12px;
+    width: 65%;
+    display: block;
+    margin: 0 auto;
+    justify-content: center;
+    margin-bottom: 8vh;
+}
+section.cases section.wrapper section.top ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+section.cases section.wrapper section.top ul li {
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+section.cases section.wrapper section.top ul li:hover {
+    background: #303033;
+}
+
+section.cases section.wrapper section.top ul li img {
+    margin-right: 8px;
+}
+
+section.cases section.wrapper section.top ul li h3 {
+    font-size: 14px;
+}
+section.cases section.wrapper section.bottom
+ {
+    display: flex
+;
+    justify-content: space-between;
+    padding-bottom: 16px;
+}
+section.cases section.wrapper section.bottom section.left {}
+section.cases section.wrapper section.bottom section.left h3 {
+    font-size: 16px;
+    max-width: 68%;
+    line-height: 1.6em;
+    margin-bottom: 2vh;
+}
+section.cases section.wrapper section.bottom section.left ul {}
+section.cases section.wrapper section.bottom section.left ul li {
+    display: flex
+;
+    align-items: center;
+    margin-bottom: 3vh;
+}
+section.cases section.wrapper section.bottom section.left ul li img {
+    margin-right: 8px;
+}
+
+section.cases section.wrapper section.bottom section.left ul li h3 {
+    margin-bottom: 0;
+    font-size: 13px;
+    color: #8D8D99;
+}
+
+section.cases section.wrapper section.bottom section.left a.getstarted {
+    background: #26262b;
+    display: flex;
+    align-items: center;
+    padding: 12px 12px;
+    border-radius: 27px;
+    max-width: 32%;
+    padding-left: 16px;
+}
+
+section.cases section.wrapper section.bottom section.left a.getstarted h4 {
+    color: #8d8d99 ;
+    font-size: 14.5px;
+}
+
+section.cases section.wrapper section.bottom section.left a.getstarted img {
+    margin-left: 0.7vw;
+}
+
+section.cases section.wrapper section.bottom section.right {}
+section.cases section.wrapper section.bottom section.right img {
+    display: block;
+    height: 30vh;
+    margin-left: 6vw;
+}
+
+
+
+section.abtfeatures {
+    margin-bottom: 10vh;
+}
+section.abtfeatures section.wrapper {
+    margin: 0 14.5vw;
+}
+section.abtfeatures section.wrapper h2.fnam {
+    font-family: 'Gropled';
+    font-size: 36px;
+    margin-bottom: 36px;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+}
+section.abtfeatures section.wrapper section.top {}
+
+section.abtfeatures section.wrapper section.top ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2.5vh;
+}
+section.abtfeatures section.wrapper section.top ul li {
+    background: #16161a;
+    border-radius: 13px;
+    padding: 16px;
+    width: 46%;
+    position: relative;
+    min-height: 30vh;
+}
+section.abtfeatures section.wrapper section.top ul li span.flogo {}
+
+section.abtfeatures section.wrapper section.top ul li span.flogo img
+ {
+    padding: 7px;
+    background: #26262b;
+    border: 2px solid #4d4d54;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+section.abtfeatures section.wrapper section.top ul li h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+section.abtfeatures section.wrapper section.top ul li h3 {
+    margin-bottom: 24px;
+    font-size: 15px;
+    color: #8D8D99;
+}
+section.abtfeatures section.wrapper section.top ul li img.backgroundfimage {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: block;
+    height: 28vh;
+}
+section.abtfeatures section.wrapper section.bottom
+ {
+    display: flex
+;
+    justify-content: space-between;
+}
+section.abtfeatures section.wrapper section.bottom section.fleft {
+    width: 38%;
+    margin-right: 2.5vw;
+}
+section.abtfeatures section.wrapper section.bottom section.fleft ul {}
+
+section.abtfeatures section.wrapper section.bottom section.fleft ul li {
+    background: #16161a;
+    border-radius: 13px;
+    padding: 16px;
+    width: 100%;
+    position: relative;
+    margin-bottom: 2.5vh;
+}
+section.abtfeatures section.wrapper section.bottom section.fleft ul li:last-child{
+    margin-bottom: 0;
+}
+section.abtfeatures section.wrapper section.bottom section.fleft ul li span.flogo {}
+section.abtfeatures section.wrapper section.bottom section.fleft ul li span.flogo img {
+    padding: 7px;
+    background: #26262b;
+    border: 2px solid #4d4d54;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+section.abtfeatures section.wrapper section.bottom section.fleft ul li h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+section.abtfeatures section.wrapper section.bottom section.fleft ul li span.flist {}
+
+section.abtfeatures section.wrapper section.bottom section.fleft ul li span.flist div.fone {
+    display: flex;
+    align-items: center;
+    margin-top: 2.5vh;
+}
+section.abtfeatures section.wrapper section.bottom section.fleft ul li span.flist div.fone img {
+    display: block;
+    height: 2vh;
+    margin-right: 8px;
+}
+section.abtfeatures section.wrapper section.bottom section.fleft ul li span.flist div.fone h3 {
+    font-size: 13px;
+    color: #898996;
+}
+
+section.abtfeatures section.wrapper section.bottom section.fleft ul li span.flist div.ftwo {
+    display: flex;
+    align-items: center;
+    margin-top: 1.3vh;
+}
+
+section.abtfeatures section.wrapper section.bottom section.fleft ul li span.flist div.ftwo img {
+    display: block;
+    height: 2vh;
+    margin-right: 8px;
+}
+
+section.abtfeatures section.wrapper section.bottom section.fleft ul li span.flist div.ftwo h3 {
+    font-size: 13px;
+    color: #898996;
+}
+section.abtfeatures section.wrapper section.bottom section.fleft ul li h3.flistarea {
+    font-size: 13px;
+    color: #898996;
+    margin-bottom: 2vh;
+}
+section.abtfeatures section.wrapper section.bottom section.fleft ul li span.applogo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 50%;
+}
+section.abtfeatures section.wrapper section.bottom section.fleft ul li span.applogo img {
+    display: block;
+    height: 3.2vh;
+}
+section.abtfeatures section.wrapper section.bottom section.fright {
+    width: 56%;
+}
+section.abtfeatures section.wrapper section.bottom section.fright ul {
+    display: flex;
+    justify-content: space-between;
+}
+section.abtfeatures section.wrapper section.bottom section.fright ul li {
+    background: #16161a;
+    border-radius: 13px;
+    padding: 16px;
+    width: 42%;
+    position: relative;
+    min-height: 42.1vh;
+}
+
+section.abtfeatures section.wrapper section.bottom section.fright ul li span.flogo {}
+section.abtfeatures section.wrapper section.bottom section.fright ul li span.flogo img {
+    padding: 7px;
+    background: #26262b;
+    border: 2px solid #4d4d54;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+section.abtfeatures section.wrapper section.bottom section.fright ul li h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+section.abtfeatures section.wrapper section.bottom section.fright ul li span.flist {}
+section.abtfeatures section.wrapper section.bottom section.fright ul li span.flist div.fone {
+    display: flex
+;
+    align-items: center;
+    margin-top: 2.5vh;
+}
+section.abtfeatures section.wrapper section.bottom section.fright ul li span.flist div.fone img {
+    display: block;
+    height: 2vh;
+    margin-right: 8px;
+}
+section.abtfeatures section.wrapper section.bottom section.fright ul li span.flist div.fone h3
+ {
+    font-size: 13px;
+    color: #898996;
+}
+section.abtfeatures section.wrapper section.bottom section.fright ul li span.flist div.ftwo {
+    display: flex
+;
+    align-items: center;
+    margin-top: 2.5vh;
+}
+
+section.abtfeatures section.wrapper section.bottom section.fright ul li span.flist div.ftwo img {
+    display: block;
+    height: 2vh;
+    margin-right: 8px;
+}
+
+section.abtfeatures section.wrapper section.bottom section.fright ul li span.flist div.ftwo h3 {
+    font-size: 13px;
+    color: #898996;
+}
+section.abtfeatures section.wrapper section.bottom section.fright ul li img.rbg {
+    display: block;
+    height: 20vh;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+section.works {}
+
+section.works section.wrapper {
+    margin: 0 15.5vw;
+}
+
+section.works section.wrapper section.top {
+    margin-bottom: 6vh;
+}
+
+section.works section.wrapper section.top h2 {
+    font-family: 'Gropled';
+    font-size: 36px;
+    margin-bottom:16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+section.works section.wrapper section.top h3 {
+    color: #999999;
+    line-height: 1.6em;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 48px;
+}
+section.works section.wrapper section.top section.template {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+section.works section.wrapper section.top section.template section.left {}
+section.works section.wrapper section.top section.template section.left img {
+    display: block;
+    height: 28vh;
+}
+section.works section.wrapper section.top section.template section.right {}
+section.works section.wrapper section.top section.template section.right h4.des {
+    color: #fff;
+    margin-left: 2.7vw;
+    margin-bottom: 2vw;
+    font-size: 14px;
+}
+section.works section.wrapper section.top section.template section.right span.tem {
+    display: flex
+;
+    align-items: center;
+    position: relative;
+    margin-bottom: 12px;
+}
+section.template section.right span.tem h3 {
+    margin-right: 12px;
+    margin-bottom: 0;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    color: #fff;
+    display: block;
+    line-height: normal;
+    font-size: 13px;
+    padding: 6px 12px;
+}
+section.works section.wrapper section.top section.template section.right span.tem h3::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right,#2e2e30,#5a5a5c);
+    z-index: -1;
+    border-radius: 50%;
+}
+section.works section.wrapper section.top section.template section.right span.tem h2 {
+    font-family: 'Inter Regular';
+    font-size: 22px;
+    margin-bottom: 0;
+    display: block;
+    background: linear-gradient(to right,#2e2e30,#5a5a5c);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+section.works section.wrapper section.top section.template section.right a.getstarted {
+    background: #26262b;
+    display: flex;
+    align-items: center;
+    padding: 12px 12px;
+    border-radius: 27px;
+    max-width: 38%;
+    padding-left: 16px;
+    margin-left: 2.7vw;
+}
+section.works section.wrapper section.top section.template section.right a.getstarted h4 {
+
+    color: #8d8d99;
+    font-size: 14.5px;
+}
+section.works section.wrapper section.top section.template section.right a.getstarted img {
+    margin-left: 0.7vw;
+}
+
+section.works section.wrapper section.bottom {}
+
+section.works section.wrapper section.bottom ul {}
+
+section.works section.wrapper section.bottom ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4vh;
+}
+section.works section.wrapper section.bottom ul li section.left {}
+section.works section.wrapper section.bottom ul li section.left img.order1 {
+    display: block;
+    height: 28vh;
+}
+section.works section.wrapper section.bottom ul li section.left span.head {
+    display: flex
+;
+    align-items: center;
+    position: relative;
+    margin-bottom: 12px;
+}
+section.works section.wrapper section.bottom ul li section.left span.head h3 {
+    margin-right: 12px;
+    margin-bottom: 0;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    color: #fff;
+    display: block;
+    line-height: normal;
+    font-size: 13px;
+    padding: 6px 12px;
+}
+section.works section.wrapper section.bottom ul li section.left span.head h3::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right,#2e2e30,#5a5a5c);
+    z-index: -1;
+    border-radius: 50%;   
+}
+section.works section.wrapper section.bottom ul li section.left span.head h2 {
+    font-family: 'Inter Regular';
+    font-size: 22px;
+    margin-bottom: 0;
+    display: block;
+    background: linear-gradient(to right, #2e2e30, #5a5a5c);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+section.works section.wrapper section.bottom ul li section.left h4 {
+    color: #fff;
+    margin-left: 2.7vw;
+    margin-bottom: 2vw;
+    font-size: 14px;
+}
+
+section.works section.wrapper section.bottom ul li section.left a.getstarted {
+    background: #26262b;
+    display: flex
+;
+    align-items: center;
+    padding: 12px 12px;
+    border-radius: 27px;
+    max-width: 46%;
+    padding-left: 16px;
+    margin-left: 2.7vw;
+}
+section.works section.wrapper section.bottom ul li section.left a.getstarted1{
+    max-width: 28%;
+}
+section.works section.wrapper section.bottom ul li section.left a.getstarted h4 {
+    color: #8d8d99;
+    font-size: 14.5px;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+section.works section.wrapper section.bottom ul li section.left a.getstarted img {}
+
+section.works section.wrapper section.bottom ul li section.right {}
+section.works section.wrapper section.bottom ul li section.right span.head {
+    display: flex
+;
+    align-items: center;
+    position: relative;
+    margin-bottom: 12px;
+}
+section.works section.wrapper section.bottom ul li section.right span.head h3
+ {
+    margin-right: 12px;
+    margin-bottom: 0;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    color: #fff;
+    display: block;
+    line-height: normal;
+    font-size: 13px;
+    padding: 6px 12px;
+}
+section.works section.wrapper section.bottom ul li section.right span.head h3:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right,#2e2e30,#5a5a5c);
+    z-index: -1;
+    border-radius: 50%;   
+}
+section.works section.wrapper section.bottom ul li section.right span.head h2{
+    font-family: 'Inter Regular';
+    font-size: 22px;
+    margin-bottom: 0;
+    display: block;
+    background: linear-gradient(to right, #2e2e30, #5a5a5c);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+section.works section.wrapper section.bottom ul li section.right h4 {
+    color: #fff;
+    margin-left: 2.7vw;
+    margin-bottom: 2vw;
+    font-size: 14px;
+}
+section.works section.wrapper section.bottom ul li section.right img {
+    display: block;
+    height: 28vh;
+}
+section.works section.wrapper section.bottom ul li section.right a.getstarted {
+    background: #26262b;
+    display: flex
+;
+    align-items: center;
+    padding: 12px 12px;
+    border-radius: 27px;
+    max-width: 67%;
+    padding-left: 16px;
+    margin-left: 2.7vw;
+}
+section.works section.wrapper section.bottom ul li section.right a.getstarted h4 {
+    color: #8d8d99;
+    font-size: 14.5px;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+section.works section.wrapper section.bottom ul li section.right a.getstarted img {
+    height: auto;
+}
+
+section.abtexplore {
+    margin-bottom: 8vh;
+}
+section.abtexplore section.wrapper {
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+}
+section.abtexplore section.wrapper h2 {
+    font-family: 'Gropled';
+    font-size: 36px;
+    margin-bottom: 4vh;
+}
+
+section.abtexplore section.bottom {}
+
+section.abtexplore section.bottom img {
+    display: block;
+    width: 100%;;
+}
+
+
+
+section.personilize {
+    margin-bottom: 14vh;
+}
+section.personilize section.wrapper {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+}
+section.personilize section.wrapper section.left {
+    position: relative;
+}
+
+section.personilize section.wrapper section.left img.pbg {}
+
+section.personilize section.wrapper section.left h2 {
+    font-size: 56px;
+    line-height: 1.2em;
+    max-width: 100%;
+    position: absolute;
+    top: 8vh;
+    left: 38%;
+    width: 32vw;
+}
+section.personilize section.wrapper section.right {
+    position: relative;
+}
+
+section.personilize section.wrapper section.right img.pbg2 {
+    
+}
+
+section.personilize section.wrapper section.right span.hostch {
+    background: #fff;
+    display: flex
+;
+    align-items: center;
+    border-radius: 6px;
+    padding: 8px;
+    width: 12vw;
+    position: absolute;
+    top: 12vh;
+    left: -4vw;
+}
+section.personilize section.wrapper section.right span.hostch img {
+    margin-right: 8px;
+}
+
+section.personilize section.wrapper section.right span.hostch h3 {
+    font-size: 16px;
+    color: #000;
+}
+
+/*about.html */
+
+
+
+
+/*unlockproject.html */
+
+section.unlockliveprojects {
+    margin-bottom: 10vh;
+}
+
+section.unlockliveprojects section.wrapper {}
+
+section.unlockliveprojects section.wrapper section.top {}
+
+section.unlockliveprojects section.wrapper section.top section.left {}
+section.unlockliveprojects section.wrapper section.top section.left h2 {
+    font-family: 'Gropled';
+    font-size: 34px;
+    margin-bottom: 3vh;
+}
+section.unlockliveprojects section.wrapper hr.line {
+    margin-bottom: 6vh;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea {
+    display: block;
+    width: 57%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 0;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea img.unlockbg {
+    display: block;
+    width: 100%;
+    border-radius: 44px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    z-index: 0;
+    position: relative;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea section.logounlock {
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 28px;
+    left: 40%;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea section.logounlock img {
+    margin-right: 14px;
+}
+
+section.unlockliveprojects section.wrapper section.projectunlockarea section.logounlock h2 {}
+section.unlockliveprojects section.wrapper section.projectunlockarea h1
+ {
+    position: absolute;
+    top: 11vh;
+    left: 27%;
+    font-size: 48px;
+    font-family: 'Inter Bold';
+    display: block;
+    background: linear-gradient(to right, #B2EBF2, #D1C4E9, #F8BBD0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea h4 {
+    color: #B2EBF2;
+    position: absolute;
+    top: 18vh;
+    left: 45%;
+    font-size: 14px;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea section.timerarea {
+    position: absolute;
+    top: 22vh;
+    left: 27%;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea section.timerarea div.countdown{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #0a061c;
+    padding: 14px 28px;
+    border-radius: 8px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    width: 25vw;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea section.timerarea div.countdown div.time-box
+ {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-right: 36px;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea section.timerarea div.countdown div.time-box1{
+    margin-right: 0;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea section.timerarea div.countdown div.time-box div.time {
+    font-size: 48px;
+    font-family: 'Inter Bold';
+    margin-bottom: 8px;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea section.timerarea div.countdown img.export{
+    margin-right: 16px;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea section.timerarea div.countdown div.time-box div.label {}
+section.unlockliveprojects section.wrapper section.projectunlockarea h3.ambo {
+    font-size: 12px;
+    position: absolute;
+    top: 36.5vh;
+    left: 34%;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea div.email {
+    background: #070417;
+    border: 2px solid #fff;
+    border-radius: 50px;
+    position: absolute;
+    top: 41vh;
+    width: 30vw;
+    padding: 8px 12px;
+    padding-left: 16px;
+    left: 21%;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea div.email input[type="email"] {
+    background: none;
+    position: relative;
+    width: 90%;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea div.email img {
+    position: absolute;
+    display: block;
+    height: 2vh;
+    top: 8px;
+    right: 16px;
+    cursor: pointer;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea div.password {
+    background: #070417;
+    border: 2px solid #fff;
+    border-radius: 50px;
+    position: absolute;
+    top: 48vh;
+    width: 30vw;
+    padding: 8px 12px;
+    padding-left: 16px;
+    left: 21%;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea div.password input[type="password"],section.unlockliveprojects section.wrapper section.projectunlockarea div.password input {
+    background: none;
+    position: relative;
+    width: 90%;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea div.password img
+ {
+    position: absolute;
+    display: block;
+    height: 2vh;
+    top: 8px;
+    right: 16px;
+    cursor: pointer;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea button.unlockproject {
+    font-size: 19px;
+    position: relative;
+    padding: 10px 46px;
+    overflow: hidden;
+    margin-top: 0px;
+    border-radius: 22px;
+    font-family: 'Inter-SemiBold';
+    top: -10vh;
+    z-index: 22;
+    left: 38%;
+}
+section.unlockliveprojects section.wrapper section.projectunlockarea button.unlockproject::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to right,
+        #9A50E1,
+        #7050E0, #D1C4E9, #F8BBD0,#B2EBF2
+    );
+    z-index: -1;
+    border-radius: 5px;
+}
+
+video#authenticating {
+    overflow: hidden;
+    height: 100vh;
+    max-width: 100%;
+    position: absolute;
+    z-index: 99;
+}
+
+video#authenticating source {}
+
+section.projectunlockarea h3.errormessage {
+    position: absolute;
+    bottom: 16.5vh;
+    font-size: 10px;
+    color: #D84226;
+    left: 22%;
+}     
+section.projectunlockarea h3.enteremail,section.projectunlockarea h3.checkemail{
+    position: absolute;
+    top: 39.2vh;
+    font-size: 10px;
+    color: #D84226;
+    left: 24%;
+}
+section.projectunlockarea h3.enterpass {
+    position: absolute;
+    top: 46.3vh;
+    font-size: 10px;
+    color: #D84226;
+    left: 24%;
+}
+/*unlockproject.html */
+
+
+
+
+/*moduleshome.html */
+
+section.viewmodules section.wrapper section.top section.left {}
+section.viewmodules section.wrapper section.top section.left h2 {
+    font-family: 'Gropled';
+    font-size: 34px;
+    margin-bottom: 3vh;
+}
+section.viewmodules section.wrapper hr.line {
+    margin-bottom: 6vh;
+}
+
+
+
+
+section.modulearea {
+    margin-bottom: 16vh;
+}
+
+section.modulearea section.wrapper {
+    margin: 0 10.5vw;
+}
+
+
+section.modulearea section.wrapper ul {
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 18vh;
+}
+
+section.modulearea section.wrapper ul li {
+    border: 2px solid #262626;
+    border-radius: 8px;
+    padding: 12px;
+    width: 33.33%;
+    background: #1a1a1a;
+    margin-right: 36px;
+    min-height: 30vh;
+}
+section.modulearea section.wrapper ul li:last-child{
+    margin-right: 0;
+}
+section.modulearea section.wrapper ul li section.top {
+    position: relative;
+    height: 14vh;
+}
+section.modulearea section.wrapper ul li section.top img.modulehome {
+    display: block;
+    height: 22vh;
+    border-radius: 8px;
+    width: 100%;
+    position: relative;
+    top: -10vh;
+}
+section.modulearea section.wrapper ul li section.top img.lone, section.modulearea section.wrapper ul li section.top img.ltwo, section.modulearea section.wrapper ul li section.top img.lfour, section.modulearea section.wrapper ul li section.top img.lfive, section.modulearea section.wrapper ul li section.top img.lsix {
+    display: block;
+    height: 18px;
+    width: 18px;
+    position: absolute;
+    z-index: 50;
+    top: 7.5vh;
+    right: 8px;
+    background: #fff;
+    padding: 8px;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+section.modulearea section.wrapper ul li section.top img.lone {
+    right: 170px; 
+}
+
+section.modulearea section.wrapper ul li section.top img.ltwo {
+    right: 130px;
+}
+
+section.modulearea section.wrapper ul li section.top img.lfour {
+    right: 90px;
+}
+
+section.modulearea section.wrapper ul li section.top img.lfive {
+    right: 50px;
+}
+
+section.modulearea section.wrapper ul li section.top img.lsix {}
+
+
+
+
+section.modulearea section.wrapper ul li section.bottom {}
+
+section.modulearea section.wrapper ul li section.bottom div.moduletitle {
+    display: flex
+;
+    align-items: center;
+    margin-bottom: 1.6vh;
+}
+section.modulearea section.wrapper ul li section.bottom div.moduletitle h2.modulename {}
+
+section.modulearea section.wrapper ul li section.bottom div.moduletitle img.moduleimage {
+    display: block;
+    height: 3.5vh;
+    margin-left: 12px;
+}
+
+section.modulearea section.wrapper ul li section.bottom h3.pvalue {
+    margin-bottom: 0.5vh;
+}
+section.modulearea section.wrapper ul li section.bottom h4.uploadeddate {
+    background: linear-gradient(to right, #3f3f3f, #9c9c9f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 2vh;
+}
+section.modulearea section.wrapper ul li section.bottom a.redirectbutton {
+    font-size: 14px;
+    position: relative;
+    padding: 8px 46px;
+    overflow: hidden;
+    margin-top: 0px;
+    border-radius: 22px;
+    font-family: 'Inter-SemiBold';
+    z-index: 22;
+    border-radius: 44px;
+    margin-bottom: 2.6vh;
+    left: 23%;
+}
+section.modulearea section.wrapper ul li section.bottom a.redirectbutton::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right, #3f3f3f, #5f5858, #6d6d6d, #625f5f, #9c9c9f);
+    z-index: -1;
+    border-radius: 56px;
+}
+
+/*moduleshome.html */
+
+
+
+/*learnpath.html */
+
+section.learningsection {
+    position: relative;
+}
+
+section.learningunsection section.wrapper {}
+
+section.learningunsection section.wrapper section.top {}
+
+section.learningunsection section.wrapper section.top section.left {}
+
+section.learningunsection section.wrapper section.top section.left h2 {}
+
+section.learningunsection section.wrapper hr.line {}
+
+section.learningunsection section.wrapper section.unlocklearn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: #12111014;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    margin: 0 auto;
+    margin-top: 9vh;
+    min-height: 49vh;
+    margin-bottom: 14vh;
+    border-radius: 8px;
+    width: 56vw;
+    /* position: relative; */
+    z-index: 10;
+    position: relative;
+}
+section.learningunsection img.learnbg {
+    position: absolute;
+    display: block;
+    height: 61vh;
+    z-index: 4;
+    opacity: 30%;
+    top: 18vh;
+    left: 35%;
+}
+section.learningunsection section.wrapper section.unlocklearn h2 {
+    margin-bottom: 3vh;
+}
+
+section.learningunsection section.wrapper section.unlocklearn section.enterlearnemailid {}
+
+section.learningunsection section.wrapper section.unlocklearn section.enterlearnemailid div.emailid {
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    flex-direction: column;
+}
+section.learningunsection section.wrapper section.unlocklearn section.enterlearnemailid div.emailid label {
+    margin-bottom: -10px;
+    font-size: 12px;
+}
+section.learningunsection section.wrapper section.unlocklearn section.enterlearnemailid div.emailid input[type="email"] {
+    padding: 9px 24px;
+    border: 2px solid #41403f;
+    margin: 1.6vh 0;
+    width: 100%;
+    border-radius: 8px;
+    padding-left: 12px;
+}
+section.learningunsection section.wrapper section.unlocklearn section.enterlearnemailid div.fpassword {
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    flex-direction: column;
+}
+section.learningunsection section.wrapper section.unlocklearn section.enterlearnemailid div.fpassword label{
+    margin-bottom: -10px;
+    font-size: 12px;
+}
+section.learningunsection section.wrapper section.unlocklearn section.enterlearnemailid div.fpassword input{
+    padding: 9px 24px;
+    border: 2px solid #41403f;
+    margin: 1.6vh 0;
+    width: 100%;
+    border-radius: 8px;
+    padding-left: 12px;
+}
+section.learningunsection section.wrapper section.unlocklearn section.enterlearnemailid div.checkboxlearn {
+    display: flex;
+    align-items: center;
+}
+
+section.learningunsection section.wrapper section.unlocklearn section.enterlearnemailid div.checkboxlearn input[type="checkbox"] {
+    margin-right: 4px;
+}
+
+section.learningunsection section.wrapper section.unlocklearn section.enterlearnemailid div.checkboxlearn h6 {
+    margin-right: 6px;
+}
+
+section.learningunsection section.wrapper section.unlocklearn section.enterlearnemailid div.checkboxlearn a {
+    color: #631aff;
+    font-weight: 600;
+    font-size: 13px;
+}
+section.learningunsection section.wrapper section.unlocklearn section.enterlearnemailid button.gotolearn
+ {
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 2vh;
+    background: #fff;
+    color: #000;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 6px;
+}
+section.learningunsection section.wrapper section.unlocklearn .sampleemailandpass {
+    position: absolute;
+    bottom: 24px;
+    font-size: 10px;
+    opacity: 40%;
+}
+/*learnpath.html */
+
+
+
+section.jobpoup {
+    position: absolute;
+    border: 2px solid #262626;
+    border-radius: 8px;
+    padding: 12px;
+    width: 42vw;
+    background: #1a1a1a;
+    min-height: 22vh;
+    left: 27%;
+    top: 12vh;
+    z-index: 10;
+}
+section.jobpoup section.wrapper {
+    margin: 0 0.5vw;
+}
+section.jobpoup section.wrapper form {}
+
+section.jobpoup section.wrapper form h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.6vh;
+}
+
+section.jobpoup section.wrapper form h4 {
+    color: #999999;
+    font-size: 11px;
+    line-height: 1.3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 2vh;
+}
+section.jobpoup section.wrapper form div.name {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.3vh;
+}
+
+section.jobpoup section.wrapper form div.name label {
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+section.jobpoup section.wrapper form div.name input[type="text"] {
+    border: 2px solid #262626;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+section.jobpoup section.wrapper form div.designation {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.3vh;
+}
+section.jobpoup section.wrapper form div.designation label{
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+section.jobpoup section.wrapper form div.designation input {
+    border: 2px solid #262626;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+section.jobpoup section.wrapper form div.designation datalist {}
+
+section.jobpoup section.wrapper form div.designation datalist option {
+    width: 100%;
+}
+
+section.jobpoup section.wrapper form div.contactinfo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.3vh;
+}
+
+section.jobpoup section.wrapper form div.contactinfo label {
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+section.jobpoup section.wrapper form div.contactinfo input[type="email"] {
+    border: 2px solid #262626;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+section.jobpoup section.wrapper form div.contactinfo input[type="email"]:hover,
+section.jobpoup section.wrapper form div.designation input#browser:hover,
+section.jobpoup section.wrapper form div.name input[type="text"]:hover,
+section.jobpoup section.wrapper form div.contactinfo input[type="number"]:hover,
+section.jobpoup section.wrapper form div.shortdescribe textarea:hover,
+section.jobpoup section.wrapper form div.designation input:hover,
+section.jobpoup section.wrapper form div.mbnumer input[type="text"]:hover {
+    border: 2px solid #fff;
+    cursor: pointer;
+}
+section.jobpoup section.wrapper form div.mbnumer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.3vh;
+}
+
+section.jobpoup section.wrapper form div.mbnumer label {
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+section.jobpoup section.wrapper form div.mbnumer input[type="text"] {
+    border: 2px solid #262626;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+section.jobpoup section.wrapper form div.shortdescribe {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.3vh;
+}
+
+section.jobpoup section.wrapper form div.shortdescribe label {
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+section.jobpoup section.wrapper form div.shortdescribe textarea {
+    border: 2px solid #262626;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+section.jobpoup section.wrapper form button[type="submit"] {
+    background: #0d0c0a;
+    border: 2px solid #262627;
+    padding: 10px 36px;
+    border-radius: 10px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+section.jobpoup section.wrapper form button:hover{
+    border: 2px solid #fff;
+}
+
+
+
+.jobpoup.hide {
+    display: none;
+}
+
+.jobpoup .wrapper {
+    overflow-y: auto;
+    transform: scale(0.9);
+    transition: transform 300ms ease-in-out;
+}
+
+.jobpoup:not(.hide) .wrapper {
+    transform: scale(1);
+}
+
+/* Optional: Add backdrop blur effect */
+.jobpoup {
+    backdrop-filter: blur(5px);
+}
+section.jobgrey {
+    height: 100vh;
+    width: 100%;
+    background: #000000db;
+    position: absolute;
+    z-index: 8;
+}
+
+section.jobconfirmalert {
+    position: absolute;
+    border: 2px solid #262626;
+    border-radius: 8px;
+    padding: 12px;
+    width: 42vw;
+    background: #1a1a1a;
+    min-height: 22vh;
+    left: 27%;
+    top: 12vh;
+    z-index: 10;
+}
+section.jobconfirmalert h2.as {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+section.jobconfirmalert div.one {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section.jobconfirmalert div.one h2 {
+    font-size: 13px;
+}
+
+section.jobconfirmalert div.one h2 span.jobtitle {
+    font-size: 15px;
+    color: #6219ff;
+    font-weight: 700;
+}
+
+section.jobconfirmalert h4 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999999;;
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+section.jobconfirmalert hr.jobalertline {
+    display: block;
+    width: 100%;
+    height: 2.2px;
+    background: #262626;
+    margin: 8px 0;
+}
+section.jobconfirmalert h5 {
+    color: #a584f8;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section.jobconfirmalert button.jobconfirmbtn {
+    background: #0d0c0a;
+    border: 2px solid #262627;
+    padding: 10px 36px;
+    border-radius: 10px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    margin-top: 19px;
+}

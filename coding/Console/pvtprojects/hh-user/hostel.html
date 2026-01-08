@@ -1,0 +1,1840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Haven</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="../../css/style1.css" />
+    <link rel="stylesheet" href="css/font.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="images/logo-hostel.png" type="image/x-icon">
+    <style>
+        .calendar-title{
+            color: #fff;
+        }
+        
+        /* Calendar styles */
+        #checkincalendar {
+            display: none;
+            position: absolute;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            width: 320px;
+            z-index: 1000;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background-color: #0d6dfc;
+            color: white;
+        }
+        
+        .calendar-title {
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+        }
+        
+        .calendar-nav {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .calendar-nav button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .calendar-nav button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .calendar-nav button svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            background-color: #f1f5f9;
+            padding: 12px 0;
+            text-align: center;
+            font-weight: 500;
+            font-size: 13px;
+            color: #64748b;
+        }
+        
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            padding: 12px;
+        }
+        
+        .calendar-day {
+            padding: 10px 0;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 14px;
+            font-weight: 400;
+            color: #334155;
+            position: relative;
+        }
+        
+        .calendar-day:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .calendar-day.today {
+            font-weight: 600;
+            color: #0d6dfc;
+        }
+        
+        .calendar-day.today::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 6px;
+            height: 6px;
+            background-color: #0d6dfc;
+            border-radius: 50%;
+        }
+        
+        .calendar-day.selected {
+            background-color: #0d6dfc;
+            color: white;
+            font-weight: 500;
+        }
+        
+        .calendar-day.selected.today::before {
+            background-color: white;
+        }
+        
+        .calendar-day.other-month {
+            color: #94a3b8;
+        }
+        
+        .calendar-footer {
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #e2e8f0;
+            background-color: #f8fafc;
+        }
+        
+        .calendar-footer button {
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .today-btn {
+            background-color: transparent;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+        }
+        
+        .today-btn:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .close-btn {
+            background-color: #0d6dfc;
+            color: white;
+            border: none;
+        }
+        
+        .close-btn:hover {
+            background-color: #2563eb;
+        }
+
+
+                /* Checkout Calendar styles - different color scheme */
+        #checkoutcalendar {
+            display: none;
+            position: absolute;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            width: 320px;
+            z-index: 1000;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .checkout-calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background-color: #f55c2a; /* Purple instead of blue */
+            color: white;
+        }
+        
+        .checkout-calendar-title {
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            color: #fff;
+        }
+        
+        .checkout-calendar-nav {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .checkout-calendar-nav button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .checkout-calendar-nav button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .checkout-calendar-nav button svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .checkout-calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            background-color: #f1f5f9;
+            padding: 12px 0;
+            text-align: center;
+            font-weight: 500;
+            font-size: 13px;
+            color: #64748b;
+        }
+        
+        .checkout-calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            padding: 12px;
+        }
+        
+        .checkout-calendar-day {
+            padding: 10px 0;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 14px;
+            font-weight: 400;
+            color: #334155;
+            position: relative;
+        }
+        
+        .checkout-calendar-day:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .checkout-calendar-day.today {
+            font-weight: 600;
+            color: #f55c2a; /* Purple instead of blue */
+        }
+        
+        .checkout-calendar-day.today::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 6px;
+            height: 6px;
+            background-color: #f55c2a; /* Purple instead of blue */
+            border-radius: 50%;
+        }
+        
+        .checkout-calendar-day.selected {
+            background-color: #f55c2a; /* Purple instead of blue */
+            color: white;
+            font-weight: 500;
+        }
+        
+        .checkout-calendar-day.selected.today::before {
+            background-color: white;
+        }
+        
+        .checkout-calendar-day.other-month {
+            color: #94a3b8;
+        }
+        
+        .checkout-calendar-footer {
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #e2e8f0;
+            background-color: #f8fafc;
+        }
+        
+        .checkout-calendar-footer button {
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .checkout-today-btn {
+            background-color: transparent;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+        }
+        
+        .checkout-today-btn:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .checkout-close-btn {
+            background-color: #f55c2a; /* Purple instead of blue */
+            color: white;
+            border: none;
+        }
+        
+        .checkout-close-btn:hover {
+            background-color: #f55c2a;
+        }
+    </style>
+</head>
+<body>
+
+    <!--(popups calenadar)!-->
+            <div id="checkincalendar">
+        <div class="calendar-header">
+            <div class="calendar-nav">
+                <button class="prev-month">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <button class="next-month">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+            <div class="calendar-title">June 2025</div>
+            <div style="width: 60px;"></div> <!-- Spacer for balance -->
+        </div>
+        <div class="calendar-weekdays">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+        </div>
+        <div class="calendar-days"></div>
+        <div class="calendar-footer">
+            <button class="today-btn">Today</button>
+            <button class="close-btn">Apply</button>
+        </button>
+    </div>
+    </div>
+
+
+
+        <div id="checkoutcalendar" style="    top: 900.963px !important;
+    left: 1121.5px !important;">
+        <div class="checkout-calendar-header">
+            <div class="checkout-calendar-nav">
+                <button class="checkout-prev-month">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <button class="checkout-next-month">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+            <div class="checkout-calendar-title">July 2025</div>
+            <div style="width: 60px;"></div> <!-- Spacer for balance -->
+        </div>
+        <div class="checkout-calendar-weekdays">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+        </div>
+        <div class="checkout-calendar-days"></div>
+        <div class="checkout-calendar-footer">
+            <button class="checkout-today-btn">Today</button>
+            <button class="checkout-close-btn">Apply</button>
+        </div>
+    </div>
+    <!--(popups calenadar)!-->
+
+
+    <!--(popups)!-->
+
+
+    <section class="sun1">
+        <section class="wrapper">
+            <h2 class="sl1"></h2>
+            <h2 class="s12"></h2>
+            <h2 class="s13"></h2>
+            <h2 class="s14"></h2>
+            <h2 class="s15"></h2>
+            <h2 class="s16"></h2>
+        </section>
+    </section>
+
+
+    <section class="msgalert">
+        <section class="close">
+            <h2></h2>
+        </section>
+    </section>
+
+    
+
+
+
+
+    <!--(popups)!-->
+
+
+    <!--(loginsection)!-->
+    <section class="loginbg hide"></section>
+
+        <section class="signupcontainer hide">
+        <section class="wrapper">
+            <section class="left">
+                <div class="languageselect">
+                    <img src="images/FLAG.svg" alt="flag" />
+                    <select name="" id="">
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                    </select>
+                </div>
+                <div class="logoarea">
+                    <img src="images/logomain.png" alt="logo-main" class="logo">
+                    <h2>Hosto Haven</h2>
+                </div>
+                <h3>Create an account and enjoy starting Hosto Haven!</h3>
+                <div class="emailhead">
+                    <hr class="signupline">
+                    <h3>Sign up with Email</h3>
+                    <hr class="signupline">
+                </div>
+                <section class="detailsarea">
+                    <div class="name">
+                        <label for="Name">Name</label>
+                        <span class="Name">
+                            <img src="images/bx_bx-user.svg" alt="vector-email">
+                            <input type="text" name="" id="" placeholder="John Smith">
+                        </span>
+                    </div>
+                    <div class="emailarea">
+                        <label for="Email">Email</label>
+                        <span class="emailinput">
+                            <img src="images/Vector.svg" alt="vector-email">
+                            <input type="email" name="" id="" placeholder="john@example.com">
+                        </span>
+                    </div>
+                    <div class="password">
+                        <label for="Pass">Password</label>
+                        <span class="passinput">
+                            <img src="images/lock.svg" alt="vector-email">
+                            <input type="password" name="" id="" placeholder="Min. 8 characters">
+                            <img src="images/akar-icons_eye.svg" alt="lock">
+                        </span>
+                    </div>
+                </section>
+                <section class="termsarea">
+                    <input type="checkbox" name="" id="" >
+                    <span class="termload">
+                        <h3>I agree to the</h3>
+                        <h3 class="tcnote">Terms & Conditions</h3>
+                    </span>
+                </section>
+                <button type="submit">Sign Up</button>
+                <section class="alreadylogged">
+                    <h3>Already have an Account?</h3>
+                    <h3 class="alreadyregistered">Login</h3>
+                </section>
+            </section>
+            <section class="right">
+                <img src="images/9712774_4155936.png" alt="rightimage">
+            </section>
+        </section>
+    </section>
+
+
+    <section class="logincontainer hide">
+        <section class="wrapper">
+            <section class="left">
+                <div class="languageselect">
+                    <img src="images/FLAG.svg" alt="flag" />
+                    <select name="" id="">
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                        <option value="English (USA)">English (USA) </option>
+                    </select>
+                </div>
+                <div class="logoarea">
+                    <img src="images/logomain.png" alt="logo-main" class="logo">
+                    <h2>Hosto Haven</h2>
+                </div>
+                <h3>Create an account and enjoy starting Hosto Haven!</h3>
+                <div class="emailhead">
+                    <hr class="signupline">
+                    <h3>Sign In with Email</h3>
+                    <hr class="signupline">
+                </div>
+                <section class="detailsarea">
+                    <div class="emailarea">
+                        <label for="Email">Email</label>
+                        <span class="emailinput">
+                            <img src="images/Vector.svg" alt="vector-email">
+                            <input type="email" name="" id="" placeholder="john@example.com">
+                        </span>
+                    </div>
+                    <div class="password">
+                        <label for="Pass">Password</label>
+                        <span class="passinput">
+                            <img src="images/lock.svg" alt="vector-email">
+                            <input type="password" name="" id="" placeholder="********">
+                            <img src="images/akar-icons_eye.svg" alt="lock">
+                        </span>
+                    </div>
+                </section>
+                <section class="rememberme">
+                    <div class="checkrem">
+                        <input type="checkbox" name="" id="" >
+                        <h3>Remember Me</h3>
+                    </div>
+                    <span class="forgotpass">
+                        <a href="forgot.html"><h3 class="frgtpass">Forgot your password?</h3></a>
+                    </span>
+                </section>
+                <button type="submit">Sign Up</button>
+                <section class="notregistered">
+                    <h3>Not registered yet?</h3>
+                    <h3 class="notregisteredac"> Create an Account</h3>
+                </section>
+            </section>
+            <section class="right">
+                <img src="images/9712774_4155936.png" alt="rightimage">
+            </section>
+        </section>
+    </section>
+
+
+
+
+
+
+    <!--(loginsection)!-->
+
+
+
+
+
+    <header>
+        <section class="wrapper">
+            <section class="left">
+                <img src="images/logomain.png" alt="logo-main-hostel" class="mainlogo">
+                <div class="webname">
+                    <span class="name">
+                        <h2 class="Hostel">Hostel</h2>
+                        <h2 class="Haven">Haven</h2>
+                    </span>
+                    <span class="des">
+                        <h3>your next space</h3>
+                    </span>
+                </div>
+            </section>
+            <section class="center">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="index.html">
+                                <h3>Home</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="About.html">
+                                <h3>About us</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="deals.html">
+                                <h3>Deals</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="blog.html">
+                                <h3>Blog</h3>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </section>
+            <section class="right">
+                <button class="login">Login</button>
+            </section>
+        </section>
+    </header>
+
+    <hr class="ggline">
+
+    <section class="hosteldtop">
+        <section class="wrapper">
+            <section class="left">
+                <h2 class="hostelfullname">Canyon Creek Cabins</h2>
+            </section>
+            <section class="right">
+                <button class="share">
+                    <img src="images/lucide_share.svg" alt="share-icon-hostel">
+                    <h3>Share</h3>
+                </button>
+                <button class="save">
+                    <h3>Save</h3>
+                </button>
+            </section>
+        </section>
+    </section>
+
+
+    <section class="imageshowarea">
+        <section class="wrapper">
+            <section class="top">
+                <section class="left">
+                    <img src="images/Rectangle 16.png" alt="hostel-main-image" class="mainimage">
+                </section>
+                <section class="right">
+                    <ul>
+                        <li>
+                            <img src="images/Rectangle 17.png" alt="hostelsubimages" />
+                        </li>
+                        <li>
+                            <img src="images/Rectangle 18.png" alt="hostelsubimages" />
+                        </li>
+                        <li>
+                            <img src="images/Rectangle 19.png" alt="hostelsubimages" />
+                        </li>
+                        <li>
+                            <img src="images/Rectangle 20.png" alt="hostelsubimages" />
+                            <button class="showmore">
+                                <img src="images/show all icon.svg" alt="show-all-hostel-images" />
+                                <h3>Show all photos</h3>
+                            </button>
+                        </li>
+                    </ul>
+                </section>
+            </section>
+            <section class="bottom showmoreimages">
+                <img src="images/Rectangle 19.png" alt="hostel-extraimages-if-added">
+                <img src="images/Rectangle 19.png" alt="hostel-extraimages-if-added">
+                <img src="images/Rectangle 19.png" alt="hostel-extraimages-if-added">
+                <img src="images/Rectangle 19.png" alt="hostel-extraimages-if-added">
+                <img src="images/Rectangle 19.png" alt="hostel-extraimages-if-added">
+            </section>
+            <section class="description">
+                    <section class="left">
+                        <div class="hostelnamed">
+                            <h2>Entire cabin in Granite Falls</h2>,
+                            <h2>Idukki</h2>,
+                            <h2>Kerala</h2>
+                        </div>
+                        <div class="facilitiesarea">
+                            <h3 class="num">6</h3>
+                            <h3>guests</h3>
+                            <h3 class="dot">.</h3>
+                            <h3 class="num">1</h3>
+                            <h3>bedrooms</h3>
+                            <h3 class="dot">.</h3>
+                            <h3 class="num">6</h3>
+                            <h3>beds</h3>
+                            <h3 class="dot">.</h3>
+                            <h3 class="num">3</h3>
+                            <h3>washroom</h3>
+                        </div>
+                        <div class="guestfavourite">
+                            <img src="images/Frame 94.svg" alt="guest-favourite" />
+                            <h5>One of the most loved homes on Hostohaven, according to guests</h5>
+                            <div class="ratingstar">
+                                <h3>4.93</h3>
+                                <img src="images/Frame 95.svg" alt="frame-start-rating" />
+                            </div>
+                        </div>
+                        <div class="hostedarea">
+                            <div class="one">
+                                <img src="images/warden-icon.png" alt="hostel-owner-icon" />
+                            </div>
+                            <div class="two">
+                                <div class="hs1">
+                                    <h2>Hosted by</h2>
+                                    <h2 class="warden name">Warden name</h2>
+                                </div>
+                                <div class="hs2">
+                                    <h3>Hostohaven . 8 years hosting </h3>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <hr class="blackline">
+                        <div class="cancellation">
+                            <form action="">
+                                <ul>
+                                <li>
+                                    <img src="images/cancellation.svg" alt="cancellation">
+                                    <div class="two">
+                                        <div class="cn">
+                                            <h3>Free cancellation before </h3>
+                                            <h3 class="cancellationdate">May 5</h3>
+                                        </div>
+                                        <h4>Get a full refund if you change your mind. </h4>
+                                    </div>
+                                </li>
+                                <li>
+                                    <img src="images/clarity_design-line.svg" alt="clarity_design">
+                                    <div class="two">
+                                        <h3>Designed by</h3>
+                                        <h4>Hosto haven developers</h4>
+                                    </div>
+                                </li>
+                            </ul>
+                            </form>
+                        </div>
+                        <div class="popular"></div>
+                        <hr class="blackline">
+                        <div class="detaileddescribe">
+                            <h3>
+                                Perched high on a granite ledge, you will find this cabin overlooking a rushing river that weaves its way through the dense, lush forest of the North Cascade mountains. The unique asymmetrical A-frame structure is both unexpected and familiar, with its wood-clad walls, exposed beams, and large geometric windows. Whether you are playing whiskey-fueled card game by the fire, or lounging in the hottub while listening to the nearby rushing creek, this cabin offers the ultimate....
+                            </h3>
+                        </div>
+                        <hr class="blackline">
+                        <div class="sleepingarea">
+                            <h2>Where you'll sleep</h2>
+                            <ul>
+                                <li class="selectbedtypecurrent">
+                                    <img src="images/la_bed.png" alt="bed-icon">
+                                    <div class="ss">
+                                        <input type="checkbox" name="" id="firstbedtype">
+                                        <h3>Bed Room 1</h3>
+                                        <h4>1 Single bed</h4>
+                                        <h6 class="priceofbed" style="opacity: 0;display:none;">500</h6>
+                                    </div>
+                                </li>
+                                <li class="selectbedtypecurrent">
+                                    <img src="images/la_bed.png" alt="bed-icon">
+                                    <div class="ss">
+                                        <input type="checkbox" name="" id="secondbedtype">
+                                        <h3>Bed Room 2</h3>
+                                        <h4>2 queen bed</h4>
+                                        <h6 class="priceofbed" style="opacity: 0;display:none;">600</h6>
+                                    </div>
+                                </li>
+                                <li class="selectbedtypecurrent">
+                                    <img src="images/la_bed.png" alt="bed-icon">
+                                    <div class="ss">
+                                        <input type="checkbox" name="" id="thirdbedtype">
+                                        <h3>Bed Room 3</h3>
+                                        <h4>4 queen bed</h4>
+                                        <h6 class="priceofbed" style="opacity: 0;display:none;">700</h6>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <hr class="blackline">
+                        <div class="placeoffers"></div>
+                    </section>
+                    <section class="right">
+                        <section class="rightone">
+                            <div class="rentminimum">
+                            <img src="images/rupee-indian.png" alt="rupee-icon">
+                            <h2 class="drent">150</h2>
+                            <h3>Daily</h3>
+                        </div>
+                        <div class="checkarea">
+                            <div class="one">
+                                <ul>
+                                    <li class="checkindate">
+                                        <h3>CHECK-IN</h3>
+                                        <h3 class="checkindate showcheckindate">5/6/2025</h3>
+                                    </li>
+                                    <li class="checkoutdate">
+                                        <h3>CHECKOUT</h3>
+                                        <h3 class="checkoutdate showcheckoutdate">5/7/2025</h3>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="two">
+                                <label for="Guests">Guests</label>
+                                <select name="" id="noofguest">
+                                    <option value="1 Guest">1 Guest</option>
+                                    <option value="2 Guest">2 Guest</option>
+                                    <option value="3 Guest">3 Guest</option>
+                                    <option value="4 Guest">4 Guest</option>
+                                    <option value="5 Guest">5 Guest</option>
+                                </select>
+                            </div>
+                        </div>
+                        <a href="cart.html">
+                            <button class="reserve">Reserve</button>
+                        </a>
+                        <!-- form for data collection!-->
+                         
+                        <!-- form for data collection!-->
+                        <h3>You won't be extra charged yet</h3>
+                        <div class="chargingarea">
+                                <ul>
+                                    <li>
+                                        <div class="left">
+                                            <img src="images/rupee-indian.png" alt="rupee-india-base-price">
+                                            <h3 class="baseprice">365</h3>
+                                            <img src="images/close.png" alt="close-icon">
+                                            <h3 class="count">5</h3>
+                                            <h3 class="days">Days</h3>
+                                        </div>
+                                        <div class="ss">
+                                            <img src="images/rupee-indian.png" alt="rupee-icon" />
+                                            <h3 class="daytotalrent">000</h3>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="left">
+                                            <h3>Cleaning fee</h3>
+                                        </div>
+                                        <div class="right">
+                                            <img src="images/rupee-indian.png" alt="rupee-icon" />
+                                            <h3 class="cleaningfee">149</h3>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="left">
+                                            <h3>Hostohaven  service fee</h3>
+                                        </div>
+                                        <div class="right">
+                                            <img src="images/rupee-indian.png" alt="rupee-icon" />
+                                            <h3 class="Hostohavenservicefee">99</h3>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="left">
+                                            <h3>Taxes</h3>
+                                        </div>
+                                        <div class="right">
+                                            <img src="images/rupee-indian.png" alt="rupee-icon" />
+                                            <h3 class="tax">64</h3>
+                                        </div>
+                                    </li>
+                                </ul>
+                        </div>
+                        <hr class="blackline">
+                        <div class="totalcharge">
+                            <h2>Total</h2>
+                            <div class="two">
+                                <img src="images/rupee-indian.png" alt="ruppe-icon-total-price">
+                                <h2 class="Totalexp">000</h2>
+                            </div>
+                        </div>
+                        </section>
+                        <section class="righttwo">
+                            <div class="rl1">
+                                <h3><span>This is a rare find.</span> it's usually fully booked.Have a great Time here Enjoy</h3>
+                            </div>
+                            <div class="rl2">
+                                <img src="images/1551445551 1.svg" alt="rare-diamond" />
+                            </div>
+                        </section>
+                </section>
+            </section>
+        </section>
+    </section>
+
+
+    <form action="" method="post" class="hiddenformforhostelbed" readonly>
+        <input type="text" name="" id="" value="" class="dailyrent drent" readonly>
+        <input type="text" name="" id="" value="" class="checkindate" readonly>
+        <input type="text" name="" id="" value="" class="checkoutdate" readonly>
+
+        <input type="text" name="" id="" value="" class="guestcount noofguest" readonly>
+        <input type="text" name="" id="" value="" class="totaldays count" readonly>
+        <input type="text" name="" id="" value="" class="totaldaysmultiplydailyrent daytotalrent" readonly>
+        <input type="text" name="" id="" value="" class="cleaningfee" readonly>
+        <input type="text" name="" id="" value="" class="servicecharge Hostohavenservicefee" readonly>
+        <input type="text" name="" id="" value="" class="taxes tax" readonly>
+        <input type="text" name="" id="" value="" class="totalamount Totalexp" readonly>
+    </form>
+
+
+    <footer>
+        <section class="wrapper">
+            <section class="one">
+                <div class="fone">
+                    <section class="left">
+                        <a href="index.html" style="display:flex;align-items:center;">
+                    <img src="images/logomain.png" alt="logo-main-hostel" class="mainlogo">
+                <div class="webname">
+                    <span class="name">
+                        <h2 class="Hostel">Hostel</h2>
+                        <h2 class="Haven">Haven</h2>
+                    </span>
+                    <span class="des">
+                        <h3>your next space</h3>
+                    </span>
+                </div>
+                </a>
+                    </section>
+                    <h3 class="deshostel">Welcome to your own Hostel Haven, We are exitced to introduce our latest features and offerings that enhance your hostel management system than any other providers.</h3>
+
+                </div>
+                <div class="ftwo">
+                    <ul>
+                        <li>
+                            <a href="index.html">
+                                <h3 class="bcl">Home</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <h3>About us</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <h3>Deals</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <h3>Blog</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <h3>Contact us</h3>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <hr class="ggline">
+            <section class="two">
+                <ul>
+                    <li>
+                        <a href="">
+                            <h3>Privacy Policy</h3>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <h3>Help & Supports</h3>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            <hr class="ggline">
+            <section class="three">
+                <ul>
+                    <li>
+                        <h3>Location</h3>
+                    </li>
+                    <li>
+                        <div class="l">
+                            <img src="images/location.png" alt="location">
+                        </div>
+                        <div class="r">
+                            <h4>JPM arts and Science College</h4>
+                            <h4>Labbakkada</h4>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+        </section>
+    </footer>
+
+
+
+
+</body>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const shareButtons = document.querySelectorAll('.share');
+            
+            shareButtons.forEach(button => {
+                button.addEventListener('click', async () => {
+                    try {
+                        if (navigator.share) {
+                            await navigator.share({
+                                title: document.title,
+                                text: 'Check out this interesting page!',
+                                url: window.location.href
+                            });
+                        } else {
+                            const shareUrl = `mailto:?subject=${encodeURIComponent(document.title)}&body=${encodeURIComponent(window.location.href)}`;
+                            window.open(shareUrl, '_blank');
+                        }
+                    } catch (error) {
+                        console.log('Sharing was cancelled', error);
+                    }
+                });
+            });
+        });
+    </script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const checkinTrigger = document.querySelector('.checkindate');
+            const checkinDisplay = document.querySelector('.showcheckindate');
+            const calendar = document.getElementById('checkincalendar');
+            const calendarDays = document.querySelector('.calendar-days');
+            const calendarTitle = document.querySelector('.calendar-title');
+            const prevMonthBtn = document.querySelector('.prev-month');
+            const nextMonthBtn = document.querySelector('.next-month');
+            const todayBtn = document.querySelector('.today-btn');
+            const closeBtn = document.querySelector('.close-btn');
+            
+            // Current date and selected date
+            let currentDate = new Date(2025, 5, 5); // June 5, 2025 (as per your example)
+            let selectedDate = new Date(currentDate);
+            
+            // Initialize calendar
+            renderCalendar();
+            
+            // Event listeners
+            checkinTrigger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const rect = this.getBoundingClientRect();
+                calendar.style.top = `${rect.bottom + window.scrollY + 8}px`;
+                calendar.style.left = `${rect.left + window.scrollX}px`;
+                calendar.style.display = 'block';
+            });
+            
+            prevMonthBtn.addEventListener('click', function() {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                renderCalendar();
+            });
+            
+            nextMonthBtn.addEventListener('click', function() {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                renderCalendar();
+            });
+            
+            todayBtn.addEventListener('click', function() {
+                currentDate = new Date();
+                selectedDate = new Date(currentDate);
+                renderCalendar();
+                updateDisplay();
+            });
+            
+            closeBtn.addEventListener('click', function() {
+                calendar.style.display = 'none';
+            });
+            
+            // Close calendar when clicking outside
+            document.addEventListener('click', function() {
+                calendar.style.display = 'none';
+            });
+            
+            // Prevent calendar from closing when clicking inside it
+            calendar.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+            
+            // Render calendar function
+            function renderCalendar() {
+                // Clear previous days
+                calendarDays.innerHTML = '';
+                
+                // Set calendar title
+                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                                   'July', 'August', 'September', 'October', 'November', 'December'];
+                calendarTitle.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+                
+                // Get first day of month and total days in month
+                const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+                const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+                
+                // Get day of week for first day (0 = Sunday, 6 = Saturday)
+                const startDay = firstDay.getDay();
+                
+                // Get days from previous month to show
+                const prevMonthDays = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+                
+                // Create days from previous month
+                for (let i = startDay - 1; i >= 0; i--) {
+                    const dayElement = document.createElement('div');
+                    dayElement.classList.add('calendar-day', 'other-month');
+                    dayElement.textContent = prevMonthDays - i;
+                    calendarDays.appendChild(dayElement);
+                }
+                
+                // Create days for current month
+                const today = new Date();
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.classList.add('calendar-day');
+                    dayElement.textContent = i;
+                    
+                    // Check if this day is today
+                    if (currentDate.getFullYear() === today.getFullYear() && 
+                        currentDate.getMonth() === today.getMonth() && 
+                        i === today.getDate()) {
+                        dayElement.classList.add('today');
+                    }
+                    
+                    // Check if this day is selected
+                    if (currentDate.getFullYear() === selectedDate.getFullYear() && 
+                        currentDate.getMonth() === selectedDate.getMonth() && 
+                        i === selectedDate.getDate()) {
+                        dayElement.classList.add('selected');
+                    }
+                    
+                    // Add click event
+                    dayElement.addEventListener('click', function() {
+                        selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
+                        renderCalendar();
+                        updateDisplay();
+                    });
+                    
+                    calendarDays.appendChild(dayElement);
+                }
+                
+                // Calculate total cells so far
+                const totalCells = startDay + daysInMonth;
+                const remainingCells = 42 - totalCells; // 6 rows x 7 days
+                
+                // Create days from next month
+                for (let i = 1; i <= remainingCells; i++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.classList.add('calendar-day', 'other-month');
+                    dayElement.textContent = i;
+                    calendarDays.appendChild(dayElement);
+                }
+            }
+            
+            // Update the display with selected date
+            function updateDisplay() {
+                const formattedDate = `${selectedDate.getDate()}/${selectedDate.getMonth() + 1}/${selectedDate.getFullYear()}`;
+                checkinDisplay.textContent = formattedDate;
+            }
+        });
+    </script>
+     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const checkoutTrigger = document.querySelector('.checkoutdate');
+            const checkoutDisplay = document.querySelector('.showcheckoutdate');
+            const calendar = document.getElementById('checkoutcalendar');
+            const calendarDays = document.querySelector('.checkout-calendar-days');
+            const calendarTitle = document.querySelector('.checkout-calendar-title');
+            const prevMonthBtn = document.querySelector('.checkout-prev-month');
+            const nextMonthBtn = document.querySelector('.checkout-next-month');
+            const todayBtn = document.querySelector('.checkout-today-btn');
+            const closeBtn = document.querySelector('.checkout-close-btn');
+            
+            // Current date and selected date
+            let currentDate = new Date(2025, 6, 5); // July 5, 2025 (as per your example)
+            let selectedDate = new Date(currentDate);
+            
+            // Initialize calendar
+            renderCalendar();
+            
+            // Event listeners
+            checkoutTrigger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const rect = this.getBoundingClientRect();
+                
+                calendar.style.display = 'block';
+            });
+            
+            prevMonthBtn.addEventListener('click', function() {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                renderCalendar();
+            });
+            
+            nextMonthBtn.addEventListener('click', function() {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                renderCalendar();
+            });
+            
+            todayBtn.addEventListener('click', function() {
+                currentDate = new Date();
+                selectedDate = new Date(currentDate);
+                renderCalendar();
+                updateDisplay();
+            });
+            
+            closeBtn.addEventListener('click', function() {
+                calendar.style.display = 'none';
+            });
+            
+            // Close calendar when clicking outside
+            document.addEventListener('click', function() {
+                calendar.style.display = 'none';
+            });
+            
+            // Prevent calendar from closing when clicking inside it
+            calendar.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+            
+            // Render calendar function
+            function renderCalendar() {
+                // Clear previous days
+                calendarDays.innerHTML = '';
+                
+                // Set calendar title
+                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                                   'July', 'August', 'September', 'October', 'November', 'December'];
+                calendarTitle.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+                
+                // Get first day of month and total days in month
+                const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+                const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+                
+                // Get day of week for first day (0 = Sunday, 6 = Saturday)
+                const startDay = firstDay.getDay();
+                
+                // Get days from previous month to show
+                const prevMonthDays = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+                
+                // Create days from previous month
+                for (let i = startDay - 1; i >= 0; i--) {
+                    const dayElement = document.createElement('div');
+                    dayElement.classList.add('checkout-calendar-day', 'other-month');
+                    dayElement.textContent = prevMonthDays - i;
+                    calendarDays.appendChild(dayElement);
+                }
+                
+                // Create days for current month
+                const today = new Date();
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.classList.add('checkout-calendar-day');
+                    dayElement.textContent = i;
+                    
+                    // Check if this day is today
+                    if (currentDate.getFullYear() === today.getFullYear() && 
+                        currentDate.getMonth() === today.getMonth() && 
+                        i === today.getDate()) {
+                        dayElement.classList.add('today');
+                    }
+                    
+                    // Check if this day is selected
+                    if (currentDate.getFullYear() === selectedDate.getFullYear() && 
+                        currentDate.getMonth() === selectedDate.getMonth() && 
+                        i === selectedDate.getDate()) {
+                        dayElement.classList.add('selected');
+                    }
+                    
+                    // Add click event
+                    dayElement.addEventListener('click', function() {
+                        selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
+                        renderCalendar();
+                        updateDisplay();
+                    });
+                    
+                    calendarDays.appendChild(dayElement);
+                }
+                
+                // Calculate total cells so far
+                const totalCells = startDay + daysInMonth;
+                const remainingCells = 42 - totalCells; // 6 rows x 7 days
+                
+                // Create days from next month
+                for (let i = 1; i <= remainingCells; i++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.classList.add('checkout-calendar-day', 'other-month');
+                    dayElement.textContent = i;
+                    calendarDays.appendChild(dayElement);
+                }
+            }
+            
+            // Update the display with selected date
+            function updateDisplay() {
+                const formattedDate = `${selectedDate.getDate()}/${selectedDate.getMonth() + 1}/${selectedDate.getFullYear()}`;
+                checkoutDisplay.textContent = formattedDate;
+            }
+        });
+    </script>
+<script src="js/script.js" defer></script>
+<script src="../../js/alert.js" defer></script>
+<script src="../../js/prevent.js" defer></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get all bed selection checkboxes
+        const bedCheckboxes = document.querySelectorAll('#firstbedtype, #secondbedtype, #thirdbedtype');
+        
+        // Get display elements
+        const drentElement = document.querySelector('.drent');
+        const basepriceElement = document.querySelector('.baseprice');
+        
+        // Function to calculate and update total price
+        function updateTotalPrice() {
+            let totalPrice = 0;
+            
+            // Loop through each checkbox
+            bedCheckboxes.forEach((checkbox, index) => {
+                if (checkbox.checked) {
+                    // Get the corresponding price element
+                    const listItem = checkbox.closest('.selectbedtypecurrent');
+                    const priceElement = listItem.querySelector('.priceofbed');
+                    const price = parseInt(priceElement.textContent);
+                    totalPrice += price;
+                }
+            });
+            
+            // Update the display elements
+            if (drentElement) {
+                drentElement.textContent = totalPrice;
+            }
+            
+            if (basepriceElement) {
+                basepriceElement.textContent = totalPrice;
+            }
+            
+            // Also update daytotalrent if it exists
+            const dayTotalElement = document.querySelector('.daytotalrent');
+            if (dayTotalElement) {
+                dayTotalElement.textContent = totalPrice;
+            }
+        }
+        
+        // Add event listeners to all checkboxes
+        bedCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateTotalPrice);
+        });
+        
+        // Initial calculation
+        updateTotalPrice();
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Elements
+        const checkinElement = document.querySelector('.showcheckindate');
+        const checkoutElement = document.querySelector('.showcheckoutdate');
+        const countElement = document.querySelector('.count');
+        const basepriceElement = document.querySelector('.baseprice');
+        const daytotalrentElement = document.querySelector('.daytotalrent');
+        
+        // Function to parse date from format "d/m/yyyy"
+        function parseDate(dateString) {
+            const [day, month, year] = dateString.split('/').map(Number);
+            return new Date(year, month - 1, day);
+        }
+        
+        // Function to calculate days between dates
+        function calculateDaysBetween() {
+            if (checkinElement && checkoutElement && countElement) {
+                const checkinDate = parseDate(checkinElement.textContent);
+                const checkoutDate = parseDate(checkoutElement.textContent);
+                
+                // Calculate difference in milliseconds
+                const timeDiff = checkoutDate.getTime() - checkinDate.getTime();
+                
+                // Convert to days
+                const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                
+                // Update count element
+                countElement.textContent = daysDiff;
+                
+                // Trigger multiplication update
+                updateMultiplication();
+            }
+        }
+        
+        // Function to perform multiplication
+        function updateMultiplication() {
+            if (basepriceElement && countElement && daytotalrentElement) {
+                const baseprice = parseInt(basepriceElement.textContent) || 0;
+                const count = parseInt(countElement.textContent) || 0;
+                const result = baseprice * count;
+                daytotalrentElement.textContent = result;
+            }
+        }
+        
+        // Initial calculations
+        calculateDaysBetween();
+        updateMultiplication();
+        
+        // Observer to watch for date changes
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.target.classList.contains('showcheckindate') || 
+                    mutation.target.classList.contains('showcheckoutdate')) {
+                    calculateDaysBetween();
+                }
+                if (mutation.target.classList.contains('baseprice')) {
+                    updateMultiplication();
+                }
+            });
+        });
+        
+        // Start observing
+        if (checkinElement) observer.observe(checkinElement, { childList: true, subtree: true });
+        if (checkoutElement) observer.observe(checkoutElement, { childList: true, subtree: true });
+        if (basepriceElement) observer.observe(basepriceElement, { childList: true, subtree: true });
+        
+        // Integration with existing bed selection
+        const originalUpdateTotalPrice = window.updateTotalPrice || function() {};
+        window.updateTotalPrice = function() {
+            originalUpdateTotalPrice();
+            updateMultiplication();
+        };
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Elements for addition
+        const daytotalrentElement = document.querySelector('.daytotalrent');
+        const cleaningfeeElement = document.querySelector('.cleaningfee');
+        const servicefeeElement = document.querySelector('.Hostohavenservicefee');
+        const taxElement = document.querySelector('.tax');
+        const totalexpElement = document.querySelector('.Totalexp');
+        
+        // Function to calculate total expenses
+        function calculateTotalExpenses() {
+            if (daytotalrentElement && cleaningfeeElement && servicefeeElement && taxElement && totalexpElement) {
+                const daytotalrent = parseInt(daytotalrentElement.textContent) || 0;
+                const cleaningfee = parseInt(cleaningfeeElement.textContent) || 0;
+                const servicefee = parseInt(servicefeeElement.textContent) || 0;
+                const tax = parseInt(taxElement.textContent) || 0;
+                
+                const total = daytotalrent + cleaningfee + servicefee + tax;
+                totalexpElement.textContent = total;
+            }
+        }
+        
+        // Enhanced date calculation and multiplication function
+        function updateAllCalculations() {
+            // Calculate days between dates
+            const checkinElement = document.querySelector('.showcheckindate');
+            const checkoutElement = document.querySelector('.showcheckoutdate');
+            const countElement = document.querySelector('.count');
+            const basepriceElement = document.querySelector('.baseprice');
+            
+            function parseDate(dateString) {
+                const [day, month, year] = dateString.split('/').map(Number);
+                return new Date(year, month - 1, day);
+            }
+            
+            if (checkinElement && checkoutElement && countElement) {
+                const checkinDate = parseDate(checkinElement.textContent);
+                const checkoutDate = parseDate(checkoutElement.textContent);
+                const timeDiff = checkoutDate.getTime() - checkinDate.getTime();
+                const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                countElement.textContent = daysDiff;
+            }
+            
+            // Perform multiplication
+            if (basepriceElement && countElement && daytotalrentElement) {
+                const baseprice = parseInt(basepriceElement.textContent) || 0;
+                const count = parseInt(countElement.textContent) || 0;
+                const result = baseprice * count;
+                daytotalrentElement.textContent = result;
+            }
+            
+            // Calculate total expenses
+            calculateTotalExpenses();
+        }
+        
+        // Initial calculations
+        updateAllCalculations();
+        
+        // Observer for date changes
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.target.classList.contains('showcheckindate') || 
+                    mutation.target.classList.contains('showcheckoutdate') ||
+                    mutation.target.classList.contains('baseprice')) {
+                    updateAllCalculations();
+                }
+            });
+        });
+        
+        // Start observing
+        const checkinEl = document.querySelector('.showcheckindate');
+        const checkoutEl = document.querySelector('.showcheckoutdate');
+        const basepriceEl = document.querySelector('.baseprice');
+        
+        if (checkinEl) observer.observe(checkinEl, { childList: true, subtree: true });
+        if (checkoutEl) observer.observe(checkoutEl, { childList: true, subtree: true });
+        if (basepriceEl) observer.observe(basepriceEl, { childList: true, subtree: true });
+        
+        // Integration with bed selection
+        const originalUpdateTotalPrice = window.updateTotalPrice || function() {};
+        window.updateTotalPrice = function() {
+            originalUpdateTotalPrice();
+            updateAllCalculations();
+        };
+    });
+    </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Elements for all calculations
+        const bedCheckboxes = document.querySelectorAll('#firstbedtype, #secondbedtype, #thirdbedtype');
+        const drentElement = document.querySelector('.drent');
+        const basepriceElement = document.querySelector('.baseprice');
+        const checkinElement = document.querySelector('.showcheckindate');
+        const checkoutElement = document.querySelector('.showcheckoutdate');
+        const countElement = document.querySelector('.count');
+        const daytotalrentElement = document.querySelector('.daytotalrent');
+        const cleaningfeeElement = document.querySelector('.cleaningfee');
+        const servicefeeElement = document.querySelector('.Hostohavenservicefee');
+        const taxElement = document.querySelector('.tax');
+        const totalexpElement = document.querySelector('.Totalexp');
+        const guestSelect = document.getElementById('noofguest');
+
+        // Store original total for guest multiplier
+        let originalTotal = 0;
+
+        // Function to parse date from format "d/m/yyyy"
+        function parseDate(dateString) {
+            const [day, month, year] = dateString.split('/').map(Number);
+            return new Date(year, month - 1, day);
+        }
+
+        // Function to calculate total from bed selections
+        function calculateBedTotal() {
+            let totalPrice = 0;
+            bedCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    const listItem = checkbox.closest('.selectbedtypecurrent');
+                    const priceElement = listItem.querySelector('.priceofbed');
+                    const price = parseInt(priceElement.textContent) || 0;
+                    totalPrice += price;
+                }
+            });
+            
+            if (drentElement) drentElement.textContent = totalPrice;
+            if (basepriceElement) basepriceElement.textContent = totalPrice;
+            return totalPrice;
+        }
+
+        // Function to calculate days between dates
+        function calculateDaysBetween() {
+            if (checkinElement && checkoutElement && countElement) {
+                const checkinDate = parseDate(checkinElement.textContent);
+                const checkoutDate = parseDate(checkoutElement.textContent);
+                const timeDiff = checkoutDate.getTime() - checkinDate.getTime();
+                const daysDiff = Math.max(1, Math.ceil(timeDiff / (1000 * 3600 * 24)));
+                countElement.textContent = daysDiff;
+                return daysDiff;
+            }
+            return 1;
+        }
+
+        // Function to calculate day total rent
+        function calculateDayTotal() {
+            if (basepriceElement && countElement && daytotalrentElement) {
+                const baseprice = parseInt(basepriceElement.textContent) || 0;
+                const count = parseInt(countElement.textContent) || 1;
+                const dayTotal = baseprice * count;
+                daytotalrentElement.textContent = dayTotal;
+                return dayTotal;
+            }
+            return 0;
+        }
+
+        // Function to calculate base total (before guest multiplier)
+        function calculateBaseTotal() {
+            const daytotalrent = parseInt(daytotalrentElement?.textContent) || 0;
+            const cleaningfee = parseInt(cleaningfeeElement?.textContent) || 0;
+            const servicefee = parseInt(servicefeeElement?.textContent) || 0;
+            const tax = parseInt(taxElement?.textContent) || 0;
+            
+            return daytotalrent + cleaningfee + servicefee + tax;
+        }
+
+        // Function to apply guest multiplier
+        function applyGuestMultiplier() {
+            if (!guestSelect || !totalexpElement) return;
+            
+            const guestValue = parseInt(guestSelect.value) || 1;
+            const finalTotal = originalTotal * guestValue;
+            totalexpElement.textContent = finalTotal;
+        }
+
+        // Master update function
+        function updateAllCalculations() {
+            calculateBedTotal();
+            calculateDaysBetween();
+            calculateDayTotal();
+            originalTotal = calculateBaseTotal();
+            applyGuestMultiplier();
+        }
+
+        // Event listeners
+        bedCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateAllCalculations);
+        });
+
+        // Guest dropdown listener
+        if (guestSelect) {
+            guestSelect.addEventListener('change', applyGuestMultiplier);
+        }
+
+        // Observer for date changes
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.target.classList.contains('showcheckindate') || 
+                    mutation.target.classList.contains('showcheckoutdate')) {
+                    updateAllCalculations();
+                }
+            });
+        });
+
+        if (checkinElement) observer.observe(checkinElement, { childList: true, subtree: true });
+        if (checkoutElement) observer.observe(checkoutElement, { childList: true, subtree: true });
+
+        // Initial calculation
+        updateAllCalculations();
+    });
+</script>
+
+<script defer>
+  // Corrected scanning script with proper class name mappings
+function scanAndUpdateValues() {
+    console.log('Scanning values...');
+    
+    // Get display values and map to form inputs
+    const mappings = [
+        {
+            sourceSelector: '.rentminimum .drent',
+            targetSelector: '.hiddenformforhostelbed .dailyrent',
+            getValue: (el) => el.textContent.trim()
+        },
+        {
+            sourceSelector: '.showcheckindate',
+            targetSelector: '.hiddenformforhostelbed .checkindate',
+            getValue: (el) => el.textContent.trim()
+        },
+        {
+            sourceSelector: '.showcheckoutdate',
+            targetSelector: '.hiddenformforhostelbed .checkoutdate',
+            getValue: (el) => el.textContent.trim()
+        },
+        {
+            sourceSelector: '#noofguest',
+            targetSelector: '.hiddenformforhostelbed .guestcount',
+            getValue: (el) => el.value
+        },
+        {
+            sourceSelector: '.chargingarea .count',
+            targetSelector: '.hiddenformforhostelbed .totaldays',
+            getValue: (el) => el.textContent.trim()
+        },
+        {
+            sourceSelector: '.chargingarea .daytotalrent',
+            targetSelector: '.hiddenformforhostelbed .daytotalrent',
+            getValue: (el) => el.textContent.trim()
+        },
+        {
+            sourceSelector: '.chargingarea .cleaningfee',
+            targetSelector: '.hiddenformforhostelbed .cleaningfee',
+            getValue: (el) => el.textContent.trim()
+        },
+        {
+            sourceSelector: '.chargingarea .Hostohavenservicefee',
+            targetSelector: '.hiddenformforhostelbed .servicecharge',
+            getValue: (el) => el.textContent.trim()
+        },
+        {
+            sourceSelector: '.chargingarea .tax',
+            targetSelector: '.hiddenformforhostelbed .taxes',
+            getValue: (el) => el.textContent.trim()
+        },
+        {
+            sourceSelector: '.totalcharge .Totalexp',
+            targetSelector: '.hiddenformforhostelbed .totalamount',
+            getValue: (el) => el.textContent.trim()
+        }
+    ];
+
+    mappings.forEach(mapping => {
+        const sourceEl = document.querySelector(mapping.sourceSelector);
+        const targetEl = document.querySelector(mapping.targetSelector);
+        
+        if (sourceEl && targetEl) {
+            const value = mapping.getValue(sourceEl);
+            targetEl.value = value;
+            targetEl.setAttribute('value', value);
+            console.log(`Updated ${mapping.targetSelector}: ${value}`);
+        } else {
+            console.warn(`Elements not found: ${mapping.sourceSelector} or ${mapping.targetSelector}`);
+        }
+    });
+}
+
+// Calculate and update derived values
+function updateDerivedValues() {
+    console.log('Updating derived values...');
+    
+    // Get the actual daily rent from display
+    const dailyRentEl = document.querySelector('.rentminimum .drent');
+    const daysEl = document.querySelector('.chargingarea .count');
+    const cleaningFeeEl = document.querySelector('.chargingarea .cleaningfee');
+    const serviceFeeEl = document.querySelector('.chargingarea .Hostohavenservicefee');
+    const taxEl = document.querySelector('.chargingarea .tax');
+    
+    if (dailyRentEl && daysEl) {
+        const dailyRent = parseFloat(dailyRentEl.textContent) || 0;
+        const days = parseInt(daysEl.textContent) || 0;
+        const cleaningFee = parseFloat(cleaningFeeEl?.textContent) || 0;
+        const serviceFee = parseFloat(serviceFeeEl?.textContent) || 0;
+        const tax = parseFloat(taxEl?.textContent) || 0;
+        
+        const dayTotal = dailyRent * days;
+        const total = dayTotal + cleaningFee + serviceFee + tax;
+        
+        // Update display elements
+        const dayTotalDisplay = document.querySelector('.chargingarea .daytotalrent');
+        const totalDisplay = document.querySelector('.totalcharge .Totalexp');
+        
+        if (dayTotalDisplay) {
+            dayTotalDisplay.textContent = dayTotal.toString();
+        }
+        
+        if (totalDisplay) {
+            totalDisplay.textContent = total.toString();
+        }
+        
+        // Update form inputs
+        const dayTotalInput = document.querySelector('.hiddenformforhostelbed .daytotalrent');
+        const totalInput = document.querySelector('.hiddenformforhostelbed .totalamount');
+        
+        if (dayTotalInput) {
+            dayTotalInput.value = dayTotal.toString();
+            dayTotalInput.setAttribute('value', dayTotal.toString());
+        }
+        
+        if (totalInput) {
+            totalInput.value = total.toString();
+            totalInput.setAttribute('value', total.toString());
+        }
+    }
+}
+
+// Set up event listeners
+function setupEventListeners() {
+    console.log('Setting up event listeners...');
+    
+    // Listen for changes in select element
+    const guestSelect = document.querySelector('#noofguest');
+    if (guestSelect) {
+        guestSelect.addEventListener('change', () => {
+            scanAndUpdateValues();
+            updateDerivedValues();
+        });
+    }
+    
+    // Listen for text content changes in display elements
+    const watchedElements = [
+        '.rentminimum .drent',
+        '.showcheckindate',
+        '.showcheckoutdate',
+        '.chargingarea .count',
+        '.chargingarea .cleaningfee',
+        '.chargingarea .Hostohavenservicefee',
+        '.chargingarea .tax'
+    ];
+    
+    watchedElements.forEach(selector => {
+        const element = document.querySelector(selector);
+        if (element) {
+            // Create observer for text changes
+            const observer = new MutationObserver(() => {
+                scanAndUpdateValues();
+                updateDerivedValues();
+            });
+            
+            observer.observe(element, {
+                childList: true,
+                subtree: true,
+                characterData: true
+            });
+        }
+    });
+    
+    // Also set up a periodic check (every 1 second)
+    setInterval(() => {
+        scanAndUpdateValues();
+        updateDerivedValues();
+    }, 1000);
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing scanner...');
+    
+    // Initial scan
+    scanAndUpdateValues();
+    updateDerivedValues();
+    
+    // Set up listeners
+    setupEventListeners();
+    
+    // Make functions globally available for debugging
+    window.scanValues = scanAndUpdateValues;
+    window.updateValues = updateDerivedValues;
+});
+
+// Manual trigger functions
+window.ValueScanner = {
+    scan: scanAndUpdateValues,
+    update: updateDerivedValues,
+    refresh: () => {
+        scanAndUpdateValues();
+        updateDerivedValues();
+    }
+};
+</script>
+</body>
+</html>

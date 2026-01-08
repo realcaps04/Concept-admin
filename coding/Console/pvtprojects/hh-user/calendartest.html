@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Checkout Date Picker</title>
+    <style>
+        /* Base styles - can be shared with check-in calendar */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background-color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        
+        .checkoutdate {
+            list-style: none;
+            padding: 16px 20px;
+            background-color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-block;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            min-width: 180px;
+        }
+        
+        .checkoutdate h3:first-child {
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748b;
+            margin: 0 0 4px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .checkoutdate:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-color: #cbd5e1;
+        }
+        
+        .checkoutdate:active {
+            transform: translateY(0);
+        }
+        
+        .showcheckoutdate {
+            margin: 0;
+            color: #1e293b;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        /* Checkout Calendar styles - different color scheme */
+        #checkoutcalendar {
+            display: none;
+            position: absolute;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            width: 320px;
+            z-index: 1000;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .checkout-calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background-color: #8b5cf6; /* Purple instead of blue */
+            color: white;
+        }
+        
+        .checkout-calendar-title {
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+        }
+        
+        .checkout-calendar-nav {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .checkout-calendar-nav button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .checkout-calendar-nav button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .checkout-calendar-nav button svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .checkout-calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            background-color: #f1f5f9;
+            padding: 12px 0;
+            text-align: center;
+            font-weight: 500;
+            font-size: 13px;
+            color: #64748b;
+        }
+        
+        .checkout-calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            padding: 12px;
+        }
+        
+        .checkout-calendar-day {
+            padding: 10px 0;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 14px;
+            font-weight: 400;
+            color: #334155;
+            position: relative;
+        }
+        
+        .checkout-calendar-day:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .checkout-calendar-day.today {
+            font-weight: 600;
+            color: #8b5cf6; /* Purple instead of blue */
+        }
+        
+        .checkout-calendar-day.today::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 6px;
+            height: 6px;
+            background-color: #8b5cf6; /* Purple instead of blue */
+            border-radius: 50%;
+        }
+        
+        .checkout-calendar-day.selected {
+            background-color: #8b5cf6; /* Purple instead of blue */
+            color: white;
+            font-weight: 500;
+        }
+        
+        .checkout-calendar-day.selected.today::before {
+            background-color: white;
+        }
+        
+        .checkout-calendar-day.other-month {
+            color: #94a3b8;
+        }
+        
+        .checkout-calendar-footer {
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #e2e8f0;
+            background-color: #f8fafc;
+        }
+        
+        .checkout-calendar-footer button {
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .checkout-today-btn {
+            background-color: transparent;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+        }
+        
+        .checkout-today-btn:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .checkout-close-btn {
+            background-color: #8b5cf6; /* Purple instead of blue */
+            color: white;
+            border: none;
+        }
+        
+        .checkout-close-btn:hover {
+            background-color: #7c3aed;
+        }
+    </style>
+</head>
+<body>
+    <li class="checkoutdate">
+        <h3>CHECKOUT</h3>
+        <h3 class="checkoutdate showcheckoutdate">5/7/2025</h3>
+    </li>
+    
+    <div id="checkoutcalendar">
+        <div class="checkout-calendar-header">
+            <div class="checkout-calendar-nav">
+                <button class="checkout-prev-month">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <button class="checkout-next-month">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+            <div class="checkout-calendar-title">July 2025</div>
+            <div style="width: 60px;"></div> <!-- Spacer for balance -->
+        </div>
+        <div class="checkout-calendar-weekdays">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+        </div>
+        <div class="checkout-calendar-days"></div>
+        <div class="checkout-calendar-footer">
+            <button class="checkout-today-btn">Today</button>
+            <button class="checkout-close-btn">Apply</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const checkoutTrigger = document.querySelector('.checkoutdate');
+            const checkoutDisplay = document.querySelector('.showcheckoutdate');
+            const calendar = document.getElementById('checkoutcalendar');
+            const calendarDays = document.querySelector('.checkout-calendar-days');
+            const calendarTitle = document.querySelector('.checkout-calendar-title');
+            const prevMonthBtn = document.querySelector('.checkout-prev-month');
+            const nextMonthBtn = document.querySelector('.checkout-next-month');
+            const todayBtn = document.querySelector('.checkout-today-btn');
+            const closeBtn = document.querySelector('.checkout-close-btn');
+            
+            // Current date and selected date
+            let currentDate = new Date(2025, 6, 5); // July 5, 2025 (as per your example)
+            let selectedDate = new Date(currentDate);
+            
+            // Initialize calendar
+            renderCalendar();
+            
+            // Event listeners
+            checkoutTrigger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const rect = this.getBoundingClientRect();
+                calendar.style.top = `${rect.bottom + window.scrollY + 8}px`;
+                calendar.style.left = `${rect.left + window.scrollX}px`;
+                calendar.style.display = 'block';
+            });
+            
+            prevMonthBtn.addEventListener('click', function() {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                renderCalendar();
+            });
+            
+            nextMonthBtn.addEventListener('click', function() {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                renderCalendar();
+            });
+            
+            todayBtn.addEventListener('click', function() {
+                currentDate = new Date();
+                selectedDate = new Date(currentDate);
+                renderCalendar();
+                updateDisplay();
+            });
+            
+            closeBtn.addEventListener('click', function() {
+                calendar.style.display = 'none';
+            });
+            
+            // Close calendar when clicking outside
+            document.addEventListener('click', function() {
+                calendar.style.display = 'none';
+            });
+            
+            // Prevent calendar from closing when clicking inside it
+            calendar.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+            
+            // Render calendar function
+            function renderCalendar() {
+                // Clear previous days
+                calendarDays.innerHTML = '';
+                
+                // Set calendar title
+                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                                   'July', 'August', 'September', 'October', 'November', 'December'];
+                calendarTitle.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+                
+                // Get first day of month and total days in month
+                const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+                const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+                
+                // Get day of week for first day (0 = Sunday, 6 = Saturday)
+                const startDay = firstDay.getDay();
+                
+                // Get days from previous month to show
+                const prevMonthDays = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+                
+                // Create days from previous month
+                for (let i = startDay - 1; i >= 0; i--) {
+                    const dayElement = document.createElement('div');
+                    dayElement.classList.add('checkout-calendar-day', 'other-month');
+                    dayElement.textContent = prevMonthDays - i;
+                    calendarDays.appendChild(dayElement);
+                }
+                
+                // Create days for current month
+                const today = new Date();
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.classList.add('checkout-calendar-day');
+                    dayElement.textContent = i;
+                    
+                    // Check if this day is today
+                    if (currentDate.getFullYear() === today.getFullYear() && 
+                        currentDate.getMonth() === today.getMonth() && 
+                        i === today.getDate()) {
+                        dayElement.classList.add('today');
+                    }
+                    
+                    // Check if this day is selected
+                    if (currentDate.getFullYear() === selectedDate.getFullYear() && 
+                        currentDate.getMonth() === selectedDate.getMonth() && 
+                        i === selectedDate.getDate()) {
+                        dayElement.classList.add('selected');
+                    }
+                    
+                    // Add click event
+                    dayElement.addEventListener('click', function() {
+                        selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
+                        renderCalendar();
+                        updateDisplay();
+                    });
+                    
+                    calendarDays.appendChild(dayElement);
+                }
+                
+                // Calculate total cells so far
+                const totalCells = startDay + daysInMonth;
+                const remainingCells = 42 - totalCells; // 6 rows x 7 days
+                
+                // Create days from next month
+                for (let i = 1; i <= remainingCells; i++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.classList.add('checkout-calendar-day', 'other-month');
+                    dayElement.textContent = i;
+                    calendarDays.appendChild(dayElement);
+                }
+            }
+            
+            // Update the display with selected date
+            function updateDisplay() {
+                const formattedDate = `${selectedDate.getDate()}/${selectedDate.getMonth() + 1}/${selectedDate.getFullYear()}`;
+                checkoutDisplay.textContent = formattedDate;
+            }
+        });
+    </script>
+</body>
+</html>
