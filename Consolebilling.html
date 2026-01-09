@@ -1094,14 +1094,8 @@
             updatePreview();
 
             setTimeout(() => {
-                showToast(`Invoice # updated to $ {
-    String(next).padStart(4, '0')
-    }
-
-    `);
-            }
-
-                , 1000);
+                showToast(`Invoice # updated to ${String(next).padStart(4, '0')}`);
+            }, 1000);
         }
 
 
@@ -1271,7 +1265,7 @@
             const pendingNote = document.getElementById('inpPendingNote').value;
 
             // Final Total
-            const finalTotal = subTotal + pendingAmount;
+            const finalTotal = subTotal;
 
             // Text Fields
             document.getElementById('prevName').innerText = document.getElementById('inpCustomerName').value || '';
@@ -1357,7 +1351,7 @@
             const subTotal = items.reduce((sum, item) => sum + (item.qty * item.price), 0);
             const pendingAmount = parseFloat(document.getElementById('inpPendingAmount').value) || 0;
             const pendingNote = document.getElementById('inpPendingNote').value;
-            const total = subTotal + pendingAmount;
+            const total = subTotal;
 
             const payload = {
                 invoice_number: invoiceNum,
@@ -1519,7 +1513,7 @@
                 doc.setTextColor(...darkText);
                 doc.setFontSize(15);
                 doc.setFont(undefined, 'bold');
-                const totalVal = items.reduce((s, i) => s + (i.qty * i.price), 0) + pendingAmt;
+                const totalVal = items.reduce((s, i) => s + (i.qty * i.price), 0);
 
                 doc.text(cur + totalVal.toFixed(2), 170, 67, {
                     align: 'center'
@@ -1598,7 +1592,7 @@
                 doc.setTextColor(...darkText);
                 doc.text('Total:', 110, finalY);
 
-                doc.text(cur + (subTot + pendingAmt).toFixed(2), 196, finalY, {
+                doc.text(cur + subTot.toFixed(2), 196, finalY, {
                     align: 'right'
                 });
 
