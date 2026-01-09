@@ -882,11 +882,20 @@
             </div>
             <div class="editor-footer">
                 <div class="action-grid">
-                    <!-- BUTTON FIX: Added type="button" --><button type="button" class="btn btn-primary"
-                        onclick="generatePDF()"><i class="fas fa-download"></i>PDF </button><button type="button"
-                        class="btn btn-email" onclick="shareViaEmail()"><i class="fas fa-envelope"></i>Email
-                    </button><button type="button" class="btn btn-whatsapp" onclick="shareViaWhatsApp()"><i
-                            class="fab fa-whatsapp"></i>Chat </button>
+                    <!-- BUTTON FIX: Added type="button" -->
+                    <button type="button" class="btn btn-primary" onclick="generatePDF()">
+                        <i class="fas fa-download"></i>PDF
+                    </button>
+                    <button type="button" class="btn btn-success" onclick="saveInvoiceOnly()"
+                        style="background: #10B981;">
+                        <i class="fas fa-save"></i>Save
+                    </button>
+                    <button type="button" class="btn btn-email" onclick="shareViaEmail()">
+                        <i class="fas fa-envelope"></i>Email
+                    </button>
+                    <button type="button" class="btn btn-whatsapp" onclick="shareViaWhatsApp()">
+                        <i class="fab fa-whatsapp"></i>Chat
+                    </button>
                 </div>
                 <button type="button" class="btn"
                     style="width: 100%; margin-top: 0.75rem; background: #F1F5F9; color: var(--text-muted);"
@@ -1392,6 +1401,27 @@
 
             else {
                 console.log('Saved to Supabase:', data);
+            }
+        }
+
+        // Save Invoice Only (without PDF generation)
+        async function saveInvoiceOnly() {
+            const loading = document.getElementById('loading');
+            loading.classList.add('active');
+
+            try {
+                await saveInvoiceToSupabase();
+                loading.classList.remove('active');
+                showToast('✓ Invoice saved successfully!');
+
+                // Optionally increment invoice number after save
+                setTimeout(() => {
+                    incrementInvoiceNumber();
+                }, 500);
+            } catch (error) {
+                loading.classList.remove('active');
+                showToast('✗ Failed to save invoice');
+                console.error('Save error:', error);
             }
         }
 
