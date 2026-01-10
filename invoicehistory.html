@@ -33,11 +33,11 @@
             font-family: 'Inter', sans-serif;
             background: var(--background);
             color: var(--text);
-            padding: 2rem;
+            padding: 1.5rem;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1600px;
             margin: 0 auto;
         }
 
@@ -88,15 +88,16 @@
 
         th {
             background: #F1F5F9;
-            padding: 1rem;
+            padding: 1rem 1.25rem;
             font-size: 0.75rem;
             text-transform: uppercase;
             font-weight: 600;
             color: #64748B;
+            white-space: nowrap;
         }
 
         td {
-            padding: 1.5rem 1rem;
+            padding: 1.25rem 1.25rem;
             border-bottom: 1px solid var(--border);
             font-size: 0.875rem;
             vertical-align: middle;
@@ -429,6 +430,30 @@
             font-size: 0.875rem;
             color: #64748B;
         }
+
+        .action-cell {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .btn-paid {
+            background: #DCFCE7;
+            color: #16A34A;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-paid:hover {
+            background: #BBF7D0;
+            transform: scale(1.05);
+        }
     </style>
 </head>
 
@@ -457,13 +482,11 @@
                         <th>Amount</th>
                         <th>Status</th>
                         <th>Action</th>
-                        <th>Download</th>
-                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody id="invoiceTableBody">
                     <tr>
-                        <td colspan="10" class="loading">Loading invoices...</td>
+                        <td colspan="8" class="loading">Loading invoices...</td>
                     </tr>
                 </tbody>
             </table>
@@ -500,7 +523,7 @@
 
             // 1. Check Library
             if (!window.supabase) {
-                tbody.innerHTML = `<tr><td colspan="9" style="color:red; text-align:center; padding:2rem;">
+                tbody.innerHTML = `<tr><td colspan="8" style="color:red; text-align:center; padding:2rem;">
                     <strong>Error:</strong> Supabase library not loaded. Check your internet connection.
                 </td></tr>`;
                 return;
@@ -514,7 +537,7 @@
             try {
                 supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             } catch (err) {
-                tbody.innerHTML = `<tr><td colspan="10" style="color:red; text-align:center;">Failed to initialize Supabase: ${err.message}</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="8" style="color:red; text-align:center;">Failed to initialize Supabase: ${err.message}</td></tr>`;
                 return;
             }
 
@@ -528,7 +551,7 @@
                 if (error) throw error;
 
                 if (!data || data.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="10" style="text-align:center; padding: 2rem;">No invoices found in database.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding: 2rem;">No invoices found in database.</td></tr>`;
                     return;
                 }
 
@@ -554,7 +577,7 @@
                     }
 
                     if (filteredData.length === 0) {
-                        tbody.innerHTML = `<tr><td colspan="10" style="text-align:center; padding: 2rem;">No invoices found.</td></tr>`;
+                        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding: 2rem;">No invoices found.</td></tr>`;
                         document.getElementById('paginationControls').style.display = 'none';
                         return;
                     }
@@ -589,9 +612,11 @@
                             <td>${pendingDisplay}</td>
                             <td style="font-weight:600">${symbol}${parseFloat(inv.total).toFixed(2)}</td>
                             <td><span class="badge badge-blue">Saved</span></td>
-                            <td><button class="btn-view" onclick="openModal(${actualIndex})"><i class="fas fa-eye"></i> View</button></td>
-                            <td><button class="btn-download" onclick="downloadInvoicePDF(${actualIndex})" title="Download PDF"><i class="fas fa-download"></i></button></td>
-                            <td><button class="btn-delete" onclick="deleteInvoice(${actualIndex})" title="Delete Invoice"><i class="fas fa-trash"></i></button></td>
+                            <td class="action-cell">
+                                <button class="btn-view" onclick="openModal(${actualIndex})" title="View Details"><i class="fas fa-eye"></i></button>
+                                <button class="btn-download" onclick="downloadInvoicePDF(${actualIndex})" title="Download PDF"><i class="fas fa-download"></i></button>
+                                <button class="btn-paid" onclick="downloadPaidInvoicePDF(${actualIndex})" title="Download as PAID"><i class="fas fa-check-circle"></i></button>
+                            </td>
                         `;
                         tbody.appendChild(row);
                     });
@@ -652,7 +677,7 @@
                 };
 
                 // PDF Download Function - Define globally
-                window.downloadInvoicePDF = (index) => {
+                window.downloadInvoicePDF = async (index) => {
                     const inv = data[index];
                     const { jsPDF } = window.jspdf;
                     const doc = new jsPDF('p', 'mm', 'a4');
@@ -795,16 +820,31 @@
                     doc.text('IFSC Code: SBIN0064986', 14, footerY + 14);
                     doc.text('Bank Name: State Bank of India', 14, footerY + 20);
 
-                    // Signature (text-based)
-                    doc.setFont('helvetica', 'italic');
-                    doc.setFontSize(16);
-                    doc.setTextColor(100, 100, 100);
-                    doc.text('Edison Biju', 14, footerY + 35);
+                    // Signature Image
+                    try {
+                        // Load signature image
+                        const signatureImg = new Image();
+                        signatureImg.src = 'assets/signature.png';
+                        await new Promise((resolve, reject) => {
+                            signatureImg.onload = resolve;
+                            signatureImg.onerror = reject;
+                        });
+
+                        // Add signature image to PDF
+                        doc.addImage(signatureImg, 'PNG', 14, footerY + 28, 40, 15);
+                    } catch (err) {
+                        console.error('Signature image load error:', err);
+                        // Fallback to text if image fails
+                        doc.setFont('helvetica', 'italic');
+                        doc.setFontSize(16);
+                        doc.setTextColor(100, 100, 100);
+                        doc.text('Edison Biju', 14, footerY + 35);
+                    }
 
                     doc.setFont('helvetica', 'normal');
                     doc.setFontSize(8);
                     doc.setTextColor(...grayText);
-                    doc.text('Authorized Signatory', 14, footerY + 40);
+                    doc.text('Authorized Signatory', 14, footerY + 45);
 
                     // QR Code for Pending Payment (if applicable)
                     if (inv.pending_amount > 0) {
@@ -859,6 +899,245 @@
 
                     // Save PDF
                     doc.save(`Invoice-${inv.invoice_number}.pdf`);
+                };
+
+                // PDF Download with PAID Stamp Function
+                window.downloadPaidInvoicePDF = async (index) => {
+                    const inv = data[index];
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF('p', 'mm', 'a4');
+                    doc.setFont('helvetica');
+
+                    const primaryBlue = [59, 130, 246];
+                    const darkText = [31, 41, 55];
+                    const grayText = [156, 163, 175];
+                    const purple = [139, 92, 246];
+                    const pink = [236, 72, 153];
+                    const cur = inv.currency === '₹' ? 'INR ' : inv.currency + ' ';
+
+                    // Logo Dots
+                    doc.setFillColor(...primaryBlue);
+                    doc.circle(16, 15, 1.2, 'F');
+                    doc.circle(20, 15, 1.2, 'F');
+                    doc.setFillColor(...purple);
+                    doc.circle(16, 18.5, 1.2, 'F');
+                    doc.circle(20, 18.5, 1.2, 'F');
+                    doc.circle(24, 18.5, 1.2, 'F');
+                    doc.setFillColor(...pink);
+                    doc.circle(16, 22, 1.2, 'F');
+                    doc.circle(20, 22, 1.2, 'F');
+
+                    doc.setFontSize(22);
+                    doc.setFont(undefined, 'bold');
+                    doc.setTextColor(...darkText);
+                    doc.text('Console Projects', 30, 21);
+
+                    // Invoice # and Date
+                    doc.setFontSize(9);
+                    doc.setTextColor(...grayText);
+                    doc.setFont(undefined, 'normal');
+                    doc.text('INVOICE #', 196, 15, { align: 'right' });
+                    doc.setFontSize(12);
+                    doc.setTextColor(...darkText);
+                    doc.setFont(undefined, 'bold');
+                    doc.text(inv.invoice_number || '0001', 196, 21, { align: 'right' });
+
+                    doc.setFontSize(9);
+                    doc.setTextColor(...grayText);
+                    doc.setFont(undefined, 'normal');
+                    doc.text('DATE', 196, 28, { align: 'right' });
+                    doc.setFontSize(10);
+                    doc.setTextColor(...darkText);
+                    const date = new Date(inv.date_issued || inv.created_at).toLocaleDateString();
+                    doc.text(date, 196, 34, { align: 'right' });
+
+                    // Bill To Section
+                    doc.setFillColor(...primaryBlue);
+                    doc.roundedRect(14, 45, 120, 35, 3, 3, 'F');
+                    doc.setTextColor(255, 255, 255);
+                    doc.setFontSize(13);
+                    doc.setFont(undefined, 'bold');
+                    doc.text((inv.customer_name || 'CLIENT').toUpperCase(), 20, 56);
+                    doc.setFontSize(10);
+                    doc.setFont(undefined, 'normal');
+                    doc.text(inv.customer_title || '', 20, 62);
+                    doc.setFontSize(9);
+                    const addrLines = doc.splitTextToSize(inv.customer_address || '', 100);
+                    doc.text(addrLines, 20, 68);
+
+                    // Total Box
+                    doc.setFillColor(255, 255, 255);
+                    doc.roundedRect(145, 50, 50, 25, 2, 2, 'F');
+                    doc.setTextColor(...grayText);
+                    doc.setFontSize(8);
+                    doc.text('TOTAL AMOUNT', 170, 58, { align: 'center' });
+                    doc.setTextColor(...darkText);
+                    doc.setFontSize(15);
+                    doc.setFont(undefined, 'bold');
+                    doc.text(cur + (inv.total || 0).toFixed(2), 170, 67, { align: 'center' });
+
+                    // Items Table
+                    const tableData = (inv.items || []).map(item => [
+                        item.desc || 'Item',
+                        item.qty.toString(),
+                        cur + item.price.toFixed(2),
+                        cur + (item.qty * item.price).toFixed(2)
+                    ]);
+
+                    doc.autoTable({
+                        startY: 95,
+                        head: [['DESCRIPTION', 'QTY', 'PRICE', 'TOTAL']],
+                        body: tableData,
+                        theme: 'grid',
+                        headStyles: { fillColor: [248, 250, 252], textColor: [71, 85, 105], fontStyle: 'bold' },
+                        styles: { fontSize: 9, font: 'helvetica' },
+                        columnStyles: {
+                            0: { cellWidth: 90 },
+                            1: { halign: 'center' },
+                            2: { halign: 'right' },
+                            3: { halign: 'right' }
+                        }
+                    });
+
+                    let finalY = doc.lastAutoTable ? doc.lastAutoTable.finalY + 10 : 130;
+
+                    // Summary
+                    doc.setFontSize(10);
+                    doc.setTextColor(...darkText);
+                    doc.setFont(undefined, 'normal');
+                    doc.text('Subtotal:', 110, finalY);
+                    const subTot = inv.subtotal || inv.total || 0;
+                    doc.text(cur + subTot.toFixed(2), 196, finalY, { align: 'right' });
+
+                    finalY += 10;
+                    doc.setFontSize(13);
+                    doc.setFont(undefined, 'bold');
+                    doc.setTextColor(...darkText);
+                    doc.text('Total:', 110, finalY);
+                    doc.text(cur + (inv.total || 0).toFixed(2), 196, finalY, { align: 'right' });
+
+                    // === PAID STAMP (Watermark with proper alignment) ===
+                    doc.saveGraphicsState();
+
+                    // Position and rotation setup
+                    const centerX = 105;
+                    const centerY = 150;
+                    const angle = -25; // Slight tilt for stamp effect
+
+                    // Rectangle dimensions
+                    const rectWidth = 70;
+                    const rectHeight = 30;
+                    const rectX = centerX - rectWidth / 2;
+                    const rectY = centerY - rectHeight / 2;
+
+                    // Set watermark opacity
+                    doc.setGState(new doc.GState({ opacity: 0.4 }));
+
+                    // Apply rotation using transformation matrix
+                    const angleRad = (angle * Math.PI) / 180;
+                    const cos = Math.cos(angleRad);
+                    const sin = Math.sin(angleRad);
+
+                    // Translate to rotation center, rotate, translate back
+                    doc.setCurrentTransformationMatrix(doc.Matrix(
+                        cos, sin, -sin, cos,
+                        centerX - centerX * cos + centerY * sin,
+                        centerY - centerX * sin - centerY * cos
+                    ));
+
+                    // Draw light green background
+                    doc.setFillColor(220, 252, 231); // Light green
+                    doc.roundedRect(rectX, rectY, rectWidth, rectHeight, 4, 4, 'F');
+
+                    // Draw outer border (thick green)
+                    doc.setDrawColor(22, 163, 74); // Green
+                    doc.setLineWidth(2.5);
+                    doc.roundedRect(rectX, rectY, rectWidth, rectHeight, 4, 4, 'D');
+
+                    // Draw inner border (thinner, for double border effect)
+                    doc.setLineWidth(1.2);
+                    doc.roundedRect(rectX + 3, rectY + 3, rectWidth - 6, rectHeight - 6, 3, 3, 'D');
+
+                    // Increase opacity for text
+                    doc.setGState(new doc.GState({ opacity: 0.7 }));
+
+                    // Draw PAID text (no angle needed, already rotated by matrix)
+                    doc.setTextColor(22, 163, 74); // Green color
+                    doc.setFontSize(48);
+                    doc.setFont(undefined, 'bold');
+                    doc.text('PAID', centerX, centerY + 5, {
+                        align: 'center'
+                    });
+
+                    // Add date below PAID
+                    const paidDate = new Date().toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: '2-digit',
+                        year: 'numeric'
+                    });
+                    doc.setFontSize(9);
+                    doc.setFont(undefined, 'normal');
+                    doc.text(paidDate, centerX, centerY + 13, {
+                        align: 'center'
+                    });
+
+                    doc.restoreGraphicsState();
+
+                    // === BANK TRANSFER DETAILS & FOOTER ===
+                    let footerY = 240;
+                    if (finalY > 210) {
+                        doc.addPage();
+                        footerY = 25;
+                    }
+
+                    doc.setDrawColor(241, 245, 249);
+                    doc.line(14, footerY - 10, 196, footerY - 10);
+
+                    doc.setFontSize(10);
+                    doc.setFont(undefined, 'bold');
+                    doc.setTextColor(...grayText);
+                    doc.text('BANK TRANSFER DETAILS', 14, footerY);
+
+                    doc.setFont(undefined, 'normal');
+                    doc.setTextColor(...darkText);
+                    doc.setFontSize(9);
+                    doc.text('Account No: 41189296858', 14, footerY + 8);
+                    doc.text('IFSC Code: SBIN0064986', 14, footerY + 14);
+                    doc.text('Bank Name: State Bank of India', 14, footerY + 20);
+
+                    // Signature Image
+                    try {
+                        // Load signature image
+                        const signatureImg = new Image();
+                        signatureImg.src = 'assets/signature.png';
+                        await new Promise((resolve, reject) => {
+                            signatureImg.onload = resolve;
+                            signatureImg.onerror = reject;
+                        });
+
+                        // Add signature image to PDF
+                        doc.addImage(signatureImg, 'PNG', 14, footerY + 28, 40, 15);
+                    } catch (err) {
+                        console.error('Signature image load error:', err);
+                        // Fallback to text if image fails
+                        doc.setFont('helvetica', 'italic');
+                        doc.setFontSize(16);
+                        doc.setTextColor(100, 100, 100);
+                        doc.text('Edison Biju', 14, footerY + 35);
+                    }
+
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(8);
+                    doc.setTextColor(...grayText);
+                    doc.text('Authorized Signatory', 14, footerY + 45);
+
+                    // Footer contact info
+                    doc.setFontSize(8);
+                    doc.setTextColor(...grayText);
+                    doc.text('contact@consoleprojects.co | +1 818-456-3562', 14, 285);
+
+                    // Save PDF with PAID label
+                    doc.save(`Invoice-${inv.invoice_number}-PAID.pdf`);
                 };
 
                 // Delete Invoice Function
