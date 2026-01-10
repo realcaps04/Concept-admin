@@ -54,23 +54,28 @@
         }
 
         .btn {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 0.5rem 1rem;
+            background: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 0.625rem 1.25rem;
             border-radius: 0.5rem;
             cursor: pointer;
             text-decoration: none;
-            color: var(--text);
+            color: white;
             font-size: 0.875rem;
+            font-weight: 500;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
             transition: all 0.2s;
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
         }
 
         .btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
+            background: #2563EB;
+            border-color: #2563EB;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            transform: translateY(-1px);
         }
 
         .table-container {
@@ -461,7 +466,7 @@
     <div class="container">
         <div class="header">
             <div class="title">Invoice History</div>
-            <div style="display: flex; gap: 1rem; align-items: center;">
+            <div style="display: flex; gap: 6.5rem; align-items: center;">
                 <div class="search-container">
                     <i class="fas fa-search search-icon"></i>
                     <input type="text" id="searchInput" class="search-input" placeholder="Search by client name...">

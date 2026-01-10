@@ -25,6 +25,11 @@
     <!-- QRCode.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
+    <!-- Select2 for Searchable Dropdowns -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <style>
         :root {
             /* Colors */
@@ -781,6 +786,64 @@
             filter: grayscale(0%);
             transform: scale(1.1);
         }
+
+        /* Select2 Custom Styling */
+        .select2-container--default .select2-selection--single {
+            height: auto;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--background);
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: var(--text-main);
+            line-height: normal;
+            padding: 0;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 100%;
+            right: 0.5rem;
+        }
+
+        .select2-container--default.select2-container--focus .select2-selection--single {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            background: var(--surface);
+        }
+
+        .select2-dropdown {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .select2-search--dropdown .select2-search__field {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0.5rem;
+            font-family: inherit;
+        }
+
+        .select2-search--dropdown .select2-search__field:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .select2-results__option {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+        }
+
+        .select2-results__option--highlighted {
+            background: var(--primary) !important;
+            color: white !important;
+        }
+
+        .select2-container {
+            width: 100% !important;
+        }
     </style>
 </head>
 
@@ -808,9 +871,126 @@
                 <div class="form-group"><label class="form-label">Phone Number (For WhatsApp)</label><input type="tel"
                         class="form-input" id="inpCustomerPhone" value=""
                         placeholder="e.g. 919876543210 (with country code)"></div>
-                <div class="form-group"><label class="form-label">Billing Address</label><textarea class="form-textarea"
-                        id="inpCustomerAddress" rows="3" placeholder="Street Address, City, Zip, Country"
-                        oninput="updatePreview()"></textarea>
+                <div class="form-group"><label class="form-label">House Name / Building</label><input type="text"
+                        class="form-input" id="inpHouseName" placeholder="e.g. Green Villa, Apt 201"
+                        oninput="updateAddress()">
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Location</label><select class="form-select"
+                            id="inpStreet" onchange="updateAddress()">
+                            <option value="">Select Location</option>
+                            <option value="Thodupuzha">Thodupuzha</option>
+                            <option value="Kattappana">Kattappana</option>
+                            <option value="Adimali">Adimali</option>
+                            <option value="Munnar">Munnar</option>
+                            <option value="Nedumkandam">Nedumkandam</option>
+                            <option value="Kumily">Kumily</option>
+                            <option value="Murickassery">Murickassery</option>
+                            <option value="Thopramkudy">Thopramkudy</option>
+                            <option value="Thankamany">Thankamany</option>
+                            <option value="Prakash">Prakash</option>
+                            <option value="Kanchiyar">Kanchiyar</option>
+                            <option value="Labbakkada">Labbakkada</option>
+                            <option value="Vellayamkudy">Vellayamkudy</option>
+                            <option value="Erattayar">Erattayar</option>
+                            <option value="Puliyanmala">Puliyanmala</option>
+                            <option value="Narakakanam">Narakakanam</option>
+                            <option value="Marykulam">Marykulam</option>
+                            <option value="Upputhode">Upputhode</option>
+                            <option value="Padamugham">Padamugham</option>
+                            <option value="Rajamudy">Rajamudy</option>
+                            <option value="Calvari Mount">Calvari Mount</option>
+                            <option value="Kanjikuzhi">Kanjikuzhi</option>
+                            <option value="Chelachuvadu">Chelachuvadu</option>
+                            <option value="Vazhavara">Vazhavara</option>
+                            <option value="Chemmannar">Chemmannar</option>
+                            <option value="Thookkupalam">Thookkupalam</option>
+                            <option value="Ramakkalmedu">Ramakkalmedu</option>
+                            <option value="Cumbummettu">Cumbummettu</option>
+                            <option value="Anakkara">Anakkara</option>
+                            <option value="Puttady">Puttady</option>
+                            <option value="Vandanmedu">Vandanmedu</option>
+                            <option value="Elappara">Elappara</option>
+                            <option value="Kuttikanam">Kuttikanam</option>
+                            <option value="Vagamon">Vagamon</option>
+                        </select></div>
+                    <div class="form-group"><label class="form-label">Post Office</label><select class="form-select"
+                            id="inpPostOffice" onchange="updateAddress()">
+                            <option value="">Select Post Office</option>
+                            <option value="Thodupuzha">Thodupuzha</option>
+                            <option value="Kattappana">Kattappana</option>
+                            <option value="Adimali">Adimali</option>
+                            <option value="Munnar">Munnar</option>
+                            <option value="Nedumkandam">Nedumkandam</option>
+                            <option value="Kumily">Kumily</option>
+                            <option value="Murickassery">Murickassery</option>
+                            <option value="Thopramkudy">Thopramkudy</option>
+                            <option value="Thankamany">Thankamany</option>
+                            <option value="Prakash">Prakash</option>
+                            <option value="Kanchiyar">Kanchiyar</option>
+                            <option value="Labbakkada">Labbakkada</option>
+                            <option value="Vellayamkudy">Vellayamkudy</option>
+                            <option value="Erattayar">Erattayar</option>
+                            <option value="Puliyanmala">Puliyanmala</option>
+                            <option value="Narakakanam">Narakakanam</option>
+                            <option value="Marykulam">Marykulam</option>
+                            <option value="Upputhode">Upputhode</option>
+                            <option value="Padamugham">Padamugham</option>
+                            <option value="Rajamudy">Rajamudy</option>
+                            <option value="Calvari Mount">Calvari Mount</option>
+                            <option value="Kanjikuzhi">Kanjikuzhi</option>
+                            <option value="Chelachuvadu">Chelachuvadu</option>
+                            <option value="Vazhavara">Vazhavara</option>
+                            <option value="Chemmannar">Chemmannar</option>
+                            <option value="Thookkupalam">Thookkupalam</option>
+                            <option value="Ramakkalmedu">Ramakkalmedu</option>
+                            <option value="Cumbummettu">Cumbummettu</option>
+                            <option value="Anakkara">Anakkara</option>
+                            <option value="Puttady">Puttady</option>
+                            <option value="Vandanmedu">Vandanmedu</option>
+                            <option value="Elappara">Elappara</option>
+                            <option value="Kuttikanam">Kuttikanam</option>
+                            <option value="Vagamon">Vagamon</option>
+                        </select></div>
+                </div>
+                <div class="form-group"><label class="form-label">Pincode</label><select class="form-select"
+                        id="inpPincode" onchange="updateAddress()">
+                        <option value="">Select Pincode</option>
+                        <option value="685584">685584 - Thodupuzha</option>
+                        <option value="685508">685508 - Kattappana</option>
+                        <option value="685561">685561 - Adimali</option>
+                        <option value="685612">685612 - Munnar</option>
+                        <option value="685553">685553 - Nedumkandam</option>
+                        <option value="685509">685509 - Kumily</option>
+                        <option value="685604">685604 - Murickassery</option>
+                        <option value="685583">685583 - Thopramkudy</option>
+                        <option value="685591">685591 - Thankamany</option>
+                        <option value="685551">685551 - Prakash</option>
+                        <option value="685511">685511 - Kanchiyar</option>
+                        <option value="685565">685565 - Labbakkada</option>
+                        <option value="685551">685551 - Vellayamkudy</option>
+                        <option value="685501">685501 - Erattayar</option>
+                        <option value="685620">685620 - Puliyanmala</option>
+                        <option value="685514">685514 - Narakakanam</option>
+                        <option value="685587">685587 - Marykulam</option>
+                        <option value="685565">685565 - Upputhode</option>
+                        <option value="685551">685551 - Padamugham</option>
+                        <option value="685619">685619 - Rajamudy</option>
+                        <option value="685588">685588 - Calvari Mount</option>
+                        <option value="685512">685512 - Kanjikuzhi</option>
+                        <option value="685607">685607 - Chelachuvadu</option>
+                        <option value="685604">685604 - Vazhavara</option>
+                        <option value="685607">685607 - Chemmannar</option>
+                        <option value="685588">685588 - Thookkupalam</option>
+                        <option value="685583">685583 - Ramakkalmedu</option>
+                        <option value="685509">685509 - Cumbummettu</option>
+                        <option value="685512">685512 - Anakkara</option>
+                        <option value="685553">685553 - Puttady</option>
+                        <option value="685551">685551 - Vandanmedu</option>
+                        <option value="685505">685505 - Elappara</option>
+                        <option value="685531">685531 - Kuttikanam</option>
+                        <option value="685503">685503 - Vagamon</option>
+                    </select>
                 </div>
                 <!-- Invoice Details -->
                 <div class="section-title"><i class="fas fa-info-circle"></i>Invoice Details</div>
@@ -1085,6 +1265,34 @@
             // Initialize bank details in preview (QR generation is manual)
             syncBankDetails();
 
+            // Initialize Select2 for searchable dropdowns
+            $('#inpStreet').select2({
+                placeholder: 'Select Location',
+                allowClear: true,
+                minimumResultsForSearch: 0, // Always show search box
+                width: '100%'
+            }).on('change', function () {
+                updateAddress();
+            });
+
+            $('#inpPostOffice').select2({
+                placeholder: 'Select Post Office',
+                allowClear: true,
+                minimumResultsForSearch: 0,
+                width: '100%'
+            }).on('change', function () {
+                updateAddress();
+            });
+
+            $('#inpPincode').select2({
+                placeholder: 'Select Pincode',
+                allowClear: true,
+                minimumResultsForSearch: 0,
+                width: '100%'
+            }).on('change', function () {
+                updateAddress();
+            });
+
             // REMOVED auto-resize listener to prevent loop/refresh issues
             // If the user resizes the window, they can manually refresh or we can add a simple button to re-fit
             // window.addEventListener('resize', () => { ... });
@@ -1269,6 +1477,30 @@
             updatePreview();
         }
 
+        // Helper function to get combined address
+        function getCombinedAddress() {
+            const houseName = document.getElementById('inpHouseName').value.trim();
+            const street = document.getElementById('inpStreet').value;
+            const postOffice = document.getElementById('inpPostOffice').value;
+            const pincode = document.getElementById('inpPincode').value;
+
+            // Combine address parts
+            const addressParts = [];
+            if (houseName) addressParts.push(houseName);
+            if (street) addressParts.push(street);
+            if (postOffice) addressParts.push(postOffice);
+            if (pincode) addressParts.push(pincode);
+
+            return addressParts.join(', ');
+        }
+
+        // Update Address from structured fields
+        function updateAddress() {
+            const combinedAddress = getCombinedAddress();
+            // Update preview
+            document.getElementById('prevAddress').innerText = combinedAddress;
+        }
+
         function updatePreview() {
             // Get Data
             const cur = document.getElementById('inpCurrency').value;
@@ -1284,7 +1516,9 @@
             // Text Fields
             document.getElementById('prevName').innerText = document.getElementById('inpCustomerName').value || '';
             document.getElementById('prevTitle').innerText = document.getElementById('inpCustomerTitle').value;
-            document.getElementById('prevAddress').innerText = document.getElementById('inpCustomerAddress').value;
+
+            // Update address from structured fields
+            updateAddress();
             document.getElementById('prevInvNum').innerText = document.getElementById('inpInvoiceNum').value;
             document.getElementById('prevFooterInfo').innerText = document.getElementById('inpFooterInfo').value;
 
@@ -1373,7 +1607,7 @@
                 customer_title: document.getElementById('inpCustomerTitle').value,
                 customer_email: document.getElementById('inpCustomerEmail').value,
                 customer_phone: document.getElementById('inpCustomerPhone').value,
-                customer_address: document.getElementById('inpCustomerAddress').value,
+                customer_address: getCombinedAddress(),
                 currency: document.getElementById('inpCurrency').value,
                 date_issued: document.getElementById('inpDate').value,
                 items: items, // JSONB
@@ -1533,7 +1767,7 @@
                 doc.setFont(undefined, 'normal');
                 doc.text(document.getElementById('inpCustomerTitle').value || '', 20, 62);
                 doc.setFontSize(9);
-                const addrLines = doc.splitTextToSize(document.getElementById('inpCustomerAddress').value || '', 100);
+                const addrLines = doc.splitTextToSize(getCombinedAddress() || '', 100);
                 doc.text(addrLines, 20, 68);
 
                 // Total Summary Box
