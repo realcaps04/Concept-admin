@@ -618,9 +618,10 @@
                             <td style="font-weight:600">${symbol}${parseFloat(inv.total).toFixed(2)}</td>
                             <td><span class="badge badge-blue">Saved</span></td>
                             <td class="action-cell">
-                                <button class="btn-view" onclick="openModal(${actualIndex})" title="View Details"><i class="fas fa-eye"></i></button>
-                                <button class="btn-download" onclick="downloadInvoicePDF(${actualIndex})" title="Download PDF"><i class="fas fa-download"></i></button>
-                                <button class="btn-paid" onclick="downloadPaidInvoicePDF(${actualIndex})" title="Download as PAID"><i class="fas fa-check-circle"></i></button>
+                                <button class="btn-view" onclick="openModal('${inv.invoice_number}')" title="View Details"><i class="fas fa-eye"></i></button>
+                                <button class="btn-download" onclick="downloadInvoicePDF('${inv.invoice_number}')" title="Download PDF"><i class="fas fa-download"></i></button>
+                                <button class="btn-paid" onclick="downloadPaidInvoicePDF('${inv.invoice_number}')" title="Download as PAID"><i class="fas fa-check-circle"></i></button>
+                                <button class="btn-delete" onclick="deleteInvoice('${inv.invoice_number}')" title="Delete Invoice"><i class="fas fa-trash"></i></button>
                             </td>
                         `;
                         tbody.appendChild(row);
@@ -668,7 +669,9 @@
                 let currentInvoice = null;
                 let currentIndex = null;
 
-                window.openModal = (index) => {
+                window.openModal = (invoiceNumber) => {
+                    const index = data.findIndex(i => i.invoice_number == invoiceNumber);
+                    if (index === -1) return;
                     currentIndex = index;
                     currentInvoice = JSON.parse(JSON.stringify(data[index])); // Deep copy
                     editMode = false;
@@ -682,7 +685,9 @@
                 };
 
                 // PDF Download Function - Define globally
-                window.downloadInvoicePDF = async (index) => {
+                window.downloadInvoicePDF = async (invoiceNumber) => {
+                    const index = data.findIndex(i => i.invoice_number == invoiceNumber);
+                    if (index === -1) return;
                     const inv = data[index];
                     const { jsPDF } = window.jspdf;
                     const doc = new jsPDF('p', 'mm', 'a4');
@@ -907,7 +912,9 @@
                 };
 
                 // PDF Download with PAID Stamp Function
-                window.downloadPaidInvoicePDF = async (index) => {
+                window.downloadPaidInvoicePDF = async (invoiceNumber) => {
+                    const index = data.findIndex(i => i.invoice_number == invoiceNumber);
+                    if (index === -1) return;
                     const inv = data[index];
                     const { jsPDF } = window.jspdf;
                     const doc = new jsPDF('p', 'mm', 'a4');
@@ -1146,9 +1153,17 @@
                 };
 
                 // Delete Invoice Function
-                window.deleteInvoice = async (index) => {
+                window.deleteInvoice = async (invoiceNumber) => {
+                    // Find invoice by number (handle both string and number types)
+                    const index = data.findIndex(i => i.invoice_number == invoiceNumber);
+
+                    if (index === -1) {
+                        console.error('Invoice not found for deletion:', invoiceNumber);
+                        return;
+                    }
+
                     const inv = data[index];
-                    const confirmDelete = confirm(`Are you sure you want to delete Invoice #${inv.invoice_number}?\n\nClient: ${inv.customer_name}\nAmount: ${inv.currency || '₹'}${inv.total}\n\nThis action cannot be undone.`);
+                    const confirmDelete = confirm(`Are you sure you want to delete Invoice #${inv.invoice_number}?\n\nClient: ${inv.customer_name}\nAmount: ${inv.currency || '₹'}${parseFloat(inv.total).toFixed(2)}\n\nThis action cannot be undone.`);
 
                     if (!confirmDelete) return;
 
@@ -1164,49 +1179,27 @@
                         // Remove from local data array
                         data.splice(index, 1);
 
-                        // Refresh table
-                        const tbody = document.getElementById('invoiceTableBody');
-                        tbody.innerHTML = '';
+                        // Re-apply filter
+                        const searchInput = document.getElementById('searchInput');
+                        const searchTerm = searchInput.value.toLowerCase().trim();
 
-                        if (data.length === 0) {
-                            tbody.innerHTML = `<tr><td colspan="10" style="text-align:center; padding: 2rem;">No invoices found in database.</td></tr>`;
+                        if (searchTerm === '') {
+                            filteredData = [...data];
                         } else {
-                            data.forEach((inv, idx) => {
-                                const row = document.createElement('tr');
-                                const date = new Date(inv.date_issued || inv.created_at).toLocaleDateString();
-                                const symbol = inv.currency || '₹';
-
-                                let itemsSummary = '-';
-                                if (Array.isArray(inv.items) && inv.items.length > 0) {
-                                    itemsSummary = inv.items.map(i => i.desc).join('<br>');
-                                }
-
-                                let pendingDisplay = '-';
-                                if (inv.pending_amount > 0) {
-                                    pendingDisplay = `<span style="color:#DC2626; font-weight:500;">
-                                        ${symbol}${parseFloat(inv.pending_amount).toFixed(2)}
-                                        ${inv.pending_note ? `<br><span style="font-size:10px;color:#9CA3AF">${inv.pending_note}</span>` : ''}
-                                    </span>`;
-                                }
-
-                                row.innerHTML = `
-                                    <td style="font-weight:600">#${inv.invoice_number}</td>
-                                    <td>${date}</td>
-                                    <td>
-                                        <div style="font-weight:500">${inv.customer_name || 'Unknown'}</div>
-                                        <div style="font-size:11px;color:#64748B">${inv.customer_title || ''}</div>
-                                    </td>
-                                    <td style="max-width:300px; color:#475569; font-size:12px;">${itemsSummary}</td>
-                                    <td>${pendingDisplay}</td>
-                                    <td style="font-weight:600">${symbol}${parseFloat(inv.total).toFixed(2)}</td>
-                                    <td><span class="badge badge-blue">Saved</span></td>
-                                    <td><button class="btn-view" onclick="openModal(${idx})"><i class="fas fa-eye"></i> View</button></td>
-                                    <td><button class="btn-download" onclick="downloadInvoicePDF(${idx})" title="Download PDF"><i class="fas fa-download"></i></button></td>
-                                    <td><button class="btn-delete" onclick="deleteInvoice(${idx})" title="Delete Invoice"><i class="fas fa-trash"></i></button></td>
-                                `;
-                                tbody.appendChild(row);
+                            filteredData = data.filter(inv => {
+                                const clientName = (inv.customer_name || '').toLowerCase();
+                                return clientName.includes(searchTerm);
                             });
                         }
+
+                        // Check if current page is valid
+                        const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+                        if (currentPage > totalPages && totalPages > 0) {
+                            currentPage = totalPages;
+                        }
+
+                        // Refresh table
+                        renderPage();
 
                         alert('Invoice deleted successfully!');
 
@@ -1254,45 +1247,18 @@
                         Object.assign(data[currentIndex], updatedInvoice);
                         currentInvoice = JSON.parse(JSON.stringify(data[currentIndex]));
 
-                        // Refresh table row
-                        const tbody = document.getElementById('invoiceTableBody');
-                        tbody.innerHTML = '';
-                        data.forEach((inv, idx) => {
-                            const row = document.createElement('tr');
-                            const date = new Date(inv.date_issued || inv.created_at).toLocaleDateString();
-                            const symbol = inv.currency || '₹';
-
-                            let itemsSummary = '-';
-                            if (Array.isArray(inv.items) && inv.items.length > 0) {
-                                itemsSummary = inv.items.map(i => i.desc).join(', ');
-                                if (itemsSummary.length > 50) itemsSummary = itemsSummary.substring(0, 50) + '...';
-                            }
-
-                            let pendingDisplay = '-';
-                            if (inv.pending_amount > 0) {
-                                pendingDisplay = `<span style="color:#DC2626; font-weight:500;">
-                                    ${symbol}${parseFloat(inv.pending_amount).toFixed(2)}
-                                    ${inv.pending_note ? `<br><span style="font-size:10px;color:#9CA3AF">${inv.pending_note}</span>` : ''}
-                                </span>`;
-                            }
-
-                            row.innerHTML = `
-                                <td style="font-weight:600">#${inv.invoice_number}</td>
-                                <td>${date}</td>
-                                <td>
-                                    <div style="font-weight:500">${inv.customer_name || 'Unknown'}</div>
-                                    <div style="font-size:11px;color:#64748B">${inv.customer_title || ''}</div>
-                                </td>
-                                <td style="max-width:300px; color:#475569; font-size:12px;">${itemsSummary}</td>
-                                <td>${pendingDisplay}</td>
-                                <td style="font-weight:600">${symbol}${parseFloat(inv.total).toFixed(2)}</td>
-                                <td><span class="badge badge-blue">Saved</span></td>
-                                <td><button class="btn-view" onclick="openModal(${idx})"><i class="fas fa-eye"></i> View</button></td>
-                                <td><button class="btn-download" onclick="downloadInvoicePDF(${idx})" title="Download PDF"><i class="fas fa-download"></i></button></td>
-                                <td><button class="btn-delete" onclick="deleteInvoice(${idx})" title="Delete Invoice"><i class="fas fa-trash"></i></button></td>
-                            `;
-                            tbody.appendChild(row);
-                        });
+                        // Refresh filtered data and view
+                        const searchInput = document.getElementById('searchInput');
+                        const searchTerm = searchInput.value.toLowerCase().trim();
+                        if (searchTerm === '') {
+                            filteredData = [...data];
+                        } else {
+                            filteredData = data.filter(inv => {
+                                const clientName = (inv.customer_name || '').toLowerCase();
+                                return clientName.includes(searchTerm);
+                            });
+                        }
+                        renderPage();
 
                         editMode = false;
                         renderModalContent();

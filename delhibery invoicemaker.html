@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delhivery Invoice Maker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-header: #f8f9fa;
+            /* Matches the grey background in image */
+            --d-red: #d32f2f;
+            --d-green: #059669;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #e5e7eb;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        .invoice-container {
+            width: 100%;
+            max-width: 900px;
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        /* Editing Controls */
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .btn-primary {
+            background: #111;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #eee;
+            color: #333;
+        }
+
+        /* Input Styling - Visible while editing, hidden in PDF/Print */
+        input,
+        textarea,
+        select {
+            border: 1px dashed #ddd;
+            /* The "square dot lines" user mentioned */
+            padding: 2px 4px;
+            font-family: inherit;
+            color: inherit;
+            background: rgba(255, 255, 0, 0.05);
+            /* Slight highlight */
+            width: 100%;
+            resize: none;
+            font-size: inherit;
+            font-weight: inherit;
+            border-radius: 2px;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            background: #fff;
+            border: 1px solid #000;
+        }
+
+        /* PDF / Print Mode Classes */
+        /* These classes will be applied during PDF generation to hide input styling */
+        .pdf-mode input,
+        .pdf-mode textarea {
+            border: none !important;
+            background: transparent !important;
+            padding: 0 !important;
+        }
+
+        .pdf-mode ::placeholder {
+            color: transparent;
+        }
+
+        /* --- Invoice Layout --- */
+
+        /* 1. Top Section with Grey Background */
+        .top-section {
+            background-color: var(--bg-header);
+            padding: 40px 40px 30px 40px;
+        }
+
+        .header-row {
+            margin-bottom: 25px;
+        }
+
+        .brand-logo {
+            font-size: 26px;
+            font-weight: 900;
+            color: #000;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* The red square/accent often seen in Delhivery logo */
+        .brand-logo::after {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #f00;
+            margin-left: 2px;
+            margin-bottom: 4px;
+        }
+
+        .gst-line {
+            font-size: 11px;
+            color: #9ca3af;
+            font-weight: 500;
+        }
+
+        .gst-line input {
+            width: auto;
+            display: inline-block;
+            color: #9ca3af;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1.2fr 1fr;
+            gap: 20px;
+            position: relative;
+        }
+
+        .meta-column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .meta-group label {
+            display: block;
+            font-size: 11px;
+            color: #6b7280;
+            /* text-gray-500 */
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .meta-group input {
+            font-size: 13px;
+            color: #111;
+            font-weight: 600;
+        }
+
+        /* PAID Stamp - Visual Match */
+        .stamp-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .stamp {
+            border: 3px solid #dc2626;
+            /* Red-600 */
+            color: #dc2626;
+            font-weight: 800;
+            font-size: 28px;
+            padding: 8px 15px;
+            border-radius: 12px;
+            transform: rotate(-12deg);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 0 2px inset rgba(220, 38, 38, 0.1);
+        }
+
+        /* Grunge/Texture effect for stamp lines */
+        .stamp::before {
+            content: '★';
+            position: absolute;
+            font-size: 12px;
+            top: 50%;
+            left: -15px;
+            transform: translateY(-50%);
+        }
+
+        .stamp::after {
+            content: '★';
+            position: absolute;
+            font-size: 12px;
+            top: 50%;
+            right: -15px;
+            transform: translateY(-50%);
+        }
+
+        /* 2. Middle Section (Addresses) - White Background */
+        .mid-section {
+            padding: 30px 40px;
+            background: #fff;
+        }
+
+        .address-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .addr-group h3 {
+            font-size: 10px;
+            font-weight: 700;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .addr-block {
+            font-size: 12px;
+            line-height: 1.5;
+            color: #374151;
+        }
+
+        .addr-block input.name-input {
+            font-weight: 700;
+            font-size: 13px;
+            color: #111;
+            margin-bottom: 2px;
+        }
+
+        .addr-block textarea {
+            height: 60px;
+            color: #4b5563;
+        }
+
+        /* 3. Items Table - Light Header */
+        .items-section {
+            background: #fff;
+        }
+
+        .table-header {
+            background: #f8f9fa;
+            /* Light grey header */
+            padding: 12px 40px;
+            display: grid;
+            grid-template-columns: 3fr 1fr 1fr;
+            font-size: 9px;
+            font-weight: 700;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .table-row {
+            padding: 15px 40px;
+            display: grid;
+            grid-template-columns: 3fr 1fr 1fr;
+            font-size: 12px;
+            color: #374151;
+            border-bottom: 1px solid #f3f4f6;
+            /* Very light divider */
+        }
+
+        .item-name input {
+            font-weight: 600;
+            color: #374151;
+        }
+
+        /* 4. Summary Section */
+        .summary-section {
+            padding: 10px 40px 40px 40px;
+            display: flex;
+            justify-content: flex-end;
+            background: #fff;
+        }
+
+        .summary-box {
+            width: 380px;
+        }
+
+        .sum-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 12px;
+            color: #4b5563;
+        }
+
+        /* Specific borders from the image */
+        .border-top {
+            border-top: 1px solid #111;
+            padding-top: 12px;
+            margin-top: 4px;
+        }
+
+        .border-bottom {
+            border-bottom: 1px solid #111;
+            padding-bottom: 12px;
+            margin-bottom: 8px;
+        }
+
+        .sum-row.invoice-total {
+            font-weight: 700;
+            color: #111;
+        }
+
+        .sum-row.paid-row {
+            color: var(--d-green);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .sum-row.due-row {
+            font-weight: 700;
+            color: #111;
+            font-size: 13px;
+        }
+
+        .money-inp {
+            text-align: right;
+            width: 80px;
+            display: inline-block;
+        }
+
+        /* Ensure inputs fit perfectly */
+        textarea::placeholder,
+        input::placeholder {
+            color: #eee;
+        }
+
+        /* Print Hiding */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                display: block;
+            }
+
+            .invoice-container {
+                box-shadow: none;
+                max-width: 100%;
+                width: 100%;
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+
+            .controls {
+                display: none;
+            }
+
+            input,
+            textarea,
+            select {
+                border: none !important;
+                background: transparent !important;
+                padding: 0 !important;
+            }
+
+            /* Hide placeholders in print */
+            input::placeholder,
+            textarea::placeholder {
+                color: transparent;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="controls">
+        <button class="btn btn-secondary" onclick="window.print()">Print</button>
+        <button class="btn btn-primary" onclick="generatePDF()">Download PDF</button>
+        <button class="btn btn-secondary" onclick="resetDefaults()">Reset</button>
+    </div>
+
+    <div class="invoice-container" id="invoice">
+
+        <!-- Top Grey Section -->
+        <div class="top-section">
+            <div class="header-row">
+                <div class="brand-logo">DELHIVERY</div>
+                <div class="gst-line">
+                    GST IN - <input type="text" value="32AAPCS9575E2ZV" style="width:110px">, <input type="text"
+                        value="Ernakulam - 686517" style="width:120px">
+                </div>
+            </div>
+
+            <div class="meta-grid">
+                <!-- Col 1 -->
+                <div class="meta-column">
+                    <div class="meta-group">
+                        <label>Invoice Number</label>
+                        <input type="text" value="IA175448329EA396L0">
+                    </div>
+                    <div class="meta-group">
+                        <label>Date</label>
+                        <input type="text" value="06 August, 2025" id="dateInput">
+                    </div>
+                </div>
+
+                <!-- Col 2 -->
+                <div class="meta-column">
+                    <div class="meta-group">
+                        <label>AWB Number</label>
+                        <input type="text" value="2827769681241">
+                    </div>
+                    <div class="meta-group">
+                        <label>Payment Method</label>
+                        <input type="text" value="upi">
+                    </div>
+                </div>
+
+                <!-- Col 3: Stamp -->
+                <div class="stamp-wrapper">
+                    <div class="stamp">PAID</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Middle White Section: Addresses -->
+        <div class="mid-section">
+            <div class="address-grid">
+                <div class="addr-group">
+                    <h3>SHIP FROM</h3>
+                    <div class="addr-block">
+                        <input type="text" class="name-input" value="Edison Biju">
+                        <textarea rows="3">Mullappallil , Thopramkudi po, rajamudy, kerala, 685609</textarea>
+                    </div>
+                </div>
+                <div class="addr-group">
+                    <h3>SHIP TO</h3>
+                    <div class="addr-block">
+                        <input type="text" class="name-input" value="SHARP GARUDA FARM EQUIPMENTS PRIVATE LIMITED">
+                        <textarea rows="4">SHARP GARUDA FARM EQUIPMENTS PRIVATE LIMITED ,
+37/1c Palladam road, pappampatti coimbatore tamilnadu, Coimbatore, tamil nadu, 641016</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Items Section -->
+        <div class="items-section">
+            <div class="table-header">
+                <div>ITEM</div>
+                <div class="text-right">ITEM VALUE</div>
+                <div class="text-right">SHIPPING CHARGES</div>
+            </div>
+
+            <div class="table-row">
+                <div class="item-name">
+                    <input type="text" value="Others - Sprayer electric pump - Box / Carton">
+                </div>
+                <div class="text-right">
+                    ₹<input type="number" class="money-inp" value="4299.00" oninput="recalc()">
+                </div>
+                <div class="text-right">
+                    ₹<input type="number" id="shipCharge" class="money-inp" value="740.96" oninput="recalc()">
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="summary-section">
+            <div class="summary-box">
+                <!-- Divider above Delhivery Protect? No, image has it below item list which ends. The Box starts clean. -->
+
+                <div class="sum-row border-top"> <!-- Added border-top here to simulate the line in image -->
+                    <span>Delhivery Protect</span>
+                    <span>₹<input type="number" id="protect" class="money-inp" value="100.00" oninput="recalc()"></span>
+                </div>
+
+                <div class="sum-row">
+                    <span>SGST @ 9%</span>
+                    <span id="sgstVal">₹81.32</span>
+                </div>
+
+                <div class="sum-row">
+                    <span>CGST @ 9%</span>
+                    <span id="cgstVal">₹81.32</span>
+                </div>
+
+                <div class="sum-row">
+                    <span>Discount</span>
+                    <span>-₹<input type="number" id="discount" class="money-inp" value="150.00"
+                            oninput="recalc()"></span>
+                </div>
+
+                <div class="sum-row invoice-total">
+                    <span>Invoice Total</span>
+                    <span id="invTotal">₹854.00</span>
+                </div>
+
+                <div class="sum-row paid-row border-bottom">
+                    <span>Paid</span>
+                    <span id="paidAmt">-₹854.00</span>
+                </div>
+
+                <div class="sum-row due-row">
+                    <span>Amount Due</span>
+                    <span>₹0.0</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function recalc() {
+            const ship = parseFloat(document.getElementById('shipCharge').value) || 0;
+            const protect = parseFloat(document.getElementById('protect').value) || 0;
+            const discount = parseFloat(document.getElementById('discount').value) || 0;
+
+            const taxBase = ship + protect;
+            const taxRate = 0.096706; // Derived from 81.32 / 840.96
+
+            const sgst = taxBase * taxRate;
+            const cgst = taxBase * taxRate;
+
+            document.getElementById('sgstVal').innerText = '₹' + sgst.toFixed(2);
+            document.getElementById('cgstVal').innerText = '₹' + cgst.toFixed(2);
+
+            const total = taxBase + sgst + cgst - discount;
+            const finalTotal = Math.round(total);
+
+            document.getElementById('invTotal').innerText = '₹' + finalTotal.toFixed(2);
+            document.getElementById('paidAmt').innerText = '-₹' + finalTotal.toFixed(2);
+        }
+
+        function generatePDF() {
+            // 1. Add class to body to hide input borders
+            const element = document.getElementById('invoice');
+            element.classList.add('pdf-mode');
+
+            // 2. Generate PDF
+            const opt = {
+                margin: 0,
+                filename: 'Delhivery_Invoice.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: {
+                    scale: 2,
+                    useCORS: true,
+                    logging: false,
+                },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                // 3. Remove class after save
+                // Adding a small delay to ensure the save is fully passed off
+                setTimeout(() => {
+                    element.classList.remove('pdf-mode');
+                }, 1000);
+            });
+        }
+
+        function resetDefaults() {
+            if (confirm('Reset all fields?')) {
+                window.location.reload();
+            }
+        }
+    </script>
+</body>
+
+</html>
