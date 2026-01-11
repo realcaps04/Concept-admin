@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Applicant Details - SBI Applicants</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        .details-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .details-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-top: 1rem;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text);
+            text-decoration: none;
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-4px);
+        }
+
+        .back-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .details-title {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .details-title h2 {
+            font-size: 20px;
+            margin: 0;
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .details-title p {
+            color: var(--muted);
+            margin: 0.25rem 0 0 0;
+            font-size: 13px;
+        }
+
+        /* Profile Card */
+        .profile-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 1.75rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 800;
+            color: white;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .profile-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-loan-type {
+            display: inline-block;
+            padding: 0.375rem 1rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 16px;
+            color: #667eea;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .logout-btn {
+            display: block;
+            margin: 1rem auto 0;
+            padding: 0.5rem 1.5rem;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            color: #ef4444;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: fit-content;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+        }
+
+        /* Details Grid */
+        .details-grid {
+            display: block;
+        }
+
+        .detail-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .detail-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        /* Credential Field Layout */
+        .credential-field {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 48px;
+        }
+
+        .credential-info {
+            flex: 1;
+            padding-right: 1rem;
+        }
+
+        .detail-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 11px;
+            color: var(--muted);
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .detail-label svg {
+            width: 14px;
+            height: 14px;
+            color: #667eea;
+        }
+
+        .detail-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
+            word-break: break-all;
+            line-height: 1.4;
+        }
+
+        /* Password Field */
+        .password-value {
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+        }
+
+        /* Icon Buttons */
+        .icon-btn-group {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .icon-btn {
+            min-width: 52px;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.25rem;
+            padding: 0.5rem 0.375rem;
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 8px;
+            color: #667eea;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .icon-btn:hover {
+            background: rgba(102, 126, 234, 0.2);
+            border-color: rgba(102, 126, 234, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .icon-btn svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .icon-btn-text {
+            font-size: 9px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            line-height: 1;
+        }
+
+        /* Upload Button - More styled */
+        .icon-btn.upload-btn {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+            border: 1.5px solid rgba(102, 126, 234, 0.4);
+            color: #667eea;
+        }
+
+        .icon-btn.upload-btn:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.25), rgba(118, 75, 162, 0.25));
+            border-color: rgba(102, 126, 234, 0.6);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* View Button */
+        .icon-btn.view-btn {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #22c55e;
+        }
+
+        .icon-btn.view-btn:hover {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: rgba(34, 197, 94, 0.5);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+        }
+
+        /* Update Button */
+        .icon-btn.update-btn {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            color: #fbbf24;
+        }
+
+        .icon-btn.update-btn:hover {
+            background: rgba(251, 191, 36, 0.2);
+            border-color: rgba(251, 191, 36, 0.5);
+            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+        }
+
+        /* Action buttons group */
+        .doc-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        /* Download Button */
+        .icon-btn.download-btn {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            color: #8b5cf6;
+        }
+
+        .icon-btn.download-btn:hover {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Delete Button */
+        .icon-btn.delete-btn {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+
+        .icon-btn.delete-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.5);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        /* Documents Section */
+        .documents-section {
+            margin-top: 2rem;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title svg {
+            width: 20px;
+            height: 20px;
+            color: #667eea;
+        }
+
+        .doc-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        /* Document Item Styling - Matching Screenshot */
+        .doc-item {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: grid;
+            grid-template-columns: auto 1fr auto auto;
+            align-items: center;
+            gap: 1.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .doc-item:last-child {
+            border-bottom: none;
+        }
+
+        .doc-item:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .doc-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(102, 126, 234, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #667eea;
+            flex-shrink: 0;
+        }
+
+        .doc-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .doc-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .doc-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.125rem;
+        }
+
+        .doc-specs {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .doc-spec-item {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .doc-purpose {
+            font-size: 13px;
+            color: var(--muted);
+            opacity: 0.6;
+            margin-top: 0.25rem;
+        }
+
+        .status-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 0.375rem 0.75rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .status-pending {
+            background: rgba(251, 191, 36, 0.1);
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+
+        .status-uploaded {
+            background: rgba(34, 197, 94, 0.1);
+            color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .d-none {
+            display: none;
+        }
+
+        /* Mobile Responsive for Documents */
+        @media (max-width: 640px) {
+            .doc-item {
+                grid-template-columns: auto 1fr;
+                gap: 1rem;
+                padding: 1.25rem;
+            }
+
+            .doc-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            .status-badge {
+                grid-column: 2;
+                width: fit-content;
+            }
+
+            .action-btn-wrapper {
+                grid-column: 2;
+                justify-self: start;
+            }
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .action-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Loading State */
+        .loading-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--muted);
+        }
+
+        .loading-spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid rgba(102, 126, 234, 0.2);
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Compression Modal */
+        .compression-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .compression-modal.active {
+            display: flex;
+        }
+
+        .compression-content {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .compression-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .compression-icon svg {
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+        }
+
+        .compression-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .compression-message {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .compression-progress {
+            width: 100%;
+            height: 8px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .compression-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .compression-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 0.5rem;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #22c55e;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toast svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .details-container {
+                padding: 0 0.5rem;
+            }
+
+            .profile-card {
+                padding: 1.5rem 1rem;
+            }
+
+            .profile-avatar {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+
+            .profile-name {
+                font-size: 20px;
+            }
+
+            .profile-loan-type {
+                font-size: 12px;
+                padding: 0.35rem 0.875rem;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-card {
+                padding: 1.25rem;
+            }
+
+            .detail-value {
+                font-size: 15px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .password-field {
+                gap: 0.5rem;
+            }
+
+            .password-value {
+                min-width: 100%;
+                margin-bottom: 0.25rem;
+            }
+
+            .password-toggle-btn {
+                flex: 1;
+            }
+
+            .copy-btn {
+                flex-shrink: 0;
+            }
+
+            .back-btn {
+                top: 1rem;
+                left: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-blur bg-one"></div>
+    <div class="background-blur bg-two"></div>
+
+    <section class="shell shell-wide">
+        <div class="card">
+            <main class="card-body">
+                <div class="details-container">
+                    <!-- Back Button -->
+                    <a href="SbiApplicants.html" class="back-btn" title="Back to Applicants">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7" />
+                        </svg>
+                    </a>
+
+                    <!-- Centered Header -->
+                    <div class="details-header">
+                        <div class="details-title">
+                            <h2>Applicant Information</h2>
+                            <p>View and manage applicant credentials</p>
+                        </div>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div id="loadingState" class="loading-state">
+                        <div class="loading-spinner"></div>
+                        <p>Loading applicant details...</p>
+                    </div>
+
+                    <!-- Content (Hidden initially) -->
+                    <div id="contentArea" style="display: none;">
+                        <!-- Profile Card -->
+                        <div class="profile-card">
+                            <div class="profile-name" id="profileName">Loading...</div>
+                            <div class="profile-loan-type" id="profileLoanType">Loading...</div>
+                            <button class="logout-btn" onclick="logoutApplicant()">Log Out</button>
+                        </div>
+
+                        <!-- Credentials Card -->
+                        <div class="details-grid">
+                            <div class="detail-card">
+                                <!-- Email Field -->
+                                <div class="credential-field">
+                                    <div class="credential-info">
+                                        <div class="detail-label">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path
+                                                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                                </path>
+                                                <polyline points="22,6 12,13 2,6"></polyline>
+                                            </svg>
+                                            Email Address
+                                        </div>
+                                        <div class="detail-value" id="emailValue">loading@example.com</div>
+                                    </div>
+                                    <button class="icon-btn" onclick="copyToClipboard('email')" title="Copy Email">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                <!-- Divider -->
+                                <div style="height: 1px; background: rgba(255, 255, 255, 0.1); margin: 1rem 0;"></div>
+
+                                <!-- Password Field -->
+                                <div class="credential-field">
+                                    <div class="credential-info">
+                                        <div class="detail-label">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                            </svg>
+                                            Password
+                                        </div>
+                                        <div class="detail-value password-value" id="passwordValue">••••••••</div>
+                                    </div>
+                                    <div class="icon-btn-group">
+                                        <button class="icon-btn" onclick="togglePassword()" title="Show/Hide Password">
+                                            <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                            </svg>
+                                        </button>
+                                        <button class="icon-btn" onclick="copyToClipboard('password')"
+                                            title="Copy Password">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Required Documents Section -->
+                        <div class="documents-section">
+                            <div class="section-title">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                    <polyline points="10 9 9 9 8 9"></polyline>
+                                </svg>
+                                Required Documents
+                            </div>
+                            <div class="doc-card" id="documentsList">
+                                <!-- Documents will be injected here -->
+                            </div>
+                        </div>
+            </main>
+        </div>
+    </section>
+
+    <!-- Compression Modal -->
+    <div class="compression-modal" id="compressionModal">
+        <div class="compression-content">
+            <div class="compression-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+            </div>
+            <div class="compression-title">Compressing File</div>
+            <div class="compression-message" id="compressionMessage">
+                File size exceeds limit. Automatically compressing...
+            </div>
+            <div class="compression-progress">
+                <div class="compression-progress-bar" id="compressionProgressBar"></div>
+            </div>
+            <div class="compression-stats">
+                <span id="originalSize">Original: 0 MB</span>
+                <span id="compressedSize">Compressed: 0 MB</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span id="toastMessage">Copied to clipboard!</span>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script>
+        // Supabase Configuration
+        const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+        const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let applicantData = null;
+        let passwordVisible = false;
+
+        // Get applicant ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const applicantId = urlParams.get('id');
+
+        // Load applicant details
+        async function loadApplicantDetails() {
+            if (!applicantId) {
+                alert('No applicant ID provided');
+                window.location.href = 'SbiApplicants.html';
+                return;
+            }
+
+            try {
+                const { data, error } = await sbClient
+                    .from('sbi_applicants')
+                    .select('*')
+                    .eq('id', applicantId)
+                    .single();
+
+                if (error) throw error;
+
+                applicantData = data;
+                displayApplicantDetails(data);
+            } catch (error) {
+                console.error('Error loading applicant:', error);
+                alert('Error loading applicant details: ' + error.message);
+                window.location.href = 'SbiApplicants.html';
+            }
+        }
+
+        // Display applicant details
+        function displayApplicantDetails(data) {
+            // Hide loading, show content
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('contentArea').style.display = 'block';
+
+            // Set name
+            document.getElementById('profileName').textContent = data.applicant_name;
+
+            // Set loan type
+            const loanType = formatLoanType(data.loan_type);
+            document.getElementById('profileLoanType').textContent = loanType;
+
+            // Set email
+            document.getElementById('emailValue').textContent = data.email;
+
+            // Password is hidden by default
+            document.getElementById('passwordValue').setAttribute('data-password', data.password);
+
+            // Render documents
+            renderDocuments(data);
+        }
+
+        // Documents Configuration
+        const requiredDocuments = [
+            { id: 'doc_class_10', name: 'Class X Marksheet', type: 'PDF (scanned)', size: '1 MB', purpose: 'Academic record' },
+            { id: 'doc_class_12', name: 'Class XII/Last Qualifying Exam Marksheet', type: 'PDF (scanned)', size: '1 MB', purpose: 'Eligibility proof' },
+            { id: 'doc_admission', name: 'Proof of Admission Letter', type: 'PDF', size: '1-2 MB', purpose: 'Confirms enrollment' },
+            { id: 'doc_fee', name: 'Course Fee Structure', type: 'PDF', size: '1-2 MB', purpose: 'Funding details' },
+
+            // Identity Proofs
+            { id: 'doc_aadhaar_student', name: 'Aadhaar Card (Student)', type: 'PDF', size: '1 MB', purpose: 'Identity proof' },
+            { id: 'doc_aadhaar_coapplicant', name: 'Aadhaar Card (Co-applicant)', type: 'PDF', size: '1 MB', purpose: 'Identity proof' },
+
+            // KYC Documents
+            { id: 'doc_pan_student', name: 'PAN Card (Student)', type: 'PDF', size: '1 MB', purpose: 'KYC mandatory' },
+            { id: 'doc_pan_coapplicant', name: 'PAN Card (Co-applicant)', type: 'PDF', size: '1 MB', purpose: 'KYC mandatory' },
+
+            // Income Proof
+            { id: 'doc_income_coapplicant', name: 'Income Proof (Co-applicant)', type: 'PDF', size: '1-2 MB', purpose: 'Repayment capacity' },
+
+            // Photographs
+            { id: 'doc_photo_student', name: 'Passport-size Photo (Student)', type: 'PDF/JPEG', size: '500 KB', purpose: 'Verification' },
+            { id: 'doc_photo_coapplicant', name: 'Passport-size Photo (Co-applicant)', type: 'PDF/JPEG', size: '500 KB', purpose: 'Verification' },
+            { id: 'doc_photo_guarantor', name: 'Passport-size Photo (Guarantor)', type: 'PDF/JPEG', size: '500 KB', purpose: 'Verification' }
+        ];
+
+        // Render Documents List
+        function renderDocuments(data) {
+            const container = document.getElementById('documentsList');
+            container.innerHTML = '';
+
+            requiredDocuments.forEach(doc => {
+                const isUploaded = data[doc.id] && data[doc.id].length > 0;
+
+                const html = `
+                    <div class="doc-item">
+                        <div class="doc-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                            </svg>
+                        </div>
+                        <div class="doc-content">
+                            <div class="doc-name">${doc.name}</div>
+                            <div class="doc-specs">
+                                <div class="doc-spec-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px;">
+                                        <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                        <polyline points="13 2 13 9 20 9"></polyline>
+                                    </svg>
+                                    ${doc.type}
+                                </div>
+                                <div class="doc-spec-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px;">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="7 10 12 15 17 10"></polyline>
+                                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                                    </svg>
+                                    Max ${doc.size}
+                                </div>
+                            </div>
+                            <div class="doc-purpose d-none">${doc.purpose}</div>
+                        </div>
+                        
+                        <div class="status-badge ${isUploaded ? 'status-uploaded' : 'status-pending'}">
+                            ${isUploaded ? 'Uploaded' : 'Pending'}
+                        </div>
+
+                        <div class="doc-actions">
+                            <!-- View Button -->
+                            <button class="icon-btn view-btn" 
+                                    onclick="${isUploaded ? `window.open('${data[doc.id]}', '_blank')` : 'return false;'}" 
+                                    title="${isUploaded ? 'View Document' : 'No document uploaded'}"
+                                    ${!isUploaded ? 'style="opacity: 0.4; cursor: not-allowed;"' : ''}>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                                <span class="icon-btn-text">View</span>
+                            </button>
+                            
+                            <!-- Download Button -->
+                            <button class="icon-btn download-btn" 
+                                    onclick="${isUploaded ? `downloadDocument('${data[doc.id]}', '${doc.name}')` : 'return false;'}" 
+                                    title="${isUploaded ? 'Download Document' : 'No document uploaded'}"
+                                    ${!isUploaded ? 'style="opacity: 0.4; cursor: not-allowed;"' : ''}>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                <span class="icon-btn-text">Download</span>
+                            </button>
+                            
+                            <!-- Update Button (Replace) -->
+                            <button class="icon-btn update-btn" 
+                                    onclick="${isUploaded ? `uploadDocument('${doc.id}')` : 'return false;'}" 
+                                    title="${isUploaded ? 'Replace Document' : 'Upload document first'}"
+                                    ${!isUploaded ? 'style="opacity: 0.4; cursor: not-allowed;"' : ''}>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                <span class="icon-btn-text">Update</span>
+                            </button>
+                            
+                            <!-- Upload Button -->
+                            <button class="icon-btn upload-btn" 
+                                    onclick="uploadDocument('${doc.id}')" 
+                                    title="${isUploaded ? 'Upload New Version' : 'Upload Document'}">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                <span class="icon-btn-text">Upload</span>
+                            </button>
+                            
+                            <!-- Delete Button -->
+                            <button class="icon-btn delete-btn" 
+                                    onclick="${isUploaded ? `deleteDocument('${doc.id}', '${doc.name}')` : 'return false;'}" 
+                                    title="${isUploaded ? 'Delete Document' : 'No document to delete'}"
+                                    ${!isUploaded ? 'style="opacity: 0.4; cursor: not-allowed;"' : ''}>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                                </svg>
+                                <span class="icon-btn-text">Delete</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', html);
+            });
+        }
+
+        // Real file upload implementation with automatic compression
+        function uploadDocument(docId) {
+            // Create a hidden file input
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = '.pdf,.jpg,.jpeg,.png';
+
+            // Get document info for validation
+            const docInfo = requiredDocuments.find(d => d.id === docId);
+            const maxSizeMB = parseFloat(docInfo.size.split(' ')[0].split('-')[0]); // Extract first number
+            const maxSizeBytes = maxSizeMB * 1024 * 1024;
+
+            fileInput.onchange = async (e) => {
+                let file = e.target.files[0];
+                if (!file) return;
+
+                // Validate file type
+                const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+                if (!allowedTypes.includes(file.type)) {
+                    alert('Please upload a PDF or JPEG/PNG image file');
+                    return;
+                }
+
+                const originalSize = file.size;
+                const originalSizeMB = (originalSize / (1024 * 1024)).toFixed(2);
+
+                // Check if file needs compression
+                if (file.size > maxSizeBytes) {
+                    // Show compression modal
+                    showCompressionModal(originalSizeMB);
+
+                    try {
+                        // Compress the file
+                        file = await compressFile(file, maxSizeBytes, docInfo.type.includes('PDF'));
+
+                        const compressedSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+                        updateCompressionStats(originalSizeMB, compressedSizeMB);
+
+                        // Check if compression was successful
+                        if (file.size > maxSizeBytes) {
+                            hideCompressionModal();
+                            alert(`Unable to compress file below ${maxSizeMB} MB. Please use a smaller file.`);
+                            return;
+                        }
+
+                        // Wait a moment to show the success
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                        hideCompressionModal();
+
+                    } catch (error) {
+                        hideCompressionModal();
+                        alert('Error compressing file: ' + error.message);
+                        return;
+                    }
+                }
+
+                // Show loading toast
+                showToast('Uploading document...');
+
+                try {
+                    // Create a unique file name
+                    const timestamp = Date.now();
+                    const fileExt = file.name.split('.').pop();
+                    const fileName = `${applicantId}_${docId}_${timestamp}.${fileExt}`;
+                    const filePath = `applicant-documents/${fileName}`;
+
+                    // Upload to Supabase Storage
+                    const { data: uploadData, error: uploadError } = await sbClient
+                        .storage
+                        .from('sbi-documents')
+                        .upload(filePath, file, {
+                            cacheControl: '3600',
+                            upsert: false
+                        });
+
+                    if (uploadError) throw uploadError;
+
+                    // Get public URL
+                    const { data: urlData } = sbClient
+                        .storage
+                        .from('sbi-documents')
+                        .getPublicUrl(filePath);
+
+                    const publicUrl = urlData.publicUrl;
+
+                    // Update database with the URL
+                    await updateDocumentUrl(docId, publicUrl);
+
+                } catch (error) {
+                    console.error('Error uploading document:', error);
+                    alert('Error uploading document: ' + error.message);
+                }
+            };
+
+            // Trigger file picker
+            fileInput.click();
+        }
+
+        async function updateDocumentUrl(columnName, url) {
+            try {
+                const { error } = await sbClient
+                    .from('sbi_applicants')
+                    .update({ [columnName]: url })
+                    .eq('id', applicantId);
+
+                if (error) throw error;
+
+                // Reload details to show updated status
+                loadApplicantDetails();
+                showToast('Document uploaded successfully!');
+            } catch (error) {
+                console.error('Error updating document:', error);
+                alert('Error uploading document: ' + error.message);
+            }
+        }
+
+        // Download document function
+        async function downloadDocument(url, docName) {
+            try {
+                showToast('Downloading document...');
+
+                // Fetch the file
+                const response = await fetch(url);
+                const blob = await response.blob();
+
+                // Create a temporary download link
+                const downloadUrl = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = downloadUrl;
+
+                // Extract file extension from URL or default to pdf
+                const fileExt = url.split('.').pop().split('?')[0] || 'pdf';
+                const fileName = `${docName.replace(/[^a-z0-9]/gi, '_')}.${fileExt}`;
+                link.download = fileName;
+
+                // Trigger download
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                // Clean up
+                window.URL.revokeObjectURL(downloadUrl);
+
+                showToast('Document downloaded successfully!');
+            } catch (error) {
+                console.error('Error downloading document:', error);
+                alert('Error downloading document: ' + error.message);
+            }
+        }
+
+        // Compression Modal Controls
+        function showCompressionModal(originalSizeMB) {
+            const modal = document.getElementById('compressionModal');
+            const progressBar = document.getElementById('compressionProgressBar');
+            document.getElementById('originalSize').textContent = `Original: ${originalSizeMB} MB`;
+            document.getElementById('compressedSize').textContent = 'Compressed: 0 MB';
+            progressBar.style.width = '0%';
+            modal.classList.add('active');
+        }
+
+        function hideCompressionModal() {
+            const modal = document.getElementById('compressionModal');
+            modal.classList.remove('active');
+        }
+
+        function updateCompressionStats(originalMB, compressedMB) {
+            document.getElementById('compressedSize').textContent = `Compressed: ${compressedMB} MB`;
+            const progressBar = document.getElementById('compressionProgressBar');
+            progressBar.style.width = '100%';
+        }
+
+        // File Compression Function
+        async function compressFile(file, maxSizeBytes, isPDF) {
+            const progressBar = document.getElementById('compressionProgressBar');
+
+            // Update progress
+            progressBar.style.width = '30%';
+
+            if (isPDF) {
+                // For PDFs, we can't easily compress them in the browser
+                // So we'll just return the original and let the user know
+                progressBar.style.width = '100%';
+                return file;
+            } else {
+                // Compress images
+                return await compressImage(file, maxSizeBytes);
+            }
+        }
+
+        // Image Compression using Canvas
+        async function compressImage(file, maxSizeBytes) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    const img = new Image();
+
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+
+                        // Calculate new dimensions (reduce by 20% each iteration if needed)
+                        const maxDimension = 1920;
+                        if (width > maxDimension || height > maxDimension) {
+                            if (width > height) {
+                                height = (height / width) * maxDimension;
+                                width = maxDimension;
+                            } else {
+                                width = (width / height) * maxDimension;
+                                height = maxDimension;
+                            }
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+
+                        // Update progress
+                        const progressBar = document.getElementById('compressionProgressBar');
+                        progressBar.style.width = '60%';
+
+                        // Try different quality levels
+                        let quality = 0.7;
+                        const tryCompress = () => {
+                            canvas.toBlob((blob) => {
+                                if (blob.size <= maxSizeBytes || quality <= 0.1) {
+                                    // Success or minimum quality reached
+                                    progressBar.style.width = '90%';
+                                    const compressedFile = new File([blob], file.name, {
+                                        type: file.type,
+                                        lastModified: Date.now()
+                                    });
+                                    resolve(compressedFile);
+                                } else {
+                                    // Try lower quality
+                                    quality -= 0.1;
+                                    tryCompress();
+                                }
+                            }, file.type, quality);
+                        };
+
+                        tryCompress();
+                    };
+
+                    img.onerror = () => reject(new Error('Failed to load image'));
+                    img.src = e.target.result;
+                };
+
+                reader.onerror = () => reject(new Error('Failed to read file'));
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Delete Document Function
+        async function deleteDocument(docId, docName) {
+            // Confirmation dialog
+            const confirmed = confirm(`Are you sure you want to delete "${docName}"?\n\nThis action cannot be undone.`);
+
+            if (!confirmed) {
+                return;
+            }
+
+            try {
+                showToast('Deleting document...');
+
+                // Get the current document URL to delete from storage
+                const currentUrl = applicantData[docId];
+
+                // Update database - set the document URL to null
+                const { error: dbError } = await sbClient
+                    .from('sbi_applicants')
+                    .update({ [docId]: null })
+                    .eq('id', applicantId);
+
+                if (dbError) throw dbError;
+
+                // Optional: Delete file from Supabase Storage
+                // Extract file path from URL if it's a Supabase storage URL
+                if (currentUrl && currentUrl.includes('sbi-documents')) {
+                    try {
+                        const urlParts = currentUrl.split('/sbi-documents/');
+                        if (urlParts.length > 1) {
+                            const filePath = urlParts[1].split('?')[0]; // Remove query params
+
+                            const { error: storageError } = await sbClient
+                                .storage
+                                .from('sbi-documents')
+                                .remove([`applicant-documents/${filePath}`]);
+
+                            if (storageError) {
+                                console.warn('Storage deletion warning:', storageError);
+                                // Don't throw - database update is more important
+                            }
+                        }
+                    } catch (storageErr) {
+                        console.warn('Could not delete from storage:', storageErr);
+                        // Continue anyway - database is updated
+                    }
+                }
+
+                // Reload details to show updated status
+                loadApplicantDetails();
+                showToast('Document deleted successfully!');
+
+            } catch (error) {
+                console.error('Error deleting document:', error);
+                alert('Error deleting document: ' + error.message);
+            }
+        }
+
+        // Format loan type
+        function formatLoanType(type) {
+            return type.split('_').map(word =>
+                word.charAt(0).toUpperCase() + word.slice(1)
+            ).join(' ');
+        }
+
+        // Toggle password visibility
+        function togglePassword() {
+            const passwordElement = document.getElementById('passwordValue');
+            const eyeIcon = document.getElementById('eyeIcon');
+            const actualPassword = passwordElement.getAttribute('data-password');
+
+            if (passwordVisible) {
+                passwordElement.textContent = '••••••••';
+                // Eye Icon
+                eyeIcon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+                passwordVisible = false;
+            } else {
+                passwordElement.textContent = actualPassword;
+                // Eye Off Icon
+                eyeIcon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
+                passwordVisible = true;
+            }
+        }
+
+        // Copy to clipboard
+        function copyToClipboard(type) {
+            let textToCopy = '';
+
+            if (type === 'email') {
+                textToCopy = document.getElementById('emailValue').textContent;
+            } else if (type === 'password') {
+                textToCopy = document.getElementById('passwordValue').getAttribute('data-password');
+            }
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                showToast(`${type === 'email' ? 'Email' : 'Password'} copied to clipboard!`);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Edit applicant
+        function editApplicant() {
+            window.location.href = `SbiApplicants.html?edit=${applicantId}`;
+        }
+
+        // Initialize
+        loadApplicantDetails();
+        // Logout Function
+        function logoutApplicant() {
+            if (confirm('Are you sure you want to log out?')) {
+                // Clear session data
+                sessionStorage.removeItem('applicantId');
+                sessionStorage.removeItem('applicantName');
+                sessionStorage.removeItem('applicantEmail');
+
+                // Redirect to login page
+                window.location.href = 'sbi-applicants-login.html';
+            }
+        }
+    </script>
+</body>
+
+</html>

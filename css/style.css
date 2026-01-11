@@ -33,7 +33,7 @@ body {
   /* Updated to center vertically and horizontally */
   padding: 20px 18px;
   position: relative;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .centered-layout {
