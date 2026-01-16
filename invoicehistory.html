@@ -156,8 +156,28 @@
             max-width: 1000px;
             max-height: 90vh;
             overflow-y: auto;
+            overflow-x: hidden;
             position: relative;
             box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+        }
+
+        .modal::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .modal::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 3px;
+        }
+
+        .modal::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(0, 0, 0, 0.2);
         }
 
         .modal-header {
@@ -1534,7 +1554,36 @@
                         };
 
                         window.removeItemRow = (btn) => {
-                            btn.closest('tr').remove()
+                            const row = btn.closest('tr');
+
+                            // If item contributed to pending, subtract it
+                            if (row.dataset.pending === 'true') {
+                                const qty = parseFloat(row.querySelector('.edit-item-qty').value) || 0;
+                                const price = parseFloat(row.querySelector('.edit-item-price').value) || 0;
+                                const rowTotal = qty * price;
+
+                                const pEl = document.getElementById('edit_pending_amount');
+                                let val = parseFloat(pEl.value) || 0;
+                                val -= rowTotal;
+                                if (val < 0) val = 0;
+                                pEl.value = val.toFixed(2);
+                            }
+
+                            row.remove();
+
+                            // Re-clamp against new total
+                            let grandTotal = 0;
+                            document.querySelectorAll('.item-edit-row').forEach(r => {
+                                const q = parseFloat(r.querySelector('.edit-item-qty').value) || 0;
+                                const p = parseFloat(r.querySelector('.edit-item-price').value) || 0;
+                                grandTotal += q * p;
+                            });
+
+                            const pEl = document.getElementById('edit_pending_amount');
+                            let currentPending = parseFloat(pEl.value) || 0;
+                            if (currentPending > grandTotal) {
+                                pEl.value = grandTotal.toFixed(2);
+                            }
                         };
                     } else {
                         // View Mode
@@ -1669,4 +1718,4 @@
     </script>
 </body>
 
-</html>
+</html> 
