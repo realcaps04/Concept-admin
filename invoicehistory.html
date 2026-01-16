@@ -1402,7 +1402,7 @@
                         if (Array.isArray(inv.items)) {
                             inv.items.forEach((item, idx) => {
                                 itemsEditHtml += `
-                                    <tr class="item-edit-row">
+                                    <tr class="item-edit-row" data-pending="false">
                                         <td><input type="text" class="editable-input edit-item-desc" value="${item.desc}" /></td>
                                         <td style="text-align:center"><input type="number" class="editable-input edit-item-qty" value="${item.qty}" style="width:80px; text-align:center;" /></td>
                                         <td style="text-align:right"><input type="number" step="0.01" class="editable-input edit-item-price" value="${item.price}" style="width:100px; text-align:right;" /></td>
@@ -1473,16 +1473,36 @@
                             const qty = parseFloat(row.querySelector('.edit-item-qty').value) || 0;
                             const price = parseFloat(row.querySelector('.edit-item-price').value) || 0;
                             const rowTotal = qty * price;
+                            const isAlreadyPending = row.dataset.pending === 'true';
 
                             const pendingInput = document.getElementById('edit_pending_amount');
                             let currentPending = parseFloat(pendingInput.value) || 0;
 
+                            // Calculate Invoice Total (Grand Total)
+                            let grandTotal = 0;
+                            document.querySelectorAll('.item-edit-row').forEach(r => {
+                                const q = parseFloat(r.querySelector('.edit-item-qty').value) || 0;
+                                const p = parseFloat(r.querySelector('.edit-item-price').value) || 0;
+                                grandTotal += q * p;
+                            });
+
                             if (action === 'add') {
+                                if (isAlreadyPending) return; // Prevent double add
                                 currentPending += rowTotal;
+                                row.dataset.pending = 'true';
+                                // Optional: visual cue
+                                btn.style.border = '2px solid #D97706';
                             } else if (action === 'remove') {
+                                // Allow remove even if not marked pending, to handle manual entries, but prefer state
                                 currentPending -= rowTotal;
-                                if (currentPending < 0) currentPending = 0;
+                                row.dataset.pending = 'false';
+                                // Reset cue
+                                row.querySelectorAll('button').forEach(b => b.style.border = 'none');
                             }
+
+                            // Clamp values
+                            if (currentPending < 0) currentPending = 0;
+                            if (currentPending > grandTotal) currentPending = grandTotal;
 
                             pendingInput.value = currentPending.toFixed(2);
 
@@ -1499,11 +1519,16 @@
                             const tbody = document.getElementById('itemsEditBody');
                             const newRow = document.createElement('tr');
                             newRow.className = 'item-edit-row';
+                            newRow.dataset.pending = "false";
                             newRow.innerHTML = `
                                 <td><input type="text" class="editable-input edit-item-desc" value="" placeholder="Item description" /></td>
                                 <td style="text-align:center"><input type="number" class="editable-input edit-item-qty" value="1" style="width:80px; text-align:center;" /></td>
                                 <td style="text-align:right"><input type="number" step="0.01" class="editable-input edit-item-price" value="0" style="width:100px; text-align:right;" /></td>
-                                <td style="text-align:center"><button class="btn-remove-item" onclick="removeItemRow(this)"><i class="fas fa-trash"></i></button></td>
+                                <td style="text-align:center; white-space:nowrap;">
+                                    <button class="btn-remove-item" onclick="removeItemRow(this)" title="Delete Item"><i class="fas fa-trash"></i></button>
+                                    <button class="btn-remove-item" style="background:#DCFCE7; color:#16A34A;" onclick="updatePendingFromRow(this, 'remove')" title="Subtract from Pending"><i class="fas fa-check-circle"></i></button>
+                                    <button class="btn-remove-item" style="background:#FEF3C7; color:#D97706;" onclick="updatePendingFromRow(this, 'add')" title="Add to Pending"><i class="fas fa-exclamation-circle"></i></button>
+                                </td>
                             `;
                             tbody.appendChild(newRow);
                         };
