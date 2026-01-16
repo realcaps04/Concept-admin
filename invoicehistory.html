@@ -459,6 +459,93 @@
             background: #BBF7D0;
             transform: scale(1.05);
         }
+
+        /* Unsaved Changes Modal Styles */
+        .unsaved-modal {
+            width: 90%;
+            max-width: 400px;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 1rem;
+            background: white;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            animation: popIn 0.2s ease-out;
+            position: relative;
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0.95);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .unsaved-icon {
+            font-size: 3rem;
+            color: #F59E0B;
+            margin-bottom: 1rem;
+        }
+
+        .unsaved-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .unsaved-desc {
+            color: #64748B;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .unsaved-actions {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+
+        .btn-discard {
+            background: white;
+            border: 1px solid #EF4444;
+            color: #EF4444;
+            padding: 0.625rem 1.25rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-discard:hover {
+            background: #FEF2F2;
+            transform: translateY(-1px);
+        }
+
+        .btn-save-changes {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.625rem 1.25rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-save-changes:hover {
+            background: #2563EB;
+            transform: translateY(-1px);
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.4);
+        }
     </style>
 </head>
 
@@ -509,7 +596,6 @@
         </div>
     </div>
 
-    <!-- Details Modal -->
     <div class="modal-overlay" id="detailsModal">
         <div class="modal">
             <div class="modal-header">
@@ -518,6 +604,26 @@
             </div>
             <div class="modal-body" id="modalContent">
                 <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Unsaved Changes Modal -->
+    <div class="modal-overlay" id="unsavedChangesModal" style="z-index: 1100;">
+        <div class="unsaved-modal">
+            <button class="close-btn" onclick="closeUnsavedWarning()"
+                style="position: absolute; right: 1rem; top: 1rem;"><i class="fas fa-times"></i></button>
+            <div class="unsaved-icon">
+                <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <div class="unsaved-title">Unsaved Changes</div>
+            <div class="unsaved-desc">
+                You have unsaved changes in this invoice.<br>
+                Do you want to save them before closing?
+            </div>
+            <div class="unsaved-actions">
+                <button class="btn-discard" onclick="discardAndClose()">Discard & Close</button>
+                <button class="btn-save-changes" onclick="saveAndClose()">Save Changes</button>
             </div>
         </div>
     </div>
@@ -1263,10 +1369,12 @@
                         editMode = false;
                         renderModalContent();
                         alert('Invoice updated successfully!');
+                        return true;
 
                     } catch (err) {
                         console.error('Save error:', err);
                         alert('Failed to save changes: ' + err.message);
+                        return false;
                     }
                 };
 
@@ -1455,13 +1563,43 @@
                 }
 
                 window.closeModal = () => {
+                    if (editMode) {
+                        document.getElementById('unsavedChangesModal').classList.add('active');
+                    } else {
+                        document.getElementById('detailsModal').classList.remove('active');
+                    }
+                };
+
+                window.closeUnsavedWarning = () => {
+                    document.getElementById('unsavedChangesModal').classList.remove('active');
+                };
+
+                window.discardAndClose = () => {
+                    editMode = false;
+                    window.closeUnsavedWarning();
                     document.getElementById('detailsModal').classList.remove('active');
+                    // Optional: Reset modal content to avoid showing stale edited state if opened again immediately (though openModal resets it)
+                };
+
+                window.saveAndClose = async () => {
+                    const success = await window.saveChanges();
+                    if (success) {
+                        window.closeUnsavedWarning();
+                        document.getElementById('detailsModal').classList.remove('active');
+                    }
                 };
 
                 // Close on outside click
                 document.getElementById('detailsModal').addEventListener('click', (e) => {
                     if (e.target === document.getElementById('detailsModal')) {
                         window.closeModal();
+                    }
+                });
+
+                // Close unsaved modal on outside click
+                document.getElementById('unsavedChangesModal').addEventListener('click', (e) => {
+                    if (e.target === document.getElementById('unsavedChangesModal')) {
+                        window.closeUnsavedWarning();
                     }
                 });
 
