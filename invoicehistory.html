@@ -124,6 +124,77 @@
             color: #1E40AF;
         }
 
+        .status-select {
+            padding: 0.4rem 2rem 0.4rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid transparent;
+            cursor: pointer;
+            text-align: left;
+            appearance: none;
+            -webkit-appearance: none;
+            width: auto;
+            min-width: 120px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            background-repeat: no-repeat;
+            background-position: right 0.7rem center;
+            background-size: 1rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            display: inline-block;
+        }
+
+        .status-select:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .status-select:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px white, 0 0 0 4px var(--focus-color, #3B82F6);
+        }
+
+        /* Status Colors */
+        .status-paid {
+            background-color: #DCFCE7;
+            color: #15803D;
+            border-color: #BBF7D0;
+            --focus-color: #15803D;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2315803D'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+        }
+
+        .status-completed {
+            background-color: #DBEAFE;
+            color: #1E40AF;
+            border-color: #BFDBFE;
+            --focus-color: #1E40AF;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%231E40AF'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+        }
+
+        .status-pending {
+            background-color: #FEE2E2;
+            color: #B91C1C;
+            border-color: #FECACA;
+            --focus-color: #B91C1C;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23B91C1C'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+        }
+
+        .status-saved {
+            background-color: #F1F5F9;
+            color: #475569;
+            border-color: #E2E8F0;
+            --focus-color: #475569;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+        }
+
+        .status-ongoing {
+            background-color: #FEF3C7;
+            color: #B45309;
+            border-color: #FDE68A;
+            --focus-color: #B45309;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23B45309'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+        }
+
         .loading {
             text-align: center;
             padding: 2rem;
@@ -414,9 +485,97 @@
             pointer-events: none;
         }
 
+        /* Filter Styles */
+        .filter-dropdown-container {
+            position: relative;
+        }
+
+        .btn-filter {
+            background: white;
+            border: 1px solid var(--border);
+            height: 42px;
+            /* Match search input height usually ~42px with padding */
+            width: 42px;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            color: #64748B;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .btn-filter:hover,
+        .btn-filter.active {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: #EFF6FF;
+        }
+
+        .filter-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 0.5rem;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            width: 160px;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            display: none;
+            z-index: 50;
+            overflow: hidden;
+        }
+
+        .filter-menu.show {
+            display: block;
+            animation: fadeIn 0.1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .filter-option {
+            padding: 0.6rem 1rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.1s;
+        }
+
+        .filter-option:hover {
+            background: #F8FAFC;
+        }
+
+        .filter-option.selected {
+            background: #EFF6FF;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .filter-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #cbd5e1;
+        }
+
         .pagination {
             display: flex;
-            justify-content: center;
+            justify-content: flex-end;
             align-items: center;
             gap: 0.5rem;
             margin-top: 1.5rem;
@@ -574,9 +733,36 @@
         <div class="header">
             <div class="title">Invoice History</div>
             <div style="display: flex; gap: 6.5rem; align-items: center;">
-                <div class="search-container">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" id="searchInput" class="search-input" placeholder="Search by client name...">
+                <div style="display:flex; gap: 0.75rem; align-items:center;">
+                    <div class="filter-dropdown-container">
+                        <button class="btn-filter" id="filterBtn" onclick="toggleFilterMenu()" title="Filter by Status">
+                            <i class="fas fa-filter"></i>
+                        </button>
+                        <div class="filter-menu" id="filterMenu">
+                            <div class="filter-option selected" onclick="applyFilter('All')">
+                                <span class="filter-dot" style="background:#cbd5e1"></span> All Statuses
+                            </div>
+                            <div class="filter-option" onclick="applyFilter('Paid')">
+                                <span class="filter-dot" style="background:#16A34A"></span> Paid
+                            </div>
+                            <div class="filter-option" onclick="applyFilter('Completed')">
+                                <span class="filter-dot" style="background:#2563EB"></span> Completed
+                            </div>
+                            <div class="filter-option" onclick="applyFilter('Pending')">
+                                <span class="filter-dot" style="background:#DC2626"></span> Pending
+                            </div>
+                            <div class="filter-option" onclick="applyFilter('Saved')">
+                                <span class="filter-dot" style="background:#64748B"></span> Saved
+                            </div>
+                            <div class="filter-option" onclick="applyFilter('Ongoing')">
+                                <span class="filter-dot" style="background:#D97706"></span> Ongoing
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="searchInput" class="search-input" placeholder="Search by client name...">
+                    </div>
                 </div>
                 <a href="Consolebilling.html" class="btn"><i class="fas fa-arrow-left"></i> Back to Generator</a>
             </div>
@@ -677,7 +863,7 @@
                 const { data, error } = await supabase
                     .from('invoices')
                     .select('*')
-                    .order('created_at', { ascending: false });
+                    .order('date_issued', { ascending: false });
 
                 if (error) throw error;
 
@@ -691,7 +877,7 @@
 
                 // Pagination variables
                 let currentPage = 1;
-                const itemsPerPage = 10;
+                const itemsPerPage = 8;
                 let filteredData = [...data];
 
                 function renderPage() {
@@ -732,6 +918,9 @@
                             </span>`;
                         }
 
+                        const status = inv.status || 'Saved';
+                        const statusClass = `status-${status.toLowerCase()}`;
+
                         row.innerHTML = `
                             <td style="font-weight:600">#${inv.invoice_number}</td>
                             <td>${date}</td>
@@ -742,7 +931,18 @@
                             <td style="max-width:300px; color:#475569; font-size:12px;">${itemsSummary}</td>
                             <td>${pendingDisplay}</td>
                             <td style="font-weight:600">${symbol}${parseFloat(inv.total).toFixed(2)}</td>
-                            <td><span class="badge badge-blue">Saved</span></td>
+                            <td>
+                                <select 
+                                    class="status-select ${statusClass}" 
+                                    onchange="updateInvoiceStatus('${inv.invoice_number}', this.value, this)"
+                                >
+                                    <option value="Saved" ${status === 'Saved' ? 'selected' : ''}>Saved</option>
+                                    <option value="Paid" ${status === 'Paid' ? 'selected' : ''}>Paid</option>
+                                    <option value="Completed" ${status === 'Completed' ? 'selected' : ''}>Completed</option>
+                                    <option value="Pending" ${status === 'Pending' ? 'selected' : ''}>Pending</option>
+                                    <option value="Ongoing" ${status === 'Ongoing' ? 'selected' : ''}>Ongoing</option>
+                                </select>
+                            </td>
                             <td class="action-cell">
                                 <button class="btn-view" onclick="openModal('${inv.invoice_number}')" title="View Details"><i class="fas fa-eye"></i></button>
                                 <button class="btn-download" onclick="downloadInvoicePDF('${inv.invoice_number}')" title="Download PDF"><i class="fas fa-download"></i></button>
@@ -772,23 +972,83 @@
                 // Initial render
                 renderPage();
 
-                // Search functionality
-                const searchInput = document.getElementById('searchInput');
-                searchInput.addEventListener('input', (e) => {
-                    const searchTerm = e.target.value.toLowerCase().trim();
+                // Unified Filter Logic
+                let currentStatusFilter = 'All';
 
-                    if (searchTerm === '') {
-                        filteredData = [...data];
-                    } else {
-                        filteredData = data.filter(inv => {
-                            const clientName = (inv.customer_name || '').toLowerCase();
-                            return clientName.includes(searchTerm);
-                        });
+                window.toggleFilterMenu = () => {
+                    const menu = document.getElementById('filterMenu');
+                    const btn = document.getElementById('filterBtn');
+                    menu.classList.toggle('show');
+                    btn.classList.toggle('active');
+
+                    // Close when clicking outside
+                    if (menu.classList.contains('show')) {
+                        const clickOutside = (e) => {
+                            if (!e.target.closest('.filter-dropdown-container')) {
+                                menu.classList.remove('show');
+                                btn.classList.remove('active');
+                                document.removeEventListener('click', clickOutside);
+                            }
+                        };
+                        setTimeout(() => document.addEventListener('click', clickOutside), 0);
                     }
+                };
+
+                window.applyFilter = (status) => {
+                    currentStatusFilter = status;
+
+                    // Update UI
+                    const options = document.querySelectorAll('.filter-option');
+                    options.forEach(opt => {
+                        if (opt.textContent.trim().includes(status) || (status === 'All' && opt.textContent.includes('All'))) {
+                            opt.classList.add('selected');
+                        } else {
+                            opt.classList.remove('selected');
+                        }
+                    });
+
+                    const btn = document.getElementById('filterBtn');
+                    if (status !== 'All') {
+                        btn.style.borderColor = 'var(--primary)';
+                        btn.style.color = 'var(--primary)';
+                        btn.style.background = '#EFF6FF';
+                    } else {
+                        btn.style.borderColor = '';
+                        btn.style.color = '';
+                        btn.style.background = '';
+                    }
+
+                    // Close menu
+                    document.getElementById('filterMenu').classList.remove('show');
+
+                    // Apply Filter
+                    runFilters();
+                };
+
+                function runFilters() {
+                    const searchInput = document.getElementById('searchInput');
+                    const searchTerm = searchInput.value.toLowerCase().trim();
+
+                    filteredData = data.filter(inv => {
+                        // 1. Check Name
+                        const clientName = (inv.customer_name || '').toLowerCase();
+                        const matchesName = clientName.includes(searchTerm);
+
+                        // 2. Check Status
+                        // Handle missing status by treating it as 'Saved'
+                        const invStatus = inv.status || 'Saved';
+                        const matchesStatus = currentStatusFilter === 'All' || invStatus === currentStatusFilter;
+
+                        return matchesName && matchesStatus;
+                    });
 
                     currentPage = 1;
                     renderPage();
-                });
+                }
+
+                // Search functionality
+                const searchInput = document.getElementById('searchInput');
+                searchInput.addEventListener('input', runFilters);
 
                 // Expose openModal to window scope
                 let editMode = false;
@@ -1398,6 +1658,50 @@
                     }
                 };
 
+                // Function to update status
+                window.updateInvoiceStatus = async (invoiceNumber, newStatus, selectElement) => {
+                    // Update UI color immediately
+                    selectElement.className = `status-select status-${newStatus.toLowerCase()}`;
+                    selectElement.disabled = true;
+                    const originalCursor = selectElement.style.cursor;
+                    selectElement.style.cursor = 'wait';
+
+                    try {
+                        // Find the item in local data to get the original invoice_number (preserves type)
+                        // invoiceNumber passed from HTML is always a string!
+                        const index = data.findIndex(i => i.invoice_number == invoiceNumber);
+
+                        if (index === -1) {
+                            throw new Error("Invoice not found in local data");
+                        }
+
+                        // Optimistically update local data
+                        data[index].status = newStatus;
+
+                        // Use the original value from data[] to ensure type safety (int/string)
+                        const dbInvoiceNumber = data[index].invoice_number;
+
+                        // Update Supabase
+                        const { error } = await supabase
+                            .from('invoices')
+                            .update({ status: newStatus })
+                            .eq('invoice_number', dbInvoiceNumber);
+
+                        if (error) throw error;
+
+                    } catch (err) {
+                        console.error('Status update error:', err);
+                        // Show detailed error to help debugging (e.g. missing column)
+                        alert('Failed to update status. Please ensure the "status" column exists in your Supabase table.\n\nError Details:\n' + (err.message || JSON.stringify(err)));
+
+                        // Revert UI if needed (simple revert for now)
+                        // selectElement.value = data[index].status || 'Saved'; 
+                    } finally {
+                        selectElement.disabled = false;
+                        selectElement.style.cursor = originalCursor;
+                    }
+                };
+
                 function renderModalContent() {
                     const inv = currentInvoice;
                     const symbol = inv.currency || '₹';
@@ -1718,4 +2022,4 @@
     </script>
 </body>
 
-</html> 
+</html>
