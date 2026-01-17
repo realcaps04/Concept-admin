@@ -238,6 +238,67 @@
             opacity: 1;
         }
 
+        /* Item Status Icons */
+        .item-status-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            justify-content: flex-end;
+        }
+
+        .btn-status-icon {
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            font-size: 10px;
+            color: var(--text-muted);
+            transition: all 0.2s;
+            background: white;
+            font-weight: 600;
+        }
+
+        .btn-status-icon:hover {
+            background: #F8FAFC;
+        }
+
+        .btn-status-icon.active-paid {
+            background: #DCFCE7;
+            color: #166534;
+            border-color: #BBF7D0;
+        }
+
+        .btn-status-icon.active-pending {
+            background: #FEE2E2;
+            color: #991B1B;
+            border-color: #FECACA;
+        }
+
+        /* Preview Badges */
+        .badge-item {
+            font-size: 9px;
+            padding: 2px 6px;
+            border-radius: 12px;
+            margin-left: 6px;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .badge-paid {
+            background: #DCFCE7;
+            color: #166534;
+        }
+
+        .badge-pending {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
         .btn-add-item {
             width: 100%;
             padding: 0.6rem;
@@ -1443,13 +1504,27 @@
             items.forEach((item, index) => {
                 const el = document.createElement('div');
                 el.className = 'item-card';
-                el.innerHTML = ` <i class="fas fa-times item-remove" onclick="removeItem(${index})"></i>
-    <div class="form-group" style="margin-bottom:0.5rem"> <input type="text" class="form-input" value="${item.desc}"
-            placeholder="Description" oninput="updateItem(${index}, 'desc', this.value)"> </div>
-    <div class="form-row"> <input type="number" class="form-input" value="${item.qty}" min="1" placeholder="Qty"
-            oninput="updateItem(${index}, 'qty', this.value)"> <input type="number" class="form-input"
-            value="${item.price}" min="0" step="0.01" placeholder="Price"
-            oninput="updateItem(${index}, 'price', this.value)"> </div> `;
+
+                const status = item.status || 'paid'; // Default to paid
+
+                el.innerHTML = `
+                    <i class="fas fa-times item-remove" onclick="removeItem(${index})"></i>
+                    <div class="form-group" style="margin-bottom:0.5rem">
+                        <input type="text" class="form-input" value="${item.desc}" placeholder="Description" oninput="updateItem(${index}, 'desc', this.value)">
+                    </div>
+                    <div class="form-row">
+                        <input type="number" class="form-input" value="${item.qty}" min="1" placeholder="Qty" oninput="updateItem(${index}, 'qty', this.value)">
+                        <input type="number" class="form-input" value="${item.price}" min="0" step="0.01" placeholder="Price" oninput="updateItem(${index}, 'price', this.value)">
+                    </div>
+                    <div class="item-status-actions">
+                        <div class="btn-status-icon ${status === 'paid' ? 'active-paid' : ''}" onclick="updateItem(${index}, 'status', 'paid')">
+                            <i class="fas fa-check"></i> Paid
+                        </div>
+                        <div class="btn-status-icon ${status === 'pending' ? 'active-pending' : ''}" onclick="updateItem(${index}, 'status', 'pending')">
+                            <i class="fas fa-clock"></i> Pending
+                        </div>
+                    </div>
+                `;
                 list.appendChild(el);
             });
         }
@@ -1457,18 +1532,45 @@
         function updateItem(index, key, value) {
             if (key === 'qty' || key === 'price') {
                 items[index][key] = parseFloat(value) || 0;
-            }
-
-            else {
+            } else if (key === 'status') {
+                // Prevent redundant updates if status is same
+                if (items[index].status === value) return;
+                items[index][key] = value;
+            } else {
                 items[index][key] = value;
             }
 
+            // Recalculate Pending Amount automatically
+            calculatePendingFromItems();
+
+            // If updating status, re-render to update classes
+            if (key === 'status') {
+                renderEditorItems();
+            }
             updatePreview();
+        }
+
+        function calculatePendingFromItems() {
+            let newPendingTotal = 0;
+            const pendingItemNames = [];
+
+            items.forEach(item => {
+                if (item.status === 'pending') {
+                    newPendingTotal += (item.qty * item.price);
+                    if (item.desc) pendingItemNames.push(item.desc);
+                }
+            });
+
+            // Update Input Value
+            document.getElementById('inpPendingAmount').value = newPendingTotal.toFixed(2);
+
+            // Update Note with pending item names (Automatic)
+            document.getElementById('inpPendingNote').value = pendingItemNames.join(', ');
         }
 
         function addNewItem() {
             items.push({
-                desc: '', qty: 1, price: 0
+                desc: '', qty: 1, price: 0, status: 'paid'
             });
             renderEditorItems();
             updatePreview();
@@ -1476,6 +1578,7 @@
 
         function removeItem(index) {
             items.splice(index, 1);
+            calculatePendingFromItems(); // Recalculate
             renderEditorItems();
             updatePreview();
         }
@@ -1510,8 +1613,16 @@
             const subTotal = items.reduce((sum, item) => sum + (item.qty * item.price), 0);
 
             // Pending Data
-            const pendingAmount = parseFloat(document.getElementById('inpPendingAmount').value) || 0;
+            let pendingAmount = parseFloat(document.getElementById('inpPendingAmount').value) || 0;
             const pendingNote = document.getElementById('inpPendingNote').value;
+
+            // Validate: Pending Amount cannot exceed Total
+            if (pendingAmount > subTotal) {
+                pendingAmount = subTotal;
+                document.getElementById('inpPendingAmount').value = subTotal; // Reset input
+                // Optional: Alert user or just clamp it
+                // alert("Pending amount cannot be greater than the total amount!");
+            }
 
             // Final Total
             const finalTotal = subTotal;
@@ -1538,8 +1649,18 @@
 
             items.forEach(item => {
                 const total = item.qty * item.price;
+                const status = item.status || 'paid';
+                let statusBadge = '';
+
+                if (status === 'pending') {
+                    statusBadge = `<span class="badge-item badge-pending">PENDING</span>`;
+                } else if (status === 'paid' && window.showPaidBadge !== false) {
+                    // Optional: You could hide 'paid' badge if too cluttered, but user asked for it.
+                    statusBadge = `<span class="badge-item badge-paid">PAID</span>`;
+                }
+
                 const row = `<tr>
-        <td>${item.desc || 'Item'}</td>
+        <td>${item.desc || 'Item'} ${statusBadge}</td>
         <td>${item.qty}</td>
         <td>${cur}${item.price.toFixed(2)}</td>
         <td>${cur}${total.toFixed(2)}</td>
@@ -1792,10 +1913,17 @@
                 });
 
                 // === ITEMS TABLE ===
-                const tableData = items.map(item => [item.desc || 'Item',
-                item.qty.toString(),
-                cur + item.price.toFixed(2),
-                cur + (item.qty * item.price).toFixed(2)]);
+                // === ITEMS TABLE ===
+                const tableData = items.map(item => {
+                    // Cleaner items - no status text in description
+                    // Status is reflected in the Pending Amount/Note section
+                    return [
+                        item.desc || 'Item',
+                        item.qty.toString(),
+                        cur + item.price.toFixed(2),
+                        cur + (item.qty * item.price).toFixed(2)
+                    ];
+                });
 
                 doc.autoTable({
 
