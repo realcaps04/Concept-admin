@@ -16,647 +16,410 @@
         }
 
         :root {
-            --sbi-blue: #0066cc;
-            --sbi-dark-blue: #004a99;
-            --sbi-light-blue: #e6f2ff;
-            --sbi-orange: #ff6b35;
-            --text-dark: #1a1a1a;
-            --text-light: #666666;
-            --border-color: #e0e0e0;
-            --success-green: #00c853;
-            --error-red: #d32f2f;
+            --primary-blue: #1C3F75;
+            /* Dark blue from button */
+            --accent-orange: #FF7055;
+            /* Orange from forgot password */
+            --bg-color: #E6EBF5;
+            /* Light blue-grey background */
+            --input-bg: #F8F9FA;
+            --text-main: #1A1A1A;
+            --text-secondary: #6B7280;
+            --border-color: #E0E0E0;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #0066cc 0%, #004a99 100%);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            position: relative;
             overflow-x: hidden;
         }
 
-        /* Decorative background elements */
-        body::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        body::after {
-            content: '';
-            position: absolute;
-            bottom: -30%;
-            left: -10%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(255, 107, 53, 0.15) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .login-container {
+        .main-container {
             width: 100%;
-            max-width: 420px;
+            max-width: 1400px;
+            /* Wide container */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             position: relative;
+        }
+
+        /* Left Side - Illustration & Decoration */
+        .left-panel {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 40px;
+        }
+
+        .illustration {
+            max-width: 100%;
+            height: auto;
+            max-height: 500px;
+            z-index: 2;
+        }
+
+        /* Decorative Elements */
+        .decoration {
+            position: absolute;
             z-index: 1;
         }
 
-        /* Logo Section */
-        .logo-section {
-            text-align: center;
-            margin-bottom: 2rem;
-            animation: fadeInDown 0.6s ease-out;
+        .squiggle-top-left {
+            top: -50px;
+            left: 0;
+            width: 150px;
+            stroke: #3B5998;
+            stroke-width: 2;
+            fill: none;
         }
 
-        .logo-circle {
-            width: 80px;
-            height: 80px;
-            background: white;
+        .squiggle-bottom-right {
+            bottom: -50px;
+            right: 50px;
+            width: 180px;
+            stroke: #3B5998;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .circle-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #3B5998;
             border-radius: 50%;
-            margin: 0 auto 1rem;
+            position: absolute;
+            top: 10%;
+            right: 20%;
+        }
+
+        .circle-red {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #FF5252;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .diamond-pattern {
+            position: absolute;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .diamond {
+            width: 10px;
+            height: 10px;
+            background-color: #D32F2F;
+            transform: rotate(45deg);
+        }
+
+        /* Right Side - Login Form */
+        .right-panel {
+            flex: 0 0 500px;
+            /* Fixed width for form */
             display: flex;
-            align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            padding: 20px;
         }
 
-        .logo-circle svg {
-            width: 45px;
-            height: 45px;
-            color: var(--sbi-blue);
-        }
-
-        .logo-text {
-            color: white;
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 0.25rem;
-            letter-spacing: -0.5px;
-        }
-
-        .logo-subtitle {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        /* Login Card */
         .login-card {
             background: white;
-            border-radius: 24px;
-            padding: 2rem 1.5rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: fadeInUp 0.6s ease-out;
+            padding: 40px 50px;
+            border-radius: 8px;
+            /* Slightly rounded corners as per image */
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            /* Soft shadow */
         }
 
-        .login-header {
-            text-align: center;
-            margin-bottom: 2rem;
+        .logo-img {
+            max-width: 150px;
+            height: auto;
+            margin-bottom: 20px;
+            display: block;
         }
 
-        .login-header h1 {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 0.5rem;
+        .welcome-text {
+            font-size: 32px;
+            color: var(--primary-blue);
+            font-weight: 500;
+            margin-bottom: 30px;
         }
 
-        .login-header p {
-            font-size: 14px;
-            color: var(--text-light);
-        }
-
-        /* Form Styles */
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 20px;
         }
 
         .form-label {
             display: block;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .input-wrapper {
-            position: relative;
-        }
-
-        .input-icon {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            color: var(--text-light);
-            pointer-events: none;
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+            font-weight: 500;
         }
 
         .form-input {
             width: 100%;
-            padding: 14px 16px 14px 48px;
-            font-size: 15px;
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            outline: none;
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
-            color: var(--text-dark);
+            padding: 12px 15px;
+            background-color: var(--input-bg);
+            border: 1px solid transparent;
+            border-radius: 6px;
+            font-size: 14px;
+            color: var(--text-main);
+            transition: all 0.2s;
         }
 
         .form-input:focus {
-            border-color: var(--sbi-blue);
-            box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.1);
+            outline: none;
+            background-color: #fff;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(28, 63, 117, 0.1);
         }
 
         .form-input::placeholder {
-            color: #999;
+            color: #A0A0A0;
         }
 
-        /* Password Toggle */
-        .password-toggle {
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
+        /* Security Text Row */
+        .security-row {
+            display: flex;
+            gap: 10px;
+            align-items: stretch;
+        }
+
+        .captcha-display-container {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            min-width: 120px;
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1h2v2H1V1zm4 4h2v2H5V5zm4 4h2v2H9V9z' fill='%23f0f0f0' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        .captcha-code {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 24px;
+            letter-spacing: 2px;
+            color: #000;
+            text-decoration: line-through;
+            transform: skew(-10deg);
+        }
+
+        .refresh-btn {
             background: none;
             border: none;
             cursor: pointer;
-            padding: 4px;
-            color: var(--text-light);
-            transition: color 0.2s ease;
-        }
-
-        .password-toggle:hover {
-            color: var(--sbi-blue);
-        }
-
-        .password-toggle svg {
-            width: 20px;
-            height: 20px;
-        }
-
-        /* Remember & Forgot */
-        .form-options {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            font-size: 14px;
-        }
-
-        .remember-me {
+            color: var(--primary-blue);
+            margin-left: 10px;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
         }
 
-        .remember-me input[type="checkbox"] {
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
             width: 18px;
             height: 18px;
+            accent-color: var(--primary-blue);
+            border-radius: 4px;
+        }
+
+        .checkbox-group label {
+            font-size: 13px;
+            color: var(--text-secondary);
             cursor: pointer;
-            accent-color: var(--sbi-blue);
         }
 
-        .remember-me label {
-            color: var(--text-dark);
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-        .forgot-password {
-            color: var(--sbi-blue);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.2s ease;
-        }
-
-        .forgot-password:hover {
-            color: var(--sbi-dark-blue);
-        }
-
-        /* Login Button */
         .login-btn {
             width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, var(--sbi-blue) 0%, var(--sbi-dark-blue) 100%);
+            padding: 14px;
+            background-color: var(--primary-blue);
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 700;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .login-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .login-btn:hover::before {
-            left: 100%;
+            transition: background 0.3s;
+            letter-spacing: 0.5px;
         }
 
         .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.4);
+            background-color: #153260;
         }
 
-        .login-btn:active {
-            transform: translateY(0);
+        .login-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
         }
 
-        /* Divider */
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 1.5rem 0;
-            color: var(--text-light);
-            font-size: 13px;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border-color);
-        }
-
-        .divider span {
-            padding: 0 1rem;
-        }
-
-        /* Biometric Login */
-        .biometric-login {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .biometric-btn {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: 2px solid var(--border-color);
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .biometric-btn:hover {
-            border-color: var(--sbi-blue);
-            background: var(--sbi-light-blue);
-            transform: scale(1.05);
-        }
-
-        .biometric-btn svg {
-            width: 28px;
-            height: 28px;
-            color: var(--sbi-blue);
-        }
-
-        /* Register Link */
-        .register-link {
+        .forgot-password {
+            display: block;
             text-align: center;
-            font-size: 14px;
-            color: var(--text-light);
-        }
-
-        .register-link a {
-            color: var(--sbi-blue);
+            margin-top: 20px;
+            color: var(--accent-orange);
+            font-size: 13px;
             text-decoration: none;
-            font-weight: 600;
-            transition: color 0.2s ease;
+            font-weight: 500;
         }
 
-        .register-link a:hover {
-            color: var(--sbi-dark-blue);
-        }
-
-        /* Security Badge */
-        .security-badge {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-top: 1.5rem;
-            padding: 0.75rem;
-            background: var(--sbi-light-blue);
-            border-radius: 10px;
-            font-size: 12px;
-            color: var(--sbi-dark-blue);
-            font-weight: 600;
-        }
-
-        .security-badge svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        /* Animations */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .forgot-password:hover {
+            text-decoration: underline;
         }
 
         /* Error Message */
         .error-message {
             background: #ffebee;
-            color: var(--error-red);
-            padding: 12px 16px;
-            border-radius: 10px;
-            font-size: 14px;
-            margin-bottom: 1rem;
+            color: #d32f2f;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 20px;
             display: none;
             align-items: center;
-            gap: 0.5rem;
+            gap: 8px;
         }
 
         .error-message.show {
             display: flex;
         }
 
-        .error-message svg {
-            width: 18px;
-            height: 18px;
-            flex-shrink: 0;
-        }
-
-        /* CAPTCHA Styles */
-        .captcha-container {
-            margin-bottom: 1.5rem;
-        }
-
-        .captcha-label {
-            display: block;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .captcha-box {
-            display: flex;
-            gap: 0.75rem;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .captcha-display {
-            flex: 1;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            padding: 16px;
-            text-align: center;
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: 8px;
-            color: var(--text-dark);
-            font-family: 'Courier New', monospace;
-            user-select: none;
-            text-decoration: line-through;
-            text-decoration-style: wavy;
-            text-decoration-color: rgba(0, 102, 204, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .captcha-display::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: repeating-linear-gradient(45deg,
-                    transparent,
-                    transparent 10px,
-                    rgba(0, 102, 204, 0.03) 10px,
-                    rgba(0, 102, 204, 0.03) 20px);
-            pointer-events: none;
-        }
-
-        .captcha-refresh {
-            width: 48px;
-            height: 48px;
-            background: white;
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .captcha-refresh:hover {
-            background: var(--sbi-light-blue);
-            border-color: var(--sbi-blue);
-        }
-
-        .captcha-refresh svg {
-            width: 20px;
-            height: 20px;
-            color: var(--sbi-blue);
-            transition: transform 0.3s ease;
-        }
-
-        .captcha-refresh:hover svg {
-            transform: rotate(180deg);
-        }
-
-        .captcha-input {
-            width: 100%;
-            padding: 14px 16px;
-            font-size: 15px;
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            outline: none;
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
-            color: var(--text-dark);
-            letter-spacing: 4px;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .captcha-input:focus {
-            border-color: var(--sbi-blue);
-            box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.1);
-        }
-
-        .captcha-input::placeholder {
-            letter-spacing: normal;
-            text-align: left;
-        }
-
         /* Responsive */
-        @media (max-width: 480px) {
-            .login-card {
-                padding: 1.75rem 1.25rem;
+        @media (max-width: 900px) {
+            .main-container {
+                flex-direction: column;
+                justify-content: center;
             }
 
-            .logo-text {
-                font-size: 24px;
+            .left-panel {
+                display: none;
+                /* Hide illustration on mobile for cleaner look or stack it */
             }
 
-            .login-header h1 {
-                font-size: 22px;
+            .right-panel {
+                flex: 1;
+                width: 100%;
+                max-width: 450px;
             }
         }
     </style>
 </head>
 
 <body>
-    <div class="login-container">
-        <!-- Logo Section -->
-        <div class="logo-section">
-            <div class="logo-circle">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                </svg>
+    <div class="main-container">
+        <!-- Left Panel with Illustration and Decor -->
+        <div class="left-panel">
+            <!-- Top Left Squiggle -->
+            <svg class="decoration squiggle-top-left" viewBox="0 0 100 50">
+                <path d="M0,25 C20,50 40,0 60,25 C80,50 100,0 120,25" />
+            </svg>
+
+            <!-- Bottom Right Squiggle -->
+            <svg class="decoration squiggle-bottom-right" viewBox="0 0 100 50">
+                <path d="M0,25 C20,50 40,0 60,25 C80,50 100,0 120,25" />
+            </svg>
+
+            <!-- Red Circle -->
+            <div class="decoration circle-red" style="top: 20%; left: 15%;"></div>
+            <div class="decoration circle-outline"></div>
+
+            <!-- Diamond Patterns (Red) -->
+            <div class="decoration diamond-pattern" style="top: 15%; right: 40%;">
+                <div class="diamond"></div>
+                <div class="diamond"></div>
+                <div class="diamond"></div>
+                <div class="diamond"></div>
+                <div class="diamond"></div>
+                <div class="diamond"></div>
             </div>
-            <div class="logo-text">SBI Applicants</div>
-            <div class="logo-subtitle">Secure Banking Portal</div>
+            <div class="decoration diamond-pattern" style="bottom: 20%; left: 10%;">
+                <div class="diamond"></div>
+                <div class="diamond"></div>
+                <div class="diamond"></div>
+                <div class="diamond"></div>
+            </div>
+
+
+            <img src="images/login-illustration.png" alt="Applicant Working" class="illustration">
         </div>
 
-        <!-- Login Card -->
-        <div class="login-card">
-            <div class="login-header">
-                <h1>Welcome Back</h1>
-                <p>Login to access your applicant dashboard</p>
-            </div>
+        <!-- Right Panel - Login Form -->
+        <div class="right-panel">
+            <div class="login-card">
+                <img src="images/yono-logo.png" alt="Yono SBI" class="logo-img">
+                <h1 class="welcome-text">Welcome Back</h1>
 
-            <!-- Error Message -->
-            <div class="error-message" id="errorMessage">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="12" y1="8" x2="12" y2="12"></line>
-                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                </svg>
-                <span id="errorText">Invalid credentials. Please try again.</span>
-            </div>
-
-            <!-- Login Form -->
-            <form id="loginForm">
-                <div class="form-group">
-                    <label class="form-label">Email Address</label>
-                    <div class="input-wrapper">
-                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                        <input type="text" class="form-input" id="userId" placeholder="Enter your User ID" required>
-                    </div>
+                <!-- Error Display -->
+                <div class="error-message" id="errorMessage">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <span id="errorText">Invalid credentials.</span>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label">Password</label>
-                    <div class="input-wrapper">
-                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                        </svg>
-                        <input type="password" class="form-input" id="password" placeholder="Enter your password"
-                            required>
-                        <button type="button" class="password-toggle" id="togglePassword">
-                            <svg class="eye-icon eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                <circle cx="12" cy="12" r="3"></circle>
-                            </svg>
-                            <svg class="eye-icon eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" style="display: none;">
-                                <path
-                                    d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24">
-                                </path>
-                                <line x1="1" y1="1" x2="23" y2="23"></line>
-                            </svg>
-                        </button>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label">User Name</label>
+                        <input type="text" class="form-input" id="userId" placeholder="hannah.green@test.com" required>
                     </div>
-                </div>
 
-                <!-- CAPTCHA Validation -->
-                <div class="captcha-container">
-                    <label class="captcha-label">Security Verification</label>
-                    <div class="captcha-box">
-                        <div class="captcha-display" id="captchaDisplay">AB12CD</div>
-                        <button type="button" class="captcha-refresh" id="refreshCaptcha" title="Refresh CAPTCHA">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="23 4 23 10 17 10"></polyline>
-                                <polyline points="1 20 1 14 7 14"></polyline>
-                                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-                            </svg>
-                        </button>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" id="password" placeholder="Password123@" required>
                     </div>
-                    <input type="text" class="captcha-input" id="captchaInput" placeholder="Enter the code above"
-                        maxlength="6" required autocomplete="off">
-                </div>
 
-                <div class="form-options" style="justify-content: flex-start;">
-                    <div class="remember-me">
-                        <input type="checkbox" id="rememberMe">
-                        <label for="rememberMe">Remember me</label>
+                    <div class="form-group">
+                        <label class="form-label">Security Text</label>
+                        <div class="security-row">
+                            <input type="text" class="form-input" id="captchaInput" placeholder="Enter the shown text"
+                                style="flex: 1;" required>
+                            <div class="captcha-display-container">
+                                <span class="captcha-code" id="captchaDisplay">MKFXC</span>
+                                <button type="button" class="refresh-btn" id="refreshCaptcha" title="Refresh Code">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M23 4v6h-6"></path>
+                                        <path d="M1 20v-6h6"></path>
+                                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <button type="submit" class="login-btn">Login to Dashboard</button>
-            </form>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="rememberMe" checked>
+                        <label for="rememberMe">Remember me on this computer</label>
+                    </div>
 
-            <!-- Security Badge -->
-            <div class="security-badge">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"></path>
-                </svg>
-                <span>256-bit SSL Encrypted Connection</span>
+                    <button type="submit" class="login-btn">LOG IN</button>
+
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </form>
             </div>
         </div>
     </div>
@@ -668,33 +431,13 @@
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
         const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // Password Toggle
-        const togglePassword = document.getElementById('togglePassword');
-        const passwordInput = document.getElementById('password');
-        const eyeOpen = togglePassword.querySelector('.eye-open');
-        const eyeOff = togglePassword.querySelector('.eye-off');
-
-        togglePassword.addEventListener('click', function () {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-
-            // Toggle eye icons
-            if (type === 'text') {
-                eyeOpen.style.display = 'none';
-                eyeOff.style.display = 'block';
-            } else {
-                eyeOpen.style.display = 'block';
-                eyeOff.style.display = 'none';
-            }
-        });
-
         // CAPTCHA Logic
         let currentCaptcha = '';
 
         function generateCaptcha() {
-            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Exclude similar looking characters
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
             let captcha = '';
-            for (let i = 0; i < 6; i++) {
+            for (let i = 0; i < 5; i++) { // 5 chars to match design approx
                 captcha += chars.charAt(Math.floor(Math.random() * chars.length));
             }
             return captcha;
@@ -706,40 +449,12 @@
             document.getElementById('captchaInput').value = '';
         }
 
-        // Initialize CAPTCHA on page load
+        document.getElementById('refreshCaptcha').addEventListener('click', displayCaptcha);
+
+        // Initialize
         displayCaptcha();
 
-        // Refresh CAPTCHA button
-        document.getElementById('refreshCaptcha').addEventListener('click', function () {
-            displayCaptcha();
-        });
-
-        // Validate CAPTCHA
-        function validateCaptcha() {
-            const userInput = document.getElementById('captchaInput').value.toUpperCase();
-            return userInput === currentCaptcha;
-        }
-
-        // Real-time CAPTCHA validation
-        document.getElementById('captchaInput').addEventListener('input', function () {
-            const input = this;
-            const value = input.value.toUpperCase();
-
-            if (value.length === 6) {
-                if (value === currentCaptcha) {
-                    input.style.borderColor = '#00c853'; // Success Green
-                    input.style.boxShadow = '0 0 0 4px rgba(0, 200, 83, 0.1)';
-                } else {
-                    input.style.borderColor = '#d32f2f'; // Error Red
-                    input.style.boxShadow = '0 0 0 4px rgba(211, 47, 47, 0.1)';
-                }
-            } else {
-                input.style.borderColor = ''; // Reset
-                input.style.boxShadow = '';
-            }
-        });
-
-        // Form Submission with Supabase Authentication
+        // Login Logic
         const loginForm = document.getElementById('loginForm');
         const errorMessage = document.getElementById('errorMessage');
         const errorText = document.getElementById('errorText');
@@ -750,24 +465,23 @@
 
             const userId = document.getElementById('userId').value.trim();
             const password = document.getElementById('password').value;
+            const captchaInput = document.getElementById('captchaInput').value.toUpperCase();
 
-            // Validate CAPTCHA first
-            if (!validateCaptcha()) {
-                errorText.textContent = 'Invalid security code. Please try again.';
+            // 1. Validate Captcha
+            if (captchaInput !== currentCaptcha) {
+                errorText.textContent = 'Incorrect Security Text. Please try again.';
                 errorMessage.classList.add('show');
-                displayCaptcha(); // Refresh CAPTCHA
-                setTimeout(() => {
-                    errorMessage.classList.remove('show');
-                }, 3000);
+                displayCaptcha();
                 return;
             }
 
-            // Disable button and show loading
+            // 2. Clear previous errors
+            errorMessage.classList.remove('show');
             loginBtn.disabled = true;
-            loginBtn.textContent = 'Logging in...';
+            loginBtn.textContent = 'LOGGING IN...';
 
             try {
-                // Query Supabase to find matching applicant
+                // 3. Authenticate with Supabase
                 const { data, error } = await sbClient
                     .from('sbi_applicants')
                     .select('*')
@@ -776,46 +490,30 @@
                     .single();
 
                 if (error || !data) {
-                    // Invalid credentials
-                    errorText.textContent = 'Invalid email or password. Please try again.';
-                    errorMessage.classList.add('show');
-                    loginBtn.disabled = false;
-                    loginBtn.textContent = 'Login to Dashboard';
-
-                    setTimeout(() => {
-                        errorMessage.classList.remove('show');
-                    }, 3000);
-                    return;
+                    throw new Error('Invalid credentials');
                 }
 
-                // Successful login - store applicant ID and redirect to their details page
+                // 4. Success
                 sessionStorage.setItem('applicantId', data.id);
                 sessionStorage.setItem('applicantName', data.applicant_name);
                 sessionStorage.setItem('applicantEmail', data.email);
 
-                // Redirect to applicant details page with their ID
                 window.location.href = `applicant-details.html?id=${data.id}`;
 
             } catch (error) {
-                console.error('Login error:', error);
-                errorText.textContent = 'An error occurred. Please try again.';
+                console.error('Login failed:', error);
+                errorText.textContent = 'Invalid Username or Password.';
                 errorMessage.classList.add('show');
                 loginBtn.disabled = false;
-                loginBtn.textContent = 'Login to Dashboard';
-
-                setTimeout(() => {
-                    errorMessage.classList.remove('show');
-                }, 3000);
+                loginBtn.textContent = 'LOG IN';
             }
         });
 
-        // Hide error message on input
-        document.getElementById('userId').addEventListener('input', () => {
-            errorMessage.classList.remove('show');
-        });
-
-        document.getElementById('password').addEventListener('input', () => {
-            errorMessage.classList.remove('show');
+        // Clear error on input
+        ['userId', 'password', 'captchaInput'].forEach(id => {
+            document.getElementById(id).addEventListener('input', () => {
+                errorMessage.classList.remove('show');
+            });
         });
     </script>
 </body>
