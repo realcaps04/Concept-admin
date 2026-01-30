@@ -258,7 +258,36 @@
             font-size: 18px;
             font-weight: 700;
             color: var(--text-dark);
+            flex: 1;
         }
+
+        .delete-card-btn {
+            background: #FEF2F2;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-left: auto;
+        }
+
+        .delete-card-btn:hover {
+            background: #FEE2E2;
+            transform: scale(1.05);
+        }
+
+        .delete-card-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: #EF4444;
+            stroke-width: 2;
+            fill: none;
+        }
+
 
         .status-dot {
             width: 8px;
@@ -833,6 +862,235 @@
         .nav-item.active .nav-label {
             color: var(--blue-primary);
         }
+
+        /* Manage Leader Profile View */
+        .manage-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #F8FAFC;
+            z-index: 1500;
+            display: none;
+            flex-direction: column;
+            overflow-y: auto;
+            animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .manage-overlay.active {
+            display: flex;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+            }
+
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .profile-header {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: transparent;
+        }
+
+        .profile-back-btn {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--blue-primary);
+            font-weight: 600;
+            font-size: 16px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .profile-edit-btn {
+            color: var(--blue-primary);
+            font-weight: 600;
+            font-size: 16px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .profile-hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 20px 30px;
+        }
+
+        .large-avatar-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .large-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366F1 0%, #A855F7 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 36px;
+            font-weight: 700;
+            border: 4px solid white;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .online-status-indicator {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 24px;
+            height: 24px;
+            background: #10B981;
+            border: 4px solid white;
+            border-radius: 50%;
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0F172A;
+            margin-bottom: 8px;
+        }
+
+        .profile-status-badge {
+            background: #DCFCE7;
+            color: #166534;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .profile-section-card {
+            background: white;
+            border-radius: 24px;
+            margin: 0 20px 20px;
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .card-header-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--blue-primary);
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .info-item.full-width {
+            grid-column: span 2;
+        }
+
+        .info-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #94A3B8;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1E293B;
+            word-break: break-word;
+        }
+
+        .security-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .security-pass {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reset-btn {
+            background: #EFF6FF;
+            color: var(--blue-primary);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .system-id-box {
+            background: #F8FAFC;
+            padding: 16px;
+            border-radius: 12px;
+            font-family: monospace;
+            font-size: 13px;
+            color: #64748B;
+            word-break: break-all;
+            line-height: 1.5;
+        }
+
+        .edit-profile-action {
+            margin: 0 20px 40px;
+            background: #F8FAFC;
+            color: var(--blue-primary);
+            border: 2px solid #DBEAFE;
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .edit-profile-action:hover {
+            background: #EFF6FF;
+            border-color: var(--blue-primary);
+        }
     </style>
 </head>
 
@@ -1037,11 +1295,144 @@
         </a>
     </div>
 
+    <!-- Manage Leader Profile View -->
+    <div class="manage-overlay" id="manageOverlay">
+        <div class="profile-header">
+            <button class="profile-back-btn" onclick="hideManageView()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 18l-6-6 6-6" />
+                </svg>
+                Back
+            </button>
+            <button class="profile-edit-btn" onclick="showAlert('Edit', 'Edit feature coming soon')">Edit</button>
+        </div>
+
+        <div class="profile-hero">
+            <div class="large-avatar-wrapper">
+                <div class="large-avatar" id="profAvatar">JD</div>
+                <div class="online-status-indicator"></div>
+            </div>
+            <h2 class="profile-name" id="profName">John Doe</h2>
+            <span class="profile-status-badge">Active</span>
+        </div>
+
+        <!-- Personal Info -->
+        <div class="profile-section-card">
+            <div class="card-header-row">
+                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                </svg>
+                <h3 class="card-title">Personal Info</h3>
+            </div>
+            <div class="info-grid">
+                <div class="info-item full-width">
+                    <span class="info-label">Email Address</span>
+                    <span class="info-value" id="profEmail">john@example.com</span>
+                </div>
+                <div class="info-item full-width">
+                    <span class="info-label">Phone Number</span>
+                    <span class="info-value" id="profPhone">+1 (555) 000-0000</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Department</span>
+                    <span class="info-value" id="profDept">Sboss</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Employee ID</span>
+                    <span class="info-value" id="profEmpId">TL-4921</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Info -->
+        <div class="profile-section-card">
+            <div class="card-header-row">
+                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                </svg>
+                <h3 class="card-title">Account Info</h3>
+            </div>
+            <div class="info-grid">
+                <div class="info-item full-width">
+                    <span class="info-label">Designation</span>
+                    <span class="info-value" id="profDesignation">Team Leader</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Created At</span>
+                    <span class="info-value" id="profCreated">Oct 12, 2022</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Last Login</span>
+                    <span class="info-value">2 hours ago</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security -->
+        <div class="profile-section-card">
+            <div class="card-header-row">
+                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+                <h3 class="card-title">Security</h3>
+            </div>
+            <div class="security-row">
+                <div class="info-item">
+                    <span class="info-label">Password</span>
+                    <div class="security-pass">
+                        <span class="info-value" id="profPassword">••••••••</span>
+                        <svg onclick="toggleProfilePassword()" style="cursor:pointer" width="18" height="18"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                    </div>
+                </div>
+                <button class="reset-btn"
+                    onclick="showAlert('Reset Password', 'A reset link has been sent to the leader.')">Reset</button>
+            </div>
+        </div>
+
+        <!-- System ID -->
+        <div class="profile-section-card">
+            <div class="card-header-row">
+                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+                <h3 class="card-title">System ID</h3>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Unique UUID</span>
+                <div class="system-id-box" id="profUuid">
+                    f7b2-441c-8822-e421-9921-a12c
+                </div>
+            </div>
+        </div>
+
+        <button class="edit-profile-action" onclick="showAlert('Edit', 'Detailed edit mode coming soon')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+            </svg>
+            Edit Profile Details
+        </button>
+    </div>
+
     <!-- Alert Popup -->
+
     <div class="alert-popup-overlay" id="alertOverlay">
         <div class="alert-popup">
-            <div class="alert-icon-circle">
-                <svg class="alert-icon-svg" viewBox="0 0 24 24">
+            <div class="alert-icon-circle" id="alertIconBox">
+                <svg class="alert-icon-svg" id="alertIcon" viewBox="0 0 24 24">
                     <path
                         d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
                         stroke-linecap="round" stroke-linejoin="round" />
@@ -1049,9 +1440,12 @@
             </div>
             <h3 class="alert-title" id="alertTitle">Registration Error</h3>
             <p class="alert-message" id="alertMessage">Default error message</p>
-            <button class="alert-dismiss-btn" onclick="hideAlert()">Dismiss</button>
+            <div id="alertActions" style="width: 100%;">
+                <button class="alert-dismiss-btn" onclick="hideAlert()">Dismiss</button>
+            </div>
         </div>
     </div>
+
 
     <script>
 
@@ -1148,9 +1542,17 @@
                     <div class="leader-info">
                         <div class="leader-name-row">
                             <h3 class="leader-name">${leader.name}</h3>
-                            <span class="status-dot ${statusClass}"></span>
+                            <button class="delete-card-btn" onclick="confirmDelete('${leader.id}', '${leader.name.replace(/'/g, "\\'").replace(/"/g, '&quot;')}')">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+
                         </div>
-                        <p class="leader-designation">${leader.designation || leader.department || 'Team Leader'}</p>
+                        <div style="display: flex; align-items: center; gap: 6px; margin-top: -2px; margin-bottom: 8px;">
+                            <span class="status-dot ${statusClass}"></span>
+                            <p class="leader-designation">${leader.designation || leader.department || 'Team Leader'}</p>
+                        </div>
                     </div>
                 </div>
                 <div class="leader-meta">
@@ -1164,6 +1566,7 @@
                     </svg>
                 </button>
             `;
+
 
             return card;
         }
@@ -1286,13 +1689,65 @@
 
         }
 
-        // Manage Leader (placeholder)
-        function manageLeader(leaderId) {
-            console.log('Managing leader:', leaderId);
-            showAlert('Coming Soon', 'Leader management feature is under development.');
+        // Manage Leader Logic
+        async function manageLeader(leaderId) {
+            try {
+                // Fetch full leader data
+                const { data, error } = await sbClient
+                    .from('fos_team_leads')
+                    .select('*')
+                    .eq('id', leaderId)
+                    .single();
+
+                if (error) throw error;
+                if (!data) throw new Error('Leader not found');
+
+                // Populate Manage View
+                document.getElementById('profName').textContent = data.name;
+                document.getElementById('profEmail').textContent = data.email;
+                document.getElementById('profPhone').textContent = data.phone || 'Not provided';
+                document.getElementById('profDept').textContent = data.department || 'N/A';
+                document.getElementById('profEmpId').textContent = data.employee_id || 'N/A';
+                document.getElementById('profDesignation').textContent = data.designation || 'Team Leader';
+                document.getElementById('profUuid').textContent = data.id;
+                document.getElementById('profPassword').textContent = '••••••••';
+                document.getElementById('profPassword').dataset.realValue = data.password;
+
+                // Format Date
+                const createdDate = new Date(data.created_at);
+                const options = { year: 'numeric', month: 'short', day: 'numeric' };
+                document.getElementById('profCreated').textContent = createdDate.toLocaleDateString('en-US', options);
+
+                // Avatar initials
+                const initials = data.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+                document.getElementById('profAvatar').textContent = initials;
+
+                // Show Overlay
+                document.getElementById('manageOverlay').classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+            } catch (error) {
+                console.error('Error fetching leader details:', error);
+                showAlert('Error', 'Failed to load leader details. Please try again.');
+            }
+        }
+
+        function hideManageView() {
+            document.getElementById('manageOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function toggleProfilePassword() {
+            const passSpan = document.getElementById('profPassword');
+            if (passSpan.textContent === '••••••••') {
+                passSpan.textContent = passSpan.dataset.realValue;
+            } else {
+                passSpan.textContent = '••••••••';
+            }
         }
 
         // Search Leaders (placeholder)
+
         function searchLeaders() {
             showAlert('Search feature', 'Search functionality is currently being implemented.');
         }
@@ -1308,10 +1763,37 @@
         }
 
         // Custom Alert Logic
-        function showAlert(title, message) {
+        let pendingAction = null;
+
+        function showAlert(title, message, isConfirm = false, onConfirm = null) {
             const overlay = document.getElementById('alertOverlay');
+            const iconBox = document.getElementById('alertIconBox');
+            const icon = document.getElementById('alertIcon');
+            const actions = document.getElementById('alertActions');
+
             document.getElementById('alertTitle').textContent = title;
             document.getElementById('alertMessage').textContent = message;
+
+            if (isConfirm) {
+                iconBox.style.background = '#FEF2F2';
+                icon.innerHTML = '<path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-linecap="round" stroke-linejoin="round" stroke="#EF4444" stroke-width="2" fill="none"/>';
+                actions.innerHTML = `
+                    <div style="display: flex; gap: 12px; width: 100%;">
+                        <button class="alert-dismiss-btn" style="background: #F1F5F9; color: #64748B;" onclick="hideAlert()">Cancel</button>
+                        <button class="alert-dismiss-btn" style="background: #EF4444;" id="confirmBtn">Delete</button>
+                    </div>
+                `;
+                document.getElementById('confirmBtn').onclick = () => {
+                    if (onConfirm) onConfirm();
+                    // Note: hideAlert is now handled inside deleteLeader on success
+                };
+
+            } else {
+                iconBox.style.background = '#FEF2F2';
+                icon.innerHTML = '<path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke="#EF4444" stroke-width="2" fill="none"/>';
+                actions.innerHTML = '<button class="alert-dismiss-btn" onclick="hideAlert()">Dismiss</button>';
+            }
+
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -1321,6 +1803,49 @@
             overlay.classList.remove('active');
             document.body.style.overflow = '';
         }
+
+        // Deletion Logic
+        function confirmDelete(id, name) {
+            showAlert(
+                'Delete Leader?',
+                `Are you sure you want to remove ${name}? This action cannot be undone.`,
+                true,
+                () => deleteLeader(id)
+            );
+        }
+
+        async function deleteLeader(id) {
+            const confirmBtn = document.getElementById('confirmBtn');
+            const originalContent = confirmBtn.innerHTML;
+
+            try {
+                confirmBtn.disabled = true;
+                confirmBtn.innerHTML = '<span class="spinner" style="width:16px; height:16px; border-width:2px; margin:0"></span>';
+
+                const { error } = await sbClient
+                    .from('fos_team_leads')
+                    .delete()
+                    .eq('id', id);
+
+                if (error) throw error;
+
+                hideAlert();
+                loadTeamLeaders(); // Refresh list
+            } catch (error) {
+                console.error('Error deleting leader:', error);
+                confirmBtn.disabled = false;
+                confirmBtn.innerHTML = originalContent;
+
+                // Show specific error to user
+                let errorMsg = error.message || 'Please check your connection and try again.';
+                if (error.code === '42501') {
+                    errorMsg = 'Permission denied. Please ensure you have the "DELETE" policy enabled in Supabase.';
+                }
+
+                showAlert('Deletion Failed', errorMsg);
+            }
+        }
+
 
         // Close on overlay click
         document.getElementById('sheetOverlay').addEventListener('click', (e) => {
