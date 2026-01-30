@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOS Member Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0052CC;
+            /* Deep blue from image */
+            --primary-hover: #0045AD;
+            --text-dark: #172B4D;
+            --text-gray: #5E6C84;
+            --border-color: #DFE1E6;
+            --bg-color: #F4F5F7;
+            --input-bg: #FFFFFF;
+            --shadow-sm: 0 1px 2px rgba(9, 30, 66, 0.08);
+            --shadow-md: 0 4px 8px rgba(9, 30, 66, 0.12);
+            --transition: all 0.2s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#E0E0E0 1px, transparent 1px);
+            background-size: 24px 24px;
+            /* Dot pattern effect */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            color: var(--text-dark);
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Logo Section */
+        .logo-wrapper {
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        /* Soft glow behind logo */
+        .logo-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(180deg, rgba(0, 82, 204, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+            border-radius: 50%;
+            filter: blur(16px);
+            z-index: -1;
+        }
+
+        .logo-box {
+            width: 64px;
+            height: 64px;
+            background-color: #0052CC;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 16px rgba(0, 82, 204, 0.24);
+        }
+
+        .shield-icon {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        /* Text Section */
+        .title-section {
+            text-align: center;
+            margin-bottom: 40px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+            color: #091E42;
+        }
+
+        .subtitle-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .line {
+            height: 2px;
+            width: 24px;
+            background-color: #0052CC;
+            border-radius: 2px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        /* Form Section */
+        .form-group {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            fill: #97A0AF;
+            transition: var(--transition);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            fill: #97A0AF;
+            cursor: pointer;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px 48px 16px 48px;
+            /* Added right padding for icons */
+            font-size: 15px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 12px;
+            background-color: var(--input-bg);
+            color: var(--text-dark);
+            outline: none;
+            transition: var(--transition);
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        /* Placeholder styling for Select */
+        select:invalid {
+            color: #B3BAE5;
+            opacity: 0.8;
+        }
+
+        option {
+            color: var(--text-dark);
+        }
+
+        input::placeholder {
+            color: #B3BAE5;
+            opacity: 0.8;
+        }
+
+        input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.1);
+        }
+
+        input:focus+.input-icon {
+            fill: var(--primary-color);
+        }
+
+        /* Custom Dropdown Styles */
+        .custom-select-wrapper {
+            position: relative;
+        }
+
+        .custom-select-container {
+            width: 100%;
+            padding: 16px 48px 16px 48px;
+            font-size: 15px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 12px;
+            background-color: var(--input-bg);
+            color: var(--text-dark);
+            /* Default text color */
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Placeholder style logic via class */
+        .custom-select-container.placeholder .selected-value {
+            color: #B3BAE5;
+            opacity: 0.8;
+        }
+
+        .custom-select-container:hover {
+            border-color: #B3BAE5;
+        }
+
+        .custom-select-container.active {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.1);
+        }
+
+        .custom-select-container.active+.input-icon {
+            fill: var(--primary-color);
+            /* Note: sibling selector might need adjustment depending on DOM order, 
+                but since icon is 'previous' sibling in HTML, CSS can't select it 
+                backwards. We handle icon color via JS for this custom component. */
+        }
+
+        /* Instead of CSS sibling selector, we'll use a class on wrapper */
+        .custom-select-wrapper.focused .input-icon {
+            fill: var(--primary-color);
+        }
+
+        .dropdown-arrow {
+            width: 24px;
+            height: 24px;
+            fill: #97A0AF;
+            transition: transform 0.2s ease;
+            position: absolute;
+            right: 16px;
+        }
+
+        .custom-select-container.active .dropdown-arrow {
+            transform: rotate(180deg);
+            fill: var(--primary-color);
+        }
+
+        .custom-dropdown-list {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            width: 100%;
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            display: none;
+            overflow: hidden;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .custom-dropdown-list.show {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown-item {
+            padding: 14px 16px;
+            font-size: 15px;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: background 0.2s;
+            border-bottom: 1px solid #F4F5F7;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background-color: #F0F7FF;
+            /* Light blue hover */
+            color: var(--primary-color);
+        }
+
+        /* Button */
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(180deg, #1A6CFF 0%, #0052CC 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 82, 204, 0.3);
+            transition: transform 0.1s, box-shadow 0.2s;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .login-btn:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 6px rgba(0, 82, 204, 0.2);
+        }
+
+        .loader {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .forgot-link {
+            margin-top: 24px;
+            font-size: 14px;
+            color: var(--text-gray);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .forgot-link:hover {
+            color: var(--primary-color);
+        }
+
+        /* Pagination Dots */
+        .pagination-dots {
+            display: flex;
+            gap: 8px;
+            margin-top: 60px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #DFE1E6;
+        }
+
+        .dot.active {
+            background-color: #B3D4FF;
+        }
+
+        .dot.current {
+            background-color: #0052CC;
+        }
+
+        /* Icons */
+        svg {
+            display: block;
+        }
+
+        .register-wrapper {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--text-gray);
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .register-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .register-link:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+        <!-- Top Bar with Back Button -->
+        <div style="width: 100%; display: flex; justify-content: flex-start; margin-bottom: 20px;">
+            <button onclick="window.location.href='FOSrole.html'"
+                style="background: #FFFFFF; border: 1px solid #E2E8F0; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02); transition: all 0.2s;">
+                <svg style="width: 20px; height: 20px; stroke: #334155; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round;"
+                    viewBox="0 0 24 24">
+                    <path d="M15 18L9 12L15 6" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Logo -->
+        <div class="logo-wrapper">
+            <div class="logo-glow"></div>
+            <div class="logo-box">
+                <!-- Shield Icon -->
+                <svg class="shield-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12 2L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 2ZM12 6C13.66 6 15 7.34 15 9C15 10.66 13.66 12 12 12C10.34 12 9 10.66 9 9C9 7.34 10.34 6 12 6ZM16 16.85C16 16.85 14.85 18 12 18C9.15 18 8 16.85 8 16.85V16C8 14.66 10.66 14 12 14C13.34 14 16 14.66 16 16V16.85Z" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- Title -->
+        <div class="title-section">
+            <h1>FOS Member Login</h1>
+            <div class="subtitle-wrapper">
+                <div class="line"></div>
+                <span class="subtitle">Feet on Street Portal</span>
+                <div class="line"></div>
+            </div>
+        </div>
+
+        <!-- Form -->
+        <form id="loginForm" onsubmit="handleLogin(event)" style="width: 100%;">
+            <div class="form-group">
+                <label for="tlName">Select Team Lead</label>
+                <div class="input-wrapper custom-select-wrapper">
+                    <!-- User/Person Icon for TL -->
+                    <svg class="input-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+
+                    <div class="custom-select-container" id="customSelectContainer" onclick="toggleDropdown()">
+                        <span class="selected-value" id="selectedValue">Select your Team Lead</span>
+                        <!-- Custom Chevron Icon -->
+                        <svg class="dropdown-arrow" id="dropdownArrow" viewBox="0 0 24 24">
+                            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+                        </svg>
+                    </div>
+
+                    <!-- Hidden Input to store value -->
+                    <input type="hidden" id="tlName" required>
+
+                    <!-- Dropdown List -->
+                    <div class="custom-dropdown-list" id="customDropdownList">
+                        <div class="dropdown-item" onclick="selectOption('John Doe (TL-001)', 'tl1')">John Doe (TL-001)
+                        </div>
+                        <div class="dropdown-item" onclick="selectOption('Jane Smith (TL-002)', 'tl2')">Jane Smith
+                            (TL-002)</div>
+                        <div class="dropdown-item" onclick="selectOption('Robert Brown (TL-003)', 'tl3')">Robert Brown
+                            (TL-003)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="employeeId">Employee ID</label>
+                <div class="input-wrapper">
+                    <!-- ID Card Icon -->
+                    <svg class="input-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M19 3H5C3.89 3 3 3.89 3 5V19C3 20.11 3.89 21 5 21H19C20.11 21 21 20.11 21 19V5C21 3.89 20.11 3 19 3ZM19 19H5V5H19V19ZM9 12 C10.66 12 12 10.66 12 9C12 7.34 10.66 6 9 6C7.34 6 6 7.34 6 9C6 10.66 7.34 12 9 12ZM9 13C6.33 13 4 14.33 4 17V18H14V17C14 14.33 11.67 13 9 13ZM15 12H19V14H15V12ZM15 7H19V9H15V7ZM15 15H19V17H15V15Z" />
+                    </svg>
+                    <input type="text" id="employeeId" placeholder="Enter your official ID" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-wrapper">
+                    <!-- Lock Icon -->
+                    <svg class="input-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M18 8H17V6C17 3.24 14.76 1 12 1C9.24 1 7 3.24 7 6V8H6C4.9 8 4 8.9 4 10V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V10C20 8.9 19.1 8 18 8ZM12 17C10.9 17 10 16.1 10 15C10 13.9 10.9 13 12 13C13.1 13 14 13.9 14 15C14 16.1 13.1 17 12 17ZM15 8H9V6C9 4.34 10.34 3 12 3C13.66 3 15 4.34 15 6V8Z" />
+                    </svg>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                    <!-- Eye Icon -->
+                    <svg class="toggle-password" onclick="togglePassword()" viewBox="0 0 24 24">
+                        <path
+                            d="M12 4.5C7 4.5 2.73 7.61 1 12C2.73 16.39 7 19.5 12 19.5C17 19.5 21.27 16.39 23 12C21.27 7.61 17 4.5 12 4.5ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17ZM12 9C10.34 9 9 10.34 9 12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12C15 10.34 13.66 9 12 9Z" />
+                    </svg>
+                </div>
+            </div>
+
+            <button type="submit" class="login-btn" id="submitBtn">
+                <span class="loader"></span>
+                <span id="btnText">Login</span>
+            </button>
+        </form>
+
+        <a href="fosmemberpassreset.html" class="forgot-link">Forgot your credentials?</a>
+
+        <div class="register-wrapper">
+            <span>Don't have an account?</span>
+            <a href="FOSMemberRegister.html" class="register-link">Register Now</a>
+        </div>
+
+        <div class="pagination-dots">
+            <div class="dot active"></div>
+            <div class="dot current"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        (function () {
+            // Supabase Configuration
+            const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+
+            let supabase;
+            if (window.supabase) {
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            } else {
+                console.error('Supabase library not loaded');
+            }
+
+            // Expose global functions for HTML handlers
+            window.togglePassword = function () {
+                const passwordInput = document.getElementById('password');
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                } else {
+                    passwordInput.type = 'password';
+                }
+            };
+
+            window.toggleDropdown = function () {
+                const list = document.getElementById('customDropdownList');
+                const container = document.getElementById('customSelectContainer');
+                const wrapper = container.parentElement;
+
+                list.classList.toggle('show');
+                container.classList.toggle('active');
+                wrapper.classList.toggle('focused');
+            };
+
+            window.selectOption = function (text, value) {
+                const display = document.getElementById('selectedValue');
+                const hiddenInput = document.getElementById('tlName');
+                const container = document.getElementById('customSelectContainer');
+
+                display.innerText = text;
+                hiddenInput.value = value; // Store the ID (UUID)
+
+                // Remove placeholder styling
+                container.classList.remove('placeholder');
+
+                // Close dropdown
+                window.toggleDropdown();
+            };
+
+            window.handleLogin = async function (e) {
+                e.preventDefault();
+
+                // Validate TL Selection
+                const tlValue = document.getElementById('tlName').value;
+                if (!tlValue) {
+                    alert("Please select a Team Lead.");
+                    return;
+                }
+
+                const employeeId = document.getElementById('employeeId').value.trim();
+                const password = document.getElementById('password').value;
+
+                if (!employeeId || !password) {
+                    alert("Please enter both Employee ID and Password.");
+                    return;
+                }
+
+                const btn = document.getElementById('submitBtn');
+                const btnText = document.getElementById('btnText');
+                const loader = document.querySelector('.loader');
+
+                // Show loading state
+                btnText.innerText = 'Authenticating...';
+                loader.style.display = 'block';
+                btn.disabled = true;
+
+                try {
+                    // Fetch user from fos_members table
+                    const { data, error } = await supabase
+                        .from('fos_members')
+                        .select('id, name, status, password')
+                        .eq('employee_id', employeeId)
+                        .single();
+
+                    if (error || !data) {
+                        throw new Error("Invalid Credentials");
+                    }
+
+                    // Verify Password (Plain text check)
+                    if (data.password !== password) {
+                        throw new Error("Invalid Credentials");
+                    }
+
+                    // Check Status
+                    if (data.status === 'pending') {
+                        // Redirect to Account Status page if pending
+                        window.location.href = `FOSAccountStatus.html?id=${encodeURIComponent(employeeId)}`;
+                    } else if (data.status === 'active' || data.status === 'approved') {
+                        // Login Success
+                        localStorage.setItem('currentUser', JSON.stringify({
+                            id: data.id,
+                            name: data.name,
+                            role: 'fos_member',
+                            team_lead_id: tlValue // Store selected TL if relevant
+                        }));
+                        window.location.href = 'fosadmindashboard.html';
+                    } else {
+                        alert("Your account is currently " + data.status);
+                        resetButton();
+                    }
+
+                } catch (err) {
+                    console.error(err);
+                    alert("Login Failed: " + (err.message || "Please check your credentials."));
+                    resetButton();
+                }
+
+                function resetButton() {
+                    btnText.innerText = 'Login';
+                    loader.style.display = 'none';
+                    btn.disabled = false;
+                }
+            };
+
+            // Close dropdown when clicking outside
+            window.onclick = function (event) {
+                if (!event.target.closest('.custom-select-wrapper')) {
+                    const list = document.getElementById('customDropdownList');
+                    const container = document.getElementById('customSelectContainer');
+                    const wrapper = document.querySelector('.custom-select-wrapper');
+
+                    if (list && list.classList.contains('show')) {
+                        list.classList.remove('show');
+                        container.classList.remove('active');
+                        if (wrapper) wrapper.classList.remove('focused');
+                    }
+                }
+            };
+
+            // Fetch Team Leads
+            async function fetchTeamLeads() {
+                try {
+                    // Note: 'employee_id' column does not exist in fos_team_leads schema shown.
+                    // Switched to selecting 'department' instead.
+                    const { data, error } = await supabase
+                        .from('fos_team_leads')
+                        .select('id, name, department');
+
+                    if (error) throw error;
+
+                    const list = document.getElementById('customDropdownList');
+                    list.innerHTML = ''; // Clear hardcoded items
+
+                    if (data && data.length > 0) {
+                        data.forEach(tl => {
+                            const item = document.createElement('div');
+                            item.className = 'dropdown-item';
+                            // Format: Name (Team Leader)
+                            const displayText = `${tl.name} (Team Leader)`;
+                            item.innerText = displayText;
+
+                            // Pass explicit arguments to avoid event object capture
+                            item.onclick = function () {
+                                window.selectOption(displayText, tl.id);
+                            };
+
+                            list.appendChild(item);
+                        });
+                    } else {
+                        const item = document.createElement('div');
+                        item.className = 'dropdown-item';
+                        item.innerText = 'No Team Leads found';
+                        list.appendChild(item);
+                    }
+
+                } catch (err) {
+                    console.error('Error fetching Team Leads:', err);
+                    // If error, maybe leave hardcoded items or show error in dropdown
+                    const list = document.getElementById('customDropdownList');
+                    list.innerHTML = `<div class="dropdown-item">Error loading list</div>`;
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const container = document.getElementById('customSelectContainer');
+                container.classList.add('placeholder');
+                fetchTeamLeads();
+            });
+
+        })();
+    </script>
+</body>
+
+</html>

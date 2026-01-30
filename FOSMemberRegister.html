@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOS Registration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1A73E8;
+            /* Vibrant Blue */
+            --primary-hover: #1557B0;
+            --text-dark: #1F2937;
+            --text-gray: #6B7280;
+            --text-light: #9CA3AF;
+            --bg-color: #F3F4F6;
+            /* Light gray background */
+            --white: #FFFFFF;
+            --border-color: #E5E7EB;
+            --transition: all 0.2s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        /* Top Navigation Bar */
+        .top-nav {
+            display: flex;
+            align-items: center;
+            padding: 20px 24px;
+            position: relative;
+            background-color: transparent;
+            /* Seamless blend */
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            margin-left: -8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-icon {
+            width: 24px;
+            height: 24px;
+            stroke: var(--text-dark);
+            stroke-width: 2.5;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .page-header-title {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--text-dark);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 480px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .header-section {
+            margin-bottom: 24px;
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: #6B7280;
+            /* Blue-grayish text */
+            line-height: 1.5;
+        }
+
+        /* Form Card */
+        .form-card {
+            background-color: var(--white);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1F2937;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            fill: #9CA3AF;
+            transition: var(--transition);
+        }
+
+        /* Specific tweaks for outline icons vs fill icons */
+        .input-icon.outline {
+            fill: none;
+            stroke: #9CA3AF;
+            stroke-width: 2;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            /* Room for icon */
+            font-size: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background-color: var(--white);
+            color: var(--text-dark);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        input::placeholder {
+            color: #9CA3AF;
+            font-weight: 400;
+        }
+
+        input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(26, 115, 232, 0.1);
+            /* Subtle blue ring */
+        }
+
+        input:focus+.input-icon {
+            fill: var(--primary-color);
+            stroke: var(--primary-color);
+            /* For outline icons */
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            fill: #9CA3AF;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .toggle-password:hover {
+            fill: var(--text-dark);
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background-color: #2563EB;
+            /* Bright Royal Blue */
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.1s, background-color 0.2s;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+        }
+
+        .submit-btn:hover {
+            background-color: #1D4ED8;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Footer Links */
+        .footer-text {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-gray);
+            line-height: 1.5;
+            margin-top: 16px;
+            padding: 0 16px;
+        }
+
+        .footer-link {
+            color: #2563EB;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .bottom-login {
+            text-align: center;
+            margin-top: 32px;
+            font-size: 15px;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .login-link {
+            color: #2563EB;
+            text-decoration: none;
+            font-weight: 700;
+            margin-left: 4px;
+        }
+
+        .login-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Validation Styles */
+        input.invalid {
+            border-color: #EF4444 !important;
+            /* Red-500 */
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1) !important;
+            background-color: #FEF2F2;
+        }
+
+        input.valid {
+            border-color: #10B981;
+            /* Green-500 */
+        }
+
+        /* Bottom swipe indicator simulator */
+        .home-indicator {
+            width: 134px;
+            height: 5px;
+            background-color: #E5E7EB;
+            border-radius: 100px;
+            margin: 40px auto 10px;
+        }
+
+        /* Feature Toast Notification */
+        .toast-notification {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: white;
+            padding: 8px 12px 8px 8px;
+            border-radius: 50px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            min-width: 280px;
+        }
+
+        .toast-notification.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast-icon {
+            background-color: #DBEAFE;
+            color: #2563EB;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .toast-message {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1F2937;
+            flex: 1;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #9CA3AF;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Nav -->
+    <nav class="top-nav">
+        <button class="back-btn" onclick="history.back()">
+            <svg class="back-icon" viewBox="0 0 24 24">
+                <path d="M15 18L9 12L15 6" />
+            </svg>
+        </button>
+        <span class="page-header-title">FOS Registration</span>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+
+
+        <!-- Form Card -->
+        <div class="form-card">
+            <form onsubmit="handleRegister(event)">
+
+                <!-- Full Name -->
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <div class="input-wrapper">
+                        <!-- Person Icon -->
+                        <svg class="input-icon" viewBox="0 0 24 24">
+                            <path
+                                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.67-5.33-4-8-4z" />
+                        </svg>
+                        <input type="text" placeholder="Enter your full name" required>
+                    </div>
+                </div>
+
+                <!-- Employee ID -->
+                <div class="form-group">
+                    <label>Employee ID</label>
+                    <div class="input-wrapper">
+                        <!-- Badge/Case Icon -->
+                        <svg class="input-icon" viewBox="0 0 24 24">
+                            <path
+                                d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z" />
+                            <path d="M12 14c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z" />
+                        </svg>
+                        <input type="text" placeholder="F12345" required>
+                    </div>
+                </div>
+
+                <!-- Email Address -->
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <div class="input-wrapper">
+                        <!-- Mail Icon -->
+                        <svg class="input-icon" viewBox="0 0 24 24">
+                            <path
+                                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                        </svg>
+                        <input type="email" placeholder="name@company.com" required>
+                    </div>
+                </div>
+
+                <!-- Phone Number -->
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <div class="input-wrapper">
+                        <!-- Mobile Icon -->
+                        <svg class="input-icon" viewBox="0 0 24 24">
+                            <path
+                                d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z" />
+                        </svg>
+                        <input type="tel" placeholder="+91 98765 43210" required>
+                    </div>
+                </div>
+
+                <!-- Create Password -->
+                <div class="form-group">
+                    <label>Create Password</label>
+                    <div class="input-wrapper">
+                        <!-- Lock Icon -->
+                        <svg class="input-icon" viewBox="0 0 24 24">
+                            <path
+                                d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" />
+                        </svg>
+                        <input type="password" id="regPassword" placeholder="••••••••" required>
+                        <!-- Eye Icon -->
+                        <svg class="toggle-password" onclick="togglePassword(this)" viewBox="0 0 24 24">
+                            <path
+                                d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-1.34-3-3-1.34-3-3-1.34-3-3-1.34-3-3-1.34-3-3-1.34-3-3-1.34-3-3-1.34-3-3-3z" />
+                        </svg>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <button class="submit-btn" onclick="handleRegister(event)">Register as Member</button>
+
+        <p class="footer-text">
+            By registering, you agree to our <a href="#" onclick="showFeatureToast(event)" class="footer-link">Terms of
+                Service</a> and <a href="#" onclick="showFeatureToast(event)" class="footer-link">Privacy Policy</a>.
+        </p>
+
+        <div class="bottom-login">
+            Already have an account? <a href="FOSMemberLogin.html" class="login-link">Login</a>
+        </div>
+
+        <div class="home-indicator"></div>
+
+        <!-- Notification Toast -->
+        <div id="feature-toast" class="toast-notification">
+            <div class="toast-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                    </path>
+                </svg>
+            </div>
+            <span class="toast-message">This feature is coming soon!</span>
+            <button class="toast-close" onclick="closeToast()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        (function () {
+            // Supabase Configuration
+            const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+
+            let supabaseClient;
+            if (window.supabase) {
+                supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            } else {
+                console.error('Supabase library not loaded');
+                // Even if not loaded, we don't return to avoid breaking other global assigns if possible, 
+                // but without supabase we can't do much.
+            }
+
+            // Expose functions to global scope for HTML onclick handlers
+            let toastTimeout;
+            window.showFeatureToast = function (e) {
+                if (e) e.preventDefault();
+                const toast = document.getElementById('feature-toast');
+                toast.classList.add('show');
+
+                // Clear existing timeout if showing again
+                if (toastTimeout) clearTimeout(toastTimeout);
+
+                toastTimeout = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            };
+
+            window.closeToast = function () {
+                const toast = document.getElementById('feature-toast');
+                toast.classList.remove('show');
+                if (toastTimeout) clearTimeout(toastTimeout);
+            };
+
+            window.togglePassword = function (icon) {
+                const input = document.getElementById('regPassword');
+                // Support both direct click and passing 'this'
+                // If the user clicks only the path, 'icon' might be the path if the event bubbled? 
+                // No, onclick is on <svg>, so 'this' is the SVG.
+                const path = icon ? icon.querySelector('path') : document.querySelector('.toggle-password path');
+
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    path.setAttribute('d', 'M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-4.01.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.82l2.72 2.72 1.36-1.36L3.36 2.9 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78 3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z');
+                } else {
+                    input.type = 'password';
+                    path.setAttribute('d', 'M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-1.34-3-3-1.34-3-3-1.34-3-3-1.34-3-3-1.34-3-3-1.34-3-3-3z');
+                }
+            };
+
+            // Validation Logic
+            const validations = {
+                // Full Name: At least two words (First Last)
+                fullName: (val) => val.trim().split(/\s+/).length >= 2,
+
+                // Employee ID: Starts with 'F' or 'f' followed by only numbers
+                employeeId: (val) => /^[Ff]\d+$/.test(val),
+
+                email: (val) => /^[a-zA-Z0-9._%+-]+@(gmail\.com|sboss\.net\.in)$/i.test(val),
+                phone: (val) => /^(\+91[\-\s]?)?[6789]\d{9}$/.test(val),
+                password: (val) => val.length >= 6
+            };
+
+            function setupValidation() {
+                const inputs = {
+                    fullName: document.querySelector('input[placeholder="Enter your full name"]'),
+                    employeeId: document.querySelector('input[placeholder="F12345"]'),
+                    email: document.querySelector('input[type="email"]'),
+                    phone: document.querySelector('input[placeholder="+91 98765 43210"]'),
+                    password: document.getElementById('regPassword')
+                };
+
+                Object.keys(inputs).forEach(key => {
+                    const input = inputs[key];
+                    if (!input) return;
+
+                    const validate = () => {
+                        const isValid = validations[key](input.value.trim());
+                        if (!isValid && input.value.trim().length > 0) {
+                            input.classList.add('invalid');
+                            input.classList.remove('valid');
+                        } else if (isValid) {
+                            input.classList.remove('invalid');
+                            input.classList.add('valid');
+                        } else {
+                            // Empty case - maybe remove both
+                            input.classList.remove('invalid', 'valid');
+                        }
+                        return isValid;
+                    };
+
+                    input.addEventListener('input', validate);
+                    input.addEventListener('blur', validate);
+                });
+            }
+
+            // Initialize validation
+            setupValidation();
+
+            window.handleRegister = async function (e) {
+                if (e) e.preventDefault();
+                const btn = document.querySelector('.submit-btn');
+
+                // Get form values
+                const inputs = {
+                    fullName: document.querySelector('input[placeholder="Enter your full name"]'),
+                    employeeId: document.querySelector('input[placeholder="F12345"]'),
+                    email: document.querySelector('input[type="email"]'),
+                    phone: document.querySelector('input[placeholder="+91 98765 43210"]'),
+                    password: document.getElementById('regPassword')
+                };
+
+                const values = {
+                    fullName: inputs.fullName.value.trim(),
+                    employeeId: inputs.employeeId.value.trim(),
+                    email: inputs.email.value.trim(),
+                    phone: inputs.phone.value.trim(),
+                    password: inputs.password.value
+                };
+
+                // Final Validation Check
+                let isAllValid = true;
+                Object.keys(validations).forEach(key => {
+                    if (!validations[key](values[key])) {
+                        inputs[key].classList.add('invalid');
+                        isAllValid = false;
+                    }
+                });
+
+                if (!isAllValid) {
+                    alert('Please fix the errors highlighted in red.');
+                    return;
+                }
+
+                btn.innerHTML = 'Creating Account...';
+                btn.style.opacity = '0.7';
+                btn.disabled = true;
+
+                try {
+                    // Insert into Supabase with 'pending' status
+                    const { data, error } = await supabaseClient
+                        .from('fos_members')
+                        .insert([
+                            {
+                                name: values.fullName,
+                                employee_id: values.employeeId,
+                                email: values.email,
+                                phone: values.phone,
+                                password: values.password, // Note: In production, hash this!
+                                status: 'pending'
+                            }
+                        ])
+                        .select();
+
+                    if (error) throw error;
+
+                    // Success
+                    btn.innerHTML = 'Success!';
+                    btn.style.backgroundColor = '#10B981'; // Green
+
+                    setTimeout(() => {
+                        window.location.href = `FOSAccountStatus.html?id=${encodeURIComponent(values.employeeId)}`;
+                    }, 1000);
+
+                } catch (err) {
+                    console.error('Registration error:', err);
+                    alert('Registration failed: ' + err.message);
+                    btn.innerHTML = 'Register as Member';
+                    btn.style.backgroundColor = '#2563EB';
+                    btn.style.opacity = '1';
+                    btn.disabled = false;
+                }
+            };
+        })();
+    </script>
+</body>
+
+</html>

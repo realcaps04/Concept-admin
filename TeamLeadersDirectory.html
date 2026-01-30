@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Leaders Directory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --primary-bg: #F5F7FA;
+            --card-bg: #FFFFFF;
+            --text-dark: #1F2937;
+            --text-gray: #6B7280;
+            --text-light: #9CA3AF;
+            --blue-primary: #2563EB;
+            --blue-hover: #1D4ED8;
+            --green-active: #10B981;
+            --green-bg: #D1FAE5;
+            --yellow-leave: #F59E0B;
+            --yellow-bg: #FEF3C7;
+            --border-color: #E5E7EB;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            min-height: 100vh;
+            color: var(--text-dark);
+            max-width: 480px;
+            margin: 0 auto;
+            padding-bottom: 80px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--card-bg);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .back-btn:hover {
+            background: var(--primary-bg);
+        }
+
+        .back-icon {
+            width: 24px;
+            height: 24px;
+            stroke: var(--text-dark);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .icon-btn {
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .icon-btn:hover {
+            background: var(--primary-bg);
+        }
+
+        .icon-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--text-dark);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 24px 20px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        /* Add New Button */
+        .add-new-btn {
+            width: 100%;
+            background: var(--blue-primary);
+            color: white;
+            border: none;
+            padding: 18px 24px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+            transition: all 0.2s;
+            margin-bottom: 28px;
+        }
+
+        .add-new-btn:hover {
+            background: var(--blue-hover);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .add-new-btn:active {
+            transform: translateY(0);
+        }
+
+        .add-icon {
+            width: 20px;
+            height: 20px;
+            stroke: white;
+            stroke-width: 2.5;
+            fill: none;
+        }
+
+        /* Section Header */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+        }
+
+        .active-count {
+            background: #DBEAFE;
+            color: var(--blue-primary);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* Team Leader Cards */
+        .leaders-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .leader-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s;
+        }
+
+        .leader-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .leader-header {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .leader-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .leader-info {
+            flex: 1;
+        }
+
+        .leader-name-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .leader-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .status-dot.active {
+            background: var(--green-active);
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+        }
+
+        .status-dot.on-leave {
+            background: var(--yellow-leave);
+            box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
+        }
+
+        .leader-designation {
+            font-size: 14px;
+            color: var(--text-gray);
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .leader-meta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--text-gray);
+            font-weight: 600;
+            background: var(--primary-bg);
+            padding: 6px 12px;
+            border-radius: 8px;
+        }
+
+        .meta-item.status-active {
+            background: var(--green-bg);
+            color: #047857;
+        }
+
+        .meta-item.status-leave {
+            background: var(--yellow-bg);
+            color: #92400E;
+        }
+
+        .manage-btn {
+            width: 100%;
+            background: transparent;
+            color: var(--blue-primary);
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+            margin-top: 12px;
+        }
+
+        .manage-btn:hover {
+            background: #EFF6FF;
+        }
+
+        .arrow-icon {
+            width: 16px;
+            height: 16px;
+            stroke: var(--blue-primary);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        /* Bottom Sheet */
+        .bottom-sheet-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: flex-end;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .bottom-sheet-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .bottom-sheet {
+            background: var(--card-bg);
+            border-radius: 32px 32px 0 0;
+            width: 100%;
+            max-width: 480px;
+            max-height: 92vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 12px 0 32px;
+            box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .bottom-sheet-overlay.active .bottom-sheet {
+            transform: translateY(0);
+        }
+
+        .drag-handle {
+            width: 48px;
+            height: 4px;
+            background: #E2E8F0;
+            border-radius: 2px;
+            margin: 0 auto 20px;
+        }
+
+        .sheet-header {
+            padding: 0 24px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sheet-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .close-sheet-btn {
+            background: #F1F5F9;
+            border: none;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+
+        .close-sheet-btn:hover {
+            background: #E2E8F0;
+        }
+
+        .close-sheet-btn svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--text-gray);
+            stroke-width: 2.5;
+            fill: none;
+        }
+
+        .sheet-body {
+            padding: 0 24px;
+        }
+
+        .sheet-form-group {
+            margin-bottom: 24px;
+        }
+
+        .sheet-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .sheet-input {
+            width: 100%;
+            padding: 0 0 12px 0;
+            font-size: 16px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #F1F5F9;
+            outline: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .sheet-input::placeholder {
+            color: #94A3B8;
+            font-weight: 400;
+        }
+
+        .sheet-input:focus {
+            border-bottom-color: var(--blue-primary);
+        }
+
+        .custom-select-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .custom-select-trigger {
+            width: 100%;
+            padding: 0 0 12px 0;
+            font-size: 16px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #F1F5F9;
+            outline: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .custom-select-container.active .custom-select-trigger {
+            border-bottom-color: var(--blue-primary);
+        }
+
+        .select-chevron {
+            width: 16px;
+            height: 16px;
+            stroke: #94A3B8;
+            stroke-width: 2;
+            fill: none;
+            transition: transform 0.3s;
+        }
+
+        .custom-select-container.active .select-chevron {
+            transform: rotate(180deg);
+            stroke: var(--blue-primary);
+        }
+
+        .custom-options-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 16px;
+            margin-top: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            display: none;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transform-origin: top;
+            animation: slideDown 0.2s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: scaleY(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scaleY(1);
+            }
+        }
+
+        .custom-select-container.active .custom-options-list {
+            display: block;
+        }
+
+        .custom-option {
+            padding: 14px 16px;
+            font-size: 15px;
+            color: var(--text-dark);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+        }
+
+        .custom-option:hover {
+            background: #F8FAFC;
+            color: var(--blue-primary);
+        }
+
+        .selected-dept-text.placeholder {
+            color: #94A3B8;
+            font-weight: 400;
+        }
+
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .toggle-visibility {
+            position: absolute;
+            right: 0;
+            top: 0;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .toggle-visibility svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--blue-primary);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .sheet-submit-btn {
+            width: 100%;
+            background: var(--blue-primary);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.2s;
+            margin-top: 20px;
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+        }
+
+        .sheet-submit-btn:hover {
+            background: var(--blue-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px -3px rgba(37, 99, 235, 0.4);
+        }
+
+        .sheet-submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .sheet-submit-btn:disabled {
+            background: var(--text-light);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .sheet-submit-btn .btn-arrow {
+            width: 18px;
+            height: 18px;
+            stroke: white;
+            stroke-width: 2.5;
+            fill: none;
+        }
+
+        /* Alert Popup */
+        .alert-popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .alert-popup-overlay.active {
+            display: flex;
+        }
+
+        .alert-popup {
+            background: var(--card-bg);
+            border-radius: 28px;
+            width: 100%;
+            max-width: 320px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .alert-popup-overlay.active .alert-popup {
+            transform: scale(1);
+        }
+
+        .alert-icon-circle {
+            width: 64px;
+            height: 64px;
+            background: #FEF2F2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .alert-icon-svg {
+            width: 28px;
+            height: 28px;
+            stroke: #EF4444;
+            stroke-width: 2.5;
+            fill: none;
+        }
+
+        .alert-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .alert-message {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 24px;
+            word-wrap: break-word;
+        }
+
+        .alert-dismiss-btn {
+            width: 100%;
+            background: #0F172A;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .alert-dismiss-btn:hover {
+            background: #1E293B;
+            transform: translateY(-2px);
+        }
+
+        .alert-dismiss-btn:active {
+            transform: translateY(0);
+        }
+
+
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-gray);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--blue-primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .empty-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            opacity: 0.3;
+        }
+
+        .empty-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .empty-text {
+            font-size: 14px;
+            color: var(--text-gray);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-around;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 12px;
+            transition: background 0.2s;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            background: var(--primary-bg);
+        }
+
+        .nav-item.active {
+            color: var(--blue-primary);
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            stroke: var(--text-gray);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .nav-item.active .nav-icon {
+            stroke: var(--blue-primary);
+            fill: var(--blue-primary);
+        }
+
+        .nav-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-gray);
+        }
+
+        .nav-item.active .nav-label {
+            color: var(--blue-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-left">
+            <button class="back-btn" onclick="goBack()">
+                <svg class="back-icon" viewBox="0 0 24 24">
+                    <path d="M15 18L9 12L15 6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </button>
+            <h1 class="header-title">Team Leaders</h1>
+        </div>
+        <div class="header-actions">
+            <button class="icon-btn" onclick="searchLeaders()">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M21 21L16.65 16.65" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </button>
+            <button class="icon-btn" onclick="showMenu()">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="5" r="1" fill="currentColor" />
+                    <circle cx="12" cy="12" r="1" fill="currentColor" />
+                    <circle cx="12" cy="19" r="1" fill="currentColor" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h2 class="page-title">Directory</h2>
+
+        <!-- Add New Button -->
+        <button class="add-new-btn" onclick="openBottomSheet()">
+            <svg class="add-icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M12 8V16M8 12H16" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            Add New Team Leader
+        </button>
+
+        <!-- Section Header -->
+        <div class="section-header">
+            <h3 class="section-title">Current Leaders</h3>
+            <span class="active-count" id="activeCount">0 Active</span>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading" id="loadingState">
+            <div class="spinner"></div>
+            <p>Loading team leaders...</p>
+        </div>
+
+        <!-- Leaders List -->
+        <div class="leaders-list" id="leadersList"></div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                    d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="9" cy="7" r="4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                    d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                    d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <h3 class="empty-title">No Team Leaders Yet</h3>
+            <p class="empty-text">Add your first team leader to get started</p>
+        </div>
+    </div>
+
+    <!-- Create Team Leader Bottom Sheet -->
+    <div class="bottom-sheet-overlay" id="sheetOverlay">
+        <div class="bottom-sheet">
+            <div class="drag-handle"></div>
+            <div class="sheet-header">
+                <h2 class="sheet-title">Create New Team Leader</h2>
+                <button class="close-sheet-btn" onclick="closeBottomSheet()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M18 6L6 18M6 6L18 18" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
+            <div class="sheet-body">
+                <form id="createLeaderSheetForm" onsubmit="handleSheetSubmit(event)">
+                    <div class="sheet-form-group">
+                        <label class="sheet-label">Full Name</label>
+                        <input type="text" class="sheet-input" id="sheetName" placeholder="e.g., John Doe" required>
+                    </div>
+
+                    <div class="sheet-form-group">
+                        <label class="sheet-label">Email Address</label>
+                        <input type="email" class="sheet-input" id="sheetEmail" placeholder="name@company.com" required>
+                    </div>
+
+                    <div class="sheet-form-group">
+                        <label class="sheet-label">Phone Number</label>
+                        <input type="tel" class="sheet-input" id="sheetPhone" placeholder="+1 (555) 000-0000">
+                    </div>
+
+                    <div class="sheet-form-group">
+                        <label class="sheet-label">Employee ID</label>
+                        <input type="text" class="sheet-input" id="sheetEmployeeId" placeholder="TL-4921" required>
+                    </div>
+
+                    <div class="sheet-form-group">
+                        <label class="sheet-label">Department</label>
+                        <div class="custom-select-container" id="deptSelectContainer">
+                            <div class="custom-select-trigger" onclick="toggleCustomSelect()">
+                                <span id="selectedDeptText" class="selected-dept-text placeholder">Select dept</span>
+                                <svg class="select-chevron" viewBox="0 0 24 24">
+                                    <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="custom-options-list" id="deptOptionsList">
+                                <div class="custom-option" onclick="selectOption('Sboss')">Sboss</div>
+                            </div>
+                            <input type="hidden" id="sheetDepartment" value="" required>
+                        </div>
+                    </div>
+
+
+
+                    <div class="sheet-form-group">
+                        <label class="sheet-label">Temporary Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" class="sheet-input" id="sheetPassword" placeholder="••••••••"
+                                required>
+                            <span class="toggle-visibility" onclick="toggleSheetPassword()">
+                                <svg id="eyeIcon" viewBox="0 0 24 24">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <circle cx="12" cy="12" r="3" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="sheet-submit-btn" id="sheetSubmitBtn">
+                        Create Account
+                        <svg class="btn-arrow" viewBox="0 0 24 24">
+                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="#" class="nav-item">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+                <rect x="3" y="3" width="7" height="7" stroke-linecap="round" stroke-linejoin="round" />
+                <rect x="14" y="3" width="7" height="7" stroke-linecap="round" stroke-linejoin="round" />
+                <rect x="14" y="14" width="7" height="7" stroke-linecap="round" stroke-linejoin="round" />
+                <rect x="3" y="14" width="7" height="7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="nav-label">Dashboard</span>
+        </a>
+        <a href="#" class="nav-item">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+                <path
+                    d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="9" cy="7" r="4" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                    d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                    d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="nav-label">Teams</span>
+        </a>
+        <a href="#" class="nav-item active">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M2 17L12 22L22 17" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M2 12L12 17L22 12" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="nav-label">Leaders</span>
+        </a>
+        <a href="#" class="nav-item">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="3" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                    d="M19.4 15C19.1277 15.6171 18.7583 16.1936 18.3 16.71C17.8417 17.2264 17.2998 17.6755 16.6927 18.0391C16.0855 18.4027 15.4215 18.6754 14.7255 18.8456C14.0295 19.0158 13.3104 19.0808 12.595 19.0377"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                    d="M4.6 9C4.87234 8.38289 5.24174 7.80636 5.7 7.29C6.15826 6.77364 6.70021 6.32455 7.30732 5.96091C7.91443 5.59727 8.57845 5.32458 9.27446 5.15437C9.97047 4.98415 10.6896 4.91919 11.405 4.96228"
+                    stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="nav-label">Settings</span>
+        </a>
+    </div>
+
+    <!-- Alert Popup -->
+    <div class="alert-popup-overlay" id="alertOverlay">
+        <div class="alert-popup">
+            <div class="alert-icon-circle">
+                <svg class="alert-icon-svg" viewBox="0 0 24 24">
+                    <path
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+            <h3 class="alert-title" id="alertTitle">Registration Error</h3>
+            <p class="alert-message" id="alertMessage">Default error message</p>
+            <button class="alert-dismiss-btn" onclick="hideAlert()">Dismiss</button>
+        </div>
+    </div>
+
+    <script>
+
+        // Supabase Configuration
+        const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+
+        let sbClient;
+        if (window.supabase) {
+            sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        } else {
+            console.error('Supabase library not loaded');
+        }
+
+
+        // Load team leaders on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTeamLeaders();
+        });
+
+        // Load Team Leaders from Supabase
+        async function loadTeamLeaders() {
+            const loadingState = document.getElementById('loadingState');
+            const leadersList = document.getElementById('leadersList');
+            const emptyState = document.getElementById('emptyState');
+            const activeCount = document.getElementById('activeCount');
+
+            try {
+                loadingState.style.display = 'block';
+                leadersList.innerHTML = '';
+                emptyState.style.display = 'none';
+
+                const { data, error } = await sbClient
+                    .from('fos_team_leads')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+
+                loadingState.style.display = 'none';
+
+                if (error) {
+                    throw error;
+                }
+
+                if (!data || data.length === 0) {
+                    emptyState.style.display = 'block';
+                    activeCount.textContent = '0 Active';
+                    return;
+                }
+
+                // Count active leaders
+                const activeLeaders = data.filter(leader => leader.status === 'active').length;
+                activeCount.textContent = `${activeLeaders} Active`;
+
+                // Render leader cards
+                data.forEach(leader => {
+                    const card = createLeaderCard(leader);
+                    leadersList.appendChild(card);
+                });
+
+            } catch (error) {
+                console.error('Error loading team leaders:', error);
+                loadingState.style.display = 'none';
+                showAlert('Network Error', 'Failed to load team leaders. Please check your connection.');
+            }
+
+        }
+
+        // Create Leader Card Element
+        function createLeaderCard(leader) {
+            const card = document.createElement('div');
+            card.className = 'leader-card';
+
+            // Get initials for avatar
+            const initials = leader.name
+                .split(' ')
+                .map(n => n[0])
+                .join('')
+                .toUpperCase()
+                .substring(0, 2);
+
+            // Determine status
+            const statusClass = leader.status === 'active' ? 'active' : 'on-leave';
+            const statusText = leader.status === 'active' ? 'ACTIVE' :
+                leader.status === 'on_leave' ? 'ON LEAVE' : 'INACTIVE';
+            const statusMetaClass = leader.status === 'active' ? 'status-active' : 'status-leave';
+
+            // Location - extract from department or use default
+            const location = leader.department ? `HQ - ${leader.department.split(' ')[0].toUpperCase()}` : 'REMOTE';
+
+            card.innerHTML = `
+                <div class="leader-header">
+                    <div class="leader-avatar">${initials}</div>
+                    <div class="leader-info">
+                        <div class="leader-name-row">
+                            <h3 class="leader-name">${leader.name}</h3>
+                            <span class="status-dot ${statusClass}"></span>
+                        </div>
+                        <p class="leader-designation">${leader.designation || leader.department || 'Team Leader'}</p>
+                    </div>
+                </div>
+                <div class="leader-meta">
+                    <span class="meta-item ${statusMetaClass}">${statusText}</span>
+                    <span class="meta-item">${location}</span>
+                </div>
+                <button class="manage-btn" onclick="manageLeader('${leader.id}')">
+                    Manage
+                    <svg class="arrow-icon" viewBox="0 0 24 24">
+                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            `;
+
+            return card;
+        }
+
+        // Sheet Functions
+        function openBottomSheet() {
+            const overlay = document.getElementById('sheetOverlay');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            // Trigger animation
+            setTimeout(() => {
+                overlay.querySelector('.bottom-sheet').style.transform = 'translateY(0)';
+            }, 10);
+        }
+
+        function closeBottomSheet() {
+            const overlay = document.getElementById('sheetOverlay');
+            overlay.querySelector('.bottom-sheet').style.transform = 'translateY(100%)';
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+                document.getElementById('createLeaderSheetForm').reset();
+                // Reset custom select
+                document.getElementById('selectedDeptText').textContent = 'Select dept';
+                document.getElementById('selectedDeptText').classList.add('placeholder');
+                document.getElementById('sheetDepartment').value = '';
+                document.getElementById('deptSelectContainer').classList.remove('active');
+            }, 300);
+        }
+
+        // Custom Select Logic
+        function toggleCustomSelect() {
+            const container = document.getElementById('deptSelectContainer');
+            container.classList.toggle('active');
+        }
+
+        function selectOption(value) {
+            const textSpan = document.getElementById('selectedDeptText');
+            const hiddenInput = document.getElementById('sheetDepartment');
+            const container = document.getElementById('deptSelectContainer');
+
+            textSpan.textContent = value;
+            textSpan.classList.remove('placeholder');
+            hiddenInput.value = value;
+            container.classList.remove('active');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const container = document.getElementById('deptSelectContainer');
+            if (container && !container.contains(e.target)) {
+                container.classList.remove('active');
+            }
+        });
+
+
+        function toggleSheetPassword() {
+            const pwdInput = document.getElementById('sheetPassword');
+            const eyeIcon = document.getElementById('eyeIcon');
+            if (pwdInput.type === 'password') {
+                pwdInput.type = 'text';
+                eyeIcon.innerHTML = `
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" stroke-linecap="round" stroke-linejoin="round" />
+                    <line x1="1" y1="1" x2="23" y2="23" stroke-linecap="round" stroke-linejoin="round" />
+                `;
+            } else {
+                pwdInput.type = 'password';
+                eyeIcon.innerHTML = `
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke-linecap="round" stroke-linejoin="round" />
+                    <circle cx="12" cy="12" r="3" stroke-linecap="round" stroke-linejoin="round" />
+                `;
+            }
+        }
+
+        async function handleSheetSubmit(event) {
+            event.preventDefault();
+            const submitBtn = document.getElementById('sheetSubmitBtn');
+            const originalText = submitBtn.innerHTML;
+
+            try {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = 'Creating Account...';
+
+                const newLeader = {
+                    name: document.getElementById('sheetName').value.trim(),
+                    email: document.getElementById('sheetEmail').value.trim(),
+                    phone: document.getElementById('sheetPhone').value.trim() || null,
+                    employee_id: document.getElementById('sheetEmployeeId').value.trim(),
+                    department: document.getElementById('sheetDepartment').value,
+                    designation: 'Team Leader', // Default
+                    password: document.getElementById('sheetPassword').value,
+                    status: 'active'
+                };
+
+                const { data, error } = await sbClient
+                    .from('fos_team_leads')
+                    .insert([newLeader]);
+
+
+                if (error) throw error;
+
+                // Success
+                submitBtn.innerHTML = 'Account Created! ✓';
+                submitBtn.style.background = '#10B981';
+
+                setTimeout(() => {
+                    closeBottomSheet();
+                    loadTeamLeaders(); // Refresh list
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+                }, 1500);
+
+            } catch (error) {
+                console.error('Error:', error);
+                showAlert('Registration Error', error.message || 'Failed to create team leader');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+
+        }
+
+        // Manage Leader (placeholder)
+        function manageLeader(leaderId) {
+            console.log('Managing leader:', leaderId);
+            showAlert('Coming Soon', 'Leader management feature is under development.');
+        }
+
+        // Search Leaders (placeholder)
+        function searchLeaders() {
+            showAlert('Search feature', 'Search functionality is currently being implemented.');
+        }
+
+        // Show Menu (placeholder)
+        function showMenu() {
+            showAlert('Menu Options', 'The full menu feature will be available shortly.');
+        }
+
+        // Go Back
+        function goBack() {
+            window.location.href = 'FOSrole.html';
+        }
+
+        // Custom Alert Logic
+        function showAlert(title, message) {
+            const overlay = document.getElementById('alertOverlay');
+            document.getElementById('alertTitle').textContent = title;
+            document.getElementById('alertMessage').textContent = message;
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideAlert() {
+            const overlay = document.getElementById('alertOverlay');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close on overlay click
+        document.getElementById('sheetOverlay').addEventListener('click', (e) => {
+            if (e.target.id === 'sheetOverlay') {
+                closeBottomSheet();
+            }
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Designation - FOS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0055FF;
+            --primary-light: #EFF6FF;
+            --text-dark: #111827;
+            --text-gray: #6B7280;
+            --border-color: #E5E7EB;
+            --bg-color: #FFFFFF;
+            --icon-bg-gray: #F3F4F6;
+            --icon-bg-blue: #DBEAFE;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #F9FAFB;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .back-btn:hover {
+            background-color: #F3F4F6;
+        }
+
+        .page-title {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-gray);
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Main Content */
+        .heading-section {
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 500;
+            line-height: 1.2;
+            margin-bottom: 12px;
+            color: var(--text-dark);
+        }
+
+        .highlight-blue {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: var(--text-gray);
+            line-height: 1.5;
+        }
+
+        /* Designation Cards */
+        .cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            flex-grow: 1;
+        }
+
+        .role-card {
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 24px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            background: #fff;
+        }
+
+        .role-card.selected {
+            border-color: var(--primary-color);
+            background-color: #fff;
+            /* Keep white bg inside card as per image, or subtle tint */
+            box-shadow: 0 4px 20px rgba(0, 85, 255, 0.05);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .role-icon-wrapper {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background-color: var(--icon-bg-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .role-card.selected .role-icon-wrapper {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        .role-icon {
+            width: 24px;
+            height: 24px;
+            fill: #4B5563;
+            /* Default gray icon */
+        }
+
+        .role-card.selected .role-icon {
+            fill: var(--primary-color);
+        }
+
+        .selection-indicator {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #E5E7EB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .role-card.selected .selection-indicator {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .check-icon {
+            width: 14px;
+            height: 14px;
+            stroke: white;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .role-card.selected .check-icon {
+            opacity: 1;
+        }
+
+        .role-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .role-desc {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.5;
+        }
+
+        /* Footer / Button */
+        .footer-action {
+            margin-top: 32px;
+            margin-bottom: 24px;
+        }
+
+        .primary-btn {
+            width: 100%;
+            padding: 18px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 85, 255, 0.2);
+            margin-bottom: 40px;
+        }
+
+        .primary-btn:active {
+            transform: scale(0.98);
+        }
+
+        .arrow-right {
+            width: 20px;
+            height: 20px;
+            stroke: white;
+            stroke-width: 2.5;
+            fill: none;
+        }
+
+        .help-text {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-bottom: 10px;
+        }
+
+        .help-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Icons SVGs */
+        .icon-map-pin {
+            width: 33px;
+            /* Slightly larger as in image */
+            height: 33px;
+        }
+
+        .icon-chart {
+            width: 33px;
+            height: 33px;
+        }
+
+        /* SVG definitions in handy classes */
+        svg {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-bar">
+        <div style="width: 40px;"></div>
+        <!-- Spacer to keep title centered if needed, or just relying on absolute positioning -->
+        <span class="page-title">Identity</span>
+        <div style="width: 40px;"></div> <!-- Spacer for balance -->
+    </div>
+
+    <div class="heading-section">
+        <h1>Select your <span class="highlight-blue">designation.</span></h1>
+        <p class="subtitle">Tailor your workspace experience by choosing your professional role.</p>
+    </div>
+
+    <div class="cards-container">
+        <!-- Card 1: FOS Member -->
+        <div class="role-card selected" onclick="selectRole(this, 'fos')">
+            <div class="card-header">
+                <div class="role-icon-wrapper">
+                    <!-- Location/Map Icon -->
+                    <svg class="role-icon icon-map-pin" viewBox="0 0 24 24" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z" />
+                    </svg>
+                </div>
+                <div class="selection-indicator">
+                    <svg class="check-icon" viewBox="0 0 24 24">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+            </div>
+            <div class="role-title">FOS Member</div>
+            <div class="role-desc">Field execution, task management, and real-time site visit reporting.</div>
+        </div>
+
+        <!-- Card 2: Team Lead -->
+        <div class="role-card" onclick="selectRole(this, 'tl')">
+            <div class="card-header">
+                <div class="role-icon-wrapper">
+                    <!-- Chart/Analytics Icon -->
+                    <svg class="role-icon icon-chart" viewBox="0 0 24 24" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM9 17H7V10H9V17ZM13 17H11V7H13V17ZM17 17H15V13H17V17Z" />
+                    </svg>
+                </div>
+                <div class="selection-indicator">
+                    <svg class="check-icon" viewBox="0 0 24 24">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+            </div>
+            <div class="role-title">Team Lead (TL)</div>
+            <div class="role-desc">Strategic oversight, performance tracking, and operational approvals.</div>
+        </div>
+    </div>
+
+    <div class="footer-action">
+        <button class="primary-btn" onclick="continueToWorkspace()">
+            Continue to Workspace
+            <svg class="arrow-right" viewBox="0 0 24 24">
+                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </button>
+        <p class="help-text">
+            Need help? <a href="#" class="help-link">Contact IT Support</a>
+        </p>
+    </div>
+
+    <script>
+        // Default role
+        let selectedRole = 'fos';
+
+        function selectRole(element, role) {
+            // Remove selected class from all cards
+            const cards = document.querySelectorAll('.role-card');
+            for (let i = 0; i < cards.length; i++) {
+                cards[i].classList.remove('selected');
+            }
+
+            // Add selected class to clicked card
+            element.classList.add('selected');
+            selectedRole = role;
+            console.log('Role selected:', selectedRole);
+        }
+
+        function continueToWorkspace() {
+            const btn = document.querySelector('.primary-btn');
+            const originalContent = btn.innerHTML;
+
+            btn.innerHTML = 'Redirecting...';
+            btn.style.opacity = '0.8';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                if (selectedRole === 'tl') {
+                    console.log('Redirecting to Team Lead Login');
+                    window.location.href = 'FOSTeamLeadLogin.html';
+                } else {
+                    console.log('Redirecting to FOS Member Login');
+                    window.location.href = 'FOSMemberLogin.html';
+                }
+
+                // Reset button state (in case user comes back or navigation is slow)
+                setTimeout(() => {
+                    btn.innerHTML = originalContent;
+                    btn.style.opacity = '1';
+                    btn.disabled = false;
+                }, 1000);
+            }, 300);
+        }
+    </script>
+</body>
+
+</html>

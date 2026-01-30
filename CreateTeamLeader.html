@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Team Leader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --primary-bg: #FFFFFF;
+            --secondary-bg: #F8FAFC;
+            --text-dark: #0F172A;
+            --text-gray: #64748B;
+            --blue-600: #2563EB;
+            --blue-700: #1D4ED8;
+            --input-border: #E2E8F0;
+            --accent-purple: #8B5CF6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--secondary-bg);
+            min-height: 100vh;
+            color: var(--text-dark);
+            max-width: 480px;
+            margin: 0 auto;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .back-btn {
+            background: #F1F5F9;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            background: #E2E8F0;
+        }
+
+        .back-icon {
+            width: 20px;
+            height: 20px;
+            stroke: #334155;
+            stroke-width: 2.5;
+            fill: none;
+        }
+
+        .page-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .help-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-gray);
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        /* Form Container */
+        .content {
+            padding: 24px 20px;
+        }
+
+        .header-section {
+            margin-bottom: 32px;
+        }
+
+        .main-heading {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1E3A8A;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .sub-heading {
+            font-size: 15px;
+            color: var(--text-gray);
+            line-height: 1.5;
+        }
+
+        .form-card {
+            background: white;
+            padding: 24px;
+            border-radius: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #64748B;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            display: block;
+            margin-left: 4px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            stroke: #94A3B8;
+            stroke-width: 2;
+            fill: none;
+            transition: all 0.2s;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            font-size: 15px;
+            background-color: #F8FAFC;
+            border: 1px solid #F1F5F9;
+            border-radius: 14px;
+            outline: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        input:focus,
+        select:focus {
+            background-color: white;
+            border-color: #BFDBFE;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.08);
+        }
+
+        input:focus+.input-icon {
+            stroke: var(--blue-600);
+        }
+
+        /* Avatar Upload Section */
+        .avatar-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .avatar-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            position: relative;
+            overflow: hidden;
+            border: 4px solid white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-placeholder {
+            width: 40px;
+            height: 40px;
+            stroke: #94A3B8;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .upload-btn {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--blue-600);
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: rgba(37, 99, 235, 0.05);
+            transition: all 0.2s;
+        }
+
+        .upload-btn:hover {
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        /* Button Grid */
+        .actions {
+            margin-top: 32px;
+            display: grid;
+            gap: 16px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(to right, #2563EB, #1D4ED8);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 24px rgba(37, 99, 235, 0.25);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .cancel-btn {
+            background: white;
+            color: #64748B;
+            border: 1px solid #E2E8F0;
+            padding: 18px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .cancel-btn:hover {
+            background: #F8FAFC;
+            color: var(--text-dark);
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .btn-loading .spinner {
+            display: block;
+        }
+
+        .btn-loading .btn-text {
+            display: none;
+        }
+
+        .btn-loading .btn-icon {
+            display: none;
+        }
+
+        /* Success Message Overlay */
+        .success-overlay {
+            position: fixed;
+            inset: 0;
+            background: white;
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .success-icon-box {
+            width: 80px;
+            height: 80px;
+            background: #D1FAE5;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .success-icon {
+            width: 40px;
+            height: 40px;
+            stroke: #10B981;
+            stroke-width: 3;
+            fill: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-bar">
+        <button class="back-btn" onclick="goBack()">
+            <svg class="back-icon" viewBox="0 0 24 24">
+                <path d="M15 18L9 12L15 6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </button>
+        <div class="page-title">New Team Leader</div>
+        <div class="help-btn">?</div>
+    </div>
+
+    <div class="content">
+        <div class="header-section">
+            <h1 class="main-heading">Create Profile</h1>
+            <p class="sub-heading">Provide the details to register a new leader in the system.</p>
+        </div>
+
+        <form id="createLeaderForm" onsubmit="handleCreateLeader(event)">
+            <div class="avatar-section">
+                <div class="avatar-preview" id="avatarPreview">
+                    <svg class="avatar-placeholder" viewBox="0 0 24 24">
+                        <path
+                            d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                        <circle cx="12" cy="7" r="4" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <label class="upload-btn">
+                    Upload Photo
+                    <input type="file" id="avatarInput" accept="image/*" style="display: none;"
+                        onchange="previewAvatar(event)">
+                </label>
+            </div>
+
+            <div class="form-card">
+                <div class="form-group">
+                    <label class="label">Full Name</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24">
+                            <path
+                                d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <circle cx="12" cy="7" r="4" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <input type="text" id="tlName" placeholder="e.g. Sarah Jenkins" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="label">Employee ID</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24">
+                            <rect x="3" y="4" width="18" height="16" rx="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path d="M7 8H17M7 12H11M7 16H13" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <input type="text" id="tlEmployeeId" placeholder="TL-01-2024" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="label">Department</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24">
+                            <path
+                                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <line x1="12" y1="22.08" x2="12" y2="12" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <input type="text" id="tlDepartment" placeholder="e.g. Engineering" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="label">Designation</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M2 17L12 22L22 17" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M2 12L12 17L22 12" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <input type="text" id="tlDesignation" placeholder="e.g. Lead Engineer" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="label">Email Address</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24">
+                            <path
+                                d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <polyline points="22,6 12,13 2,6" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <input type="email" id="tlEmail" placeholder="sarah.jenkins@company.com" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="label">Phone Number</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24">
+                            <path
+                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <input type="tel" id="tlPhone" placeholder="+91 98765 43210">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="label">Assign Initial Password</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <input type="password" id="tlPassword" placeholder="••••••••" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="label">Account Status</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round" />
+                            <path
+                                d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <select id="tlStatus">
+                            <option value="active">Active</option>
+                            <option value="on_leave">On Leave</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span class="btn-text">Confirm Registration</span>
+                    <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                    <div class="spinner"></div>
+                </button>
+                <button type="button" class="cancel-btn" onclick="goBack()">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-icon-box">
+            <svg class="success-icon" viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </div>
+        <h2 style="font-size: 24px; font-weight: 800; color: #1E3A8A; margin-bottom: 12px;">Lead Created!</h2>
+        <p style="color: #64748B; margin-bottom: 32px; line-height: 1.6;">Team Leader has been
+            registered<br>successfully in the system.</p>
+        <button class="submit-btn" style="width: 200px;" onclick="window.location.href='TeamLeadersDirectory.html'">
+            Back to Directory
+        </button>
+    </div>
+
+    <script>
+        // Supabase Configuration
+        const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+
+        let supabase;
+        if (window.supabase) {
+            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        } else {
+            console.error('Supabase library not loaded');
+        }
+
+        function goBack() {
+            window.location.href = 'TeamLeadersDirectory.html';
+        }
+
+        function previewAvatar(event) {
+            const input = event.target;
+            const preview = document.getElementById('avatarPreview');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.innerHTML = `<img src="${e.target.result}" alt="Avatar Preview">`;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        async function handleCreateLeader(e) {
+            e.preventDefault();
+
+            const btn = document.getElementById('submitBtn');
+            btn.classList.add('btn-loading');
+            btn.disabled = true;
+
+            const name = document.getElementById('tlName').value.trim();
+            const employee_id = document.getElementById('tlEmployeeId').value.trim();
+            const department = document.getElementById('tlDepartment').value.trim();
+            const designation = document.getElementById('tlDesignation').value.trim();
+            const email = document.getElementById('tlEmail').value.trim();
+            const phone = document.getElementById('tlPhone').value.trim();
+            const password = document.getElementById('tlPassword').value;
+            const status = document.getElementById('tlStatus').value;
+
+            try {
+                const { data, error } = await supabase
+                    .from('fos_team_leads')
+                    .insert([
+                        {
+                            name,
+                            employee_id,
+                            department,
+                            designation,
+                            email,
+                            phone: phone || null,
+                            password,
+                            status
+                        }
+                    ]);
+
+                if (error) throw error;
+
+                // Success
+                document.getElementById('successOverlay').style.display = 'flex';
+
+            } catch (err) {
+                console.error(err);
+                alert(err.message || 'Error creating team leader');
+                btn.classList.remove('btn-loading');
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+
+</html>

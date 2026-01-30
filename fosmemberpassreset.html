@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password - FOS Member</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0052CC;
+            /* Deep blue match */
+            --primary-hover: #0045AD;
+            --text-dark: #172B4D;
+            --text-gray: #5E6C84;
+            --border-color: #DFE1E6;
+            --bg-color: #F4F5F7;
+            --input-bg: #FFFFFF;
+            --transition: all 0.2s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#E0E0E0 1px, transparent 1px);
+            background-size: 24px 24px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            color: var(--text-dark);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Logo Section */
+        .logo-wrapper {
+            margin-bottom: 24px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .logo-box {
+            width: 64px;
+            height: 64px;
+            background-color: #0052CC;
+            /* Blue background */
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 16px rgba(0, 82, 204, 0.24);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        /* Header Text */
+        .header-text {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #091E42;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.5;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        /* Form Elements */
+        .form-group {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            fill: #97A0AF;
+            transition: var(--transition);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            fill: #97A0AF;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .toggle-password:hover {
+            fill: var(--text-dark);
+        }
+
+        input {
+            width: 100%;
+            padding: 16px 16px 16px 48px;
+            font-size: 15px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 12px;
+            background-color: var(--input-bg);
+            color: var(--text-dark);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        input::placeholder {
+            color: #B3BAE5;
+            opacity: 0.8;
+        }
+
+        input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.1);
+        }
+
+        input:focus+.input-icon {
+            fill: var(--primary-color);
+        }
+
+        /* Button */
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(180deg, #1A6CFF 0%, #0052CC 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 82, 204, 0.3);
+            transition: transform 0.1s, box-shadow 0.2s;
+            margin-top: 8px;
+            margin-bottom: 24px;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Back Link */
+        .back-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+            cursor: pointer;
+            background: none;
+            border: none;
+            width: 100%;
+        }
+
+        .back-link:hover {
+            color: var(--primary-color);
+        }
+
+        .back-icon {
+            width: 18px;
+            height: 18px;
+            stroke-width: 2.5;
+            stroke: currentColor;
+            fill: none;
+        }
+
+        /* Footer Banner */
+        .footer-banner {
+            width: 100%;
+            height: 100px;
+            margin-top: 40px;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Simulating the geometric network pattern with CSS or SVG background */
+        .footer-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.6) 0%, transparent 50%),
+                radial-gradient(circle at 80% 30%, rgba(100, 149, 237, 0.1) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        /* SVG Pattern Overlay */
+        .pattern-overlay {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            mix-blend-mode: multiply;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo-wrapper">
+            <div class="logo-box">
+                <!-- Lock Reset Icon -->
+                <svg class="logo-icon" viewBox="0 0 24 24">
+                    <path
+                        d="M12 2C17.52 2 22 6.48 22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2ZM13 17H11V11H13V17ZM13 9H11V7H13V9Z"
+                        fill="white" style="display:none;" /> <!-- Fallback -->
+                    <path
+                        d="M12 4C14.21 4 16.21 4.9 17.66 6.34L19 5V10H14L16.2 7.8C15.12 6.72 13.63 6.03 12 6.03C9.11 6.03 6.68 8.07 6.13 10.82L4.15 10.42C4.93 6.64 8.19 4 12 4ZM12 20C9.79 20 7.79 19.1 6.34 17.66L5 19V14H10L7.8 16.2C8.88 17.28 10.37 17.97 12 17.97C14.89 17.97 17.32 15.93 17.87 13.18L19.85 13.58C19.07 17.36 15.81 20 12 20Z"
+                        fill="white" />
+                    <path d="M12 9V13L15 16" stroke="white" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" fill="none" style="display:none;" />
+                </svg>
+            </div>
+        </div>
+
+        <div class="header-text">
+            <h1>Reset Password</h1>
+            <p class="subtitle">Update your account security credentials to continue accessing the portal</p>
+        </div>
+
+        <!-- Form -->
+        <div style="width: 100%;">
+
+            <!-- Role Selection -->
+            <div class="form-group">
+                <label>Select Role</label>
+                <div class="input-wrapper">
+                    <!-- User Icon -->
+                    <svg class="input-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                    <!-- Custom Dropdown Structure -->
+                    <div class="custom-select-wrapper" style="position: relative; width: 100%;">
+                        <div class="custom-select-container" onclick="toggleDropdown()"
+                            style="width: 100%; padding: 16px 16px 16px 48px; border: 1.5px solid var(--border-color); border-radius: 12px; background: var(--input-bg); cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+                            <span id="displayRole" style="color: #B3BAE5;">Select Role</span> <!-- Placeholder color -->
+                            <input type="hidden" id="roleSelectHidden">
+                        </div>
+                        <div id="customDropdownList" class="custom-dropdown-list">
+                            <div class="dropdown-item" onclick="selectOption('fos', 'FOS Member')">FOS Member</div>
+                            <div class="dropdown-item" onclick="selectOption('tl', 'Team Lead')">Team Lead</div>
+                        </div>
+                    </div>
+
+                    <style>
+                        /* Internal styling for this dropdown instance */
+                        .custom-dropdown-list {
+                            display: none;
+                            position: absolute;
+                            top: 100%;
+                            /* Changed from 110% to 100% to sit flush */
+                            left: 0;
+                            width: 100%;
+                            background: white;
+                            border: 1px solid var(--border-color);
+                            border-radius: 12px;
+                            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+                            /* Stronger shadow */
+                            z-index: 999;
+                            /* Much higher z-index */
+                            overflow: hidden;
+                            margin-top: 4px;
+                            /* Slight spacing */
+                        }
+
+                        .custom-dropdown-list.show {
+                            display: block;
+                            animation: fadeIn 0.15s ease-out;
+                        }
+
+                        .dropdown-item {
+                            padding: 14px 20px;
+                            font-size: 15px;
+                            color: var(--text-dark);
+                            cursor: pointer;
+                            transition: background 0.1s;
+                        }
+
+                        .dropdown-item:hover {
+                            background-color: #F4F5F7;
+                            color: var(--primary-color);
+                        }
+
+                        @keyframes fadeIn {
+                            from {
+                                opacity: 0;
+                                transform: translateY(-5px);
+                            }
+
+                            to {
+                                opacity: 1;
+                                transform: translateY(0);
+                            }
+                        }
+
+                        /* Active state for container */
+                        .custom-select-wrapper.active .custom-select-container {
+                            border-color: var(--primary-color);
+                            box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.1);
+                        }
+
+                        /* When value is selected */
+                        .custom-select-container span:not([style*="color: #B3BAE5"]) {
+                            color: var(--text-dark);
+                        }
+                    </style>
+                    <!-- Clean Chevron -->
+                    <svg style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 24px; height: 24px; pointer-events: none; fill: #97A0AF;"
+                        viewBox="0 0 24 24">
+                        <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Employee ID -->
+            <div class="form-group">
+                <label>Employee ID</label>
+                <div class="input-wrapper">
+                    <!-- Badge Icon -->
+                    <svg class="input-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M14 12H10V10H14V12ZM20 7V21H4V7H20ZM18 2.01L6 2C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V4C20 2.9 19.1 2.01 18 2.01ZM9 12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12V9C15 7.34 13.66 6 12 6C10.34 6 9 7.34 9 9V12Z" />
+                    </svg>
+                    <input type="text" id="employeeId" placeholder="FOS-12345 / TL-00-0000">
+                </div>
+            </div>
+
+            <!-- New Password -->
+            <div class="form-group">
+                <label>New Password</label>
+                <div class="input-wrapper">
+                    <svg class="input-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M18 8H17V6C17 3.24 14.76 1 12 1C9.24 1 7 3.24 7 6V8H6C4.9 8 4 8.9 4 10V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V10C20 8.9 19.1 8 18 8ZM12 17C10.9 17 10 16.1 10 15C10 13.9 10.9 13 12 13C13.1 13 14 13.9 14 15C14 16.1 13.1 17 12 17ZM15 8H9V6C9 4.34 10.34 3 12 3C13.66 3 15 4.34 15 6V8Z" />
+                    </svg>
+                    <input type="password" id="newPass" placeholder="••••••••">
+                    <svg class="toggle-password" onclick="togglePass('newPass')" viewBox="0 0 24 24">
+                        <path
+                            d="M12 4.5C7 4.5 2.73 7.61 1 12C2.73 16.39 7 19.5 12 19.5C17 19.5 21.27 16.39 23 12C21.27 7.61 17 4.5 12 4.5ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17ZM12 9C10.34 9 9 10.34 9 12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12C15 10.34 13.66 9 12 9Z" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <div class="input-wrapper">
+                    <svg class="input-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM10 17L6 13L7.41 11.59L10 14.17L16.59 7.58L18 9L10 17Z" />
+                    </svg>
+                    <input type="password" id="confirmPass" placeholder="••••••••">
+                    <svg class="toggle-password" onclick="togglePass('confirmPass')" viewBox="0 0 24 24">
+                        <path
+                            d="M12 4.5C7 4.5 2.73 7.61 1 12C2.73 16.39 7 19.5 12 19.5C17 19.5 21.27 16.39 23 12C21.27 7.61 17 4.5 12 4.5ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17ZM12 9C10.34 9 9 10.34 9 12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12C15 10.34 13.66 9 12 9Z" />
+                    </svg>
+                </div>
+            </div>
+
+            <button class="submit-btn" onclick="updatePassword()">Update Password</button>
+
+            <button class="back-link" onclick="history.back()">
+                <svg class="back-icon" viewBox="0 0 24 24">
+                    <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                Back to Login
+            </button>
+        </div>
+
+        <!-- Footer Geometric Banner -->
+        <div class="footer-banner">
+            <!-- Abstract Geometric Pattern SVG -->
+            <svg class="pattern-overlay" viewBox="0 0 400 100" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#bdd4e7;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#8693AB;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <!-- Nodes and connections pattern similar to image -->
+                <circle cx="50" cy="50" r="4" fill="#fff" opacity="0.5" />
+                <circle cx="150" cy="20" r="4" fill="#fff" opacity="0.5" />
+                <circle cx="150" cy="80" r="4" fill="#fff" opacity="0.5" />
+                <circle cx="250" cy="50" r="4" fill="#fff" opacity="0.5" />
+                <circle cx="350" cy="20" r="4" fill="#fff" opacity="0.5" />
+
+                <line x1="50" y1="50" x2="150" y2="20" stroke="white" stroke-width="1" opacity="0.3" />
+                <line x1="50" y1="50" x2="150" y2="80" stroke="white" stroke-width="1" opacity="0.3" />
+                <line x1="150" y1="20" x2="250" y2="50" stroke="white" stroke-width="1" opacity="0.3" />
+                <line x1="150" y1="80" x2="250" y2="50" stroke="white" stroke-width="1" opacity="0.3" />
+                <line x1="250" y1="50" x2="350" y2="20" stroke="white" stroke-width="1" opacity="0.3" />
+
+                <!-- Cubes/Boxes hint -->
+                <rect x="190" y="30" width="30" height="30" fill="none" stroke="white" stroke-width="1" opacity="0.2"
+                    transform="rotate(45 205 45)" />
+                <rect x="90" y="40" width="20" height="20" fill="none" stroke="white" stroke-width="1" opacity="0.2"
+                    transform="rotate(30 100 50)" />
+            </svg>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Supabase Configuration
+        const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+
+        // Use let to avoid redeclaration error
+        let supabaseClient;
+        if (window.supabase) {
+            supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        } else {
+            console.error('Supabase library not loaded');
+        }
+
+        // Custom Dropdown Logic - Global functions for onclick handlers
+        function toggleDropdown() {
+            const list = document.getElementById('customDropdownList');
+            const wrapper = document.querySelector('.custom-select-wrapper');
+            list.classList.toggle('show');
+            wrapper.classList.toggle('active');
+        }
+
+        function selectOption(value, text) {
+            const displayElement = document.getElementById('displayRole');
+            displayElement.innerText = text;
+            displayElement.style.color = 'var(--text-dark)'; // Change from placeholder color
+            document.getElementById('roleSelectHidden').value = value;
+            toggleDropdown();
+        }
+
+        function togglePass(id) {
+            const input = document.getElementById(id);
+            if (input.type === 'password') {
+                input.type = 'text';
+            } else {
+                input.type = 'password';
+            }
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function (event) {
+            if (!event.target.closest('.custom-select-wrapper')) {
+                const list = document.getElementById('customDropdownList');
+                const wrapper = document.querySelector('.custom-select-wrapper');
+                if (list && list.classList.contains('show')) {
+                    list.classList.remove('show');
+                    wrapper.classList.remove('active');
+                }
+            }
+        });
+
+        async function updatePassword() {
+            const role = document.getElementById('roleSelectHidden').value;
+            const employeeId = document.getElementById('employeeId').value.trim();
+            const newPass = document.getElementById('newPass').value;
+            const confirmPass = document.getElementById('confirmPass').value;
+            const btn = document.querySelector('.submit-btn');
+
+            if (!role) {
+                alert('Please select a role');
+                return;
+            }
+
+            if (!employeeId || !newPass || !confirmPass) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            if (newPass !== confirmPass) {
+                alert('Passwords do not match');
+                return;
+            }
+
+            const originalText = btn.innerText;
+            btn.innerText = 'Updating...';
+            btn.style.opacity = '0.7';
+            btn.disabled = true;
+
+            try {
+                const tableName = role === 'fos' ? 'fos_members' : 'fos_team_leads';
+
+                // Check if user exists first
+                const { data: user, error: userError } = await supabaseClient
+                    .from(tableName)
+                    .select('id')
+                    .eq('employee_id', employeeId)
+                    .single();
+
+                if (userError || !user) {
+                    throw new Error('User not found with this Employee ID in ' + (role === 'fos' ? 'FOS Members' : 'Team Leads'));
+                }
+
+                // Update password
+                const { error: updateError } = await supabaseClient
+                    .from(tableName)
+                    .update({ password: newPass })
+                    .eq('id', user.id);
+
+                if (updateError) throw updateError;
+
+                alert('Password updated successfully!');
+                history.back(); // Go back to login
+
+            } catch (err) {
+                console.error(err);
+                alert('Failed to update password: ' + err.message);
+                btn.innerText = originalText;
+                btn.style.opacity = '1';
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+
+</html>

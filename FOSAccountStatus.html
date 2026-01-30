@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Status - FOS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --primary-bg: #FFFFFF;
+            --text-dark: #1F2937;
+            --text-gray: #6B7280;
+            --light-bg: #F9FAFB;
+            --border-color: #E5E7EB;
+            --blue-500: #3B82F6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: var(--text-dark);
+            max-width: 480px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 24px;
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .back-icon {
+            width: 24px;
+            height: 24px;
+            stroke: var(--text-dark);
+            stroke-width: 2.5;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .page-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        /* Status Icon Section */
+        .status-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-top: 24px;
+            padding: 0 24px;
+        }
+
+        .icon-wrapper {
+            width: 140px;
+            height: 140px;
+            background-color: #FEFCE8;
+            /* Pale yellow bg */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        /* Inner darker yellow circle if needed, or just the blue clock and yellow dot */
+        .clock-icon {
+            width: 64px;
+            height: 64px;
+            fill: #2563EB;
+            /* Blue */
+        }
+
+        .status-dot-large {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 28px;
+            height: 28px;
+            background-color: #FBBF24;
+            /* Amber */
+            border: 4px solid #FFFFFF;
+            border-radius: 50%;
+        }
+
+        .status-heading {
+            font-size: 28px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .status-desc {
+            font-size: 15px;
+            color: #4B5563;
+            line-height: 1.5;
+            margin-bottom: 40px;
+        }
+
+        /* Profile Card */
+        .profile-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #2563EB;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-left: 24px;
+            margin-bottom: 10px;
+        }
+
+        .profile-card {
+            background-color: #F9FAFB;
+            border: 1px solid #F3F4F6;
+            border-radius: 20px;
+            padding: 24px;
+            margin: 0 24px;
+        }
+
+        .card-row-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .label-small {
+            font-size: 11px;
+            font-weight: 700;
+            color: #9CA3AF;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .value-large {
+            font-size: 18px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .avatar-box {
+            width: 48px;
+            height: 48px;
+            background-color: #DBEAFE;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar-icon {
+            width: 24px;
+            height: 24px;
+            fill: #2563EB;
+        }
+
+        .card-row-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .grid-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .value-medium {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1F2937;
+        }
+
+        .status-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot-small {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #F59E0B;
+        }
+
+        .status-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #92400E;
+            /* Dark amber text */
+        }
+
+        /* Footer Action */
+        .footer-action {
+            margin-top: auto;
+            padding: 24px 24px 40px;
+        }
+
+        .support-btn {
+            width: 100%;
+            padding: 16px;
+            background-color: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            color: #111827;
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s;
+        }
+
+        .support-btn:hover {
+            border-color: #D1D5DB;
+            background-color: #F9FAFB;
+        }
+
+        .headset-icon {
+            width: 20px;
+            height: 20px;
+            fill: #374151;
+            /* Gray-700 */
+        }
+
+        .version-text {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 11px;
+            color: #9CA3AF;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Feature Toast Notification */
+        .toast-notification {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: white;
+            padding: 8px 12px 8px 8px;
+            border-radius: 50px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            min-width: 280px;
+        }
+
+        .toast-notification.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast-icon {
+            background-color: #DBEAFE;
+            color: #2563EB;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .toast-message {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1F2937;
+            flex: 1;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #9CA3AF;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-bar">
+        <button class="back-btn" onclick="goToLogin()">
+            <svg class="back-icon" viewBox="0 0 24 24">
+                <path d="M15 18L9 12L15 6" />
+            </svg>
+        </button>
+        <h1 class="page-title">Account Status</h1>
+    </div>
+
+    <div class="status-container">
+        <div class="icon-wrapper">
+            <!-- Clock Icon -->
+            <svg class="clock-icon" viewBox="0 0 24 24">
+                <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
+            </svg>
+            <div class="status-dot-large"></div>
+        </div>
+
+        <h2 class="status-heading">Registration Pending</h2>
+        <p class="status-desc">
+            Your account is currently being reviewed by your Team Lead. You can login using Employee id and password
+            once it is approved.
+        </p>
+    </div>
+
+    <div class="profile-label">SUBMITTED PROFILE</div>
+    <div class="profile-card">
+        <div class="card-row-top">
+            <div class="user-info">
+                <span class="label-small">FULL NAME</span>
+                <span class="value-large" id="displayName">...</span>
+            </div>
+            <div class="avatar-box">
+                <svg class="avatar-icon" viewBox="0 0 24 24">
+                    <path
+                        d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.67-5.33-4-8-4z" />
+                </svg>
+            </div>
+        </div>
+
+        <div class="card-row-grid">
+            <div class="grid-item">
+                <span class="label-small">EMPLOYEE ID</span>
+                <span class="value-medium" id="displayId">...</span>
+            </div>
+            <div class="grid-item">
+                <span class="label-small">SUBMITTED ON</span>
+                <span class="value-medium" id="displayDate">...</span>
+            </div>
+        </div>
+
+        <div class="status-row">
+            <div class="status-dot-small"></div>
+            <span class="status-text">Awaiting Team Lead action</span>
+        </div>
+    </div>
+
+    <div class="footer-action">
+        <button class="support-btn" onclick="showFeatureToast(event)">
+            <!-- Headset Icon -->
+            <svg class="headset-icon" viewBox="0 0 24 24">
+                <path
+                    d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z" />
+            </svg>
+            Contact Support
+        </button>
+        <div class="version-text">FIELD MANAGER • VERSION 2.4.0</div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="feature-toast" class="toast-notification">
+        <div class="toast-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                </path>
+            </svg>
+        </div>
+        <span class="toast-message">This feature is coming soon!</span>
+        <button class="toast-close" onclick="closeToast()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        (function () {
+            // Supabase Configuration
+            const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+
+            let supabase;
+            if (window.supabase) {
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            } else {
+                console.error('Supabase library not loaded');
+            }
+
+            // Expose functions to global scope for HTML onclick handlers
+            let toastTimeout;
+            window.showFeatureToast = function (e) {
+                if (e) e.preventDefault();
+                const toast = document.getElementById('feature-toast');
+                toast.classList.add('show');
+
+                // Clear existing timeout if showing again
+                if (toastTimeout) clearTimeout(toastTimeout);
+
+                toastTimeout = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            };
+
+            window.closeToast = function () {
+                const toast = document.getElementById('feature-toast');
+                toast.classList.remove('show');
+                if (toastTimeout) clearTimeout(toastTimeout);
+            };
+
+            // Function to go back to login (clears params if any)
+            window.goToLogin = function () {
+                window.location.href = 'FOSMemberLogin.html';
+            }
+
+            // On load, fetch data from URL query params or look up recent registration
+            document.addEventListener('DOMContentLoaded', async () => {
+                const params = new URLSearchParams(window.location.search);
+                const employeeId = params.get('id');
+
+                const nameEl = document.getElementById('displayName');
+                const idEl = document.getElementById('displayId');
+                const dateEl = document.getElementById('displayDate');
+
+                if (!employeeId) {
+                    nameEl.innerText = 'No ID Provided';
+                    idEl.innerText = '-';
+                    dateEl.innerText = '-';
+                    return;
+                }
+
+                // Show loading state
+                nameEl.innerText = 'Loading...';
+                idEl.innerText = employeeId;
+                dateEl.innerText = '...';
+
+                // Fetch info from Supabase
+                try {
+                    const { data, error } = await supabase
+                        .from('fos_members')
+                        .select('name, created_at')
+                        .eq('employee_id', employeeId)
+                        .single();
+
+                    if (data) {
+                        nameEl.innerText = data.name;
+                        // Format Date: e.g. Oct 24, 2023
+                        const date = new Date(data.created_at);
+                        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+                        dateEl.innerText = date.toLocaleDateString('en-US', options);
+                    } else {
+                        console.error('Member not found');
+                        nameEl.innerText = 'Member Not Found';
+                    }
+                } catch (err) {
+                    console.error(err);
+                    nameEl.innerText = 'Error loading data';
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>
