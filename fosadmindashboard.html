@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Dashboard - FOS Portal</title>
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1A6CFF;
+            --bg-light: #F8FAFC;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --success-green: #10B981;
+            --warning-orange: #F59E0B;
+            --danger-red: #EF4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            max-width: 480px;
+            margin: 0 auto;
+            min-height: 100vh;
+            padding-bottom: 90px;
+        }
+
+        /* Header */
+        header {
+            padding: 24px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #E2E8F0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid white;
+            box-shadow: 0 0 0 1px #E2E8F0;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .notification-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: #F8FAFC;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .notif-dot {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 8px;
+            height: 8px;
+            background: var(--danger-red);
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        /* Main Section */
+        .content {
+            padding: 20px;
+        }
+
+        .dashboard-label {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 24px;
+        }
+
+        /* Alert Card */
+        .alert-card {
+            background: #FFF7ED;
+            border: 1px solid #FFEDD5;
+            border-radius: 20px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            cursor: pointer;
+        }
+
+        .alert-icon-box {
+            width: 48px;
+            height: 48px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--warning-orange);
+            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.05);
+        }
+
+        .alert-info h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #9A3412;
+            margin-bottom: 2px;
+        }
+
+        .alert-info p {
+            font-size: 13px;
+            color: #C2410C;
+        }
+
+        .alert-chevron {
+            margin-left: auto;
+            color: #9A3412;
+            opacity: 0.5;
+        }
+
+        /* Activity Grid */
+        .main-grid {
+            margin-bottom: 24px;
+        }
+
+        .activity-card {
+            background: white;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .activity-text-side {
+            flex: 1;
+        }
+
+        .activity-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .activity-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .activity-value-row {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .activity-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary-blue);
+        }
+
+        .activity-unit {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .view-btn {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(26, 108, 255, 0.2);
+        }
+
+        .view-btn.secondary {
+            background: #EFF6FF;
+            color: var(--primary-blue);
+            box-shadow: none;
+        }
+
+        .activity-visual {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 20px;
+        }
+
+        /* Stats Grid */
+        .stats-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-small-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .stat-small-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .stat-small-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            background: #EFF6FF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+        }
+
+        .stat-small-icon.purple {
+            background: #F5F3FF;
+            color: #7C3AED;
+        }
+
+        .stat-small-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .stat-small-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary-blue);
+        }
+
+        .stat-small-value.purple {
+            color: #7C3AED;
+        }
+
+        /* Sanction Section */
+        .sanction-card {
+            background: white;
+            border-radius: 24px;
+            padding: 8px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .tabs-header {
+            background: #F1F5F9;
+            border-radius: 18px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 4px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            background: transparent;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: var(--text-main);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .sanction-main-info {
+            padding: 0 16px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sanction-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .sanction-badge {
+            width: 52px;
+            height: 52px;
+            background: #ECFDF5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--success-green);
+        }
+
+        .sanction-title {
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .sanction-status {
+            font-size: 13px;
+            color: var(--success-green);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--success-green);
+            border-radius: 50%;
+        }
+
+        .sanction-total {
+            text-align: right;
+        }
+
+        .total-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--success-green);
+            line-height: 1;
+        }
+
+        .total-label {
+            font-size: 10px;
+            font-weight: 700;
+            color: #94A3B8;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #F1F5F9;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            color: #94A3B8;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .nav-item.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-item svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content>* {
+            animation: fadeIn 0.5s ease backwards;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="user-profile">
+            <div class="avatar" id="userAvatar">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="User">
+            </div>
+            <span class="user-name" id="displayUserName">FOS Member</span>
+        </div>
+        <button class="notification-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <div class="notif-dot"></div>
+        </button>
+    </header>
+
+    <div class="content">
+        <h1 class="dashboard-label">Member Dashboard</h1>
+
+        <!-- Critical Missing Info -->
+        <div class="alert-card">
+            <div class="alert-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                    </path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+            </div>
+            <div class="alert-info">
+                <h4>Data Missing in Sanction</h4>
+                <p>3 cases require immediate info</p>
+            </div>
+            <svg class="alert-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </div>
+
+        <!-- Today's Activity -->
+        <div class="activity-card" style="animation-delay: 0.1s;">
+            <div class="activity-text-side">
+                <p class="activity-label">Daily Activity</p>
+                <h3 class="activity-title">Today's Reports</h3>
+                <div class="activity-value-row">
+                    <span class="activity-value">12</span>
+                    <span class="activity-unit">submitted</span>
+                </div>
+                <button class="view-btn">View Details</button>
+            </div>
+            <div class="activity-visual">
+                <!-- SVG Waveform -->
+                <svg width="100" height="100" viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="waveGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color: var(--primary-blue); stop-opacity: 0.2" />
+                            <stop offset="100%" style="stop-color: white; stop-opacity: 0" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M0 80 Q10 70 20 80 T40 80 T60 80 T80 80 T100 80 L100 100 L0 100 Z" fill="url(#waveGrad)" />
+                    <path
+                        d="M0 60 L5 50 L10 70 L15 30 L20 60 L25 55 L30 65 L35 20 L40 50 L45 40 L50 75 L55 35 L60 60 L65 50 L70 80 L75 25 L80 60 L85 45 L90 70 L95 30 L100 60"
+                        fill="none" stroke="var(--primary-blue)" stroke-width="2" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- Monthly Performance -->
+        <div class="activity-card" style="animation-delay: 0.2s;">
+            <div class="activity-text-side">
+                <p class="activity-label">Performance</p>
+                <h3 class="activity-title">Monthly Summary</h3>
+                <div class="activity-value-row">
+                    <span class="activity-value" style="color: #64748B;">145</span>
+                    <span class="activity-unit">processed</span>
+                </div>
+                <button class="view-btn secondary">View History</button>
+            </div>
+            <div class="activity-visual">
+                <!-- Abstract Graph Image Placeholder -->
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#CBD5E1" stroke-width="1.5">
+                    <rect x="3" y="3" width="18" height="18" rx="2" stroke-width="1" />
+                    <path d="M7 17 L10 12 L13 14 L17 8" stroke="#1A6CFF" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <circle cx="7" cy="17" r="1.5" fill="#1A6CFF" stroke="none" />
+                    <circle cx="10" cy="12" r="1.5" fill="#1A6CFF" stroke="none" />
+                    <circle cx="13" cy="14" r="1.5" fill="#1A6CFF" stroke="none" />
+                    <circle cx="17" cy="8" r="1.5" fill="#1A6CFF" stroke="none" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-row" style="animation-delay: 0.3s;">
+            <div class="stat-small-card">
+                <div class="stat-small-header">
+                    <div class="stat-small-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                        </svg>
+                    </div>
+                    <span class="stat-small-label">RACC Pending</span>
+                </div>
+                <div class="stat-small-value">08</div>
+            </div>
+            <div class="stat-small-card">
+                <div class="stat-small-header">
+                    <div class="stat-small-icon purple">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path d="M3 21h18"></path>
+                            <path d="M3 7v1a3 3 0 0 0 6 0V7m6 0v1a3 3 0 0 0 6 0V7M9 7h6"></path>
+                            <path d="M19 21V11k-1.5-2H6.5L5 11v10"></path>
+                        </svg>
+                    </div>
+                    <span class="stat-small-label">Branch Pending</span>
+                </div>
+                <div class="stat-small-value purple">05</div>
+            </div>
+        </div>
+
+        <!-- Sanction Tab Card -->
+        <div class="sanction-card" style="animation-delay: 0.4s;">
+            <div class="tabs-header">
+                <button class="tab-btn active">Sanctioned</button>
+                <button class="tab-btn">Not Counted</button>
+            </div>
+            <div class="sanction-main-info">
+                <div class="sanction-left">
+                    <div class="sanction-badge">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="sanction-title">Sanction Count</h3>
+                        <div class="sanction-status">
+                            <div class="status-dot"></div>
+                            Data Validated
+                        </div>
+                    </div>
+                </div>
+                <div class="sanction-total">
+                    <div class="total-value">42</div>
+                    <p class="total-label">Total Approved</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M9 11l3 3L22 4"></path>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+            </svg>
+            <span>Tasks</span>
+        </a>
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+            <span>Reports</span>
+        </a>
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <script>
+        // Check for authenticated user
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (user && user.name) {
+                document.getElementById('displayUserName').textContent = user.name;
+                // Add initial as avatar if no image
+                const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                // We keep the dicebear image as it looks more premium for now
+            }
+        });
+    </script>
+</body>
+
+</html>

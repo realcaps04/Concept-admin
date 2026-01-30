@@ -344,6 +344,89 @@
             align-items: center;
             justify-content: center;
         }
+
+        /* Custom Error Popup */
+        .error-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.3);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .error-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .error-modal {
+            background: white;
+            width: 100%;
+            max-width: 360px;
+            border-radius: 24px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            transform: scale(0.9);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .error-modal-overlay.active .error-modal {
+            transform: scale(1);
+        }
+
+        .error-icon-box {
+            width: 64px;
+            height: 64px;
+            background: #FFF1F2;
+            color: #E11D48;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .error-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0F172A;
+            margin-bottom: 8px;
+        }
+
+        .error-msg {
+            font-size: 14px;
+            color: #64748B;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .error-close-btn {
+            width: 100%;
+            padding: 14px;
+            background: #0F172A;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .error-close-btn:hover {
+            opacity: 0.9;
+        }
     </style>
 </head>
 
@@ -475,6 +558,23 @@
             </button>
         </div>
 
+        <!-- Error Popup Modal -->
+        <div class="error-modal-overlay" id="errorModal">
+            <div class="error-modal">
+                <div class="error-icon-box">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                </div>
+                <h3 class="error-title" id="errorTitle">Registration Failed</h3>
+                <p class="error-msg" id="errorMsg">Something went wrong. Please try again.</p>
+                <button class="error-close-btn" onclick="hideErrorPopup()">Understand</button>
+            </div>
+        </div>
+
     </main>
 
     <!-- Supabase JS -->
@@ -514,6 +614,16 @@
                 const toast = document.getElementById('feature-toast');
                 toast.classList.remove('show');
                 if (toastTimeout) clearTimeout(toastTimeout);
+            };
+
+            window.showErrorPopup = function (title, message) {
+                document.getElementById('errorTitle').textContent = title;
+                document.getElementById('errorMsg').textContent = message;
+                document.getElementById('errorModal').classList.add('active');
+            };
+
+            window.hideErrorPopup = function () {
+                document.getElementById('errorModal').classList.remove('active');
             };
 
             window.togglePassword = function (icon) {
@@ -648,7 +758,15 @@
 
                 } catch (err) {
                     console.error('Registration error:', err);
-                    alert('Registration failed: ' + err.message);
+
+                    if (err.message.includes('fos_members_email_key')) {
+                        showErrorPopup('Email ID already exists', 'This email is already registered in our system. Please use a different email or login to your account.');
+                    } else if (err.message.includes('fos_members_employee_id_key')) {
+                        showErrorPopup('ID already exists', 'This Employee ID is already registered. Please verify your ID or contact support.');
+                    } else {
+                        showErrorPopup('Registration Failed', err.message);
+                    }
+
                     btn.innerHTML = 'Register as Member';
                     btn.style.backgroundColor = '#2563EB';
                     btn.style.opacity = '1';

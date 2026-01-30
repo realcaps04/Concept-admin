@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TL Dashboard - Field Operations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --text-dark: #0F172A;
+            --text-gray: #64748B;
+            --blue-primary: #1D4ED8;
+            --blue-light: #EFF6FF;
+            --green-success: #10B981;
+            --green-light: #ECFDF5;
+            --red-error: #EF4444;
+            --red-light: #FEF2F2;
+            --border-color: #F1F5F9;
+            --shadow-card: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-dark);
+            max-width: 480px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 80px;
+            /* Space for bottom nav */
+        }
+
+        /* Header Styles */
+        .header {
+            background: #FFFFFF;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #FFD29D;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-info h1 {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .user-info p {
+            font-size: 13px;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .action-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+            cursor: pointer;
+        }
+
+        .action-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--text-dark);
+        }
+
+        /* Hero Labels */
+        .hero-section {
+            padding: 24px 20px;
+        }
+
+        .hero-section h2 {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-section p {
+            font-size: 15px;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            padding: 0 20px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 24px 20px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-card);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-icon {
+            width: 18px;
+            height: 18px;
+            color: var(--blue-primary);
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .stat-trend {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 8px;
+            width: fit-content;
+        }
+
+        .trend-up {
+            background: var(--green-light);
+            color: var(--green-success);
+        }
+
+        .trend-down {
+            background: var(--red-light);
+            color: var(--red-error);
+        }
+
+        /* Section Header Styles */
+        .section-header {
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .section-header h3 {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .view-all {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--blue-primary);
+            text-decoration: none;
+        }
+
+        /* Alert Card */
+        .alerts-container {
+            padding: 0 20px;
+            margin-bottom: 32px;
+        }
+
+        .alert-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: var(--shadow-card);
+            position: relative;
+            overflow: hidden;
+            border-left: 4px solid var(--red-error);
+        }
+
+        .alert-content-wrapper {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .alert-text-side {
+            flex: 1;
+        }
+
+        .alert-title-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .alert-title-row svg {
+            width: 20px;
+            height: 20px;
+            color: var(--red-error);
+        }
+
+        .alert-title {
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .alert-description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        .alert-visual {
+            width: 80px;
+            height: 80px;
+            background: #1E4646;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .alert-visual svg {
+            width: 40px;
+            height: 48px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+
+        .alert-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .review-btn {
+            flex: 1;
+            background: var(--blue-primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .more-btn {
+            width: 50px;
+            background: #F1F5F9;
+            border: none;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* Progress Card */
+        .progress-container {
+            padding: 0 20px;
+        }
+
+        .progress-card {
+            background: var(--card-bg);
+            padding: 24px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-card);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .progress-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .progress-percentage {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--blue-primary);
+        }
+
+        .progress-bar-bg {
+            height: 10px;
+            background: #F1F5F9;
+            border-radius: 5px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--blue-primary);
+            width: 75%;
+            border-radius: 5px;
+            transition: width 1s ease-in-out;
+        }
+
+        .progress-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #94A3B8;
+            font-weight: 500;
+        }
+
+        .progress-info svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #FFFFFF;
+            padding: 12px 10px;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid var(--border-color);
+            z-index: 1000;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            color: #94A3B8;
+            padding: 4px 12px;
+            transition: all 0.2s;
+        }
+
+        .nav-item.active {
+            color: var(--blue-primary);
+        }
+
+        .nav-item svg {
+            width: 24px;
+            height: 24px;
+            stroke-width: 2;
+        }
+
+        .nav-item span {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* Responsive Anim */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stat-card,
+        .alert-card,
+        .progress-card {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="user-profile">
+            <div class="avatar" id="userAvatar">
+                <!-- Placeholder Avatar -->
+                <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+                    <circle cx="22" cy="22" r="22" fill="#E2E8F0" />
+                    <path
+                        d="M22 13C19.2386 13 17 15.2386 17 18C17 20.7614 19.2386 23 22 23C24.7614 23 27 20.7614 27 18C27 15.2386 24.7614 13 22 13Z"
+                        fill="#94A3B8" />
+                    <path d="M22 25C17.0294 25 13 29.0294 13 34H31C31 29.0294 26.9706 25 22 25Z" fill="#94A3B8" />
+                </svg>
+            </div>
+            <div class="user-info">
+                <h1>TL Dashboard</h1>
+
+            </div>
+        </div>
+        <div class="header-actions">
+            <div class="action-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+            </div>
+            <div class="action-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Message -->
+    <section class="hero-section">
+        <h2 id="welcomeText">Good Morning, Team Lead</h2>
+        <p>Here is how your team is performing today.</p>
+    </section>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+        <div class="stat-card" style="animation-delay: 0.1s;">
+            <div class="stat-header">
+                <span class="stat-label">Team Size</span>
+                <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+            </div>
+            <div class="stat-value">24</div>
+            <div class="stat-trend trend-up">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                    <polyline points="17 6 23 6 23 12" />
+                </svg>
+                +2%
+            </div>
+        </div>
+        <div class="stat-card" style="animation-delay: 0.2s;">
+            <div class="stat-header">
+                <span class="stat-label">Reports Today</span>
+                <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10 9 9 9 8 9" />
+                </svg>
+            </div>
+            <div class="stat-value">18/24</div>
+            <div class="stat-trend trend-up">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                    <polyline points="17 6 23 6 23 12" />
+                </svg>
+                +5%
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Team Actions Section -->
+    <div class="section-header">
+        <h3>Team Management</h3>
+    </div>
+    <div class="alerts-container">
+        <a href="MemberApprovals.html" style="text-decoration: none;">
+            <div class="alert-card" style="border-left-color: var(--blue-primary); margin-bottom: 0;">
+                <div class="alert-content-wrapper" style="margin-bottom: 0;">
+                    <div class="alert-text-side">
+                        <div class="alert-title-row" style="margin-bottom: 8px;">
+                            <svg style="color: var(--blue-primary);" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                <circle cx="8.5" cy="7" r="4" />
+                                <line x1="20" y1="8" x2="20" y2="14" />
+                                <line x1="23" y1="11" x2="17" y2="11" />
+                            </svg>
+                            <span class="alert-title">Registration Approvals</span>
+                        </div>
+                        <p class="alert-description">Review and approve new FOS member registration requests from your
+                            team.</p>
+                        <div style="margin-top: 16px;">
+                            <div class="review-btn" style="width: fit-content; padding: 10px 20px;">
+                                Manage Requests
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+
+    <!-- Critical Alerts -->
+    <div class="section-header">
+        <h3>Critical Alerts</h3>
+        <a href="#" class="view-all">View All</a>
+    </div>
+    <div class="alerts-container">
+        <div class="alert-card">
+            <div class="alert-content-wrapper">
+                <div class="alert-text-side">
+                    <div class="alert-title-row">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                            <line x1="12" y1="9" x2="12" y2="13" />
+                            <line x1="12" y1="17" x2="12.01" y2="17" />
+                        </svg>
+                        <span class="alert-title">Sanction Mismatch</span>
+                    </div>
+                    <p class="alert-description">3 cases require immediate review due to discrepancy in submitted
+                        verification documents.</p>
+                </div>
+                <div class="alert-visual">
+                    <svg viewBox="0 0 50 60">
+                        <rect x="5" y="5" width="40" height="50" rx="4" fill="white" fill-opacity="0.9" />
+                        <line x1="12" y1="15" x2="38" y2="15" stroke="#E2E8F0" stroke-width="2" />
+                        <line x1="12" y1="22" x2="38" y2="22" stroke="#E2E8F0" stroke-width="2" />
+                        <line x1="12" y1="29" x2="30" y2="29" stroke="#E2E8F0" stroke-width="2" />
+                        <line x1="12" y1="36" x2="38" y2="36" stroke="#E2E8F0" stroke-width="2" />
+                        <line x1="12" y1="43" x2="25" y2="43" stroke="#E2E8F0" stroke-width="2" />
+                    </svg>
+                </div>
+            </div>
+            <div class="alert-actions">
+                <button class="review-btn">
+                    Review Now
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                </button>
+                <button class="more-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <circle cx="12" cy="12" r="1" />
+                        <circle cx="19" cy="12" r="1" />
+                        <circle cx="5" cy="12" r="1" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+            </svg>
+            <span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+            <span>Team</span>
+        </a>
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <line x1="18" y1="20" x2="18" y2="10" />
+                <line x1="12" y1="20" x2="12" y2="4" />
+                <line x1="6" y1="20" x2="6" y2="14" />
+            </svg>
+            <span>Insights</span>
+        </a>
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+            </svg>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <script>
+        // Set dynamic welcome message based on time
+        const hour = new Date().getHours();
+        const welcomeText = document.getElementById('welcomeText');
+        if (hour < 12) welcomeText.textContent = 'Good Morning, Team Lead';
+        else if (hour < 18) welcomeText.textContent = 'Good Afternoon, Team Lead';
+        else welcomeText.textContent = 'Good Evening, Team Lead';
+
+
+        // Add some click listeners for demo
+        document.querySelectorAll('.stat-card').forEach(card => {
+            card.addEventListener('click', () => {
+                card.style.transform = 'scale(0.95)';
+                setTimeout(() => card.style.transform = '', 100);
+            });
+        });
+    </script>
+</body>
+
+</html>
