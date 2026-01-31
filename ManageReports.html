@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Reports - FOS Portal</title>
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1A6CFF;
+            --bg-light: #F8FAFC;
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --success-green: #10B981;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            max-width: 480px;
+            margin: 0 auto;
+            min-height: 100vh;
+            padding-bottom: 90px;
+        }
+
+        /* Header */
+        header {
+            padding: 32px 20px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-light);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .header-profile {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #FFD29D;
+            border: 2px solid white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .header-profile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Search Section */
+        .search-container {
+            padding: 0 20px 20px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .search-box {
+            flex: 1;
+            background: white;
+            border-radius: 16px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .search-box input::placeholder {
+            color: #94A3B8;
+        }
+
+        .filter-btn {
+            width: 48px;
+            height: 48px;
+            background: #EFF6FF;
+            border: none;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            cursor: pointer;
+        }
+
+        /* Categories */
+        .categories-scroll {
+            padding: 0 20px 24px;
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+        }
+
+        .categories-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-chip {
+            padding: 10px 22px;
+            background: white;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: var(--card-shadow);
+        }
+
+        .category-chip.active {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        /* Report Cards List */
+        .reports-list {
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .report-card {
+            background: white;
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .card-info-group {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .type-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bg-blue {
+            background: #EFF6FF;
+            color: var(--primary-blue);
+        }
+
+        .bg-orange {
+            background: #FFF7ED;
+            color: #F97316;
+        }
+
+        .bg-purple {
+            background: #F5F3FF;
+            color: #7C3AED;
+        }
+
+        .type-details .type-label {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .type-details .customer-name {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .status-verified {
+            background: #ECFDF5;
+            color: #10B981;
+        }
+
+        .status-submitted {
+            background: #EFF6FF;
+            color: var(--primary-blue);
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-top: 16px;
+            border-top: 1px solid #F8FAFC;
+        }
+
+        .footer-item label {
+            font-size: 10px;
+            font-weight: 700;
+            color: #94A3B8;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .amount-value {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .date-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748B;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #F1F5F9;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            color: #94A3B8;
+            font-size: 11px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .nav-item.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-item svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Loading Spinner */
+        .loader-container {
+            padding: 40px;
+            text-align: center;
+            display: none;
+        }
+
+        .loader {
+            width: 30px;
+            height: 30px;
+            border: 3px solid #E2E8F0;
+            border-top-color: var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Card Actions */
+        .card-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            background: #F8FAFC;
+            color: #64748B;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .action-btn:active {
+            transform: scale(0.9);
+        }
+
+        .action-btn.edit-btn:hover {
+            background: #EFF6FF;
+            color: var(--primary-blue);
+        }
+
+        .action-btn.delete-btn:hover {
+            background: #FEF2F2;
+            color: var(--danger-red);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1 class="header-title">Manage Reports</h1>
+        <div class="header-profile" onclick="window.location.href='ProfileSettings.html'">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Profile" id="headerAvatar">
+        </div>
+    </header>
+
+    <div class="search-container">
+        <div class="search-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.5">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="reportSearch" placeholder="Search submitted reports...">
+        </div>
+        <button class="filter-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="4" y1="21" x2="4" y2="14"></line>
+                <line x1="4" y1="10" x2="4" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="3"></line>
+                <line x1="20" y1="21" x2="20" y2="16"></line>
+                <line x1="20" y1="12" x2="20" y2="3"></line>
+                <line x1="1" y1="14" x2="7" y2="14"></line>
+                <line x1="9" y1="12" x2="15" y2="12"></line>
+                <line x1="17" y1="16" x2="23" y2="16"></line>
+            </svg>
+        </button>
+    </div>
+
+    <div class="categories-scroll" id="categoryTabs">
+        <div class="category-chip active" data-type="all">All</div>
+        <div class="category-chip" data-type="kcc new">KCC New</div>
+        <div class="category-chip" data-type="kcc renewal">KCC Renewal</div>
+        <div class="category-chip" data-type="recovery">Recovery</div>
+    </div>
+
+    <div class="loader-container" id="loader">
+        <div class="loader"></div>
+        <p style="margin-top: 12px; color: #94A3B8; font-size: 13px;">Fetching reports...</p>
+    </div>
+
+    <div class="reports-list" id="reportsContainer">
+        <!-- Reports will be injected here -->
+    </div>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav">
+        <a href="fosadmindashboard.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M9 11l3 3L22 4"></path>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+            </svg>
+            <span>Tasks</span>
+        </a>
+        <a href="#" class="nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+            <span>Reports</span>
+        </a>
+        <a href="ProfileSettings.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <script>
+        // Supabase Configuration
+        const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const reportsContainer = document.getElementById('reportsContainer');
+        const loader = document.getElementById('loader');
+        const searchInput = document.getElementById('reportSearch');
+        const categoryTabs = document.getElementById('categoryTabs');
+
+        let allReports = [];
+        let currentFilter = 'all';
+
+        // Load Header Avatar
+        const user = JSON.parse(localStorage.getItem('currentUser')) || {};
+        if (user.name) {
+            document.getElementById('headerAvatar').src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.name}`;
+        }
+
+        async function fetchReports() {
+            loader.style.display = 'block';
+            reportsContainer.innerHTML = '';
+
+            try {
+                // Fetch from both tables
+                const { data: reports, error: reportsErr } = await supabaseClient
+                    .from('reports')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                const { data: recovery, error: recoveryErr } = await supabaseClient
+                    .from('recovery_reports')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (reportsErr || recoveryErr) throw reportsErr || recoveryErr;
+
+                // Combine and normalize data
+                const normalizedReports = (reports || []).map(r => ({
+                    id: r.id,
+                    type: r.report_type,
+                    name: r.customer_name,
+                    amount: r.loan_amount,
+                    date: r.created_at,
+                    status: 'SUBMITTED', // Default status
+                    category: r.report_type.toLowerCase()
+                }));
+
+                const normalizedRecovery = (recovery || []).map(r => ({
+                    id: r.id,
+                    type: 'RECOVERY',
+                    name: r.applicant_name,
+                    amount: r.amount_received,
+                    date: r.created_at,
+                    status: 'SUBMITTED',
+                    category: 'recovery'
+                }));
+
+                allReports = [...normalizedReports, ...normalizedRecovery].sort((a, b) =>
+                    new Date(b.date) - new Date(a.date)
+                );
+
+                renderReports();
+            } catch (err) {
+                console.error('Error fetching reports:', err);
+                reportsContainer.innerHTML = '<p style="text-align: center; padding: 20px; color: var(--danger-red);">Failed to load reports.</p>';
+            } finally {
+                loader.style.display = 'none';
+            }
+        }
+
+        function renderReports() {
+            const searchTerm = searchInput.value.toLowerCase();
+
+            const filtered = allReports.filter(r => {
+                const matchesSearch = r.name.toLowerCase().includes(searchTerm) ||
+                    r.type.toLowerCase().includes(searchTerm);
+                const matchesFilter = currentFilter === 'all' || r.category.includes(currentFilter);
+                return matchesSearch && matchesFilter;
+            });
+
+            if (filtered.length === 0) {
+                reportsContainer.innerHTML = '<p style="text-align: center; padding: 40px; color: #94A3B8;">No reports found.</p>';
+                return;
+            }
+
+            reportsContainer.innerHTML = filtered.map((r, index) => `
+                <div class="report-card" style="animation-delay: ${index * 0.05}s">
+                    <div class="card-header">
+                        <div class="card-info-group">
+                            <div class="type-icon ${getIconBg(r.type)}">
+                                ${getIcon(r.type)}
+                            </div>
+                            <div class="type-details">
+                                <span class="type-label" style="color: ${getIconColor(r.type)}">${r.type}</span>
+                                <h4 class="customer-name">${r.name}</h4>
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                            <button class="action-btn edit-btn" onclick="editReport('${r.id}', '${r.type}')" title="Edit">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                </svg>
+                            </button>
+                            <button class="action-btn delete-btn" onclick="deleteReport('${r.id}', '${r.type}')" title="Delete">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                </svg>
+                            </button>
+                            <span class="status-badge ${r.status === 'VERIFIED' ? 'status-verified' : 'status-submitted'}">
+                                ${r.status}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="footer-item">
+                            <label>Amount</label>
+                            <span class="amount-value">₹ ${parseFloat(r.amount).toLocaleString('en-IN')}</span>
+                        </div>
+                        <div class="footer-item" style="text-align: right;">
+                            <label>Date Submitted</label>
+                            <span class="date-value">${formatDate(r.date)}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getIconBg(type) {
+            type = type.toUpperCase();
+            if (type.includes('KCC NEW')) return 'bg-blue';
+            if (type.includes('KCC RENEWAL')) return 'bg-purple';
+            if (type.includes('RECOVERY')) return 'bg-orange';
+            return 'bg-blue';
+        }
+
+        function getIconColor(type) {
+            type = type.toUpperCase();
+            if (type.includes('KCC NEW')) return '#1A6CFF';
+            if (type.includes('KCC RENEWAL')) return '#7C3AED';
+            if (type.includes('RECOVERY')) return '#F97316';
+            return '#1A6CFF';
+        }
+
+        function getIcon(type) {
+            type = type.toUpperCase();
+            if (type.includes('RECOVERY')) {
+                return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                    <path d="M3 3v5h5"></path>
+                    <path d="M12 7v5l4 2"></path>
+                </svg>`;
+            }
+            if (type.includes('RENEWAL')) {
+                return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <polyline points="9 11 12 14 16 9"></polyline>
+                </svg>`;
+            }
+            return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>`;
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            const now = new Date();
+            const tomorrow = new Date(now);
+            tomorrow.setDate(now.getDate() - 1);
+
+            if (date.toDateString() === now.toDateString()) {
+                return 'Today, ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            }
+            if (date.toDateString() === tomorrow.toDateString()) {
+                return 'Yesterday, ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            }
+            return date.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+        }
+
+        // Event Listeners
+        searchInput.addEventListener('input', renderReports);
+
+        async function deleteReport(id, type) {
+            if (!confirm('Are you sure you want to delete this report?')) return;
+
+            const table = type.toUpperCase().includes('RECOVERY') ? 'recovery_reports' : 'reports';
+
+            try {
+                const { error } = await supabaseClient
+                    .from(table)
+                    .delete()
+                    .eq('id', id);
+
+                if (error) throw error;
+
+                // Refresh data
+                fetchReports();
+            } catch (err) {
+                alert('Error deleting report: ' + err.message);
+            }
+        }
+
+        function editReport(id, type) {
+            // Placeholder for edit functionality
+            alert('Edit functionality for ' + type + ' (ID: ' + id + ') will be implemented soon!');
+        }
+
+        categoryTabs.addEventListener('click', (e) => {
+            if (e.target.classList.contains('category-chip')) {
+                document.querySelectorAll('.category-chip').forEach(c => c.classList.remove('active'));
+                e.target.classList.add('active');
+                currentFilter = e.target.getAttribute('data-type');
+                renderReports();
+            }
+        });
+
+        // Initial Fetch
+        fetchReports();
+    </script>
+</body>
+
+</html>
