@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Select Report Type - FOS Portal</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
     <!-- Supabase JS -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1001,7 +1002,7 @@
             </svg>
             <span>Reports</span>
         </a>
-        <a href="#" class="nav-item">
+        <a href="ProfileSettings.html" class="nav-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                 stroke-linejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -1227,6 +1228,14 @@
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+        // Session verification
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+        if (!user || !user.employee_id) {
+            console.warn('Session incomplete or missing employee_id. Redirecting to login...');
+            window.location.href = 'FOSMemberLogin.html';
+        }
+
+        const reportSearch = document.getElementById('reportSearch'); // This element is not in the provided HTML, but added as per instruction.
         const modalOverlay = document.getElementById('modalOverlay');
         const generalModal = document.getElementById('generalModal');
         const recoveryModal = document.getElementById('recoveryModal');

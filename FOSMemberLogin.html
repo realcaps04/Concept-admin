@@ -621,7 +621,7 @@
                     // Fetch user from fos_members table
                     const { data, error } = await supabase
                         .from('fos_members')
-                        .select('id, name, status, password')
+                        .select('id, name, employee_id, status, password')
                         .eq('employee_id', employeeId)
                         .single();
 
@@ -643,6 +643,7 @@
                         localStorage.setItem('currentUser', JSON.stringify({
                             id: data.id,
                             name: data.name,
+                            employee_id: data.employee_id,
                             role: 'fos_member',
                             team_lead_id: tlValue // Store selected TL if relevant
                         }));

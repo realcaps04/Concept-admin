@@ -464,7 +464,7 @@
                     // Query fos_team_leads table
                     const { data, error } = await supabase
                         .from('fos_team_leads')
-                        .select('id, name, status, password, department')
+                        .select('id, name, employee_id, status, password, department')
                         .eq('employee_id', employeeId)
                         .single();
 
@@ -485,6 +485,7 @@
                     localStorage.setItem('currentUser', JSON.stringify({
                         id: data.id,
                         name: data.name,
+                        employee_id: data.employee_id,
                         role: 'team_lead',
                         department: data.department
                     }));

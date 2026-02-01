@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Member Dashboard - FOS Portal</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
     <!-- Supabase JS -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -513,7 +514,7 @@
                 <p class="activity-label">Daily Activity</p>
                 <h3 class="activity-title">Today's Reports</h3>
                 <div class="activity-value-row">
-                    <span class="activity-value">12</span>
+                    <span class="activity-value" id="todayReportsCount">0</span>
                     <span class="activity-unit">submitted</span>
                 </div>
                 <button class="view-btn" onclick="window.location.href='ManageReports.html'">View Details</button>
@@ -552,7 +553,7 @@
                     </div>
                     <span class="stat-small-label">RACC Pending</span>
                 </div>
-                <div class="stat-small-value">08</div>
+                <div class="stat-small-value" id="raccPendingCount">00</div>
             </div>
             <div class="stat-small-card">
                 <div class="stat-small-header">
@@ -566,7 +567,7 @@
                     </div>
                     <span class="stat-small-label">Branch Pending</span>
                 </div>
-                <div class="stat-small-value purple">05</div>
+                <div class="stat-small-value purple" id="branchPendingCount">00</div>
             </div>
         </div>
 
@@ -666,11 +667,13 @@
         // Check for authenticated user
         document.addEventListener('DOMContentLoaded', () => {
             const user = JSON.parse(localStorage.getItem('currentUser'));
-            if (user && user.name) {
+            if (user && user.name && user.employee_id) {
                 document.getElementById('displayUserName').textContent = user.name;
             } else {
-                // If no user, redirect to login
+                // If no user or session incomplete, redirect to login
+                console.warn('Incomplete session, redirecting to login');
                 window.location.href = 'FOSMemberLogin.html';
+                return;
             }
 
             const logoutBtn = document.getElementById('logoutBtn');
@@ -698,7 +701,62 @@
                 localStorage.removeItem('currentUser');
                 window.location.href = 'FOSMemberLogin.html';
             });
+
+            // Fetch actual report counts
+            fetchTodayCounts(user);
         });
+
+        async function fetchTodayCounts(user) {
+            const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+            const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const todayStr = today.toISOString();
+
+            try {
+                // 1. Today's Reports Count (General + Recovery)
+                const { count: reportsCount } = await supabaseClient
+                    .from('reports')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('member_employee_id', user.employee_id)
+                    .gte('created_at', todayStr);
+
+                const { count: recoveryCount } = await supabaseClient
+                    .from('recovery_reports')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('member_employee_id', user.employee_id)
+                    .gte('created_at', todayStr);
+
+                document.getElementById('todayReportsCount').textContent = (reportsCount || 0) + (recoveryCount || 0);
+
+                // 2. RACC Pending (Total reports of type 'Files Submitted to RACC')
+                const { count: raccCount } = await supabaseClient
+                    .from('reports')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('member_employee_id', user.employee_id)
+                    .eq('report_type', 'Files Submitted to RACC');
+
+                document.getElementById('raccPendingCount').textContent = raccCount || 0;
+
+                // 3. Branch Pending (Total reports NOT of type 'Files Submitted to RACC')
+                const { count: branchCount } = await supabaseClient
+                    .from('reports')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('member_employee_id', user.employee_id)
+                    .neq('report_type', 'Files Submitted to RACC');
+
+                document.getElementById('branchPendingCount').textContent = branchCount || 0;
+
+                // 4. Sanction Count (Placeholder for now as no sanction column exists)
+                // Assuming "Sanctioned" might be a subset of reports or a different metric
+                // For now we keep the UI static or set to 0 if preferred.
+
+            } catch (err) {
+                console.error('Error fetching dashboard counts:', err);
+            }
+        }
     </script>
 </body>
 
