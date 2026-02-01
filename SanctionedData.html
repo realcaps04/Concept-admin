@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanctioned Data - FOS Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --primary-blue: #1A6CFF;
+            --success-green: #10B981;
+            --danger-red: #EF4444;
+            --warning-amber: #F59E0B;
+            --bg-light: #F8FAFC;
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        /* Header */
+        header {
+            padding: 24px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-light);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .back-btn {
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .menu-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+        }
+
+        /* Search */
+        .search-container {
+            padding: 0 20px 20px;
+        }
+
+        .search-box {
+            background: white;
+            padding: 16px 20px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* Category Chips */
+        .categories-row {
+            padding: 0 20px 24px;
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .categories-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-chip {
+            padding: 10px 24px;
+            background: white;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-muted);
+            white-space: nowrap;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+            cursor: pointer;
+        }
+
+        .category-chip.active {
+            background: var(--primary-blue);
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(26, 108, 255, 0.3);
+        }
+
+        /* Sub Tabs */
+        .sub-tabs {
+            margin: 0 20px 20px;
+            background: #F1F5F9;
+            padding: 6px;
+            border-radius: 16px;
+            display: flex;
+        }
+
+        .sub-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-muted);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .sub-tab.active {
+            background: white;
+            color: var(--primary-blue);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Summary Bar */
+        .summary-bar {
+            padding: 0 24px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .files-count {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--success-green);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .files-count-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success-green);
+            border-radius: 50%;
+        }
+
+        .update-time {
+            font-size: 11px;
+            font-weight: 700;
+            color: #94A3B8;
+            text-transform: uppercase;
+        }
+
+        /* Data Cards */
+        .data-list {
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .record-card {
+            background: white;
+            padding: 24px;
+            border-radius: 28px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            animation: slideUp 0.4s ease-out both;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .customer-name {
+            font-size: 19px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .file-id {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-badge.validated {
+            background: #ECFDF5;
+            color: var(--success-green);
+        }
+
+        .status-badge.pending {
+            background: #FFFBEB;
+            color: var(--warning-amber);
+        }
+
+        .label-text {
+            font-size: 11px;
+            font-weight: 700;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .amount-value {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+
+        .action-btn {
+            position: absolute;
+            right: 24px;
+            bottom: 24px;
+            padding: 8px 16px;
+            background: #EFF6FF;
+            color: var(--primary-blue);
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .action-btn.exclude {
+            background: #FEF2F2;
+            color: var(--danger-red);
+        }
+
+        .action-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #F1F5F9;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            color: #94A3B8;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .nav-item.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-item svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+
+        /* Exclusion Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            background: white;
+            padding: 32px;
+            border-radius: 32px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: translateY(20px);
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: translateY(0);
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .modal-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .reason-textarea {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #F1F5F9;
+            border-radius: 16px;
+            font-size: 15px;
+            font-weight: 500;
+            resize: none;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .reason-textarea:focus {
+            border-color: var(--primary-blue);
+        }
+
+        .file-upload-area {
+            border: 2px dashed #CBD5E1;
+            border-radius: 20px;
+            padding: 24px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            background: #F8FAFC;
+        }
+
+        .file-upload-area:hover {
+            border-color: var(--primary-blue);
+            background: #F0F7FF;
+            transform: translateY(-2px);
+        }
+
+        .file-upload-area.has-file {
+            border-style: solid;
+            border-color: var(--success-green);
+            background: #F0FDF4;
+        }
+
+        .upload-icon-circle {
+            width: 44px;
+            height: 44px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            color: var(--primary-blue);
+            box-shadow: 0 4px 12px rgba(26, 108, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .file-upload-area.has-file .upload-icon-circle {
+            background: var(--success-green);
+            color: white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+        }
+
+        .upload-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .upload-hint {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .browse-btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background: white;
+            border: 1.5px solid #E2E8F0;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-main);
+            transition: all 0.2s;
+        }
+
+        .file-upload-area:hover .browse-btn {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .file-uploaded-content {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .file-upload-area.has-file .file-upload-content {
+            display: none;
+        }
+
+        .file-upload-area.has-file .file-uploaded-content {
+            display: flex;
+        }
+
+        .pdf-badge {
+            background: #FEF2F2;
+            color: #EF4444;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        #fileInput {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .modal-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .btn {
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-cancel {
+            background: #F1F5F9;
+            color: var(--text-muted);
+        }
+
+        .btn-submit {
+            background: var(--danger-red);
+            color: white;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        .error-msg {
+            color: var(--danger-red);
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-left">
+            <div class="back-btn" onclick="window.location.href='fosadmindashboard.html'">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </div>
+            <h1 class="header-title">Sanctioned Data</h1>
+        </div>
+        <div class="menu-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <circle cx="12" cy="12" r="1.5"></circle>
+                <circle cx="6" cy="12" r="1.5"></circle>
+                <circle cx="18" cy="12" r="1.5"></circle>
+            </svg>
+        </div>
+    </header>
+
+    <div class="search-container">
+        <div class="search-box">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.5">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" placeholder="Search customer or file ID..." id="searchInput">
+        </div>
+    </div>
+
+    <div class="categories-row">
+        <div class="category-chip active" onclick="filterByTime('recent')">Recent</div>
+        <div class="category-chip" onclick="filterByTime('pending')">Pending Verification</div>
+        <div class="category-chip" onclick="filterByTime('validated')">Validated</div>
+    </div>
+
+    <div class="sub-tabs">
+        <div class="sub-tab active" id="tabSanctioned" onclick="switchMainTab('SANCTIONED')">Sanctioned</div>
+        <div class="sub-tab" id="tabRejected" onclick="switchMainTab('REJECTED')">Not Counted</div>
+    </div>
+
+    <div class="summary-bar">
+        <div class="files-count">
+            <div class="files-count-dot"></div>
+            <span id="filesCountText">0 FILES COUNTED</span>
+        </div>
+        <div class="update-time" id="updateTimeText">UPDATED JUST NOW</div>
+    </div>
+
+    <div class="data-list" id="dataList">
+        <!-- Data cards will be injected here -->
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="fosadmindashboard.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span>Home</span>
+        </a>
+        <a href="#" class="nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+            <span>Sanctions</span>
+        </a>
+        <a href="ManageReports.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+            <span>History</span>
+        </a>
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <!-- Exclusion Reason Modal -->
+    <div class="modal-overlay" id="excludeModal">
+        <div class="modal-card">
+            <h2 class="modal-title">Exclude from Count</h2>
+            <p class="modal-desc">Please provide a reason and upload supporting documentation to exclude this record.
+            </p>
+
+            <div class="input-group">
+                <label class="input-label">Reason for Exclusion</label>
+                <textarea class="reason-textarea" id="excludeReason" placeholder="Enter reason here..."
+                    rows="3"></textarea>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">Supporting Document (Required)</label>
+                <div class="file-upload-area" id="dropArea">
+                    <!-- Initial State -->
+                    <div class="file-upload-content">
+                        <div class="upload-icon-circle">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                        </div>
+                        <p class="upload-hint">PDF only • Max 250KB</p>
+                        <div class="browse-btn">Browse Files</div>
+                    </div>
+
+                    <!-- Success State -->
+                    <div class="file-uploaded-content">
+                        <div class="upload-icon-circle">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <div class="pdf-badge">PDF ATTACHED</div>
+                        <h4 class="upload-title" id="fileInfo">Filename.pdf</h4>
+                        <p class="upload-hint" id="fileSize">124 KB</p>
+                        <div class="browse-btn"
+                            style="border-color: var(--success-green); color: var(--success-green);">Change File</div>
+                    </div>
+
+                    <input type="file" id="fileInput" accept="application/pdf">
+                </div>
+                <div class="error-msg" id="fileError" style="margin-top: 12px; text-align: center;">Invalid file: Must
+                    be a PDF under 250KB</div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn btn-cancel" onclick="closeExcludeModal()">Cancel</button>
+                <button class="btn btn-submit" id="confirmExcludeBtn" onclick="confirmExclusion()">Exclude</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let currentStatus = 'SANCTIONED';
+        let allRecords = [];
+        let filteredRecords = [];
+        let currentUser = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) {
+                window.location.href = 'FOSMemberLogin.html';
+                return;
+            }
+            fetchSanctionedData();
+
+            // Search listener
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase().trim();
+                filteredRecords = allRecords.filter(r =>
+                    (r.customer_name && r.customer_name.toLowerCase().includes(term)) ||
+                    (r.id && r.id.toLowerCase().includes(term))
+                );
+                renderRecords();
+            });
+        });
+
+        async function fetchSanctionedData() {
+            try {
+                // Fetch from both tables
+                const { data: reports, error: err1 } = await supabaseClient
+                    .from('reports')
+                    .select('*')
+                    .eq('member_employee_id', currentUser.employee_id)
+                    .eq('status', currentStatus);
+
+                const { data: recovery, error: err2 } = await supabaseClient
+                    .from('recovery_reports')
+                    .select('*')
+                    .eq('member_employee_id', currentUser.employee_id)
+                    .eq('status', currentStatus);
+
+                if (err1) throw err1;
+                if (err2) throw err2;
+
+                const normalizedReports = (reports || []).map(r => ({
+                    id: r.id,
+                    customer_name: r.customer_name,
+                    amount: r.loan_amount,
+                    status: 'VALIDATED',
+                    created_at: r.created_at,
+                    table: 'reports'
+                }));
+
+                const normalizedRecovery = (recovery || []).map(r => ({
+                    id: r.id,
+                    customer_name: r.applicant_name,
+                    amount: r.amount_received,
+                    status: 'VALIDATED',
+                    created_at: r.created_at,
+                    table: 'recovery_reports'
+                }));
+
+                allRecords = [...normalizedReports, ...normalizedRecovery];
+                allRecords.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                filteredRecords = [...allRecords];
+
+                renderRecords();
+            } catch (err) {
+                console.error('Error fetching data:', err);
+            }
+        }
+
+        function switchMainTab(status) {
+            currentStatus = status;
+            document.getElementById('tabSanctioned').classList.toggle('active', status === 'SANCTIONED');
+            document.getElementById('tabRejected').classList.toggle('active', status === 'REJECTED');
+
+            // Change color for summary dot if rejected
+            const dot = document.querySelector('.files-count-dot');
+            dot.style.background = status === 'SANCTIONED' ? 'var(--success-green)' : 'var(--danger-red)';
+            document.querySelector('.files-count').style.color = status === 'SANCTIONED' ? 'var(--success-green)' : 'var(--danger-red)';
+
+            fetchSanctionedData();
+        }
+
+        function renderRecords() {
+            const list = document.getElementById('dataList');
+            const countText = document.getElementById('filesCountText');
+
+            countText.textContent = `${filteredRecords.length} FILES ${currentStatus === 'SANCTIONED' ? 'COUNTED' : 'EXCLUDED'}`;
+
+            if (filteredRecords.length === 0) {
+                list.innerHTML = `<div class="empty-state">No records found for this category.</div>`;
+                return;
+            }
+
+            list.innerHTML = filteredRecords.map(r => `
+                <div class="record-card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="customer-name">${r.customer_name || 'Unnamed'}</h3>
+                            <span class="file-id">FILE ID: #SAN-${r.id.substring(0, 8).toUpperCase()}</span>
+                        </div>
+                        <div class="status-badge ${r.status.toLowerCase()}">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            ${r.status}
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="label-text">SANCTIONED AMOUNT</p>
+                        <h2 class="amount-value">₹${Number(r.amount).toLocaleString('en-IN')}</h2>
+                    </div>
+                    <button class="action-btn ${currentStatus === 'SANCTIONED' ? 'exclude' : ''}" 
+                            onclick="updateRecordStatus('${r.id}', '${r.table}', '${currentStatus === 'SANCTIONED' ? 'REJECTED' : 'SANCTIONED'}')">
+                        ${currentStatus === 'SANCTIONED' ? 'Exclude from Count' : 'Include in Count'}
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        let pendingExclusion = null;
+
+        document.getElementById('fileInput').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            const errorMsg = document.getElementById('fileError');
+            const dropArea = document.getElementById('dropArea');
+            const fileInfo = document.getElementById('fileInfo');
+            const fileSize = document.getElementById('fileSize');
+
+            if (!file) return;
+
+            // Validate PDF and Size
+            const maxSize = 250 * 1024;
+            if (file.type !== 'application/pdf' || file.size > maxSize) {
+                errorMsg.style.display = 'block';
+                dropArea.classList.remove('has-file');
+                this.value = '';
+                return;
+            }
+
+            errorMsg.style.display = 'none';
+            dropArea.classList.add('has-file');
+            fileInfo.textContent = file.name;
+            fileSize.textContent = Math.round(file.size / 1024) + ' KB';
+        });
+
+        function closeExcludeModal() {
+            document.getElementById('excludeModal').classList.remove('active');
+            document.getElementById('excludeReason').value = '';
+            document.getElementById('fileInput').value = '';
+            document.getElementById('dropArea').classList.remove('has-file');
+            document.getElementById('fileError').style.display = 'none';
+            pendingExclusion = null;
+        }
+
+        async function updateRecordStatus(id, table, newStatus) {
+            if (newStatus === 'REJECTED') {
+                pendingExclusion = { id, table };
+                document.getElementById('excludeModal').classList.add('active');
+                return;
+            }
+
+            // Normal include logic
+            try {
+                const { error } = await supabaseClient
+                    .from(table)
+                    .update({ status: newStatus })
+                    .eq('id', id);
+
+                if (error) throw error;
+                fetchSanctionedData();
+            } catch (err) {
+                alert('Error updating status: ' + err.message);
+            }
+        }
+
+        async function confirmExclusion() {
+            if (!pendingExclusion) return;
+
+            const reason = document.getElementById('excludeReason').value.trim();
+            const fileInput = document.getElementById('fileInput');
+            const btn = document.getElementById('confirmExcludeBtn');
+
+            if (!reason) {
+                alert('Please enter a reason for exclusion.');
+                return;
+            }
+
+            if (!fileInput.files[0]) {
+                alert('Please upload a supporting PDF document.');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Processing...';
+
+            try {
+                const file = fileInput.files[0];
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+                const filePath = `${currentUser.employee_id}/${fileName}`;
+
+                // 1. Upload PDF to Supabase Storage (Assumes 'exclusion-docs' bucket exists)
+                const { data: uploadData, error: uploadError } = await supabaseClient
+                    .storage
+                    .from('exclusion-docs')
+                    .upload(filePath, file);
+
+                if (uploadError) throw uploadError;
+
+                // 2. Get Public URL for the uploaded file
+                const { data: { publicUrl } } = supabaseClient
+                    .storage
+                    .from('exclusion-docs')
+                    .getPublicUrl(filePath);
+
+                // 3. Update the original record status
+                const { error: updateError } = await supabaseClient
+                    .from(pendingExclusion.table)
+                    .update({
+                        status: 'REJECTED',
+                        rejection_reason: reason
+                    })
+                    .eq('id', pendingExclusion.id);
+
+                if (updateError) throw updateError;
+
+                // 4. Insert detailed data into the new management table
+                const { error: exclusionError } = await supabaseClient
+                    .from('sanction_exclusions')
+                    .insert({
+                        record_id: pendingExclusion.id,
+                        table_name: pendingExclusion.table,
+                        reason: reason,
+                        pdf_url: publicUrl,
+                        member_employee_id: currentUser.employee_id
+                    });
+
+                if (exclusionError) throw exclusionError;
+
+                closeExcludeModal();
+                fetchSanctionedData();
+            } catch (err) {
+                alert('Error excluding record: ' + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Exclude';
+            }
+        }
+
+        function filterByTime(type) {
+            document.querySelectorAll('.category-chip').forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Simplified: All recent for demonstration
+            filteredRecords = [...allRecords];
+            renderRecords();
+        }
+    </script>
+</body>
+
+</html>

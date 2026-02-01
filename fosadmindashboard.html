@@ -31,6 +31,16 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* Hide Scrollbars */
+        * {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        *::-webkit-scrollbar {
+            display: none;
+        }
+
         body {
             background-color: var(--bg-light);
             color: var(--text-main);
@@ -340,6 +350,24 @@
             font-weight: 800;
             color: var(--success-green);
             line-height: 1;
+            transition: color 0.3s;
+        }
+
+        .total-value.rejected {
+            color: var(--danger-red);
+        }
+
+        .sanction-badge.rejected {
+            background: #FEF2F2;
+            color: var(--danger-red);
+        }
+
+        .sanction-status.rejected {
+            color: var(--danger-red);
+        }
+
+        .status-dot.rejected {
+            background: var(--danger-red);
         }
 
         .total-label {
@@ -348,6 +376,63 @@
             color: #94A3B8;
             text-transform: uppercase;
             margin-top: 4px;
+        }
+
+        /* Document Guide Card */
+        .doc-guide-card {
+            background: #FFFFFF;
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: var(--card-shadow);
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #F1F5F9;
+            animation: slideUp 0.5s ease-out both;
+        }
+
+        .doc-guide-card:hover {
+            transform: translateY(-2px);
+            border-color: #E2E8F0;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .doc-icon-box {
+            width: 48px;
+            height: 48px;
+            background: #FFF7ED;
+            color: #EA580C;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .doc-info {
+            flex: 1;
+            margin-left: 16px;
+        }
+
+        .doc-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: #1E293B;
+            margin-bottom: 2px;
+        }
+
+        .doc-subtitle {
+            font-size: 12px;
+            color: #64748B;
+            font-weight: 600;
+        }
+
+        .doc-arrow {
+            color: #94A3B8;
+            margin-left: 8px;
         }
 
         /* Bottom Nav */
@@ -482,6 +567,70 @@
         .modal-btn:active {
             transform: scale(0.96);
         }
+
+        /* Coming Soon Modal Styling */
+        .coming-soon-card {
+            background: white;
+            padding: 40px 32px;
+            border-radius: 32px;
+            width: 90%;
+            max-width: 380px;
+            text-align: center;
+            position: relative;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .modal-overlay.active .coming-soon-card {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .rocket-icon-circle {
+            width: 80px;
+            height: 80px;
+            background: #EFF6FF;
+            color: #1A6CFF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+
+        .coming-soon-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: #1E293B;
+            margin-bottom: 12px;
+        }
+
+        .coming-soon-desc {
+            font-size: 15px;
+            color: #64748B;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .got-it-btn {
+            width: 100%;
+            padding: 16px;
+            background: #1A6CFF;
+            color: white;
+            border: none;
+            border-radius: 18px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 10px 15px -3px rgba(26, 108, 255, 0.3);
+        }
+
+        .got-it-btn:active {
+            transform: scale(0.96);
+        }
     </style>
 </head>
 
@@ -574,12 +723,15 @@
         <!-- Sanction Tab Card -->
         <div class="sanction-card" style="animation-delay: 0.4s;">
             <div class="tabs-header">
-                <button class="tab-btn active">Sanctioned</button>
-                <button class="tab-btn">Not Counted</button>
+                <button class="tab-btn active" id="tabSanctioned"
+                    onclick="switchSanctionTab('sanctioned')">Sanctioned</button>
+                <button class="tab-btn" id="tabNotCounted" onclick="switchSanctionTab('not_counted')">Not
+                    Counted</button>
             </div>
-            <div class="sanction-main-info">
+            <div class="sanction-main-info" onclick="window.location.href='SanctionedData.html'"
+                style="cursor: pointer;">
                 <div class="sanction-left">
-                    <div class="sanction-badge">
+                    <div class="sanction-badge" id="sanctionBadge">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5">
                             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
@@ -588,18 +740,41 @@
                     </div>
                     <div>
                         <h3 class="sanction-title">Sanction Count</h3>
-                        <div class="sanction-status">
-                            <div class="status-dot"></div>
-                            Data Validated
+                        <div class="sanction-status" id="sanctionStatus">
+                            <div class="status-dot" id="sanctionStatusDot"></div>
+                            <span id="sanctionStatusText">Data Validated</span>
                         </div>
                     </div>
                 </div>
                 <div class="sanction-total">
-                    <div class="total-value">42</div>
-                    <p class="total-label">Total Approved</p>
+                    <div class="total-value" id="sanctionTotalCount">0</div>
+                    <p class="total-label" id="sanctionTotalLabel">Total Approved</p>
                 </div>
             </div>
         </div>
+
+        <!-- Documents Guide Card -->
+        <a href="LoanSchemes.html" class="doc-guide-card" style="animation-delay: 0.5s; margin-bottom: 80px;">
+            <div class="doc-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+            </div>
+            <div class="doc-info">
+                <h4 class="doc-title">Required Documents</h4>
+                <p class="doc-subtitle">Documents needed for Any Loan Procedure</p>
+            </div>
+            <div class="doc-arrow">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </div>
+        </a>
     </div>
 
     <!-- Bottom Nav -->
@@ -614,13 +789,13 @@
             </svg>
             <span>Dashboard</span>
         </a>
-        <a href="#" class="nav-item">
+        <a href="javascript:void(0)" onclick="showComingSoon()" class="nav-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                 stroke-linejoin="round">
                 <path d="M9 11l3 3L22 4"></path>
                 <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
             </svg>
-            <span>Tasks</span>
+            <span>Issues</span>
         </a>
         <a href="SelectReportType.html" class="nav-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -641,6 +816,27 @@
             <span>Profile</span>
         </a>
     </nav>
+
+    <!-- Coming Soon Modal -->
+    <div class="modal-overlay" id="comingSoonModal">
+        <div class="coming-soon-card">
+            <div class="rocket-icon-circle">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+                    <path
+                        d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+                    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+                    <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+                </svg>
+            </div>
+            <h2 class="coming-soon-title">Coming Soon!</h2>
+            <p class="coming-soon-desc">We are working hard to bring this feature to you. Stay tuned for updates and new
+                tools for your field work!</p>
+            <button class="got-it-btn" onclick="closeComingSoon()">Got it</button>
+        </div>
+    </div>
 
     <!-- Logout Confirmation Modal -->
     <div class="modal-overlay" id="logoutModal">
@@ -702,9 +898,60 @@
                 window.location.href = 'FOSMemberLogin.html';
             });
 
+            // Coming Soon Modal Handlers
+            window.showComingSoon = function () {
+                document.getElementById('comingSoonModal').classList.add('active');
+            }
+
+            window.closeComingSoon = function () {
+                document.getElementById('comingSoonModal').classList.remove('active');
+            }
+
             // Fetch actual report counts
             fetchTodayCounts(user);
         });
+
+        let dashboardCounts = {
+            sanctioned: 0,
+            not_counted: 0
+        };
+
+        function switchSanctionTab(type) {
+            const tabSanctioned = document.getElementById('tabSanctioned');
+            const tabNotCounted = document.getElementById('tabNotCounted');
+            const totalValue = document.getElementById('sanctionTotalCount');
+            const totalLabel = document.getElementById('sanctionTotalLabel');
+            const badge = document.getElementById('sanctionBadge');
+            const status = document.getElementById('sanctionStatus');
+            const statusText = document.getElementById('sanctionStatusText');
+            const dot = document.getElementById('sanctionStatusDot');
+
+            if (type === 'sanctioned') {
+                tabSanctioned.classList.add('active');
+                tabNotCounted.classList.remove('active');
+                totalValue.textContent = dashboardCounts.sanctioned;
+                totalLabel.textContent = 'Total Approved';
+                statusText.textContent = 'Data Validated';
+
+                // Reset to green
+                totalValue.classList.remove('rejected');
+                badge.classList.remove('rejected');
+                status.classList.remove('rejected');
+                dot.classList.remove('rejected');
+            } else {
+                tabNotCounted.classList.add('active');
+                tabSanctioned.classList.remove('active');
+                totalValue.textContent = dashboardCounts.not_counted;
+                totalLabel.textContent = 'Not in Sanction Count';
+                statusText.textContent = 'Data Not Validated';
+
+                // Set to red
+                totalValue.classList.add('rejected');
+                badge.classList.add('rejected');
+                status.classList.add('rejected');
+                dot.classList.add('rejected');
+            }
+        }
 
         async function fetchTodayCounts(user) {
             const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
@@ -731,27 +978,80 @@
 
                 document.getElementById('todayReportsCount').textContent = (reportsCount || 0) + (recoveryCount || 0);
 
-                // 2. RACC Pending (Total reports of type 'Files Submitted to RACC')
+                // 2. RACC Pending (Total reports of type 'Files Submitted to RACC' with SUBMITTED or BRANCH PENDING status)
                 const { count: raccCount } = await supabaseClient
                     .from('reports')
                     .select('*', { count: 'exact', head: true })
                     .eq('member_employee_id', user.employee_id)
-                    .eq('report_type', 'Files Submitted to RACC');
+                    .eq('report_type', 'Files Submitted to RACC')
+                    .or('status.eq.SUBMITTED,status.is.null,status.eq.BRANCH PENDING');
 
-                document.getElementById('raccPendingCount').textContent = raccCount || 0;
+                document.getElementById('raccPendingCount').textContent = (raccCount || 0).toString().padStart(2, '0');
 
-                // 3. Branch Pending (Total reports NOT of type 'Files Submitted to RACC')
+                // 3. Branch Pending (Total reports NOT of type 'Files Submitted to RACC' with SUBMITTED or BRANCH PENDING status)
                 const { count: branchCount } = await supabaseClient
                     .from('reports')
                     .select('*', { count: 'exact', head: true })
                     .eq('member_employee_id', user.employee_id)
-                    .neq('report_type', 'Files Submitted to RACC');
+                    .neq('report_type', 'Files Submitted to RACC')
+                    .or('status.eq.SUBMITTED,status.is.null,status.eq.BRANCH PENDING');
 
-                document.getElementById('branchPendingCount').textContent = branchCount || 0;
+                document.getElementById('branchPendingCount').textContent = (branchCount || 0).toString().padStart(2, '0');
 
-                // 4. Sanction Count (Placeholder for now as no sanction column exists)
-                // Assuming "Sanctioned" might be a subset of reports or a different metric
-                // For now we keep the UI static or set to 0 if preferred.
+                // 4. Sanction Count & Not Counted (Rejected)
+                const { count: sanctionCount } = await supabaseClient
+                    .from('reports')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('member_employee_id', user.employee_id)
+                    .eq('status', 'SANCTIONED');
+
+                const { count: recoverySanctionCount } = await supabaseClient
+                    .from('recovery_reports')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('member_employee_id', user.employee_id)
+                    .eq('status', 'SANCTIONED');
+
+                const { count: rejectedCount } = await supabaseClient
+                    .from('reports')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('member_employee_id', user.employee_id)
+                    .eq('status', 'REJECTED');
+
+                const { count: recoveryRejectedCount } = await supabaseClient
+                    .from('recovery_reports')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('member_employee_id', user.employee_id)
+                    .eq('status', 'REJECTED');
+
+                dashboardCounts.sanctioned = (sanctionCount || 0) + (recoverySanctionCount || 0);
+                dashboardCounts.not_counted = (rejectedCount || 0) + (recoveryRejectedCount || 0);
+
+                // Update UI based on active tab
+                const isActiveNotCounted = document.getElementById('tabNotCounted').classList.contains('active');
+                const totalValue = document.getElementById('sanctionTotalCount');
+                const totalLabel = document.getElementById('sanctionTotalLabel');
+                const badge = document.getElementById('sanctionBadge');
+                const status = document.getElementById('sanctionStatus');
+                const statusText = document.getElementById('sanctionStatusText');
+                const dot = document.getElementById('sanctionStatusDot');
+
+                if (isActiveNotCounted) {
+                    totalValue.textContent = dashboardCounts.not_counted;
+                    totalLabel.textContent = 'Not in Sanction Count';
+                    statusText.textContent = 'Data Not Validated';
+                    totalValue.classList.add('rejected');
+                    badge.classList.add('rejected');
+                    status.classList.add('rejected');
+                    dot.classList.add('rejected');
+                } else {
+                    totalValue.textContent = dashboardCounts.sanctioned;
+                    totalLabel.textContent = 'Total Approved';
+                    statusText.textContent = 'Data Validated';
+                    totalValue.classList.remove('rejected');
+                    badge.classList.remove('rejected');
+                    status.classList.remove('rejected');
+                    dot.classList.remove('rejected');
+                }
 
             } catch (err) {
                 console.error('Error fetching dashboard counts:', err);

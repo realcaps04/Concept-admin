@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Schemes - FOS Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1A6CFF;
+            --bg-light: #F8FAFC;
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 90px;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            background: var(--bg-light);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 1px solid #F1F5F9;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        /* Search Bar */
+        .search-container {
+            padding: 0 20px 20px;
+        }
+
+        .search-box {
+            background: white;
+            padding: 14px 20px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .search-box input::placeholder {
+            color: #94A3B8;
+        }
+
+        /* Categories */
+        .categories-scroll {
+            padding: 0 20px 24px;
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+        }
+
+        .categories-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-chip {
+            padding: 10px 22px;
+            background: white;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+            flex-shrink: 0;
+        }
+
+        .category-chip.active {
+            background: var(--primary-blue);
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(26, 108, 255, 0.3);
+        }
+
+        /* Scheme Cards */
+        .schemes-list {
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .scheme-card {
+            background: white;
+            padding: 20px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: var(--card-shadow);
+            cursor: pointer;
+            transition: transform 0.2s;
+            text-decoration: none;
+        }
+
+        .scheme-card:active {
+            transform: scale(0.98);
+        }
+
+        .icon-box {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: #EFF6FF;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .scheme-info {
+            flex: 1;
+        }
+
+        .scheme-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .scheme-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.4;
+            font-weight: 500;
+            display: block;
+        }
+
+        .view-link {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--primary-blue);
+            font-size: 13px;
+            font-weight: 700;
+            margin-left: auto;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #F1F5F9;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            color: #94A3B8;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .nav-item.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-item svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scheme-card {
+            animation: slideIn 0.4s ease-out both;
+        }
+
+        /* Coming Soon Modal (copied from dashboard for consistency) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .coming-soon-card {
+            background: white;
+            padding: 40px 32px;
+            border-radius: 32px;
+            width: 90%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: translateY(20px);
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.active .coming-soon-card {
+            transform: translateY(0);
+        }
+
+        .rocket-icon-circle {
+            width: 80px;
+            height: 80px;
+            background: #EFF6FF;
+            color: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+
+        .got-it-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 18px;
+            font-size: 16px;
+            font-weight: 700;
+            margin-top: 32px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <button class="back-btn" onclick="window.history.back()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+        <h1 class="header-title">Loan Schemes</h1>
+    </header>
+
+    <div class="search-container">
+        <div class="search-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.5">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" placeholder="Search schemes..." id="schemeSearch">
+        </div>
+    </div>
+
+    <div class="categories-scroll">
+        <div class="category-chip active">All</div>
+        <div class="category-chip">Agriculture</div>
+        <div class="category-chip">SME</div>
+        <div class="category-chip">Housing</div>
+        <div class="category-chip">Education</div>
+    </div>
+
+    <div class="schemes-list">
+        <!-- KCC New -->
+        <a href="javascript:void(0)" onclick="showComingSoon()" class="scheme-card" style="animation-delay: 0.1s;">
+            <div class="icon-box">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 10h18l-3 3H6l-3-3Z"></path>
+                    <path d="M3 10V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5"></path>
+                    <path d="M12 3v7"></path>
+                </svg>
+            </div>
+            <div class="scheme-info">
+                <span class="scheme-title">KCC New</span>
+                <span class="scheme-desc">New Kisan Credit Card for fresh agricultural credit.</span>
+            </div>
+            <div class="view-link">
+                View
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </div>
+        </a>
+
+        <!-- KCC Renewal -->
+        <a href="javascript:void(0)" onclick="showComingSoon()" class="scheme-card" style="animation-delay: 0.2s;">
+            <div class="icon-box">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9-9a9 9 0 0 0-9 9"></path>
+                    <path d="m3 12 4 4m-4-4 4-4"></path>
+                </svg>
+            </div>
+            <div class="scheme-info">
+                <span class="scheme-title">KCC Renewal</span>
+                <span class="scheme-desc">Renewal process for existing Kisan Credit Cards.</span>
+            </div>
+            <div class="view-link">
+                View
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </div>
+        </a>
+
+        <!-- Recovery -->
+        <a href="javascript:void(0)" onclick="showComingSoon()" class="scheme-card" style="animation-delay: 0.3s;">
+            <div class="icon-box">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"></path>
+                    <path d="M12 8v4l3 3"></path>
+                </svg>
+            </div>
+            <div class="scheme-info">
+                <span class="scheme-title">Recovery</span>
+                <span class="scheme-desc">Loan recovery procedures and collection tracking.</span>
+            </div>
+            <div class="view-link">
+                View
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </div>
+        </a>
+
+        <!-- PMMY -->
+        <a href="javascript:void(0)" onclick="showComingSoon()" class="scheme-card" style="animation-delay: 0.4s;">
+            <div class="icon-box">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"></path>
+                    <path d="M3 9l3-3h12l3 3"></path>
+                    <path d="M12 9v12"></path>
+                </svg>
+            </div>
+            <div class="scheme-info">
+                <span class="scheme-title">PMMY (Mudra)</span>
+                <span class="scheme-desc">Pradhan Mantri Mudra Yojana for small businesses.</span>
+            </div>
+            <div class="view-link">
+                View
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </div>
+        </a>
+
+        <!-- SME -->
+        <a href="javascript:void(0)" onclick="showComingSoon()" class="scheme-card" style="animation-delay: 0.5s;">
+            <div class="icon-box">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="7" width="20" height="14" rx="2"></rect>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                </svg>
+            </div>
+            <div class="scheme-info">
+                <span class="scheme-title">SME</span>
+                <span class="scheme-desc">Small and Medium Enterprise business loans.</span>
+            </div>
+            <div class="view-link">
+                View
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </div>
+        </a>
+
+        <!-- SHG -->
+        <a href="javascript:void(0)" onclick="showComingSoon()" class="scheme-card" style="animation-delay: 0.6s;">
+            <div class="icon-box">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+            </div>
+            <div class="scheme-info">
+                <span class="scheme-title">SHG</span>
+                <span class="scheme-desc">Self Help Group financing and group loans.</span>
+            </div>
+            <div class="view-link">
+                View
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </div>
+        </a>
+
+        <!-- PMEGP -->
+        <a href="javascript:void(0)" onclick="showComingSoon()" class="scheme-card" style="animation-delay: 0.7s;">
+            <div class="icon-box">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                    <path d="M2 17l10 5 10-5"></path>
+                    <path d="M2 12l10 5 10-5"></path>
+                </svg>
+            </div>
+            <div class="scheme-info">
+                <span class="scheme-title">PMEGP</span>
+                <span class="scheme-desc">Prime Minister's Employment Generation Programme.</span>
+            </div>
+            <div class="view-link">
+                View
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </div>
+        </a>
+
+        <!-- PMFME -->
+        <a href="javascript:void(0)" onclick="showComingSoon()" class="scheme-card" style="animation-delay: 0.8s;">
+            <div class="icon-box">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+            </div>
+            <div class="scheme-info">
+                <span class="scheme-title">PMFME</span>
+                <span class="scheme-desc">PM Formalisation of Micro food processing Enterprises.</span>
+            </div>
+            <div class="view-link">
+                View
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </div>
+        </a>
+
+        <!-- Swayamsidha -->
+        <a href="javascript:void(0)" onclick="showComingSoon()" class="scheme-card" style="animation-delay: 0.9s;">
+            <div class="icon-box">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 1a21 21 0 0 0-1 21M22 12H2"></path>
+                    <path d="M12 12c4 0 7-3 7-7s-3-7-7-7-7 3-7 7 3 7 7 7Z"></path>
+                </svg>
+            </div>
+            <div class="scheme-info">
+                <span class="scheme-title">Swayamsidha</span>
+                <span class="scheme-desc">Dedicated scheme for women's financial empowerment.</span>
+            </div>
+            <div class="view-link">
+                View
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </div>
+        </a>
+
+        <!-- AEL -->
+        <a href="javascript:void(0)" onclick="showComingSoon()" class="scheme-card" style="animation-delay: 1s;">
+            <div class="icon-box">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                    <polyline points="13 2 13 9 20 9"></polyline>
+                </svg>
+            </div>
+            <div class="scheme-info">
+                <span class="scheme-title">AEL</span>
+                <span class="scheme-desc">Agri Enterprise Loan for modern farming business.</span>
+            </div>
+            <div class="view-link">
+                View
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </div>
+        </a>
+    </div>
+
+    <!-- Coming Soon Modal -->
+    <div class="modal-overlay" id="comingSoonModal">
+        <div class="coming-soon-card">
+            <div class="rocket-icon-circle">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+                    <path
+                        d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+                </svg>
+            </div>
+            <h2 class="coming-soon-title">Coming Soon!</h2>
+            <p class="coming-soon-desc">We are working hard to bring detailed scheme documents to you. Stay tuned!</p>
+            <button class="got-it-btn" onclick="closeComingSoon()">Got it</button>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="fosadmindashboard.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span>Dashboard</span>
+        </a>
+        <a href="javascript:void(0)" class="nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+            <span>Schemes</span>
+        </a>
+        <a href="ManageReports.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+            <span>Reports</span>
+        </a>
+        <a href="ProfileSettings.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <script>
+        window.showComingSoon = function () {
+            document.getElementById('comingSoonModal').classList.add('active');
+        }
+
+        window.closeComingSoon = function () {
+            document.getElementById('comingSoonModal').classList.remove('active');
+        }
+
+        // Live Search Logic
+        const searchInput = document.getElementById('schemeSearch');
+        const schemeCards = document.querySelectorAll('.scheme-card');
+
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase().trim();
+
+            schemeCards.forEach(card => {
+                const title = card.querySelector('.scheme-title').textContent.toLowerCase();
+                const desc = card.querySelector('.scheme-desc').textContent.toLowerCase();
+
+                if (title.includes(term) || desc.includes(term)) {
+                    card.style.display = 'flex';
+                    // Reset animation so it feels reactive
+                    card.style.animation = 'none';
+                    card.offsetHeight; // trigger reflow
+                    card.style.animation = null;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Category filter (Simulated visual feedback)
+        document.querySelectorAll('.category-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('.category-chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

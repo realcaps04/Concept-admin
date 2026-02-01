@@ -7,6 +7,8 @@ CREATE TABLE reports (
     loan_type TEXT,
     member_name TEXT,
     member_employee_id TEXT,
+    status TEXT DEFAULT 'SUBMITTED',
+    rejection_reason TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
@@ -19,6 +21,8 @@ CREATE TABLE recovery_reports (
     amount_received DECIMAL(15, 2) NOT NULL,
     member_name TEXT,
     member_employee_id TEXT,
+    status TEXT DEFAULT 'SUBMITTED',
+    rejection_reason TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
@@ -31,3 +35,5 @@ CREATE POLICY "Allow public insert on reports" ON reports FOR INSERT WITH CHECK 
 CREATE POLICY "Allow public insert on recovery_reports" ON recovery_reports FOR INSERT WITH CHECK (true);
 CREATE POLICY "Allow public select on reports" ON reports FOR SELECT USING (true);
 CREATE POLICY "Allow public select on recovery_reports" ON recovery_reports FOR SELECT USING (true);
+CREATE POLICY "Allow public update on reports" ON reports FOR UPDATE USING (true);
+CREATE POLICY "Allow public update on recovery_reports" ON recovery_reports FOR UPDATE USING (true);
