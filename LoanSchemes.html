@@ -308,6 +308,108 @@
             margin-top: 32px;
             cursor: pointer;
         }
+
+        /* KCC Selection Modal */
+        .selection-modal-card {
+            background: white;
+            padding: 32px 24px;
+            border-radius: 32px;
+            width: 95%;
+            max-width: 400px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: translateY(20px);
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.active .selection-modal-card {
+            transform: translateY(0);
+        }
+
+        .selection-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .selection-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .selection-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .selection-option {
+            padding: 20px;
+            background: #F8FAFC;
+            border: 2px solid transparent;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            text-decoration: none;
+        }
+
+        .selection-option:hover {
+            border-color: var(--primary-blue);
+            background: #EFF6FF;
+        }
+
+        .option-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: white;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .option-info {
+            flex: 1;
+        }
+
+        .option-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 2px;
+            display: block;
+        }
+
+        .option-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 
@@ -342,7 +444,7 @@
 
     <div class="schemes-list">
         <!-- KCC New -->
-        <a href="javascript:void(0)" onclick="showComingSoon()" class="scheme-card" style="animation-delay: 0.1s;">
+        <a href="javascript:void(0)" onclick="openKCCSelection()" class="scheme-card" style="animation-delay: 0.1s;">
             <div class="icon-box">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M3 10h18l-3 3H6l-3-3Z"></path>
@@ -363,7 +465,7 @@
         </a>
 
         <!-- KCC Renewal -->
-        <a href="javascript:void(0)" onclick="showComingSoon()" class="scheme-card" style="animation-delay: 0.2s;">
+        <a href="javascript:void(0)" onclick="openKCCSelection()" class="scheme-card" style="animation-delay: 0.2s;">
             <div class="icon-box">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9-9a9 9 0 0 0-9 9"></path>
@@ -383,7 +485,7 @@
         </a>
 
         <!-- Recovery -->
-        <a href="javascript:void(0)" onclick="showComingSoon()" class="scheme-card" style="animation-delay: 0.3s;">
+        <a href="RecoveryChecklist.html" class="scheme-card" style="animation-delay: 0.3s;">
             <div class="icon-box">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"></path>
@@ -403,7 +505,7 @@
         </a>
 
         <!-- PMMY -->
-        <a href="javascript:void(0)" onclick="showComingSoon()" class="scheme-card" style="animation-delay: 0.4s;">
+        <a href="PMMYChecklist.html" class="scheme-card" style="animation-delay: 0.4s;">
             <div class="icon-box">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"></path>
@@ -424,7 +526,7 @@
         </a>
 
         <!-- SME -->
-        <a href="javascript:void(0)" onclick="showComingSoon()" class="scheme-card" style="animation-delay: 0.5s;">
+        <a href="SMEChecklist.html" class="scheme-card" style="animation-delay: 0.5s;">
             <div class="icon-box">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <rect x="2" y="7" width="20" height="14" rx="2"></rect>
@@ -444,7 +546,7 @@
         </a>
 
         <!-- SHG -->
-        <a href="javascript:void(0)" onclick="showComingSoon()" class="scheme-card" style="animation-delay: 0.6s;">
+        <a href="SHGChecklist.html" class="scheme-card" style="animation-delay: 0.6s;">
             <div class="icon-box">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
@@ -466,7 +568,7 @@
         </a>
 
         <!-- PMEGP -->
-        <a href="javascript:void(0)" onclick="showComingSoon()" class="scheme-card" style="animation-delay: 0.7s;">
+        <a href="PMEGPChecklist.html" class="scheme-card" style="animation-delay: 0.7s;">
             <div class="icon-box">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
@@ -487,7 +589,7 @@
         </a>
 
         <!-- PMFME -->
-        <a href="javascript:void(0)" onclick="showComingSoon()" class="scheme-card" style="animation-delay: 0.8s;">
+        <a href="PMFMEChecklist.html" class="scheme-card" style="animation-delay: 0.8s;">
             <div class="icon-box">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
@@ -507,7 +609,7 @@
         </a>
 
         <!-- Swayamsidha -->
-        <a href="javascript:void(0)" onclick="showComingSoon()" class="scheme-card" style="animation-delay: 0.9s;">
+        <a href="SwayamsidhaChecklist.html" class="scheme-card" style="animation-delay: 0.9s;">
             <div class="icon-box">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M12 1a21 21 0 0 0-1 21M22 12H2"></path>
@@ -527,7 +629,7 @@
         </a>
 
         <!-- AEL -->
-        <a href="javascript:void(0)" onclick="showComingSoon()" class="scheme-card" style="animation-delay: 1s;">
+        <a href="AELChecklist.html" class="scheme-card" style="animation-delay: 1s;">
             <div class="icon-box">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
@@ -545,6 +647,58 @@
                 </svg>
             </div>
         </a>
+    </div>
+
+    <!-- KCC Selection Modal -->
+    <div class="modal-overlay" id="kccSelectionModal">
+        <div class="selection-modal-card">
+            <div style="position: relative;">
+                <div class="close-modal-btn" onclick="closeKCCSelection()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2.5">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </div>
+                <h2 class="selection-title">Select KCC Type</h2>
+                <p class="selection-subtitle">Choose the credit limit for the checklist</p>
+
+                <div class="selection-options">
+                    <a href="KCCRequirements.html?type=low" class="selection-option">
+                        <div class="option-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                            </svg>
+                        </div>
+                        <div class="option-info">
+                            <span class="option-title">Low Value KCC</span>
+                            <span class="option-desc">Upto ₹2 Lakhs Limit</span>
+                        </div>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.5">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </a>
+
+                    <a href="KCCRequirements.html?type=high" class="selection-option">
+                        <div class="option-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                <path d="M18 8l2 2-2 2M22 6l2 2-2 2" stroke-width="1.5"></path>
+                            </svg>
+                        </div>
+                        <div class="option-info">
+                            <span class="option-title">High Value KCC</span>
+                            <span class="option-desc">Above ₹2 Lakhs Limit</span>
+                        </div>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.5">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 
     <!-- Coming Soon Modal -->
@@ -608,6 +762,23 @@
         window.closeComingSoon = function () {
             document.getElementById('comingSoonModal').classList.remove('active');
         }
+
+        window.openKCCSelection = function () {
+            document.getElementById('kccSelectionModal').classList.add('active');
+        }
+
+        window.closeKCCSelection = function () {
+            document.getElementById('kccSelectionModal').classList.remove('active');
+        }
+
+        // Close modal when clicking overlay
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
 
         // Live Search Logic
         const searchInput = document.getElementById('schemeSearch');
