@@ -862,8 +862,14 @@
     <script>
         // Check for authenticated user
         document.addEventListener('DOMContentLoaded', () => {
-            const user = JSON.parse(localStorage.getItem('currentUser'));
-            if (user && user.name && user.employee_id) {
+            const user = (function () {
+                try {
+                    return JSON.parse(localStorage.getItem('fos_user'));
+                } catch (e) { return null; }
+            })();
+
+            // Strict role check: must be logged in and must be a fos_member
+            if (user && user.name && user.employee_id && user.role === 'fos_member') {
                 document.getElementById('displayUserName').textContent = user.name;
 
                 // Set profile image if exists, else use default
@@ -875,8 +881,8 @@
                     this.src = "assets/profile-icon.png";
                 };
             } else {
-                // If no user or session incomplete, redirect to login
-                console.warn('Incomplete session, redirecting to login');
+                // If wrong role or no session, redirect to member login
+                console.warn('Unauthorized access or incomplete session, redirecting to member login');
                 window.location.href = 'FOSMemberLogin.html';
                 return;
             }
@@ -903,7 +909,7 @@
 
             // Execute Logout
             confirmLogout.addEventListener('click', () => {
-                localStorage.removeItem('currentUser');
+                localStorage.removeItem('fos_user');
                 window.location.href = 'FOSMemberLogin.html';
             });
 

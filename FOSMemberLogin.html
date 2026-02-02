@@ -548,6 +548,12 @@
             const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
             const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
 
+            // Auto-redirect if already logged in
+            const existingUser = JSON.parse(localStorage.getItem('fos_user'));
+            if (existingUser && existingUser.role === 'fos_member') {
+                window.location.href = 'fosadmindashboard.html';
+            }
+
             let supabase;
             if (window.supabase) {
                 supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -608,6 +614,11 @@
                     return;
                 }
 
+                if (!employeeId.toUpperCase().startsWith('F')) {
+                    alert("FOS Member IDs must start with 'F' (e.g., F12345).");
+                    return;
+                }
+
                 const btn = document.getElementById('submitBtn');
                 const btnText = document.getElementById('btnText');
                 const loader = document.querySelector('.loader');
@@ -618,10 +629,10 @@
                 btn.disabled = true;
 
                 try {
-                    // Fetch user from fos_members table
+                    // Fetch user from fos_members table including team_leader_id
                     const { data, error } = await supabase
                         .from('fos_members')
-                        .select('id, name, employee_id, status, password')
+                        .select('id, name, employee_id, status, password, team_leader_id')
                         .eq('employee_id', employeeId)
                         .single();
 
@@ -634,13 +645,18 @@
                         throw new Error("Invalid Credentials");
                     }
 
+                    // Verify selected Team Lead matches the assigned one
+                    if (data.team_leader_id && data.team_leader_id !== tlValue) {
+                        throw new Error("You are not assigned to this Team Lead.");
+                    }
+
                     // Check Status
                     if (data.status === 'pending') {
                         // Redirect to Account Status page if pending
                         window.location.href = `FOSAccountStatus.html?id=${encodeURIComponent(employeeId)}`;
                     } else if (data.status === 'active' || data.status === 'approved') {
                         // Login Success
-                        localStorage.setItem('currentUser', JSON.stringify({
+                        localStorage.setItem('fos_user', JSON.stringify({
                             id: data.id,
                             name: data.name,
                             employee_id: data.employee_id,
@@ -684,11 +700,9 @@
             // Fetch Team Leads
             async function fetchTeamLeads() {
                 try {
-                    // Note: 'employee_id' column does not exist in fos_team_leads schema shown.
-                    // Switched to selecting 'department' instead.
                     const { data, error } = await supabase
                         .from('fos_team_leads')
-                        .select('id, name, department');
+                        .select('employee_id, name, department');
 
                     if (error) throw error;
 
@@ -705,7 +719,7 @@
 
                             // Pass explicit arguments to avoid event object capture
                             item.onclick = function () {
-                                window.selectOption(displayText, tl.id);
+                                window.selectOption(displayText, tl.employee_id);
                             };
 
                             list.appendChild(item);

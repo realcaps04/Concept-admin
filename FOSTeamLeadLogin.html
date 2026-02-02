@@ -335,6 +335,89 @@
             text-transform: uppercase;
             letter-spacing: 1.5px;
         }
+
+        /* Error Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 24px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .error-card {
+            background: white;
+            padding: 32px 24px;
+            border-radius: 28px;
+            width: 100%;
+            max-width: 340px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-overlay.active .error-card {
+            transform: scale(1);
+        }
+
+        .error-icon-box {
+            width: 64px;
+            height: 64px;
+            background: #FEF2F2;
+            color: #EF4444;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .error-card h3 {
+            font-size: 20px;
+            font-weight: 800;
+            color: #1E293B;
+            margin-bottom: 8px;
+        }
+
+        .error-card p {
+            font-size: 14px;
+            color: #64748B;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .close-modal-btn {
+            width: 100%;
+            padding: 16px;
+            background: #0F172A;
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .close-modal-btn:active {
+            transform: scale(0.96);
+        }
     </style>
 </head>
 
@@ -419,11 +502,34 @@
         <div class="version-text">Version 2.4.0 • Enterprise Core</div>
     </div>
 
+    <!-- Error Modal -->
+    <div class="modal-overlay" id="errorModal">
+        <div class="error-card">
+            <div class="error-icon-box">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+            </div>
+            <h3 id="errorTitle">Login Failed</h3>
+            <p id="errorMsg">Invalid credentials provided.</p>
+            <button class="close-modal-btn" onclick="hideErrorPopup()">Dismiss</button>
+        </div>
+    </div>
+
     <script>
         (function () {
             // Supabase Configuration
             const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
             const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+
+            // Auto-redirect if already logged in
+            const existingUser = JSON.parse(localStorage.getItem('tl_user'));
+            if (existingUser && existingUser.role === 'team_lead') {
+                window.location.href = 'Tldashboard.html';
+            }
 
             let supabase;
             if (window.supabase) {
@@ -442,6 +548,16 @@
                 }
             };
 
+            window.showErrorPopup = function (title, message) {
+                document.getElementById('errorTitle').textContent = title;
+                document.getElementById('errorMsg').textContent = message;
+                document.getElementById('errorModal').classList.add('active');
+            };
+
+            window.hideErrorPopup = function () {
+                document.getElementById('errorModal').classList.remove('active');
+            };
+
             window.handleTeamLeadLogin = async function (e) {
                 e.preventDefault();
 
@@ -450,7 +566,12 @@
                 const btn = document.getElementById('loginBtn');
 
                 if (!employeeId || !password) {
-                    alert("Please enter credentials");
+                    showErrorPopup("Empty Credentials", "Please enter your Employee ID and Password to proceed.");
+                    return;
+                }
+
+                if (!employeeId.toUpperCase().startsWith('TL')) {
+                    showErrorPopup("Invalid ID Format", "Team Leader Employee IDs must start with 'TL' (e.g., TL-1234).");
                     return;
                 }
 
@@ -461,11 +582,10 @@
                 btn.style.opacity = '0.9';
 
                 try {
-                    // Query fos_team_leads table
                     const { data, error } = await supabase
                         .from('fos_team_leads')
                         .select('id, name, employee_id, status, password, department')
-                        .eq('employee_id', employeeId)
+                        .eq('employee_id', employeeId.toUpperCase())
                         .single();
 
                     if (error || !data) {
@@ -482,7 +602,7 @@
 
                     // Success
                     // Store TL info
-                    localStorage.setItem('currentUser', JSON.stringify({
+                    localStorage.setItem('tl_user', JSON.stringify({
                         id: data.id,
                         name: data.name,
                         employee_id: data.employee_id,
@@ -494,18 +614,23 @@
                     btn.style.background = '#10B981'; // Green success
 
                     setTimeout(() => {
-                        window.location.href = 'TLdashboard.html';
+                        window.location.href = 'Tldashboard.html';
                     }, 500);
 
                 } catch (err) {
                     console.error(err);
-                    alert(err.message || 'Login failed');
+                    showErrorPopup('Login Error', err.message || 'Login failed. Please check your credentials.');
                     btn.innerHTML = originalText;
                     btn.disabled = false;
                     btn.style.opacity = '1';
                     btn.style.background = ''; // Reset to gradient
                 }
             };
+
+            // Close modal when clicking outside
+            document.getElementById('errorModal').addEventListener('click', (e) => {
+                if (e.target.id === 'errorModal') hideErrorPopup();
+            });
         })();
     </script>
 </body>

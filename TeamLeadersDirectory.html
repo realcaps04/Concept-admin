@@ -413,6 +413,15 @@
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             padding: 12px 0 32px;
             box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.1);
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* IE and Edge */
+        }
+
+        .bottom-sheet::-webkit-scrollbar {
+            display: none;
+            /* Chrome, Safari, and Opera */
         }
 
         .bottom-sheet-overlay.active .bottom-sheet {
@@ -501,6 +510,28 @@
 
         .sheet-input:focus {
             border-bottom-color: var(--blue-primary);
+        }
+
+        .sheet-input.invalid {
+            border-bottom-color: var(--red-error) !important;
+        }
+
+        .error-label {
+            display: none;
+            color: var(--red-error);
+            font-size: 11px;
+            font-weight: 700;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sheet-form-group.has-error .error-label {
+            display: block;
+        }
+
+        .sheet-form-group.has-error .sheet-label {
+            color: var(--red-error);
         }
 
         .custom-select-container {
@@ -1186,21 +1217,39 @@
                     <div class="sheet-form-group">
                         <label class="sheet-label">Full Name</label>
                         <input type="text" class="sheet-input" id="sheetName" placeholder="e.g., John Doe" required>
+                        <span class="error-label">Name must be at least 3 characters</span>
                     </div>
 
                     <div class="sheet-form-group">
                         <label class="sheet-label">Email Address</label>
                         <input type="email" class="sheet-input" id="sheetEmail" placeholder="name@company.com" required>
+                        <span class="error-label">Enter a valid email address</span>
                     </div>
 
                     <div class="sheet-form-group">
                         <label class="sheet-label">Phone Number</label>
                         <input type="tel" class="sheet-input" id="sheetPhone" placeholder="+1 (555) 000-0000">
+                        <span class="error-label">Enter a valid 10-digit phone number</span>
                     </div>
 
                     <div class="sheet-form-group">
                         <label class="sheet-label">Employee ID</label>
                         <input type="text" class="sheet-input" id="sheetEmployeeId" placeholder="TL-4921" required>
+                        <span class="error-label">Format: TL-NNNN (e.g., TL-1234)</span>
+                    </div>
+
+                    <div class="sheet-form-group">
+                        <label class="sheet-label">Designation</label>
+                        <input type="text" class="sheet-input" id="sheetDesignation" placeholder="e.g., Team Leader"
+                            value="Team Leader" required>
+                        <span class="error-label">Designation is required</span>
+                    </div>
+
+                    <div class="sheet-form-group">
+                        <label class="sheet-label">Profile Image URL</label>
+                        <input type="url" class="sheet-input" id="sheetProfileUrl"
+                            placeholder="https://example.com/avatar.png">
+                        <span class="error-label">Enter a valid URL</span>
                     </div>
 
                     <div class="sheet-form-group">
@@ -1217,6 +1266,7 @@
                             </div>
                             <input type="hidden" id="sheetDepartment" value="" required>
                         </div>
+                        <span class="error-label">Please select a department</span>
                     </div>
 
 
@@ -1234,6 +1284,7 @@
                                 </svg>
                             </span>
                         </div>
+                        <span class="error-label">Min 6 characters required</span>
                     </div>
 
                     <button type="submit" class="sheet-submit-btn" id="sheetSubmitBtn">
@@ -1519,13 +1570,18 @@
             const card = document.createElement('div');
             card.className = 'leader-card';
 
-            // Get initials for avatar
+            // Get initials for avatar fallback
             const initials = leader.name
                 .split(' ')
                 .map(n => n[0])
                 .join('')
                 .toUpperCase()
                 .substring(0, 2);
+
+            // Avatar content: use image if available, else initials
+            const avatarContent = leader.profile_image_url
+                ? `<img src="${leader.profile_image_url}" alt="${leader.name}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`
+                : initials;
 
             // Determine status
             const statusClass = leader.status === 'active' ? 'active' : 'on-leave';
@@ -1538,7 +1594,7 @@
 
             card.innerHTML = `
                 <div class="leader-header">
-                    <div class="leader-avatar">${initials}</div>
+                    <div class="leader-avatar">${avatarContent}</div>
                     <div class="leader-info">
                         <div class="leader-name-row">
                             <h3 class="leader-name">${leader.name}</h3>
@@ -1547,11 +1603,10 @@
                                     <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </button>
-
                         </div>
                         <div style="display: flex; align-items: center; gap: 6px; margin-top: -2px; margin-bottom: 8px;">
                             <span class="status-dot ${statusClass}"></span>
-                            <p class="leader-designation">${leader.designation || leader.department || 'Team Leader'}</p>
+                            <p class="leader-designation">${leader.designation || 'Team Leader'}</p>
                         </div>
                     </div>
                 </div>
@@ -1641,8 +1696,68 @@
             }
         }
 
+        function showFieldError(id) {
+            const input = document.getElementById(id);
+            if (!input) return;
+            const group = input.closest('.sheet-form-group');
+            if (group) group.classList.add('has-error');
+            input.classList.add('invalid');
+        }
+
         async function handleSheetSubmit(event) {
             event.preventDefault();
+
+            // Clear previous errors
+            document.querySelectorAll('.sheet-form-group').forEach(group => group.classList.remove('has-error'));
+            document.querySelectorAll('.sheet-input').forEach(input => input.classList.remove('invalid'));
+
+            let isValid = true;
+            const name = document.getElementById('sheetName').value.trim();
+            const email = document.getElementById('sheetEmail').value.trim();
+            const phone = document.getElementById('sheetPhone').value.trim();
+            const empId = document.getElementById('sheetEmployeeId').value.trim();
+            const designation = document.getElementById('sheetDesignation').value.trim();
+            const profileUrl = document.getElementById('sheetProfileUrl').value.trim();
+            const dept = document.getElementById('sheetDepartment').value;
+            const password = document.getElementById('sheetPassword').value;
+
+            // Validations
+            if (name.length < 3) {
+                isValid = false;
+                showFieldError('sheetName');
+            }
+            if (!/^\S+@\S+\.\S+$/.test(email)) {
+                isValid = false;
+                showFieldError('sheetEmail');
+            }
+            if (phone && !/^\d{10,12}$/.test(phone.replace(/\D/g, ''))) {
+                isValid = false;
+                showFieldError('sheetPhone');
+            }
+            if (!/^TL-\d{2,6}$/.test(empId.toUpperCase())) {
+                isValid = false;
+                showFieldError('sheetEmployeeId');
+            }
+            if (!designation) {
+                isValid = false;
+                showFieldError('sheetDesignation');
+            }
+            if (profileUrl && !/^https?:\/\/.+/.test(profileUrl)) {
+                isValid = false;
+                showFieldError('sheetProfileUrl');
+            }
+            if (!dept) {
+                isValid = false;
+                const deptContainer = document.getElementById('deptSelectContainer');
+                deptContainer.closest('.sheet-form-group').classList.add('has-error');
+            }
+            if (password.length < 6) {
+                isValid = false;
+                showFieldError('sheetPassword');
+            }
+
+            if (!isValid) return;
+
             const submitBtn = document.getElementById('sheetSubmitBtn');
             const originalText = submitBtn.innerHTML;
 
@@ -1651,13 +1766,14 @@
                 submitBtn.innerHTML = 'Creating Account...';
 
                 const newLeader = {
-                    name: document.getElementById('sheetName').value.trim(),
-                    email: document.getElementById('sheetEmail').value.trim(),
-                    phone: document.getElementById('sheetPhone').value.trim() || null,
-                    employee_id: document.getElementById('sheetEmployeeId').value.trim(),
-                    department: document.getElementById('sheetDepartment').value,
-                    designation: 'Team Leader', // Default
-                    password: document.getElementById('sheetPassword').value,
+                    name,
+                    email,
+                    phone: phone || null,
+                    employee_id: empId.toUpperCase(),
+                    department: dept,
+                    designation: designation || 'Team Leader',
+                    profile_image_url: profileUrl || null,
+                    password,
                     status: 'active'
                 };
 
@@ -1718,9 +1834,16 @@
                 const options = { year: 'numeric', month: 'short', day: 'numeric' };
                 document.getElementById('profCreated').textContent = createdDate.toLocaleDateString('en-US', options);
 
-                // Avatar initials
+                // Avatar handling
                 const initials = data.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
-                document.getElementById('profAvatar').textContent = initials;
+                const profAvatarElem = document.getElementById('profAvatar');
+                if (data.profile_image_url) {
+                    profAvatarElem.innerHTML = `<img src="${data.profile_image_url}" alt="${data.name}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+                    profAvatarElem.style.background = 'white';
+                } else {
+                    profAvatarElem.textContent = initials;
+                    profAvatarElem.style.background = 'linear-gradient(135deg, #6366F1 0%, #A855F7 100%)';
+                }
 
                 // Show Overlay
                 document.getElementById('manageOverlay').classList.add('active');

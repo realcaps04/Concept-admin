@@ -731,11 +731,17 @@
         let currentUser = null;
 
         document.addEventListener('DOMContentLoaded', async () => {
-            currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            if (!currentUser) {
+            const user = (function () {
+                try {
+                    return JSON.parse(localStorage.getItem('fos_user'));
+                } catch (e) { return null; }
+            })();
+
+            if (!user || user.role !== 'fos_member') {
                 window.location.href = 'FOSMemberLogin.html';
                 return;
             }
+            currentUser = user;
             fetchSanctionedData();
 
             // Search listener

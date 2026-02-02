@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
     <style>
         :root {
             --primary-bg: #F8FAFC;
@@ -96,23 +99,122 @@
             gap: 12px;
         }
 
-        .action-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #FFFFFF;
-            border: 1px solid var(--border-color);
+        .logout-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: #FEF2F2;
+            border: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
             cursor: pointer;
+            color: #EF4444;
+            transition: all 0.2s;
         }
 
-        .action-icon svg {
-            width: 20px;
-            height: 20px;
-            stroke: var(--text-dark);
+        .logout-btn:hover {
+            background: #FEE2E2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);
+        }
+
+        .logout-btn:active {
+            transform: scale(0.95) translateY(0);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 32px;
+            padding: 32px 24px;
+            text-align: center;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: translateY(0);
+        }
+
+        .modal-icon {
+            width: 64px;
+            height: 64px;
+            background: #FEF2F2;
+            color: #EF4444;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .modal-desc {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .modal-actions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .modal-btn {
+            padding: 14px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary {
+            background: #F1F5F9;
+            color: var(--text-dark);
+            border: none;
+        }
+
+        .btn-danger {
+            background: #EF4444;
+            color: white;
+            border: none;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
         }
 
         /* Hero Labels */
@@ -458,22 +560,37 @@
             </div>
         </div>
         <div class="header-actions">
-            <div class="action-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                    <line x1="16" y1="2" x2="16" y2="6" />
-                    <line x1="8" y1="2" x2="8" y2="6" />
-                    <line x1="3" y1="10" x2="21" y2="10" />
+            <button class="logout-btn" id="logoutBtn" title="Logout">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
                 </svg>
-            </div>
-            <div class="action-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-                    <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-                </svg>
-            </div>
+            </button>
         </div>
     </header>
+
+    <!-- Logout Confirmation Modal -->
+    <div class="modal-overlay" id="logoutModal">
+        <div class="modal-card">
+            <div class="modal-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+            </div>
+            <h3 class="modal-title">Confirm Logout</h3>
+            <p class="modal-desc">Are you sure you want to sign out? You will need to login again to access your
+                dashboard.</p>
+            <div class="modal-actions-grid">
+                <button class="modal-btn btn-secondary" id="cancelLogout">Cancel</button>
+                <button class="modal-btn btn-danger" id="confirmLogout">Logout</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Hero Message -->
     <section class="hero-section">
@@ -493,7 +610,7 @@
                     <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                 </svg>
             </div>
-            <div class="stat-value">24</div>
+            <div class="stat-value" id="teamSizeValue">--</div>
             <div class="stat-trend trend-up">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                     <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
@@ -513,7 +630,8 @@
                     <polyline points="10 9 9 9 8 9" />
                 </svg>
             </div>
-            <div class="stat-value">18/24</div>
+            <div class="stat-value"><span id="reportsSubmittedCount">0</span>/<span id="totalTeamDenominator">0</span>
+            </div>
             <div class="stat-trend trend-up">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                     <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
@@ -658,7 +776,7 @@
             </svg>
             <span>Dashboard</span>
         </a>
-        <a href="#" class="nav-item">
+        <a href="TeamMembers.html" class="nav-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
                 <circle cx="9" cy="7" r="4" />
@@ -684,27 +802,177 @@
         </a>
     </nav>
 
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script>
-        // Set dynamic welcome message based on time
-        const hour = new Date().getHours();
-        const welcomeText = document.getElementById('welcomeText');
-        const user = JSON.parse(localStorage.getItem('currentUser'));
-        const userName = user ? user.name : 'Team Lead';
+        (function () {
+            const user = (function () {
+                try {
+                    return JSON.parse(localStorage.getItem('tl_user'));
+                } catch (e) { return null; }
+            })();
 
-        if (hour < 12) welcomeText.textContent = `Good Morning, ${userName}`;
-        else if (hour < 18) welcomeText.textContent = `Good Afternoon, ${userName}`;
-        else welcomeText.textContent = `Good Evening, ${userName}`;
-
-        // Handle Profile Image
-        if (user) {
-            const tlImg = document.getElementById('tlProfileImg');
-            if (user.profile_image_url) {
-                tlImg.src = user.profile_image_url;
+            // Strict role check for Team Lead
+            if (!user || user.role !== 'team_lead') {
+                console.warn('Unauthorized access, redirecting to login');
+                window.location.href = 'FOSTeamLeadLogin.html';
+                return;
             }
-            tlImg.onerror = function () {
-                this.src = "assets/profile-icon.png";
-            };
-        }
-</body >
 
-</html >
+            // Set dynamic welcome message
+            const welcomeText = document.getElementById('welcomeText');
+            if (welcomeText) {
+                const hour = new Date().getHours();
+                const userName = user.name || 'Team Lead';
+                if (hour < 12) welcomeText.textContent = `Good Morning, ${userName}`;
+                else if (hour < 18) welcomeText.textContent = `Good Afternoon, ${userName}`;
+                else welcomeText.textContent = `Good Evening, ${userName}`;
+            }
+
+            // Handle Profile Image
+            const tlImg = document.getElementById('tlProfileImg');
+            if (tlImg) {
+                if (user.profile_image_url) {
+                    tlImg.src = user.profile_image_url;
+                }
+                tlImg.onerror = function () {
+                    this.src = "assets/profile-icon.png";
+                };
+            }
+
+            // Supabase Configuration
+            const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+
+            let supabase;
+
+            async function initDashboard() {
+                if (!window.supabase) {
+                    console.log('Waiting for Supabase SDK...');
+                    setTimeout(initDashboard, 100);
+                    return;
+                }
+
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                console.log('Supabase initialized for:', user.employee_id);
+
+                await fetchTeamStats();
+                setupEventListeners();
+            }
+
+            async function fetchTeamStats() {
+                const empId = user.employee_id || user.id;
+                const teamSizeElem = document.getElementById('teamSizeValue');
+                const reportsCountElem = document.getElementById('reportsSubmittedCount');
+                const teamDenomElem = document.getElementById('totalTeamDenominator');
+
+                try {
+                    // 1. Fetch all members belonging to this TL to get their employee IDs
+                    const { data: members, error: membersError } = await supabase
+                        .from('fos_members')
+                        .select('employee_id')
+                        .eq('team_leader_id', empId);
+
+                    if (membersError) throw membersError;
+
+                    const teamSize = members ? members.length : 0;
+                    const memberIds = members ? members.map(m => m.employee_id).filter(id => id) : [];
+
+                    // Update UI for Team Size
+                    if (teamSizeElem) teamSizeElem.textContent = teamSize;
+                    if (teamDenomElem) teamDenomElem.textContent = teamSize;
+
+                    // 2. Fetch reports count for these members submitted today
+                    if (memberIds.length > 0) {
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        const todayISO = today.toISOString();
+
+                        // Count from 'reports' table
+                        const { count: genCount, error: genError } = await supabase
+                            .from('reports')
+                            .select('*', { count: 'exact', head: true })
+                            .in('member_employee_id', memberIds)
+                            .gte('created_at', todayISO);
+
+                        // Count from 'recovery_reports' table
+                        const { count: recCount, error: recError } = await supabase
+                            .from('recovery_reports')
+                            .select('*', { count: 'exact', head: true })
+                            .in('member_employee_id', memberIds)
+                            .gte('created_at', todayISO);
+
+                        if (genError) console.error('Error fetching gen reports:', genError);
+                        if (recError) console.error('Error fetching recovery reports:', recError);
+
+                        const totalReportsToday = (genCount || 0) + (recCount || 0);
+                        if (reportsCountElem) reportsCountElem.textContent = totalReportsToday;
+                    } else {
+                        if (reportsCountElem) reportsCountElem.textContent = '0';
+                    }
+
+                } catch (err) {
+                    console.error('Error fetching team stats:', err);
+                    if (teamSizeElem) teamSizeElem.textContent = '0';
+                    if (reportsCountElem) reportsCountElem.textContent = '0';
+                    if (teamDenomElem) teamDenomElem.textContent = '0';
+                }
+            }
+
+            function setupEventListeners() {
+                // Logout Logic
+                const logoutBtn = document.getElementById('logoutBtn');
+                const logoutModal = document.getElementById('logoutModal');
+                const cancelLogout = document.getElementById('cancelLogout');
+                const confirmLogout = document.getElementById('confirmLogout');
+                const userAvatar = document.getElementById('userAvatar');
+
+                if (logoutBtn && logoutModal) {
+                    logoutBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        logoutModal.classList.add('active');
+                    });
+                }
+
+                if (cancelLogout && logoutModal) {
+                    cancelLogout.addEventListener('click', () => {
+                        logoutModal.classList.remove('active');
+                    });
+                }
+
+                if (confirmLogout) {
+                    confirmLogout.addEventListener('click', () => {
+                        localStorage.removeItem('tl_user');
+                        window.location.href = 'FOSTeamLeadLogin.html';
+                    });
+                }
+
+                if (logoutModal) {
+                    logoutModal.addEventListener('click', (e) => {
+                        if (e.target === logoutModal) logoutModal.classList.remove('active');
+                    });
+                }
+
+                if (userAvatar) {
+                    userAvatar.addEventListener('click', () => {
+                        window.location.href = 'ProfileSettings.html';
+                    });
+                }
+
+                // Interaction effects
+                document.querySelectorAll('.stat-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        card.style.transform = 'scale(0.98)';
+                        setTimeout(() => card.style.transform = '', 100);
+                    });
+                });
+            }
+
+            // Start initialization
+            initDashboard();
+        })();
+    </script>
+</body>
+
+</html>

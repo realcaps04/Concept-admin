@@ -1202,9 +1202,19 @@
             document.getElementById('comingSoonModal').classList.remove('active');
         }
 
+        // Session verification
+        const user = (function () {
+            try {
+                return JSON.parse(localStorage.getItem('fos_user'));
+            } catch (e) { return null; }
+        })();
+
+        if (!user || user.role !== 'fos_member') {
+            window.location.href = 'FOSMemberLogin.html';
+        }
+
         // Load Header Avatar
-        const user = JSON.parse(localStorage.getItem('currentUser')) || {};
-        if (user.name) {
+        if (user && user.name) {
             document.getElementById('headerAvatar').src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.name}`;
         }
 

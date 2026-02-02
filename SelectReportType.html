@@ -1229,9 +1229,14 @@
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // Session verification
-        const user = JSON.parse(localStorage.getItem('currentUser'));
-        if (!user || !user.employee_id) {
-            console.warn('Session incomplete or missing employee_id. Redirecting to login...');
+        const user = (function () {
+            try {
+                return JSON.parse(localStorage.getItem('fos_user'));
+            } catch (e) { return null; }
+        })();
+
+        if (!user || user.role !== 'fos_member') {
+            console.warn('Session incomplete or invalid. Redirecting to login...');
             window.location.href = 'FOSMemberLogin.html';
         }
 
@@ -1331,7 +1336,9 @@
             btn.innerHTML = 'Submitting...';
             btn.disabled = true;
 
-            const user = JSON.parse(localStorage.getItem('currentUser')) || {};
+            const user = (function () {
+                try { return JSON.parse(localStorage.getItem('fos_user')); } catch (e) { return null; }
+            })() || {};
 
             const { error } = await supabaseClient.from('activity_logs').insert([{
                 activities: Array.from(selectedActivities),
@@ -1411,7 +1418,9 @@
             btn.innerHTML = 'Submitting...';
             btn.disabled = true;
 
-            const user = JSON.parse(localStorage.getItem('currentUser')) || {};
+            const user = (function () {
+                try { return JSON.parse(localStorage.getItem('fos_user')); } catch (e) { return null; }
+            })() || {};
             const loanType = document.getElementById('loanType').value;
             const rawAmount = document.getElementById('loanAmount').value.replace(/,/g, '');
 
@@ -1441,7 +1450,9 @@
             btn.innerHTML = 'Submitting...';
             btn.disabled = true;
 
-            const user = JSON.parse(localStorage.getItem('currentUser')) || {};
+            const user = (function () {
+                try { return JSON.parse(localStorage.getItem('fos_user')); } catch (e) { return null; }
+            })() || {};
             const rawAmount = document.getElementById('recAmountReceived').value.replace(/,/g, '');
 
             const { error } = await supabaseClient.from('recovery_reports').insert([{
