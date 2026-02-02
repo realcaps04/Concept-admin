@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheme Checklist - FOS Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1A6CFF;
+            --bg-light: #F8FAFC;
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            background: var(--bg-light);
+            padding: 24px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .container {
+            padding: 0 20px;
+        }
+
+        .download-btn {
+            width: 100%;
+            background: var(--primary-blue);
+            color: white;
+            padding: 18px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 10px 20px -5px rgba(26, 108, 255, 0.4);
+            margin-bottom: 32px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .section-header {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .checklist-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .checklist-card {
+            background: white;
+            padding: 16px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid #F1F5F9;
+        }
+
+        .icon-box {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: #EFF6FF;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .item-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .help-footer {
+            position: fixed;
+            bottom: 32px;
+            left: 20px;
+            right: 20px;
+            background: white;
+            padding: 16px 20px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 -10px 25px -5px rgba(0, 0, 0, 0.05);
+            border: 1px solid #F1F5F9;
+        }
+
+        .help-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .help-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .call-btn {
+            background: #EFF6FF;
+            color: var(--primary-blue);
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <button class="back-btn" onclick="window.history.back()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+        <h1 class="header-title" id="pageTitle">Scheme Requirements</h1>
+    </header>
+
+    <div class="container">
+        <button class="download-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download Checklist PDF
+        </button>
+
+        <div class="section-header">
+            <h2 class="section-title">Required Documents</h2>
+            <p class="section-subtitle">Please ensure you have original copies for verification.</p>
+        </div>
+
+        <div class="checklist-list" id="checklist">
+            <!-- Items will be populated by JS -->
+        </div>
+    </div>
+
+    <div class="help-footer">
+        <div class="help-text">
+            <span class="help-title">Need help with documents?</span>
+            <span class="help-desc">Contact your nearest branch</span>
+        </div>
+        <a href="tel:+1234567890" class="call-btn">Call Support</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const sbUrl = localStorage.getItem('supabaseUrl') || 'https://your-project.supabase.co';
+        const sbKey = localStorage.getItem('supabaseKey') || 'your-anon-key';
+        const sb = supabase.createClient(sbUrl, sbKey);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const schemeId = urlParams.get('scheme') || 'General';
+
+        document.getElementById('pageTitle').innerText = schemeId + ' Requirements';
+
+        const defaultChecklists = {
+            'PMMY': [
+                { document_title: 'Identity Proof', document_description: 'Aadhar/Voter ID/PAN' },
+                { document_title: 'Residence Proof', document_description: 'Utility Bill/Ration Card' },
+                { document_title: 'Business Proof', document_description: 'Registration/Udyam Aadhaar' },
+                { document_title: 'Financial Records', document_description: '6 months bank statement' }
+            ],
+            'SME': [
+                { document_title: 'KYC Documents', document_description: 'Promoters/Partners KYC' },
+                { document_title: 'Business Registration', document_description: 'GST/Trade License' },
+                { document_title: 'Financial Statements', document_description: 'ITR of last 2 years' },
+                { document_title: 'Collateral Docs', document_description: 'Property documents if applicable' }
+            ],
+            'SHG': [
+                { document_title: 'Group Resolution', document_description: 'Signed by all members' },
+                { document_title: 'Member KYC', document_description: 'Aadhar cards of all members' },
+                { document_title: 'Saving Records', document_description: 'Group register/passbook' }
+            ],
+            'Recovery': [
+                { document_title: 'Loan Agreement', document_description: 'Original copy' },
+                { document_title: 'Demand Notice', document_description: 'Copy of sent notices' },
+                { document_title: 'Visit Report', document_description: 'Latest field visit notes' }
+            ]
+        };
+
+        async function fetchChecklist() {
+            const checklistContainer = document.getElementById('checklist');
+            try {
+                const { data, error } = await sb
+                    .from('loan_checklists')
+                    .select('*')
+                    .eq('scheme_id', schemeId)
+                    .order('display_order', { ascending: true });
+
+                if (error) throw error;
+
+                const list = (data && data.length > 0) ? data : (defaultChecklists[schemeId] || [
+                    { document_title: 'Identity Proof', document_description: 'Aadhar/Voter ID/PAN' },
+                    { document_title: 'Address Proof', document_description: 'Utility Bill/Ration Card' },
+                    { document_title: 'Recent Photographs', document_description: '2 Passport size photos' }
+                ]);
+
+                checklistContainer.innerHTML = '';
+                list.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'checklist-card';
+                    card.innerHTML = `
+                        <div class="icon-box">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                            </svg>
+                        </div>
+                        <div class="item-info">
+                            <span class="item-title">${item.document_title}</span>
+                            <span class="item-desc">${item.document_description}</span>
+                        </div>
+                    `;
+                    checklistContainer.appendChild(card);
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', fetchChecklist);
+    </script>
+</body>
+
+</html>

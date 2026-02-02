@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Checklists - TL Console</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --primary-blue: #1A6CFF;
+            --bg-light: #F8FAFC;
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 90px;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 24px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+        }
+
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            background: #F1F5F9;
+            border: none;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        /* Scheme Selector */
+        .selector-card {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        select {
+            width: 100%;
+            padding: 16px;
+            border-radius: 14px;
+            border: 2px solid #F1F5F9;
+            background: #F8FAFC;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-main);
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 20px;
+        }
+
+        /* Documents List */
+        .documents-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .doc-card {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid #F1F5F9;
+            display: flex;
+            gap: 16px;
+            position: relative;
+        }
+
+        .drag-handle {
+            color: #CBD5E1;
+            cursor: grab;
+            display: flex;
+            align-items: center;
+        }
+
+        .doc-inputs {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #E2E8F0;
+            font-size: 14px;
+            outline: none;
+        }
+
+        textarea {
+            height: 60px;
+            resize: none;
+        }
+
+        .remove-btn {
+            color: #EF4444;
+            background: #FEF2F2;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* Float Action Buttons */
+        .add-doc-btn {
+            width: 100%;
+            padding: 16px;
+            background: #EFF6FF;
+            color: var(--primary-blue);
+            border: 2px dashed #BFDBFE;
+            border-radius: 16px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .save-btn {
+            position: fixed;
+            bottom: 24px;
+            left: 20px;
+            right: 20px;
+            padding: 18px;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 18px;
+            font-size: 16px;
+            font-weight: 700;
+            box-shadow: 0 10px 20px -5px rgba(26, 108, 255, 0.4);
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        /* Loading / Toast */
+        .toast {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: #0F172A;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 2000;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <button class="back-btn" onclick="window.history.back()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+        <h1 class="header-title">Update Checklists</h1>
+        <div style="width: 40px;"></div>
+    </header>
+
+    <div class="container">
+        <div class="selector-card">
+            <label class="label">Select Loan Scheme</label>
+            <select id="schemeSelector">
+                <option value="KCC_LOW">KCC Low Value (Up to 2L)</option>
+                <option value="KCC_HIGH">KCC High Value (Above 2L)</option>
+                <option value="PMMY">PMMY (Mudra)</option>
+                <option value="SME">SME Loan</option>
+                <option value="SHG">SHG Loan</option>
+                <option value="Recovery">Recovery Documents</option>
+                <option value="PMEGP">PMEGP</option>
+                <option value="PMFME">PMFME</option>
+                <option value="Swayamsidha">Swayamsidha</option>
+                <option value="AEL">AEL</option>
+            </select>
+        </div>
+
+        <div class="documents-list" id="docList">
+            <!-- Items will be populated here -->
+        </div>
+
+        <button class="add-doc-btn" onclick="addBlankRow()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Add New Document
+        </button>
+    </div>
+
+    <button class="save-btn" onclick="saveChecklist()">Save Changes</button>
+
+    <div id="toast" class="toast">Changes saved successfully!</div>
+
+    <script>
+        // Initialize Supabase (User needs to replace with actual keys if not already globally available or handled via a central config)
+        // For development, we'll try to use existing keys if they exist in localStorage or common locations
+        const supabaseUrl = localStorage.getItem('supabaseUrl') || 'https://your-project.supabase.co';
+        const supabaseKey = localStorage.getItem('supabaseKey') || 'your-anon-key';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+        const schemeSelector = document.getElementById('schemeSelector');
+        const docList = document.getElementById('docList');
+        const toast = document.getElementById('toast');
+
+        async function loadChecklist() {
+            const schemeId = schemeSelector.value;
+            const { data, error } = await supabase
+                .from('loan_checklists')
+                .select('*')
+                .eq('scheme_id', schemeId)
+                .order('display_order', { ascending: true });
+
+            if (error) {
+                console.error(error);
+                return;
+            }
+
+            docList.innerHTML = '';
+            if (data && data.length > 0) {
+                data.forEach((doc, index) => addDocRow(doc));
+            } else {
+                // If it's a new scheme without data, add one blank row
+                addBlankRow();
+            }
+        }
+
+        function addDocRow(doc) {
+            const div = document.createElement('div');
+            div.className = 'doc-card';
+            div.innerHTML = `
+                <div class="drag-handle">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="5" r="1"></circle><circle cx="9" cy="12" r="1"></circle><circle cx="9" cy="19" r="1"></circle>
+                        <circle cx="15" cy="5" r="1"></circle><circle cx="15" cy="12" r="1"></circle><circle cx="15" cy="19" r="1"></circle>
+                    </svg>
+                </div>
+                <div class="doc-inputs">
+                    <input type="text" placeholder="Document Title (e.g. Identity Proof)" value="${doc.document_title || ''}" class="doc-title">
+                    <textarea placeholder="Description (e.g. Aadhar, Voter ID)" class="doc-desc">${doc.document_description || ''}</textarea>
+                </div>
+                <button class="remove-btn" onclick="this.parentElement.remove()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            `;
+            docList.appendChild(div);
+        }
+
+        function addBlankRow() {
+            addDocRow({});
+        }
+
+        async function saveChecklist() {
+            const schemeId = schemeSelector.value;
+            const rows = docList.querySelectorAll('.doc-card');
+            const newChecklist = [];
+
+            rows.forEach((row, index) => {
+                const title = row.querySelector('.doc-title').value;
+                const desc = row.querySelector('.doc-desc').value;
+                if (title.trim()) {
+                    newChecklist.push({
+                        scheme_id: schemeId,
+                        document_title: title,
+                        document_description: desc,
+                        display_order: index + 1
+                    });
+                }
+            });
+
+            // Delete old items and insert new ones (Transaction-like)
+            const { error: delError } = await supabase
+                .from('loan_checklists')
+                .delete()
+                .eq('scheme_id', schemeId);
+
+            if (delError) {
+                alert('Error deleting old data');
+                return;
+            }
+
+            const { error: insError } = await supabase
+                .from('loan_checklists')
+                .insert(newChecklist);
+
+            if (insError) {
+                alert('Error saving new documents');
+                return;
+            }
+
+            showToast();
+        }
+
+        function showToast() {
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        schemeSelector.addEventListener('change', loadChecklist);
+
+        // Initial load
+        window.addEventListener('DOMContentLoaded', loadChecklist);
+    </script>
+</body>
+
+</html>

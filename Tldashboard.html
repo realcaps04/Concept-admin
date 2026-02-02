@@ -449,14 +449,8 @@
     <header class="header">
         <div class="user-profile">
             <div class="avatar" id="userAvatar">
-                <!-- Placeholder Avatar -->
-                <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
-                    <circle cx="22" cy="22" r="22" fill="#E2E8F0" />
-                    <path
-                        d="M22 13C19.2386 13 17 15.2386 17 18C17 20.7614 19.2386 23 22 23C24.7614 23 27 20.7614 27 18C27 15.2386 24.7614 13 22 13Z"
-                        fill="#94A3B8" />
-                    <path d="M22 25C17.0294 25 13 29.0294 13 34H31C31 29.0294 26.9706 25 22 25Z" fill="#94A3B8" />
-                </svg>
+                <img src="assets/profile-icon.png" alt="User" id="tlProfileImg"
+                    style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <div class="user-info">
                 <h1>TL Dashboard</h1>
@@ -537,7 +531,7 @@
     </div>
     <div class="alerts-container">
         <a href="MemberApprovals.html" style="text-decoration: none;">
-            <div class="alert-card" style="border-left-color: var(--blue-primary); margin-bottom: 0;">
+            <div class="alert-card" style="border-left-color: var(--blue-primary); margin-bottom: 20px;">
                 <div class="alert-content-wrapper" style="margin-bottom: 0;">
                     <div class="alert-text-side">
                         <div class="alert-title-row" style="margin-bottom: 8px;">
@@ -555,6 +549,38 @@
                         <div style="margin-top: 16px;">
                             <div class="review-btn" style="width: fit-content; padding: 10px 20px;">
                                 Manage Requests
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Added Scheme Checklist Management -->
+        <a href="ManageChecklists.html" style="text-decoration: none;">
+            <div class="alert-card" style="border-left-color: var(--green-success); margin-bottom: 0;">
+                <div class="alert-content-wrapper" style="margin-bottom: 0;">
+                    <div class="alert-text-side">
+                        <div class="alert-title-row" style="margin-bottom: 8px;">
+                            <svg style="color: var(--green-success);" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                            </svg>
+                            <span class="alert-title">Scheme Checklists</span>
+                        </div>
+                        <p class="alert-description">Manage and update the list of required documents for various loan
+                            schemes.</p>
+                        <div style="margin-top: 16px;">
+                            <div class="review-btn"
+                                style="width: fit-content; padding: 10px 20px; background: var(--green-success);">
+                                Manage Checklists
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.5">
                                     <polyline points="9 18 15 12 9 6"></polyline>
@@ -662,19 +688,23 @@
         // Set dynamic welcome message based on time
         const hour = new Date().getHours();
         const welcomeText = document.getElementById('welcomeText');
-        if (hour < 12) welcomeText.textContent = 'Good Morning, Team Lead';
-        else if (hour < 18) welcomeText.textContent = 'Good Afternoon, Team Lead';
-        else welcomeText.textContent = 'Good Evening, Team Lead';
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+        const userName = user ? user.name : 'Team Lead';
 
+        if (hour < 12) welcomeText.textContent = `Good Morning, ${userName}`;
+        else if (hour < 18) welcomeText.textContent = `Good Afternoon, ${userName}`;
+        else welcomeText.textContent = `Good Evening, ${userName}`;
 
-        // Add some click listeners for demo
-        document.querySelectorAll('.stat-card').forEach(card => {
-            card.addEventListener('click', () => {
-                card.style.transform = 'scale(0.95)';
-                setTimeout(() => card.style.transform = '', 100);
-            });
-        });
-    </script>
-</body>
+        // Handle Profile Image
+        if (user) {
+            const tlImg = document.getElementById('tlProfileImg');
+            if (user.profile_image_url) {
+                tlImg.src = user.profile_image_url;
+            }
+            tlImg.onerror = function () {
+                this.src = "assets/profile-icon.png";
+            };
+        }
+</body >
 
-</html>
+</html >

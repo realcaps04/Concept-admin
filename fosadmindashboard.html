@@ -638,7 +638,7 @@
     <header>
         <div class="user-profile" onclick="window.location.href='ProfileSettings.html'" style="cursor: pointer;">
             <div class="avatar" id="userAvatar">
-                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="User">
+                <img src="assets/profile-icon.png" alt="User" id="headerProfileImg">
             </div>
             <span class="user-name" id="displayUserName">FOS Member</span>
         </div>
@@ -865,6 +865,15 @@
             const user = JSON.parse(localStorage.getItem('currentUser'));
             if (user && user.name && user.employee_id) {
                 document.getElementById('displayUserName').textContent = user.name;
+
+                // Set profile image if exists, else use default
+                const headerImg = document.getElementById('headerProfileImg');
+                if (user.profile_image_url) {
+                    headerImg.src = user.profile_image_url;
+                }
+                headerImg.onerror = function () {
+                    this.src = "assets/profile-icon.png";
+                };
             } else {
                 // If no user or session incomplete, redirect to login
                 console.warn('Incomplete session, redirecting to login');

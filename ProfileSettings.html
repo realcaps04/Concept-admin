@@ -348,19 +348,29 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const user = JSON.parse(localStorage.getItem('currentUser'));
+            const profileImg = document.getElementById('profileImg');
+
             if (user && user.name) {
                 document.getElementById('userName').textContent = user.name;
-                // Determine role based on data if available, defaulting to "Team Lead" for TLs
-                // or just stay as "Member" if it's a FOS member
                 if (user.role) {
                     document.getElementById('userRole').textContent = user.role;
                 } else {
                     document.getElementById('userRole').textContent = "FOS Member";
                 }
 
-                // If specialized avatar logic exists
-                const seed = user.name.replace(/\s/g, '');
-                document.getElementById('profileImg').src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}`;
+                // Use profile_image_url if available, otherwise fallback to assets/profile-icon.png
+                if (user.profile_image_url) {
+                    profileImg.src = user.profile_image_url;
+                } else {
+                    profileImg.src = "assets/profile-icon.png";
+                }
+
+                // Handle image load error (e.g. broken URL)
+                profileImg.onerror = function () {
+                    this.src = "assets/profile-icon.png";
+                };
+            } else {
+                profileImg.src = "assets/profile-icon.png";
             }
         });
     </script>
