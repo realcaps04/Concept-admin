@@ -221,6 +221,7 @@
             font-weight: 700;
             color: var(--primary-blue);
             text-decoration: none;
+            cursor: pointer;
         }
 
         .report-list {
@@ -439,7 +440,7 @@
 
     <div class="section-header">
         <div class="section-title">Report Breakdown</div>
-        <a href="#" class="link-text">Consolidated View</a>
+        <a class="link-text" id="viewToggle" onclick="toggleView()">Consolidated View</a>
     </div>
 
     <div class="report-list" id="reportList">
@@ -489,6 +490,11 @@
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+        let reportsData = [];
+        let recoveryData = [];
+        let activityLogs = [];
+        let currentView = 'breakdown';
+
         (async function () {
             // Auth Check
             const tl = JSON.parse(localStorage.getItem('tl_user'));
@@ -520,43 +526,21 @@
                 document.getElementById('avatarBox').textContent = initials;
                 document.getElementById('statusDot').style.background = member.status === 'active' ? '#10B981' : '#9CA3AF';
 
-                // Fetch All Reports for Statistics
-                const [{ data: reports }, { data: recovery }] = await Promise.all([
-                    supabase.from('reports').select('*').eq('member_employee_id', memberId),
-                    supabase.from('recovery_reports').select('*').eq('member_employee_id', memberId)
+                // Fetch All Data bits
+                const [{ data: reports }, { data: recovery }, { data: logs }] = await Promise.all([
+                    supabase.from('reports').select('*').eq('member_employee_id', memberId).order('created_at', { ascending: false }),
+                    supabase.from('recovery_reports').select('*').eq('member_employee_id', memberId).order('created_at', { ascending: false }),
+                    supabase.from('activity_logs').select('*').eq('member_employee_id', memberId).order('created_at', { ascending: false })
                 ]);
 
-                const allRecords = [...(reports || []), ...(recovery || [])];
-                document.getElementById('totalReports').textContent = allRecords.length;
+                reportsData = reports || [];
+                recoveryData = recovery || [];
+                activityLogs = logs || [];
 
-                // Process Breakdown (Grouping by report_type)
-                const groups = {};
+                const totalCount = reportsData.length + recoveryData.length + activityLogs.length;
+                document.getElementById('totalReports').textContent = totalCount;
 
-                // Regular reports
-                (reports || []).forEach(r => {
-                    const type = r.report_type || 'General';
-                    if (!groups[type]) groups[type] = { count: 0, total: 0, lastDate: null, type: type };
-                    groups[type].count++;
-                    groups[type].total += r.loan_amount || 0;
-                    if (!groups[type].lastDate || new Date(r.created_at) > new Date(groups[type].lastDate)) {
-                        groups[type].lastDate = r.created_at;
-                    }
-                });
-
-                // Recovery reports
-                if (recovery && recovery.length > 0) {
-                    const recType = 'RECOVERY';
-                    groups[recType] = { count: 0, total: 0, lastDate: null, type: recType };
-                    recovery.forEach(r => {
-                        groups[recType].count++;
-                        groups[recType].total += r.amount_received || 0;
-                        if (!groups[recType].lastDate || new Date(r.created_at) > new Date(groups[recType].lastDate)) {
-                            groups[recType].lastDate = r.created_at;
-                        }
-                    });
-                }
-
-                renderBreakdown(groups);
+                renderBreakdown();
 
             } catch (err) {
                 console.error('General Error:', err);
@@ -564,13 +548,53 @@
             }
         })();
 
-        function renderBreakdown(groups) {
+        window.toggleView = function () {
+            currentView = currentView === 'breakdown' ? 'individual' : 'breakdown';
+            document.getElementById('viewToggle').textContent = currentView === 'breakdown' ? 'Consolidated View' : 'Breakdown View';
+            document.querySelector('.section-title').textContent = currentView === 'breakdown' ? 'Report Breakdown' : 'Individual Records';
+
+            if (currentView === 'breakdown') renderBreakdown();
+            else renderIndividualRecords();
+        };
+
+        function renderBreakdown() {
             const list = document.getElementById('reportList');
             list.innerHTML = '';
+            const groups = {};
+
+            // Regular reports
+            reportsData.forEach(r => {
+                const type = r.report_type || 'General';
+                if (!groups[type]) groups[type] = { count: 0, total: 0, lastDate: null, type: type };
+                groups[type].count++;
+                groups[type].total += r.loan_amount || 0;
+                if (!groups[type].lastDate || new Date(r.created_at) > new Date(groups[type].lastDate)) groups[type].lastDate = r.created_at;
+            });
+
+            // Recovery
+            if (recoveryData.length > 0) {
+                const recType = 'RECOVERY';
+                groups[recType] = { count: 0, total: 0, lastDate: null, type: recType };
+                recoveryData.forEach(r => {
+                    groups[recType].count++;
+                    groups[recType].total += r.amount_received || 0;
+                    if (!groups[recType].lastDate || new Date(r.created_at) > new Date(groups[recType].lastDate)) groups[recType].lastDate = r.created_at;
+                });
+            }
+
+            // Lead Gen / Activities
+            if (activityLogs.length > 0) {
+                const leadType = 'LEAD GEN';
+                groups[leadType] = { count: 0, total: 0, lastDate: null, type: leadType };
+                activityLogs.forEach(l => {
+                    groups[leadType].count++;
+                    if (!groups[leadType].lastDate || new Date(l.created_at) > new Date(groups[leadType].lastDate)) groups[leadType].lastDate = l.created_at;
+                });
+            }
 
             const keys = Object.keys(groups).sort((a, b) => groups[b].count - groups[a].count);
             if (keys.length === 0) {
-                list.innerHTML = '<p style="text-align:center; padding: 40px; color: var(--text-gray);">No reports submitted yet.</p>';
+                list.innerHTML = '<p style="text-align:center; padding: 40px; color: var(--text-gray);">No data entries found.</p>';
                 return;
             }
 
@@ -591,23 +615,12 @@
                                 ${g.count} Files
                             </span>
                         </div>
-                        <div class="card-icons">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                <polyline points="14 2 14 8 20 8"></polyline>
-                            </svg>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="3" y1="9" x2="21" y2="9"></line>
-                                <line x1="9" y1="21" x2="9" y2="9"></line>
-                            </svg>
-                        </div>
                     </div>
                     <div class="report-title">${getDisplayTitle(g.type)}</div>
                     <div class="card-bottom">
                         <div class="info-group">
                             <span class="info-label">Total Value</span>
-                            <span class="info-value">₹${g.total.toLocaleString('en-IN')}</span>
+                            <span class="info-value">${g.total > 0 ? '₹' + g.total.toLocaleString('en-IN') : 'N/A'}</span>
                         </div>
                         <div class="info-group">
                             <span class="info-label">Last Updated</span>
@@ -627,6 +640,42 @@
             });
         }
 
+        function renderIndividualRecords() {
+            const list = document.getElementById('reportList');
+            list.innerHTML = '';
+
+            const allItems = [
+                ...reportsData.map(r => ({ ...r, displayType: r.report_type, detail: r.customer_name, value: r.loan_amount, rawDate: r.created_at })),
+                ...recoveryData.map(r => ({ ...r, displayType: 'RECOVERY', detail: r.account_name, value: r.amount_received, rawDate: r.created_at })),
+                ...activityLogs.map(l => ({ ...l, displayType: 'ACTIVITY', detail: (l.activities || []).join(', '), value: 0, rawDate: l.created_at }))
+            ].sort((a, b) => new Date(b.rawDate) - new Date(a.rawDate));
+
+            if (allItems.length === 0) {
+                list.innerHTML = '<p style="text-align:center; padding: 40px; color: var(--text-gray);">No individual records found.</p>';
+                return;
+            }
+
+            allItems.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'report-card';
+                card.style.padding = '16px';
+                card.style.animationDelay = `${index * 0.05}s`;
+                card.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                        <div>
+                            <div style="font-size:11px; font-weight:800; color:var(--primary-blue); margin-bottom:4px; text-transform:uppercase;">${item.displayType}</div>
+                            <div style="font-size:16px; font-weight:700; color:var(--text-dark);">${item.detail || 'Untitled Entry'}</div>
+                            <div style="font-size:12px; color:var(--text-gray); margin-top:4px;">${formatPrettyDate(item.rawDate)}</div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div style="font-size:15px; font-weight:800; color:var(--text-dark);">${item.value > 0 ? '₹' + item.value.toLocaleString('en-IN') : '--'}</div>
+                        </div>
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+        }
+
         function getShortType(type) {
             const t = type.toUpperCase();
             if (t.includes('KISAN') || t.includes('KCC')) return 'KCC';
@@ -634,7 +683,7 @@
             if (t.includes('PMMY') || t.includes('MUDRA')) return 'PMMY';
             if (t.includes('SME')) return 'SME';
             if (t.includes('SHG')) return 'SHG';
-            return 'GENERAL';
+            return 'LEAD GEN';
         }
 
         function getDisplayTitle(type) {
@@ -644,10 +693,9 @@
             if (t.includes('KCC RENEWAL SANCTION')) return 'Renewed Sanctions';
             if (t.includes('RECOVERY')) return 'Collection Log - Consolidated';
             if (t.includes('PMMY')) return 'Pradhan Mantri Mudra Yojana';
-            if (t.includes('SME')) return 'Small Business Lending';
+            if (t.includes('SME')) return 'SME Inquiry Report';
             if (t.includes('SHG')) return 'Self Help Group Report';
-            if (t.includes('PMEGP')) return 'Prime Minister Employment Gen';
-            if (t.includes('RACC')) return 'RACC Processing Log';
+            if (t.includes('LEAD GEN')) return 'Daily Activity - Lead Generation';
             return `${type} Report`;
         }
 

@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Categories - FOS Portal</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --primary-blue: #1A6CFF;
+            --bg-light: #F8FAFC;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --border-color: #F1F5F9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: white;
+            color: var(--text-main);
+            max-width: 480px;
+            margin: 0 auto;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        /* Header */
+        header {
+            padding: 24px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        .header-center {
+            text-align: center;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 2px;
+        }
+
+        .header-subtitle {
+            font-size: 11px;
+            font-weight: 700;
+            color: #94A3B8;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .notif-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            cursor: pointer;
+        }
+
+        /* Search */
+        .search-area {
+            padding: 0 20px 24px;
+        }
+
+        .search-box {
+            background: #F8FAFC;
+            border-radius: 18px;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            outline: none;
+            width: 100%;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .search-box input::placeholder {
+            color: #94A3B8;
+        }
+
+        /* Categories Grid */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            padding: 0 20px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 28px;
+            padding: 24px;
+            border: 1px solid #F1F5F9;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .category-card:active {
+            transform: scale(0.96);
+            background: #F8FAFC;
+        }
+
+        .icon-box {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .icon-bg-kcc {
+            background: #ECFDF5;
+            color: #10B981;
+        }
+
+        .icon-bg-pmmy {
+            background: #EFF6FF;
+            color: #1A6CFF;
+        }
+
+        .icon-bg-sme {
+            background: #F5F3FF;
+            color: #7C3AED;
+        }
+
+        .icon-bg-npa {
+            background: #FFF1F2;
+            color: #F43F5E;
+        }
+
+        .icon-bg-shg {
+            background: #FFFBEB;
+            color: #F59E0B;
+        }
+
+        .icon-bg-pmegp {
+            background: #F0FDF4;
+            color: #22C55E;
+        }
+
+        .icon-bg-others {
+            background: #F8FAFC;
+            color: #64748B;
+        }
+
+        .badge {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .badge-kcc {
+            background: #10B981;
+        }
+
+        .badge-pmmy {
+            background: #1A6CFF;
+        }
+
+        .badge-sme {
+            background: #7C3AED;
+        }
+
+        .badge-npa {
+            background: #F43F5E;
+        }
+
+        .badge-shg {
+            background: #F59E0B;
+        }
+
+        .badge-pmegp {
+            background: #22C55E;
+        }
+
+        .badge-others {
+            background: #64748B;
+        }
+
+        .cat-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .cat-subtitle {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #F1F5F9;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            color: #94A3B8;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-item.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-item svg {
+            width: 24px;
+            height: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="back-btn" onclick="window.history.back()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </div>
+        <div class="header-center">
+            <h1 class="header-title">Report Categories</h1>
+            <p class="header-subtitle">ARCHIVE SELECTION HUB</p>
+        </div>
+        <div class="notif-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2zm6-6V10a6 6 0 0 0-9-5.16V4a3 3 0 0 0-6 0v.84A6 6 0 0 0 0 10v6l-2 2v1h18v-1l-2-2z" />
+            </svg>
+        </div>
+    </header>
+
+    <div class="search-area">
+        <div class="search-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" placeholder="Search loan categories..." id="categorySearch">
+        </div>
+    </div>
+
+    <div class="categories-grid">
+        <!-- KCC -->
+        <a href="DataManagementHub.html?type=KCC" class="category-card">
+            <div class="badge badge-kcc" id="count-kcc">...</div>
+            <div class="icon-box icon-bg-kcc">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L4.5 9c-1 1-1 3-1 3H21s0-2-1-3L12 2z"></path>
+                    <path d="M12 12v6"></path>
+                    <path d="M12 22v-4"></path>
+                    <path d="M7 15v3"></path>
+                    <path d="M17 15v3"></path>
+                </svg>
+            </div>
+            <h3 class="cat-title">Kisan Credit Card (KCC)</h3>
+            <p class="cat-subtitle">Agricultural Support</p>
+        </a>
+
+        <!-- PMMY -->
+        <a href="DataManagementHub.html?type=PMMY" class="category-card">
+            <div class="badge badge-pmmy" id="count-pmmy">...</div>
+            <div class="icon-box icon-bg-pmmy">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+            </div>
+            <h3 class="cat-title">PMMY</h3>
+            <p class="cat-subtitle">Mudra Loans</p>
+        </a>
+
+        <!-- SME Loans -->
+        <a href="DataManagementHub.html?type=SME" class="category-card">
+            <div class="badge badge-sme" id="count-sme">...</div>
+            <div class="icon-box icon-bg-sme">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 20V9l4-2 4 2v11"></path>
+                    <path d="M10 20V5l4-2 4 2v15"></path>
+                    <path d="M18 20V9l4-2v13"></path>
+                    <path d="M2 20h20"></path>
+                </svg>
+            </div>
+            <h3 class="cat-title">SME Loans</h3>
+            <p class="cat-subtitle">Business Scale</p>
+        </a>
+
+        <!-- Recovery -->
+        <a href="DataManagementHub.html?type=Recovery" class="category-card">
+            <div class="badge badge-npa" id="count-npa">...</div>
+            <div class="icon-box icon-bg-npa">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path>
+                    <line x1="12" y1="6" x2="12" y2="18"></line>
+                </svg>
+            </div>
+            <h3 class="cat-title">Recovery (NPA-AUCA)</h3>
+            <p class="cat-subtitle">Collection List</p>
+        </a>
+
+        <!-- SHG -->
+        <a href="DataManagementHub.html?type=SHG" class="category-card">
+            <div class="badge badge-shg" id="count-shg">...</div>
+            <div class="icon-box icon-bg-shg">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+            </div>
+            <h3 class="cat-title">SHG</h3>
+            <p class="cat-subtitle">Self Help Groups</p>
+        </a>
+
+        <!-- PMEGP -->
+        <a href="DataManagementHub.html?type=PMEGP" class="category-card">
+            <div class="badge badge-pmegp" id="count-pmegp">...</div>
+            <div class="icon-box icon-bg-pmegp">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                </svg>
+            </div>
+            <h3 class="cat-title">PMEGP</h3>
+            <p class="cat-subtitle">Employment Generation</p>
+        </a>
+
+        <!-- Others -->
+        <a href="DataManagementHub.html?type=Others" class="category-card">
+            <div class="badge badge-others" id="count-others">...</div>
+            <div class="icon-box icon-bg-others">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+            </div>
+            <h3 class="cat-title">Others</h3>
+            <p class="cat-subtitle">Miscellaneous</p>
+        </a>
+
+
+    </div>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav">
+        <a href="fosadmindashboard.html" class="nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span>Hub</span>
+        </a>
+        <a href="javascript:void(0)" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span>Archives</span>
+        </a>
+        <a href="javascript:void(0)" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"></line>
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+            <span>Insights</span>
+        </a>
+        <a href="javascript:void(0)" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Admin</span>
+        </a>
+    </nav>
+    <script>
+        // Supabase Configuration
+        const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Session verification
+        const user = (function () {
+            try {
+                return JSON.parse(localStorage.getItem('fos_user'));
+            } catch (e) { return null; }
+        })();
+
+        if (!user || user.role !== 'fos_member') {
+            console.warn('Session incomplete or invalid. Redirecting to login...');
+            window.location.href = 'FOSMemberLogin.html';
+        }
+
+        async function fetchCategoryCounts() {
+            try {
+                // Fetch all reports for this member
+                const { data: reports, error: reportsError } = await supabaseClient
+                    .from('reports')
+                    .select('report_type, loan_type')
+                    .eq('member_employee_id', user.employee_id);
+
+                // Fetch all recovery reports for this member
+                const { count: recoveryCount, error: recoveryError } = await supabaseClient
+                    .from('recovery_reports')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('member_employee_id', user.employee_id);
+
+                if (reportsError) throw reportsError;
+                if (recoveryError) throw recoveryError;
+
+                // Initialize counts
+                let counts = {
+                    kcc: 0,
+                    pmmy: 0,
+                    sme: 0,
+                    recovery: recoveryCount || 0,
+                    shg: 0,
+                    pmegp: 0,
+                    others: 0
+                };
+
+                // Map reports to categories
+                reports.forEach(report => {
+                    const rType = (report.report_type || '').toUpperCase();
+                    const lType = (report.loan_type || '').toUpperCase();
+
+                    // Handle KCC
+                    if (rType.includes('KCC') || rType.includes('KISAN CREDIT CARD') || lType === 'KCC') {
+                        counts.kcc++;
+                    }
+                    // Handle PMMY
+                    else if (rType.includes('PMMY') || lType === 'PMMY') {
+                        counts.pmmy++;
+                    }
+                    // Handle SME
+                    else if (rType.includes('SME') || lType === 'SME') {
+                        counts.sme++;
+                    }
+                    // Handle SHG
+                    else if (rType.includes('SHG') || lType === 'SHG') {
+                        counts.shg++;
+                    }
+                    // Handle PMEGP
+                    else if (rType.includes('PMEGP') || lType === 'PMEGP') {
+                        counts.pmegp++;
+                    }
+                    // Handle Others (PMFME, AEL, Swayamsidha, etc.)
+                    else {
+                        counts.others++;
+                    }
+                });
+
+                // Update UI
+                document.getElementById('count-kcc').textContent = counts.kcc;
+                document.getElementById('count-pmmy').textContent = counts.pmmy;
+                document.getElementById('count-sme').textContent = counts.sme;
+                document.getElementById('count-npa').textContent = counts.recovery;
+                document.getElementById('count-shg').textContent = counts.shg;
+                document.getElementById('count-pmegp').textContent = counts.pmegp;
+                document.getElementById('count-others').textContent = counts.others;
+
+            } catch (err) {
+                console.error('Error fetching category counts:', err);
+                // Set to 0 if error
+                document.querySelectorAll('.badge').forEach(badge => badge.textContent = '0');
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchCategoryCounts();
+
+            // Search functionality
+            document.getElementById('categorySearch').addEventListener('input', function (e) {
+                const term = e.target.value.toLowerCase();
+                const cards = document.querySelectorAll('.category-card');
+
+                cards.forEach(card => {
+                    const title = card.querySelector('.cat-title').textContent.toLowerCase();
+                    const subtitle = card.querySelector('.cat-subtitle').textContent.toLowerCase();
+
+                    if (title.includes(term) || subtitle.includes(term)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

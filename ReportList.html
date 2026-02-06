@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Reports - FOS Portal</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1A6CFF;
+            --bg-light: #F8FAFC;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --border-color: #F1F5F9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            max-width: 480px;
+            margin: 0 auto;
+            min-height: 100vh;
+            padding-bottom: 120px;
+        }
+
+        /* Header */
+        header {
+            padding: 24px 20px;
+            display: flex;
+            align-items: center;
+            background: var(--bg-light);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .back-btn {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        .header-title {
+            flex: 1;
+            text-align: center;
+            font-size: 19px;
+            font-weight: 800;
+            margin-right: 44px;
+            /* Offset to center title */
+        }
+
+        /* Search Area */
+        .search-area {
+            padding: 0 20px 24px;
+        }
+
+        .search-box {
+            background: white;
+            border-radius: 18px;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            outline: none;
+            width: 100%;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .calendar-icon {
+            color: var(--text-muted);
+            border-left: 1px solid #ECEFF1;
+            padding-left: 12px;
+        }
+
+        /* Horizontal Date Picker */
+        .date-picker {
+            display: flex;
+            gap: 12px;
+            padding: 0 20px 24px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .date-picker::-webkit-scrollbar {
+            display: none;
+        }
+
+        .date-item {
+            min-width: 72px;
+            height: 90px;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+        }
+
+        .date-item.active {
+            background: var(--primary-blue);
+            color: white;
+            box-shadow: 0 8px 20px rgba(26, 108, 255, 0.25);
+        }
+
+        .date-day {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            opacity: 0.6;
+        }
+
+        .date-item.active .date-day {
+            opacity: 1;
+        }
+
+        .date-num {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        /* Reports List */
+        .reports-list {
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .report-card {
+            background: white;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .report-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2px;
+        }
+
+        .report-category {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--primary-blue);
+            letter-spacing: 0.5px;
+        }
+
+        .report-amount {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .report-card-middle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .report-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .report-status {
+            font-size: 12px;
+            font-weight: 600;
+            color: #10B981;
+            /* Approved green */
+        }
+
+        .status-pending {
+            color: #F59E0B;
+        }
+
+        .status-processed {
+            color: #8B5CF6;
+        }
+
+        .report-card-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid #F1F5F9;
+        }
+
+        .submitter-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #64748B;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .submitter-icon {
+            width: 32px;
+            height: 32px;
+            background: #F1F5F9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94A3B8;
+        }
+
+        .report-time {
+            font-size: 12px;
+            font-weight: 600;
+            color: #94A3B8;
+        }
+
+        /* Footer Info */
+        .footer-info {
+            position: fixed;
+            bottom: 30px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 50;
+        }
+
+        .results-count {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .results-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .results-num {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .new-report-btn {
+            background: #0F172A;
+            color: white;
+            padding: 16px 28px;
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2);
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .new-report-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* Empty State */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 40px;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .empty-icon {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: var(--card-shadow);
+            color: #E2E8F0;
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .calendar-modal {
+            background: white;
+            width: 90%;
+            max-width: 380px;
+            border-radius: 32px;
+            padding: 32px 24px;
+            transform: scale(0.9);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-overlay.active .calendar-modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .month-selector {
+            background: #F8FAFC;
+            padding: 8px 16px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .month-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .nav-btn {
+            color: var(--primary-blue);
+            cursor: pointer;
+            display: flex;
+        }
+
+        /* Calendar Grid */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+
+        .weekday {
+            font-size: 11px;
+            font-weight: 800;
+            color: #CBD5E1;
+            text-align: center;
+            text-transform: uppercase;
+            padding-bottom: 8px;
+        }
+
+        .day-cell {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .day-cell:hover:not(.empty) {
+            background: #F1F5F9;
+        }
+
+        .day-cell.selected {
+            background: var(--primary-blue);
+            color: white;
+            box-shadow: 0 4px 12px rgba(26, 108, 255, 0.3);
+        }
+
+        .day-cell.other-month {
+            color: #CBD5E1;
+        }
+
+        .modal-footer {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .modal-btn {
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-cancel {
+            background: #F8FAFC;
+            color: var(--primary-blue);
+        }
+
+        .btn-confirm {
+            background: var(--primary-blue);
+            color: white;
+            box-shadow: 0 4px 12px rgba(26, 108, 255, 0.2);
+        }
+
+        .modal-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* Detail Modal Specifics */
+        .detail-card {
+            background: white;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 32px;
+            padding: 32px;
+            position: relative;
+            transform: scale(0.9);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-overlay.active .detail-card {
+            transform: scale(1);
+        }
+
+        .detail-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 36px;
+            height: 36px;
+            background: #F8FAFC;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748B;
+            cursor: pointer;
+        }
+
+        .detail-header {
+            margin-bottom: 32px;
+        }
+
+        .detail-badge {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--primary-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .detail-main-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .detail-info-grid {
+            margin-bottom: 32px;
+        }
+
+        .detail-row {
+            margin-bottom: 20px;
+        }
+
+        .detail-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .detail-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #10B981;
+            border-radius: 50%;
+        }
+
+        .submitter-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #F1F5F9;
+            padding: 4px 12px 4px 6px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .submitter-pill .icon {
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+        }
+
+        .export-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .export-btn {
+            padding: 14px;
+            border-radius: 16px;
+            background: #F8FAFC;
+            border: 1px solid #F1F5F9;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .btn-edit-full {
+            width: 100%;
+            padding: 18px;
+            background: #0F172A;
+            color: white;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="back-btn" onclick="window.history.back()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </div>
+        <h1 class="header-title">Daily Reports</h1>
+    </header>
+
+    <div class="search-area">
+        <div class="search-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.5">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" placeholder="Search by name, ID, or type..." id="reportSearch">
+            <div class="calendar-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="date-picker" id="datePicker">
+        <!-- Dates will be generated here -->
+    </div>
+
+    <div class="reports-list" id="reportsContainer">
+        <!-- Reports will be injected here -->
+        <div class="empty-state">
+            <div class="empty-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
+            </div>
+            <p style="font-weight: 700; color: #0F172A; margin-bottom: 8px;">No reports found</p>
+            <p style="font-size: 14px; font-weight: 500;">Try selecting a different date or clearing your search.</p>
+        </div>
+    </div>
+
+    <div class="footer-info">
+        <div class="results-count">
+            <span class="results-label">Results</span>
+            <span class="results-num" id="resultCount">0 Reports</span>
+        </div>
+        <a href="SelectReportType.html" class="new-report-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            New Report
+        </a>
+    </div>
+
+    <!-- Calendar Modal -->
+    <div class="modal-overlay" id="calendarModal">
+        <div class="calendar-modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Select Date</h2>
+                <div class="month-selector">
+                    <span class="nav-btn" id="prevMonth">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </span>
+                    <span class="month-name" id="currentMonthYear">Sept 2024</span>
+                    <span class="nav-btn" id="nextMonth">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </span>
+                </div>
+            </div>
+
+            <div class="calendar-grid" id="calendarGrid">
+                <!-- Grid items generated by JS -->
+            </div>
+
+            <div class="modal-footer">
+                <button class="modal-btn btn-cancel" id="cancelBtn">Cancel</button>
+                <button class="modal-btn btn-confirm" id="confirmBtn">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div class="modal-overlay" id="detailModal">
+        <div class="detail-card">
+            <div class="detail-close" id="closeDetail">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </div>
+
+            <div class="detail-header">
+                <span class="detail-badge" id="detBadge">KCC RENEWAL</span>
+                <h2 class="detail-main-title" id="detMainTitle">Arthur P. Shelvey</h2>
+            </div>
+
+            <div class="detail-info-grid">
+                <div class="detail-row">
+                    <span class="detail-label">Category</span>
+                    <span class="detail-value" id="detCategory">Renewals & Compliance</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Customer Name</span>
+                    <span class="detail-value" id="detCustomer">Arthur P. Shelvey</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label" id="detAmountLabel">Amount / Units</span>
+                    <span class="detail-value" id="detAmount">₹4,250.00</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">Submitted By</span>
+                    <div class="submitter-pill">
+                        <div class="icon">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="3">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <span id="detSubmitter">Sarah Chen</span>
+                    </div>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Timestamp</span>
+                    <span class="detail-value" id="detTime">Monday, 22 Oct • 10:45 AM</span>
+                </div>
+            </div>
+
+            <div class="export-actions">
+                <div class="export-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.5">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <path d="M11 13h2"></path>
+                        <path d="M9 13h1"></path>
+                        <path d="M11 16h2"></path>
+                        <path d="M9 16h1"></path>
+                    </svg>
+                    PDF
+                </div>
+                <div class="export-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="3" y1="9" x2="21" y2="9"></line>
+                        <line x1="9" y1="21" x2="9" y2="9"></line>
+                    </svg>
+                    Excel
+                </div>
+            </div>
+
+            <button class="btn-edit-full" id="editReportBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+                Edit Report
+            </button>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal-overlay" id="editModal">
+        <div class="edit-modal-card">
+            <div class="modal-header">
+                <h2 class="modal-title">Edit Report</h2>
+                <button class="detail-close" id="closeEdit" style="position: static;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="edit-report-summary">
+                <div class="summary-icon-box" id="editSummaryIconBox">
+                    <!-- Icon injected by JS -->
+                </div>
+                <div class="summary-details">
+                    <span class="summary-type" id="editSummaryType">REPORT TYPE</span>
+                    <h4 class="summary-name" id="editSummaryName">Customer Name</h4>
+                </div>
+            </div>
+
+            <form id="editReportForm">
+                <input type="hidden" id="editReportId">
+                <input type="hidden" id="editReportType">
+
+                <div class="edit-form-group">
+                    <label>Customer / Applicant Name</label>
+                    <div class="edit-input-wrapper">
+                        <input type="text" id="editCustomerName" required>
+                    </div>
+                </div>
+
+                <div class="edit-form-group">
+                    <label id="editAmountLabel">Amount</label>
+                    <div class="edit-input-wrapper">
+                        <input type="text" id="editLoanAmount" required placeholder="0.00">
+                    </div>
+                </div>
+
+                <div style="margin-top: 32px;">
+                    <button type="submit" class="btn-edit-full" style="background: var(--primary-blue);">
+                        Save Changes
+                    </button>
+                    <button type="button" class="modal-btn btn-cancel" id="cancelEdit"
+                        style="width:100%; margin-top:12px; height:56px; border-radius:20px;">
+                        Discard
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <style>
+        /* Additional Edit Modal Styles */
+        .edit-modal-card {
+            background: white;
+            padding: 32px 24px;
+            border-radius: 32px;
+            width: 90%;
+            max-width: 420px;
+            position: relative;
+            transform: scale(0.9);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active .edit-modal-card {
+            transform: scale(1);
+        }
+
+        .edit-report-summary {
+            background: #F8FAFC;
+            border-radius: 20px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            margin-top: 10px;
+        }
+
+        .summary-icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .summary-details .summary-type {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+            display: block;
+        }
+
+        .summary-details .summary-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1E293B;
+        }
+
+        .edit-form-group {
+            margin-bottom: 20px;
+        }
+
+        .edit-form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            margin-left: 4px;
+        }
+
+        .edit-input-wrapper input {
+            width: 100%;
+            padding: 16px;
+            background: #FFFFFF;
+            border: 1.5px solid #F1F5F9;
+            border-radius: 16px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1E293B;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .edit-input-wrapper input:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 4px rgba(26, 108, 255, 0.1);
+        }
+    </style>
+
+    <script>
+        // Supabase Configuration
+        const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const user = (function () {
+            try { return JSON.parse(localStorage.getItem('fos_user')); } catch (e) { return null; }
+        })();
+
+        if (!user) window.location.href = 'FOSMemberLogin.html';
+
+        let selectedDate = new Date();
+        selectedDate.setHours(0, 0, 0, 0); // Normalize to midnight
+
+        let viewingDate = new Date(selectedDate);
+        let tempSelectedDate = new Date(selectedDate);
+        let currentReportsList = [];
+        let currentIndex = -1; // Track currently viewed report for editing
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryFilter = urlParams.get('type') || 'All';
+
+        // Horizontal date picker logic
+        function updateHorizontalPicker() {
+            const container = document.getElementById('datePicker');
+            if (!container) return;
+            container.innerHTML = '';
+            const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
+            // Render a window of dates around the selected date
+            // We'll show a wider window so the user sees the highlight move
+            for (let i = -10; i <= 10; i++) {
+                const date = new Date(selectedDate);
+                date.setDate(selectedDate.getDate() + i);
+                date.setHours(0, 0, 0, 0);
+
+                const isSelected = date.getTime() === selectedDate.getTime();
+
+                const item = document.createElement('div');
+                item.className = `date-item ${isSelected ? 'active' : ''}`;
+
+                item.innerHTML = `
+                    <span class="date-day">${days[date.getDay()]}</span>
+                    <span class="date-num">${date.getDate()}</span>
+                `;
+
+                item.onclick = () => {
+                    selectedDate = new Date(date);
+                    selectedDate.setHours(0, 0, 0, 0);
+                    updateHorizontalPicker();
+                    fetchReports();
+                };
+
+                container.appendChild(item);
+
+                // Scroll the active item into view
+                if (isSelected) {
+                    setTimeout(() => {
+                        item.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                    }, 50);
+                }
+            }
+        }
+
+        async function fetchReports() {
+            const container = document.getElementById('reportsContainer');
+            const resultCount = document.getElementById('resultCount');
+            const searchTerm = document.getElementById('reportSearch').value.toLowerCase();
+
+            // Set start and end of selected day for filtering
+            const startOfDay = new Date(selectedDate);
+            startOfDay.setHours(0, 0, 0, 0);
+            const endOfDay = new Date(selectedDate);
+            endOfDay.setHours(23, 59, 59, 999);
+
+            try {
+                // Fetch basic reports
+                let { data: reports, error: rError } = await supabaseClient
+                    .from('reports')
+                    .select('*')
+                    .eq('member_employee_id', user.employee_id)
+                    .gte('created_at', startOfDay.toISOString())
+                    .lte('created_at', endOfDay.toISOString());
+
+                // Fetch recovery reports
+                let { data: recovery, error: recError } = await supabaseClient
+                    .from('recovery_reports')
+                    .select('*')
+                    .eq('member_employee_id', user.employee_id)
+                    .gte('created_at', startOfDay.toISOString())
+                    .lte('created_at', endOfDay.toISOString());
+
+                if (rError || recError) throw (rError || recError);
+
+                // Combine and format
+                let allItems = [];
+
+                if (reports) {
+                    reports.forEach(r => {
+                        allItems.push({
+                            category: (r.loan_type || r.report_type || 'General').toUpperCase(),
+                            subCategory: r.report_type || 'General',
+                            title: r.customer_name,
+                            amount: r.loan_amount ? `₹${r.loan_amount.toLocaleString()}` : '-',
+                            amountLabel: 'LOAN AMOUNT',
+                            status: 'Approved',
+                            submitter: r.member_name,
+                            time: new Date(r.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                            fullDate: new Date(r.created_at).toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'short' }),
+                            raw: r
+                        });
+                    });
+                }
+
+                if (recovery) {
+                    recovery.forEach(r => {
+                        allItems.push({
+                            category: 'RECOVERY',
+                            subCategory: 'NPA-AUCA Collection',
+                            title: r.applicant_name,
+                            amount: r.amount_received ? `₹${r.amount_received.toLocaleString()}` : '-',
+                            amountLabel: 'AMOUNT RECEIVED',
+                            status: 'Processed',
+                            submitter: r.member_name,
+                            time: new Date(r.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                            fullDate: new Date(r.created_at).toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'short' }),
+                            raw: r
+                        });
+                    });
+                }
+
+                // Apply URL Category Filter
+                if (categoryFilter !== 'All' && categoryFilter !== 'Others') {
+                    allItems = allItems.filter(item => {
+                        const cat = item.category.toUpperCase();
+                        const filter = categoryFilter.toUpperCase();
+                        if (filter === 'RECOVERY') return cat.includes('RECOVERY');
+                        if (filter === 'KCC') return cat.includes('KCC') || cat.includes('KISAN');
+                        return cat.includes(filter);
+                    });
+                } else if (categoryFilter === 'Others') {
+                    const known = ['KCC', 'PMMY', 'SME', 'SHG', 'PMEGP', 'RECOVERY'];
+                    allItems = allItems.filter(item => {
+                        const cat = item.category.toUpperCase();
+                        return !known.some(k => cat.includes(k));
+                    });
+                }
+
+                // Apply Search Filter
+                if (searchTerm) {
+                    allItems = allItems.filter(item =>
+                        item.title.toLowerCase().includes(searchTerm) ||
+                        item.category.toLowerCase().includes(searchTerm)
+                    );
+                }
+
+                // Render
+                currentReportsList = allItems;
+                if (allItems.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-icon">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                            </div>
+                            <p style="font-weight: 700; color: #0F172A; margin-bottom: 8px;">No reports for this day</p>
+                            <p style="font-size: 14px; font-weight: 500;">Check another date or add a new report.</p>
+                        </div>
+                    `;
+                    resultCount.textContent = '0 Reports';
+                } else {
+                    container.innerHTML = allItems.map((item, index) => `
+                        <div class="report-card" onclick="showDetail(${index})">
+                            <div class="report-card-top">
+                                <span class="report-category">${item.category}</span>
+                                <span class="report-amount">${item.amount}</span>
+                            </div>
+                            <div class="report-card-middle">
+                                <h3 class="report-title">${item.title}</h3>
+                            </div>
+                            <div class="report-card-bottom">
+                                <div class="submitter-info">
+                                    <div class="submitter-icon">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="12" cy="7" r="4"></circle>
+                                        </svg>
+                                    </div>
+                                    <span>Subm. by ${item.submitter.split(' ')[0]}</span>
+                                </div>
+                                <span class="report-time">${item.time}</span>
+                            </div>
+                        </div>
+                    `).join('');
+                    resultCount.textContent = `${allItems.length} Reports`;
+                }
+
+            } catch (err) {
+                console.error('Fetch error:', err);
+                container.innerHTML = '<p style="text-align:center; padding: 40px;">Error loading reports.</p>';
+            }
+        }
+
+        document.getElementById('reportSearch').addEventListener('input', fetchReports);
+
+        const modal = document.getElementById('calendarModal');
+        const calIcon = document.querySelector('.calendar-icon');
+        const grid = document.getElementById('calendarGrid');
+        const monthDisplay = document.getElementById('currentMonthYear');
+
+        calIcon.onclick = () => {
+            viewingDate = new Date(selectedDate);
+            tempSelectedDate = new Date(selectedDate);
+            renderCalendar();
+            modal.classList.add('active');
+        };
+
+        function renderCalendar() {
+            grid.innerHTML = '';
+            const weekdays = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
+            weekdays.forEach(day => {
+                grid.innerHTML += `<div class="weekday">${day}</div>`;
+            });
+
+            const year = viewingDate.getFullYear();
+            const month = viewingDate.getMonth();
+
+            monthDisplay.textContent = new Intl.DateTimeFormat('en-US', { month: 'short', year: 'numeric' }).format(viewingDate);
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const adjustedFirstDay = firstDay === 0 ? 6 : firstDay - 1; // 0 for Monday
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const prevMonthDays = new Date(year, month, 0).getDate();
+
+            // Prev month padding
+            for (let i = adjustedFirstDay - 1; i >= 0; i--) {
+                grid.innerHTML += `<div class="day-cell other-month">${prevMonthDays - i}</div>`;
+            }
+
+            // Current month days
+            for (let i = 1; i <= daysInMonth; i++) {
+                const isSelected = i === tempSelectedDate.getDate() &&
+                    month === tempSelectedDate.getMonth() &&
+                    year === tempSelectedDate.getFullYear();
+
+                const cell = document.createElement('div');
+                cell.className = `day-cell ${isSelected ? 'selected' : ''}`;
+                cell.textContent = i;
+                cell.onclick = () => {
+                    tempSelectedDate = new Date(year, month, i);
+                    renderCalendar();
+                };
+                grid.appendChild(cell);
+            }
+
+            // Next month padding
+            const remaining = 42 - (adjustedFirstDay + daysInMonth);
+            for (let i = 1; i <= remaining; i++) {
+                if (grid.children.length >= 49) break; // limit to 6 rows + header
+                grid.innerHTML += `<div class="day-cell other-month">${i}</div>`;
+            }
+        }
+
+        document.getElementById('prevMonth').onclick = (e) => {
+            e.stopPropagation();
+            viewingDate.setMonth(viewingDate.getMonth() - 1);
+            renderCalendar();
+        };
+
+        document.getElementById('nextMonth').onclick = (e) => {
+            e.stopPropagation();
+            viewingDate.setMonth(viewingDate.getMonth() + 1);
+            renderCalendar();
+        };
+
+        document.getElementById('cancelBtn').onclick = () => modal.classList.remove('active');
+
+        document.getElementById('confirmBtn').onclick = () => {
+            selectedDate = new Date(tempSelectedDate);
+            updateHorizontalPicker();
+            fetchReports();
+            modal.classList.remove('active');
+        }
+
+        // Detail Modal Logic
+        const detailModal = document.getElementById('detailModal');
+        const closeDetail = document.getElementById('closeDetail');
+
+        function showDetail(index) {
+            currentIndex = index;
+            const item = currentReportsList[index];
+            document.getElementById('detBadge').textContent = item.category === 'RECOVERY' ? 'NPA-AUCA Collection' : `${item.category} REPORT`;
+            document.getElementById('detMainTitle').textContent = item.title;
+            document.getElementById('detCategory').textContent = item.subCategory;
+            document.getElementById('detCustomer').textContent = item.title;
+            document.getElementById('detAmountLabel').textContent = item.amountLabel || 'AMOUNT';
+            document.getElementById('detAmount').textContent = item.amount;
+
+            document.getElementById('detSubmitter').textContent = item.submitter;
+            document.getElementById('detTime').textContent = `${item.fullDate} • ${item.time}`;
+
+            detailModal.classList.add('active');
+        }
+
+        closeDetail.onclick = () => detailModal.classList.remove('active');
+        detailModal.onclick = (e) => {
+            if (e.target === detailModal) detailModal.classList.remove('active');
+        };
+
+        updateHorizontalPicker();
+
+        // Edit Modal Logic
+        const editModal = document.getElementById('editModal');
+        const editReportBtn = document.getElementById('editReportBtn');
+        const closeEdit = document.getElementById('closeEdit');
+        const cancelEdit = document.getElementById('cancelEdit');
+        const editReportForm = document.getElementById('editReportForm');
+
+        editReportBtn.onclick = () => {
+            if (currentIndex === -1) return;
+            const item = currentReportsList[currentIndex];
+
+            // Fill form
+            document.getElementById('editReportId').value = item.raw.id;
+            document.getElementById('editReportType').value = item.category;
+            document.getElementById('editCustomerName').value = item.title;
+            document.getElementById('editLoanAmount').value = item.amount.replace('₹', '').trim();
+            document.getElementById('editAmountLabel').textContent = item.amountLabel || 'Amount';
+
+            // Summary
+            const iconBox = document.getElementById('editSummaryIconBox');
+            iconBox.className = 'summary-icon-box ' + getIconBg(item.category);
+            iconBox.innerHTML = getIcon(item.category);
+            iconBox.style.color = getIconColor(item.category);
+            document.getElementById('editSummaryType').textContent = item.category;
+            document.getElementById('editSummaryType').style.color = getIconColor(item.category);
+            document.getElementById('editSummaryName').textContent = item.title;
+
+            detailModal.classList.remove('active');
+            editModal.classList.add('active');
+        };
+
+        function closeEditModal() {
+            editModal.classList.remove('active');
+            editReportForm.reset();
+        }
+
+        closeEdit.onclick = closeEditModal;
+        cancelEdit.onclick = closeEditModal;
+
+        editReportForm.onsubmit = async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('editReportId').value;
+            const type = document.getElementById('editReportType').value;
+            const newName = document.getElementById('editCustomerName').value;
+            const rawAmount = document.getElementById('editLoanAmount').value.replace(/,/g, '');
+            const newAmount = parseFloat(rawAmount);
+
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'Saving...';
+            btn.disabled = true;
+
+            const isRecovery = type.toUpperCase().includes('RECOVERY');
+            const table = isRecovery ? 'recovery_reports' : 'reports';
+            const nameCol = isRecovery ? 'applicant_name' : 'customer_name';
+            const amtCol = isRecovery ? 'amount_received' : 'loan_amount';
+
+            const updateData = {};
+            updateData[nameCol] = newName;
+            updateData[amtCol] = newAmount;
+
+            try {
+                const { error } = await supabaseClient.from(table).update(updateData).eq('id', id);
+                if (error) throw error;
+
+                closeEditModal();
+                fetchReports(); // Refresh list
+            } catch (err) {
+                alert('Save failed: ' + err.message);
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        };
+
+        // Utility: Get Icon Data (Borrowed from ManageReports.html)
+        function getIconBg(type) {
+            type = type.toUpperCase();
+            if (type.includes('KCC NEW')) return 'bg-blue';
+            if (type.includes('KCC RENEWAL')) return 'bg-green';
+            if (type.includes('PMMY')) return 'bg-purple';
+            if (type.includes('SME')) return 'bg-pink';
+            if (type.includes('RECOVERY')) return 'bg-orange';
+            if (type.includes('SHG')) return 'bg-indigo';
+            return 'bg-blue';
+        }
+
+        function getIconColor(type) {
+            type = type.toUpperCase();
+            if (type.includes('KCC NEW')) return '#1A6CFF';
+            if (type.includes('KCC RENEWAL')) return '#10B981';
+            if (type.includes('RECOVERY')) return '#EA580C';
+            return '#1A6CFF';
+        }
+
+        function getIcon(type) {
+            type = type.toUpperCase();
+            if (type.includes('RECOVERY')) {
+                return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="6" width="20" height="12" rx="2"></rect><circle cx="12" cy="12" r="2"></circle><path d="M6 12h.01M18 12h.01"></path></svg>`;
+            }
+            return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>`;
+        }
+
+        // Initialize
+        updateHorizontalPicker();
+        fetchReports();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Commitments - FOS Portal</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1A6CFF;
+            --bg-light: #F8FAFC;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --text-light: #94A3B8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Hide Scrollbars */
+        * {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        *::-webkit-scrollbar {
+            display: none;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            max-width: 480px;
+            margin: 0 auto;
+            min-height: 100vh;
+            padding-bottom: 120px;
+        }
+
+        /* Header */
+        header {
+            padding: 24px 20px;
+            display: flex;
+            align-items: center;
+            background: var(--bg-light);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            gap: 20px;
+        }
+
+        .back-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s;
+        }
+
+        .back-btn:active {
+            transform: scale(0.95);
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0F172A;
+        }
+
+        /* Content Container */
+        .content {
+            padding: 0 20px;
+        }
+
+        .section-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            margin-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Date Card */
+        .date-card {
+            background: white;
+            padding: 24px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .calendar-icon-box {
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .date-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* Target Badge */
+        .target-badge {
+            background: #EFF6FF;
+            color: var(--primary-blue);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        /* Scheme List */
+        .schemes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .scheme-card {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--card-shadow);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .scheme-card:active {
+            transform: scale(0.98);
+        }
+
+        .scheme-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .scheme-icon-box {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scheme-title {
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 2px;
+        }
+
+        .scheme-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Value display */
+        .scheme-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+        }
+
+        .scheme-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: #CBD5E1;
+        }
+
+        .scheme-value.has-value {
+            color: var(--primary-blue);
+        }
+
+        /* Icons background colors */
+        .bg-blue-soft {
+            background: #EFF6FF;
+            color: var(--primary-blue);
+        }
+
+        .bg-green-soft {
+            background: #ECFDF5;
+            color: #10B981;
+        }
+
+        .bg-orange-soft {
+            background: #FFF7ED;
+            color: #EA580C;
+        }
+
+        .bg-purple-soft {
+            background: #F5F3FF;
+            color: #7C3AED;
+        }
+
+        .bg-slate-soft {
+            background: #F1F5F9;
+            color: #475569;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            padding: 32px 24px;
+            transform: scale(0.9);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            margin-bottom: 24px;
+        }
+
+        .modal-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 16px;
+            border: 2px solid #F1F5F9;
+            background: #F8FAFC;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-main);
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--primary-blue);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(26, 108, 255, 0.05);
+        }
+
+        .input-wrapper input:disabled {
+            background: #F1F5F9;
+            color: #94A3B8;
+        }
+
+        /* Submit Button */
+        .footer-action {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 40px);
+            max-width: 440px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(26, 108, 255, 0.3);
+            transition: all 0.2s;
+        }
+
+        .modal-action-btn {
+            width: 100%;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .cancel-btn {
+            width: 100%;
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            padding: 16px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scheme-card {
+            animation: slideUp 0.4s ease-out both;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <button class="back-btn" onclick="window.location.href='fosadmindashboard.html'">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+        <h1 class="header-title">Daily Commitments</h1>
+    </header>
+
+    <div class="content">
+        <p class="section-label">Commitment Date</p>
+        <div class="date-card">
+            <div class="calendar-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+            </div>
+            <span class="date-text" id="currentDateDisplay">-- --, ----</span>
+        </div>
+
+        <div class="section-label">
+            <span>Loan Schemes</span>
+            <span class="target-badge" id="totalTargetBadge">Total Targeted: 0</span>
+        </div>
+
+        <div class="schemes-list" id="schemesList">
+            <!-- Cards will be rendered by JS -->
+        </div>
+    </div>
+
+    <!-- Modal for Scheme Details -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalSchemeTitle">Scheme Name</h2>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>FOS Member Name</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="fosMemberName" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Employee ID</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="fosEmployeeId" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Branch Name</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="branchName" placeholder="Enter branch name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>No. of Files</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="numFiles" placeholder="0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Total Value (₹)</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="totalValue" placeholder="0.00">
+                    </div>
+                </div>
+                <button class="modal-action-btn" onclick="saveEntry()">Confirm Entry</button>
+                <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-action">
+        <button class="submit-btn" id="submitBtn" onclick="submitFinalCommitments()">
+            Submit All Commitments
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        // Supabase Configuration
+        const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const schemes = [
+            { id: 'kcc_new', title: 'KCC New', subtitle: 'Fresh leads', iconClass: 'bg-blue-soft', icon: '<rect x="2" y="7" width="20" height="13" rx="2"></rect><path d="M17 2v5"></path><path d="M12 2v5"></path><path d="M7 2v5"></path><path d="M12 13v4"></path><path d="M10 15h4"></path>' },
+            { id: 'kcc_renewal', title: 'KCC Renewal', subtitle: 'Existing cases', iconClass: 'bg-green-soft', icon: '<path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"></path><path d="M16 16h5v5"></path>' },
+            { id: 'pmmy', title: 'PMMY', subtitle: 'Mudra loans', iconClass: 'bg-orange-soft', icon: '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><path d="M12 22V12"></path><path d="M9 12h6"></path>' },
+            { id: 'sme', title: 'SME', subtitle: 'Business units', iconClass: 'bg-purple-soft', icon: '<rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path><path d="M12 12h.01"></path>' },
+            { id: 'others', title: 'Others', subtitle: 'Misc schemes', iconClass: 'bg-slate-soft', icon: '<path d="M6 3h12l-6 10L6 3z"></path><circle cx="12" cy="17" r="3"></circle>' }
+        ];
+
+        let commitmentEntries = {}; // Store entries by scheme ID
+        let currentEditingScheme = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            renderCards();
+
+            const dateDisplay = document.getElementById('currentDateDisplay');
+            const today = new Date();
+            dateDisplay.textContent = today.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+            const user = JSON.parse(localStorage.getItem('fos_user'));
+            if (!user) { window.location.href = 'FOSMemberLogin.html'; return; }
+
+            // Autofill modal defaults
+            document.getElementById('fosMemberName').value = user.name;
+            document.getElementById('fosEmployeeId').value = user.employee_id;
+
+            await fetchExistingEntries(user.employee_id);
+        });
+
+        function renderCards() {
+            const list = document.getElementById('schemesList');
+            list.innerHTML = schemes.map((s, idx) => `
+                <div class="scheme-card" style="animation-delay: ${idx * 0.05}s;" onclick="openModal('${s.id}')">
+                    <div class="scheme-left">
+                        <div class="scheme-icon-box ${s.iconClass}">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">${s.icon}</svg>
+                        </div>
+                        <div>
+                            <h3 class="scheme-title">${s.title}</h3>
+                            <p class="scheme-subtitle">${s.subtitle}</p>
+                        </div>
+                    </div>
+                    <div class="scheme-right">
+                        <span class="scheme-value ${commitmentEntries[s.id] ? 'has-value' : ''}" id="val-${s.id}">
+                            ${commitmentEntries[s.id] ? commitmentEntries[s.id].num_files : '0'}
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function fetchExistingEntries(employeeId) {
+            const todayStr = new Date().toISOString().split('T')[0];
+            const { data, error } = await supabaseClient
+                .from('daily_commitments')
+                .select('*')
+                .eq('member_employee_id', employeeId)
+                .eq('commitment_date', todayStr);
+
+            if (data) {
+                data.forEach(entry => {
+                    const scheme = schemes.find(s => s.title === entry.scheme_name);
+                    if (scheme) {
+                        commitmentEntries[scheme.id] = {
+                            branch_name: entry.branch_name,
+                            num_files: entry.num_files,
+                            total_value: entry.total_value
+                        };
+                    }
+                });
+                renderCards();
+                updateTotalBadge();
+            }
+        }
+
+        function openModal(schemeId) {
+            currentEditingScheme = schemeId;
+            const scheme = schemes.find(s => s.id === schemeId);
+            document.getElementById('modalSchemeTitle').textContent = scheme.title;
+
+            const entry = commitmentEntries[schemeId] || { branch_name: '', num_files: '', total_value: '' };
+            document.getElementById('branchName').value = entry.branch_name;
+            document.getElementById('numFiles').value = entry.num_files;
+            document.getElementById('totalValue').value = entry.total_value;
+
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+        }
+
+        function saveEntry() {
+            const branch = document.getElementById('branchName').value.trim();
+            const files = parseInt(document.getElementById('numFiles').value) || 0;
+            const value = parseFloat(document.getElementById('totalValue').value) || 0;
+
+            if (!branch) { alert('Please enter a branch name'); return; }
+            if (files <= 0) { alert('Please enter number of files'); return; }
+
+            commitmentEntries[currentEditingScheme] = {
+                branch_name: branch,
+                num_files: files,
+                total_value: value
+            };
+
+            renderCards();
+            updateTotalBadge();
+            closeModal();
+        }
+
+        function updateTotalBadge() {
+            let total = 0;
+            Object.values(commitmentEntries).forEach(e => total += e.num_files);
+            document.getElementById('totalTargetBadge').textContent = `Total Targeted: ${total}`;
+        }
+
+        async function submitFinalCommitments() {
+            const btn = document.getElementById('submitBtn');
+            const entries = Object.entries(commitmentEntries);
+
+            if (entries.length === 0) { alert('No commitments to submit'); return; }
+
+            btn.innerHTML = 'Submitting...';
+            btn.disabled = true;
+
+            const user = JSON.parse(localStorage.getItem('fos_user'));
+            const date = new Date().toISOString().split('T')[0];
+
+            const dataToInsert = entries.map(([id, entry]) => {
+                const scheme = schemes.find(s => s.id === id);
+                return {
+                    member_id: user.id || null,
+                    member_name: user.name,
+                    member_employee_id: user.employee_id,
+                    scheme_name: scheme.title,
+                    branch_name: entry.branch_name,
+                    num_files: entry.num_files,
+                    total_value: entry.total_value,
+                    commitment_date: date
+                };
+            });
+
+            // Delete existing for today and insert new
+            const { error: delError } = await supabaseClient
+                .from('daily_commitments')
+                .delete()
+                .eq('member_employee_id', user.employee_id)
+                .eq('commitment_date', date);
+
+            const { error: insError } = await supabaseClient
+                .from('daily_commitments')
+                .insert(dataToInsert);
+
+            if (insError) {
+                alert('Error submitting: ' + insError.message);
+                btn.innerHTML = 'Submit All Commitments';
+                btn.disabled = false;
+            } else {
+                btn.innerHTML = 'Success! Redirecting...';
+                btn.style.background = '#10B981';
+                setTimeout(() => window.location.href = 'fosadmindashboard.html', 1000);
+            }
+        }
+    </script>
+</body>
+
+</html>

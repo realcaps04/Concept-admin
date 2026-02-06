@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Management Hub - FOS Portal</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --primary-blue: #1A6CFF;
+            --primary-hover: #0056E0;
+            --bg-light: #F8FAFC;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --success-green: #10B981;
+            --warning-orange: #F59E0B;
+            --danger-red: #EF4444;
+            --border-color: #E2E8F0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            max-width: 480px;
+            margin: 0 auto;
+            min-height: 100vh;
+            padding-bottom: 90px;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .profile-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #EFF6FF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            border: 2px solid white;
+            box-shadow: 0 0 0 1px #E2E8F0;
+        }
+
+        /* Content */
+        .content {
+            padding: 20px;
+        }
+
+        /* Search Section */
+        .search-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .search-bar {
+            flex: 1;
+            background: white;
+            border-radius: 16px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+            border: 1px solid var(--border-color);
+        }
+
+        .search-bar input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 15px;
+            color: var(--text-main);
+            background: transparent;
+        }
+
+        .search-bar input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .filter-btn {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+        }
+
+        /* Tags/Filters */
+        .tags-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 24px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            scrollbar-width: none;
+        }
+
+        .tags-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tag {
+            padding: 10px 20px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .tag.active {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .tag.inactive {
+            background: white;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Featured Card */
+        .featured-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 24px;
+            border: 1px solid #F1F5F9;
+        }
+
+        .featured-image-box {
+            height: 180px;
+            background: linear-gradient(135deg, #2D9596 0%, #0866FF 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Decorative Chart Pattern */
+        .chart-pattern {
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding: 20px;
+            gap: 8px;
+        }
+
+        .bar {
+            width: 15px;
+            background: white;
+            border-radius: 4px 4px 0 0;
+            animation: barHeight 1.5s ease-out forwards;
+        }
+
+        @keyframes barHeight {
+            from {
+                height: 0;
+            }
+
+            to {
+                height: var(--h);
+            }
+        }
+
+        .featured-icon-overlay {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .featured-content {
+            padding: 24px;
+        }
+
+        .featured-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .featured-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .status-badge {
+            background: #EFF6FF;
+            color: var(--primary-blue);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .featured-stats {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 12px;
+        }
+
+        .featured-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .featured-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 14px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            color: white;
+            box-shadow: 0 8px 20px rgba(26, 108, 255, 0.25);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.96);
+        }
+
+        .btn-outline {
+            background: white;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-outline:active {
+            background: #F8FAFC;
+            transform: scale(0.96);
+        }
+
+        /* Secondary Cards */
+        .data-card {
+            background: white;
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 16px;
+            border: 1px solid #F1F5F9;
+        }
+
+        .card-top {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .card-icon-box {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .icon-logs {
+            background: #FFF7ED;
+            color: #EA580C;
+        }
+
+        .icon-fin {
+            background: #ECFDF5;
+            color: #10B981;
+        }
+
+        .card-info {
+            flex: 1;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .card-stats {
+            font-size: 13px;
+            font-weight: 700;
+            color: #EA580C;
+            margin-bottom: 6px;
+        }
+
+        .card-stats.green {
+            color: #10B981;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .card-bottom {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-full {
+            flex: 1;
+            background: #F1F5F9;
+            color: var(--text-main);
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-more {
+            width: 44px;
+            height: 44px;
+            background: #F1F5F9;
+            color: var(--text-main);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #F1F5F9;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            color: #94A3B8;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-item.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-item svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .stagger-1 {
+            animation: slideUp 0.4s ease-out both;
+        }
+
+        .stagger-2 {
+            animation: slideUp 0.4s ease-out 0.1s both;
+        }
+
+        .stagger-3 {
+            animation: slideUp 0.4s ease-out 0.2s both;
+        }
+
+        .stagger-4 {
+            animation: slideUp 0.4s ease-out 0.3s both;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-left">
+            <button class="menu-btn" onclick="window.history.back()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <h1 class="header-title">Data Management Hub</h1>
+        </div>
+        <div class="profile-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+        </div>
+    </header>
+
+    <div class="content">
+        <!-- Search -->
+        <div class="search-container stagger-1">
+            <div class="search-bar">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)"
+                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" placeholder="Search all data entries...">
+            </div>
+            <button class="filter-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" y1="21" x2="4" y2="14"></line>
+                    <line x1="4" y1="10" x2="4" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12" y2="3"></line>
+                    <line x1="20" y1="21" x2="20" y2="16"></line>
+                    <line x1="20" y1="12" x2="20" y2="3"></line>
+                    <line x1="2" y1="14" x2="6" y2="14"></line>
+                    <line x1="10" y1="8" x2="14" y2="8"></line>
+                    <line x1="18" y1="16" x2="22" y2="16"></line>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Tags -->
+        <div class="tags-container stagger-1">
+            <div class="tag active">All Entries</div>
+            <div class="tag inactive">
+                Reports
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </div>
+            <div class="tag inactive">
+                Logs
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Featured Card -->
+        <div class="featured-card stagger-2">
+            <div class="featured-image-box">
+                <div class="chart-pattern">
+                    <div class="bar" style="--h: 40px;"></div>
+                    <div class="bar" style="--h: 70px;"></div>
+                    <div class="bar" style="--h: 50px;"></div>
+                    <div class="bar" style="--h: 90px; background: rgba(255,255,255,0.6);"></div>
+                    <div class="bar" style="--h: 60px;"></div>
+                    <div class="bar" style="--h: 120px; background: rgba(255,255,255,0.8);"></div>
+                    <div class="bar" style="--h: 80px;"></div>
+                    <div class="bar" style="--h: 100px;"></div>
+                    <div class="bar" style="--h: 40px;"></div>
+                </div>
+                <div class="featured-icon-overlay">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                </div>
+            </div>
+            <div class="featured-content">
+                <div class="featured-header">
+                    <h2 class="featured-title" id="displayTitle">Manage Daily Reports</h2>
+                    <span class="status-badge">Active</span>
+                </div>
+                <p class="featured-stats" id="reportCountDisplay">Total: Calculating...</p>
+                <p class="featured-desc" id="displayDesc">
+                    Comprehensive overview of system-wide activity logs, user submissions, and automated metrics
+                    generated in the last 24 hours.
+                </p>
+                <div class="featured-actions">
+                    <button class="btn btn-primary" id="viewListBtn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        View List
+                    </button>
+                    <button class="btn btn-outline">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                            <polyline points="16 6 12 2 8 6"></polyline>
+                            <line x1="12" y1="2" x2="12" y2="15"></line>
+                        </svg>
+                        Export
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span>Hub</span>
+        </a>
+        <a href="javascript:void(0)" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
+            <span>Activity</span>
+        </a>
+        <a href="javascript:void(0)" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span>Alerts</span>
+        </a>
+        <a href="javascript:void(0)" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path
+                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                </path>
+            </svg>
+            <span>Setup</span>
+        </a>
+    </nav>
+    <script>
+        // Supabase Configuration
+        const SUPABASE_URL = 'https://rdubzgyjyyumapvifwuq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWJ6Z3lqeXl1bWFwdmlmd3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTI0OTAsImV4cCI6MjA4MDg2ODQ5MH0.ZNgFLKO0z5xpASKFAr1uXp8PPmNsdpwN58I7dP6ZIeM';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Session verification
+        const user = (function () {
+            try { return JSON.parse(localStorage.getItem('fos_user')); } catch (e) { return null; }
+        })();
+
+        if (!user || user.role !== 'fos_member') {
+            window.location.href = 'FOSMemberLogin.html';
+        }
+
+        async function initHub() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const category = urlParams.get('type') || 'All';
+            const displayTitle = document.getElementById('displayTitle');
+            const displayDesc = document.getElementById('displayDesc');
+            const countDisplay = document.getElementById('reportCountDisplay');
+
+            // Update UI based on category
+            let categoryName = "Manage Daily Reports";
+            let categoryDescription = "Comprehensive overview of system-wide activity logs, user submissions, and automated metrics generated in the last 24 hours.";
+
+            if (category !== 'All') {
+                categoryName = `Manage ${category} Reports`;
+                categoryDescription = `Detailed archive and management interface for ${category} related report data and member submissions.`;
+            }
+
+            displayTitle.textContent = categoryName;
+            displayDesc.textContent = categoryDescription;
+
+            // Handle View List Click
+            document.getElementById('viewListBtn').onclick = () => {
+                window.location.href = `ReportList.html?type=${category}`;
+            };
+
+            try {
+                let totalCount = 0;
+
+                if (category === 'Recovery' || category === 'All') {
+                    const { count, error } = await supabaseClient
+                        .from('recovery_reports')
+                        .select('*', { count: 'exact', head: true })
+                        .eq('member_employee_id', user.employee_id);
+                    if (!error) totalCount += (count || 0);
+                }
+
+                if (category !== 'Recovery') {
+                    const { data: reports, error } = await supabaseClient
+                        .from('reports')
+                        .select('report_type, loan_type')
+                        .eq('member_employee_id', user.employee_id);
+
+                    if (!error) {
+                        reports.forEach(report => {
+                            const rType = (report.report_type || '').toUpperCase();
+                            const lType = (report.loan_type || '').toUpperCase();
+                            const catUpper = category.toUpperCase();
+
+                            if (category === 'All') {
+                                totalCount++;
+                            } else if (catUpper === 'KCC') {
+                                if (rType.includes('KCC') || rType.includes('KISAN CREDIT CARD') || lType === 'KCC') totalCount++;
+                            } else if (catUpper === 'PMMY') {
+                                if (rType.includes('PMMY') || lType === 'PMMY') totalCount++;
+                            } else if (catUpper === 'SME') {
+                                if (rType.includes('SME') || lType === 'SME') totalCount++;
+                            } else if (catUpper === 'SHG') {
+                                if (rType.includes('SHG') || lType === 'SHG') totalCount++;
+                            } else if (catUpper === 'PMEGP') {
+                                if (rType.includes('PMEGP') || lType === 'PMEGP') totalCount++;
+                            } else if (catUpper === 'OTHERS') {
+                                const known = ['KCC', 'PMMY', 'SME', 'SHG', 'PMEGP'];
+                                const isKnown = known.some(k => rType.includes(k) || lType === k || rType.includes('KISAN CREDIT CARD'));
+                                if (!isKnown) totalCount++;
+                            }
+                        });
+                    }
+                }
+
+                countDisplay.textContent = `Total: ${totalCount.toLocaleString()} Reports`;
+
+            } catch (err) {
+                console.error('Error fetching hub data:', err);
+                countDisplay.textContent = 'Total: 0 Reports';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initHub);
+    </script>
+</body>
+
+</html>
